@@ -6,7 +6,7 @@ vs_users_crud:
     resource: |
         alias: vs_users.users
         path: /users
-        templates: "VSUsersBundle:UsersCrud"
+        templates: "@VSUsers/UsersCrud"
     type: sylius.resource
 
 fos_user_profile:

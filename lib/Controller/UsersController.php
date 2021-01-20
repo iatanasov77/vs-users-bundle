@@ -1,14 +1,13 @@
-<?php
-
-namespace VS\UsersBundle\Controller;
+<?php namespace VS\UsersBundle\Controller;
 
 use Sylius\Bundle\ResourceBundle\Controller\ResourceController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Spatie\Url\Url as SpatieUrl;
 
-use VS\UsersBundle\Entity\User;
-use VS\UsersBundle\Entity\UserInfo;
+use FOS\RestBundle\View\View;
+use Sylius\Component\Resource\ResourceActions;
+
 use VS\UsersBundle\Form\UserFormType;
 use VS\UsersBundle\Form\Type\UserInfoFormType;
 
@@ -16,9 +15,27 @@ class UsersController extends ResourceController
 {
     public function indexAction( Request $request ): Response
     {
-        return $this->render('IAUsersBundle:UsersCrud:index.html.twig', [
-            'users' => $this->getDoctrine()->getRepository( 'VS\UsersBundle\Entity\User' )->findAll()
-        ]);
+        $configuration = $this->requestConfigurationFactory->create( $this->metadata, $request );
+        
+        $this->isGrantedOr403( $configuration, ResourceActions::INDEX );
+        $resource = $this->findOr404( $configuration );
+        
+        $view = View::create( $resource );
+        if ($configuration->isHtmlRequest()) {
+            $view
+                ->setTemplate( $configuration->getTemplate( ResourceActions::INDEX . '.html' ) )
+                ->setTemplateVar( $this->metadata->getName() )
+                ->setData([
+                    'configuration'             => $configuration,
+                    'metadata'                  => $this->metadata,
+                    'resource'                  => $resource,
+                    $this->metadata->getName()  => $resource,
+                    'users'                     => $this->getRepository()->findAll(),
+                ])
+            ;
+        }
+        
+        return $this->viewHandler->handle( $configuration, $view );
     }
     
     public function createAction( Request $request ): Response
@@ -103,4 +120,13 @@ class UsersController extends ResourceController
         return intval( $url->getSegment( 2 ) );
     }
     
+    protected function getRepository()
+    {
+        return $this->get( 'vs_users.repository.users' );
+    }
+    
+    protected function getFactory()
+    {
+        return $this->get( 'vs_users.factory.users' );
+    }
 }

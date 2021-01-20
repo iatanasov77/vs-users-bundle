@@ -1,6 +1,6 @@
 <?php namespace VS\UsersBundle\Repository;
 
-use Doctrine\ORM\EntityRepository;
+use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
 
 /**
  * Users Repository
