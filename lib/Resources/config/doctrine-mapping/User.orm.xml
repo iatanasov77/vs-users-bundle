@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                  http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd"
+                  xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping"
+>
+
+    <mapped-superclass name="VS\UsersBundle\Model\User">
+        <id name="id" column="id" type="integer">
+            <generator strategy="AUTO" />
+        </id>
+        
+        <one-to-one field="info" target-entity="VS\UsersBundle\Model\UserInfoInterface"  /><!-- inversed-by="user" -->
+        
+        <field name="username" column="username" type="string" nullable="false" />
+        <field name="email" column="email" type="string" nullable="false" />
+        <field name="salt" column="salt" type="string" nullable="false" />
+        <field name="password" column="password" type="string" nullable="false" />
+        
+        <field name="roles" column="roles" type="array" nullable="false" />
+        
+        <field name="preferedLocale" column="prefered_locale" type="string" nullable="false" />
+        <field name="firstName" column="first_name" type="string" nullable="false" />
+        <field name="lastName" column="last_name" type="string" nullable="false" />
+        
+        <field name="lastLogin" column="last_login" type="datetime" />
+        <field name="confirmationToken" column="confirmation_token" type="string" nullable="false" />
+        <field name="passwordRequestedAt" column="password_requested_at" type="datetime" nullable="true" />
+        
+        <field name="enabled" column="enabled" type="boolean" />
+    </mapped-superclass>
+
+</doctrine-mapping>

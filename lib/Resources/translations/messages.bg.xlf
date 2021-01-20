@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="1">
+                <source>Symfony2 is great</source>
+                <target>J'aime Symfony2</target>
+            </trans-unit>
+            
+            <trans-unit id="diff.ago.year">
+                <source>diff.ago.year</source>
+                <target>vor einem Jahr|vor %count% Jahren</target>
+            </trans-unit>
+            <trans-unit id="diff.ago.month">
+                <source>diff.ago.month</source>
+                <target>vor einem Monat|vor %count% Monaten</target>
+            </trans-unit>
+            <trans-unit id="diff.ago.day">
+                <source>diff.ago.day</source>
+                <target>vor %count% Tag|vor %count% Tagen</target>
+            </trans-unit>
+            <trans-unit id="diff.ago.hour">
+                <source>diff.ago.hour</source>
+                <target>vor einer Stunde|vor %count% Stunden</target>
+            </trans-unit>
+            <trans-unit id="diff.ago.minute">
+                <source>diff.ago.minute</source>
+                <target>vor einer Minute|vor %count% Minuten</target>
+            </trans-unit>
+            <trans-unit id="diff.ago.second">
+                <source>diff.ago.second</source>
+                <target>vor einer Sekunde|vor %count% Sekunden</target>
+            </trans-unit>
+            <trans-unit id="diff.empty">
+                <source>diff.empty</source>
+                <target>jetzt</target>
+            </trans-unit>
+            <trans-unit id="diff.in.second">
+                <source>diff.in.second</source>
+                <target>in einer Sekunde|in %count% Sekunden</target>
+            </trans-unit>
+            <trans-unit id="diff.in.hour">
+                <source>diff.in.hour</source>
+                <target>in einer Stunde|in %count% Stunden</target>
+            </trans-unit>
+            <trans-unit id="diff.in.minute">
+                <source>diff.in.minute</source>
+                <target>in einer Minute|in %count% Minuten</target>
+            </trans-unit>
+            <trans-unit id="diff.in.day">
+                <source>diff.in.day</source>
+                <target>in einem Tag|in %count% Tagen</target>
+            </trans-unit>
+            <trans-unit id="diff.in.month">
+                <source>diff.in.month</source>
+                <target>in einem Monat|in %count% Monaten</target>
+            </trans-unit>
+            <trans-unit id="diff.in.year">
+                <source>diff.in.year</source>
+                <target>in einem Jahr|in %count% Jahren</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

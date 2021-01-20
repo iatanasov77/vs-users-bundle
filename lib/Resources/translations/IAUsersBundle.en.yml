@@ -1,0 +1,15 @@
+registration:
+    firstName: 'First Name'
+    lastName: 'Last Name'
+    yourCountry: 'Your Country'
+    yourBirthday: 'You Birthday'
+    occupation: 'Occupation'
+    mobile: 'Mobile'
+    websiteUrl: 'Website URL'
+    createAccount: 'Create Account'
+form:
+    enabled: 'Enabled'
+    save: 'Save'
+    cancel: 'Cancel'
+
+diff.ago.hour: vor einer Stunde|vor %count% Stunden

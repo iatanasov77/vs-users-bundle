@@ -1,0 +1,14 @@
+
+paths:
+    'IA/Users/Controller/Users':
+        location: '/bundles/iausers/js/Controller/UsersController'
+        external: true
+    'IA/Users/Controller/EditUser':
+        location: '/bundles/iausers/js/Controller/EditUserController'
+        external: true
+    'IA/Users/Service/Users':
+        location: '/bundles/iausers/js/Service/UsersService'
+        external: true
+
+    
+    
