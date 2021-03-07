@@ -6,7 +6,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 
 use VS\UsersBundle\Model\UserInterface;
-use VS\UsersBundle\Component\Manager\UserManager;
+use VS\UsersBundle\Security\UserManager;
 
 class CreateUserCommand extends Command
 {

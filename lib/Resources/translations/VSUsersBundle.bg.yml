@@ -1,0 +1,21 @@
+vs_users:
+    user:
+        email: 'Емейл'
+        userName: 'Потребителско Име'
+        password: 'Парола'
+        password_repeat: 'Потвърди Парола'
+        firstName: 'Име'
+        lastName: 'Фамилия'
+        enabled: 'Enabled'
+        save: 'Save'
+        cancel: 'Отмени'
+
+    registration:
+        yourCountry: 'Държава'
+        yourBirthday: 'Дата на раждане'
+        occupation: 'Професия'
+        mobile: 'Мобилен телефон'
+        websiteUrl: 'Уеб сайт'
+        agree_terms: 'By creating an account, you agree the <a href="%vs_app.page.tac%">terms and conditions</a>'    
+        register: 'Създай Акаунт'
+    

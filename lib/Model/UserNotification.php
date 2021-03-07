@@ -1,41 +1,22 @@
 <?php namespace VS\UsersBundle\Model;
 
-use Doctrine\ORM\Mapping as ORM;
-use App\Entity\User;
-use IA\PaymentBundle\Entity\PaymentDetails;
-
-class UserNotification
+class UserNotification implements UserNotificationInterface
 {
+    /** @var integer */
+    protected $id;
 
     /**
-     * @var integer
+     * Relation to the User entity
      *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @var UserInterface
      */
-    private $id;
+    protected $user;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="VS\UsersBundle\Entity\User", inversedBy="notifications")
-     * @ORM\JoinColumn(name="userId", referencedColumnName="id")
-     */
-    private $user;
+    /** @var string */
+    protected $notification;
 
-    /**
-     * @var type
-     *
-     * @ORM\Column(name="notification", type="string", length=255, nullable=false)
-     */
-    private $notification;
-
-    /**
-     *
-     * @var type 
-     * 
-     * @ORM\Column(name="date", type="datetime")
-     */
-    private $date;
+    /** @var \DateTimeInterface */
+    protected $date;
 
     function getId()
     {

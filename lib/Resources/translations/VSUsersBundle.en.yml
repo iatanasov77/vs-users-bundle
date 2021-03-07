@@ -1,0 +1,20 @@
+vs_users:
+    user:
+        email: 'E-mail'
+        username: 'Username'
+        password: 'Password'
+        password_repeat: 'Confirm Password'
+        firstName: 'First Name'
+        lastName: 'Last Name'
+        enabled: 'Enabled'
+        save: 'Save'
+        cancel: 'Cancel'
+
+    registration:
+        yourCountry: 'Your Country'
+        yourBirthday: 'You Birthday'
+        occupation: 'Occupation'
+        mobile: 'Mobile'
+        websiteUrl: 'Website URL'
+        agree_terms: 'By creating an account, you agree the <a href="%vs_app.page.tac%">terms and conditions</a>'    
+        register: 'Register'

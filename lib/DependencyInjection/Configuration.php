@@ -14,6 +14,13 @@ use VS\UsersBundle\Repository\UsersRepository;
 use VS\UsersBundle\Form\UserFormType;
 
 use VS\UsersBundle\Model\UserInfo;
+use VS\UsersBundle\Model\UserInfoInterface;
+use VS\UsersBundle\Model\UserActivity;
+use VS\UsersBundle\Model\UserActivityInterface;
+use VS\UsersBundle\Model\UserNotification;
+use VS\UsersBundle\Model\UserNotificationInterface;
+use VS\UsersBundle\Model\ResetPasswordRequest;
+use VS\UsersBundle\Repository\ResetPasswordRequestRepository;
 
 /**
  * This is the class that validates and merges configuration from your app/config files
@@ -79,17 +86,62 @@ class Configuration implements ConfigurationInterface
                                     ->addDefaultsIfNotSet()
                                     ->children()
                                         ->scalarNode( 'model' )->defaultValue( UserInfo::class )->cannotBeEmpty()->end()
-                                        ->scalarNode( 'interface' )->defaultValue( ResourceInterface::class )->cannotBeEmpty()->end()
-                                        //->scalarNode( 'controller' )->defaultValue( UsersController::class )->cannotBeEmpty()->end()
-                                        //->scalarNode( 'repository' )->cannotBeEmpty()->end()
-                                        //->scalarNode( 'repository' )->defaultValue( UsersRepository::class )->cannotBeEmpty()->end()
-                                        //->scalarNode( 'factory' )->defaultValue( Factory::class )->cannotBeEmpty()->end()
-                                        //->scalarNode( 'form' )->defaultValue( UserFormType::class )->cannotBeEmpty()->end()
+                                        ->scalarNode( 'interface' )->defaultValue( UserInfoInterface::class )->cannotBeEmpty()->end()
                                     ->end()
                                 ->end()
                             ->end()
                         ->end()
                         // End UserInfo
+                        
+                        // Begin UserActivity
+                        ->arrayNode('user_activity')
+                            ->addDefaultsIfNotSet()
+                            ->children()
+                                ->variableNode('options')->end()
+                                ->arrayNode('classes')
+                                    ->addDefaultsIfNotSet()
+                                    ->children()
+                                        ->scalarNode( 'model' )->defaultValue( UserActivity::class )->cannotBeEmpty()->end()
+                                        ->scalarNode( 'interface' )->defaultValue( UserActivityInterface::class )->cannotBeEmpty()->end()
+                                    ->end()
+                                ->end()
+                            ->end()
+                        ->end()
+                        // End UserActivity
+                        
+                        // Begin UserNotification
+                        ->arrayNode('user_notification')
+                            ->addDefaultsIfNotSet()
+                            ->children()
+                                ->variableNode('options')->end()
+                                ->arrayNode('classes')
+                                    ->addDefaultsIfNotSet()
+                                    ->children()
+                                        ->scalarNode( 'model' )->defaultValue( UserNotification::class )->cannotBeEmpty()->end()
+                                        ->scalarNode( 'interface' )->defaultValue( UserNotificationInterface::class )->cannotBeEmpty()->end()
+                                    ->end()
+                                ->end()
+                            ->end()
+                        ->end()
+                        // End UserNotification
+                        
+                        // Begin ResetPasswordRequest
+                        ->arrayNode('reset_password_request')
+                            ->addDefaultsIfNotSet()
+                            ->children()
+                                ->variableNode('options')->end()
+                                ->arrayNode('classes')
+                                    ->addDefaultsIfNotSet()
+                                    ->children()
+                                        ->scalarNode( 'model' )->defaultValue( ResetPasswordRequest::class )->cannotBeEmpty()->end()
+                                        ->scalarNode( 'repository' )->defaultValue( ResetPasswordRequestRepository::class )->cannotBeEmpty()->end()
+                                        ->scalarNode( 'interface' )->defaultValue( ResourceInterface::class )->cannotBeEmpty()->end()
+                                        ->scalarNode( 'factory' )->defaultValue( Factory::class )->cannotBeEmpty()->end()
+                                    ->end()
+                                ->end()
+                            ->end()
+                        ->end()
+                        // End ResetPasswordRequest
                         
                     ->end()
                 ->end()

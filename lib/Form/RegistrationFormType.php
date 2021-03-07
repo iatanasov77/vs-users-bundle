@@ -1,54 +1,55 @@
-<?php
+<?php namespace VS\UsersBundle\Form;
 
-namespace VS\UsersBundle\Form;
-
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
-use VS\UsersBundle\Form\Type\ProfileType;
+use VS\UsersBundle\Model\UserInterface;
 
-class RegistrationFormType extends AbstractType
+/*
+ * Form Inheritance:
+ * https://stackoverflow.com/questions/22414166/inherit-form-or-add-type-to-each-form
+ */
+class RegistrationFormType extends UserFormType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm( FormBuilderInterface $builder, array $options )
     {
-        $builder->remove('username');
+        parent::buildForm( $builder, $options );
+        
+        $builder->remove( 'roles_options' );
+        $builder->remove( 'btnSave' );
+        
         $builder
-            ->add('profile', new ProfileType(), array(
-                'label' => false,
-            ))
-            ->add('btnRegister', 'submit', array('label' => 'registration.createAccount', 'translation_domain' => 'IAUsersBundle'))
-            ->add('btnCancel', 'reset', array('label' => 'form.cancel', 'translation_domain' => 'IAUsersBundle'))
+            ->setMethod( 'POST' )
+            ->add( 'registerRole', HiddenType::class, ['data' => 'ROLE_USER', 'mapped' => false] )
+            ->add( 'agreeTerms', CheckboxType::class, [
+                'label'                 => 'vs_users.registration.agree_terms',
+                'translation_domain'    => 'VSUsersBundle',
+                'mapped'                => false,
+            ])
+            ->add( 'btnRgister', SubmitType::class, [
+                'label' => 'vs_users.registration.register',
+                'translation_domain' => 'VSUsersBundle'
+            ])
         ;
     }
     
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults(array(
-            'data_class' => 'VS\UsersBundle\Entity\User',
-            'csrf_token_id' => 'registration',
-            // BC for SF < 2.8
-            //'intention'  => 'registration',
-            'allow_extra_fields' => true,
-            'data_class' => 'VS\UsersBundle\Entity\User',
-        ));
-    }
-
-    public function getParent()
-    {
-        return 'FOS\UserBundle\Form\Type\RegistrationFormType';
-
-        // Or for Symfony < 2.8
-        //return 'fos_user_registration';
-    }
-
-    public function getBlockPrefix()
-    {
-        return 'ia_user_registration';
+    public function configureOptions( OptionsResolver $resolver ) : void
+    {   
+        parent::configureOptions( $resolver );
+        
+        $resolver
+            ->setDefined([
+                'users',
+            ])
+            ->setAllowedTypes( 'users', UserInterface::class )
+        ;
     }
 
     public function getName()
     {
-        return $this->getBlockPrefix();
+        return 'vs_users.registration';
     }
 }

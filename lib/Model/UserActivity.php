@@ -1,41 +1,22 @@
 <?php namespace VS\UsersBundle\Model;
 
-use Doctrine\ORM\Mapping as ORM;
-use App\Entity\User;
-use IA\PaymentBundle\Entity\PaymentDetails;
-
-class UserActivity
+class UserActivity implements UserActivityInterface
 {
+    /** @var integer */
+    protected $id;
 
     /**
-     * @var integer
+     * Relation to the User entity
      *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @var UserInterface
      */
-    private $id;
+    protected $user;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="VS\UsersBundle\Entity\User", inversedBy="activities")
-     * @ORM\JoinColumn(name="userId", referencedColumnName="id")
-     */
-    private $user;
+    /** @var string */
+    protected $activity;
 
-    /**
-     * @var type
-     *
-     * @ORM\Column(name="activity", type="string", length=255, nullable=false)
-     */
-    private $activity;
-
-    /**
-     *
-     * @var type 
-     * 
-     * @ORM\Column(name="date", type="datetime")
-     */
-    private $date;
+    /** @var \DateTimeInterface */
+    protected $date;
 
     function getId()
     {

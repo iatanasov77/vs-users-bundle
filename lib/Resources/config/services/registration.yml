@@ -1,0 +1,19 @@
+services:
+    vs_users.registration_controller:
+        class: VS\UsersBundle\Controller\RegisterController
+        tags: ['controller.service_arguments']
+        arguments: ['@mailer']
+        calls:
+            - setTokenGenerator: ['@?symfonycasts.verify_email.token_generator']
+            - setVerifyEmailHelper: ['@?symfonycasts.verify_email.helper']
+
+    vs_users.form.type.registration:
+        class: VS\UsersBundle\Form\RegistrationFormType
+        tags:
+            - { name: form.type, alias: ia_user_registration }
+    
+#     ia_user.registration_listener:
+#         class: VS\UsersBundle\EventListener\RegistrationListener
+#         arguments: []
+#         tags:
+#             - { name: kernel.event_subscriber }

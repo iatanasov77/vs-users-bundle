@@ -1,0 +1,43 @@
+parameters:
+    vs_users.login_route: 'vs_application_login'
+    vs_users.login_by: 'email'
+    vs_users.default_redirect: 'vs_application_dashboard'
+    vs_users.api_token.domain: ''
+    vs_users.api_token.expires: 3600
+    
+services:
+    vs_users.manager.user:
+        class: VS\UsersBundle\Security\UserManager
+        public: true
+        arguments:
+            - '@vs_users.factory.users'
+            - '@vs_users.repository.users'
+            - '@doctrine.orm.entity_manager'
+            - '@security.encoder_factory'
+    
+    vs_users.security.login_form_authenticator:
+        class: VS\UsersBundle\Security\LoginFormAuthenticator
+        arguments:
+            - '@router'
+            - '@security.csrf.token_manager'
+            - '@security.encoder_factory'
+            - '@vs_users.repository.users'
+            - {
+                loginRoute: '%vs_users.login_route%',
+                loginBy: '%vs_users.login_by%',
+                defaultRedirect: '%vs_users.default_redirect%',
+                apiTokenDomain: '%vs_users.api_token.domain%',
+                apiTokenLifetime: '%vs_users.api_token.lifetime%'
+            }
+
+    vs_users.security.token_authenticator:
+        class: VS\UsersBundle\Security\TokenAuthenticator
+        arguments:
+            - '@vs_users.repository.users'
+
+    vs_users.security.logout_success_handler:
+        class: VS\UsersBundle\Security\LogoutSuccessHandler
+        arguments:
+            - '@security.http_utils'
+            - '/'
+

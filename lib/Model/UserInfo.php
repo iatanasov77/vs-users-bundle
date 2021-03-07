@@ -19,11 +19,6 @@ class UserInfo implements UserInfoInterface
     /**
      * @var string
      */
-    protected $apiToken;
-    
-    /**
-     * @var string
-     */
     protected $country;
     
     /**
@@ -49,18 +44,6 @@ class UserInfo implements UserInfoInterface
     public function getId()
     {
         return $this->id;
-    }
-    
-    public function getApiToken()
-    {
-        return $this->apiToken;
-    }
-    
-    public function setApiToken( $apiToken ) : self
-    {
-        $this->apiToken = $apiToken;
-        
-        return $this;
     }
     
     public function getCountry()

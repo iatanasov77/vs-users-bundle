@@ -1,6 +1,26 @@
+vs_users_register_form:
+    path:     /register
+    defaults: { _controller: vs_users.registration_controller:index }
+
+vs_users_register_confirmation:
+    path:     /verify
+    defaults: { _controller: vs_users.registration_controller:verify }
+
+vs_users_forgot_password_form:
+    path:     /forgot-password
+    defaults: { _controller: VSUsersBundle:ForgotPassword:index }
+
+vs_users_forgot_password_reset:
+    path:     /forgot-password/reset/{token}
+    defaults: { _controller: VSUsersBundle:ForgotPassword:reset }
+
 vs_users_profile_show:
     path:     /profile
-    defaults: { _controller: VSUsersBundle:Profile:show }
+    defaults: { _controller: VSUsersBundle:Profile:index }
+    
+vs_users_profile_change_password:
+    path:     /profile/change-password
+    defaults: { _controller: VSUsersBundle:Profile:changePassword }
 
 vs_users_crud:
     resource: |
@@ -8,19 +28,3 @@ vs_users_crud:
         path: /users
         templates: "@VSUsers/UsersCrud"
     type: sylius.resource
-
-fos_user_profile:
-    resource: "@FOSUserBundle/Resources/config/routing/profile.xml"
-    prefix: /profile
-
-fos_user_register:
-    resource: "@FOSUserBundle/Resources/config/routing/registration.xml"
-    prefix: /register
-
-fos_user_resetting:
-    resource: "@FOSUserBundle/Resources/config/routing/resetting.xml"
-    prefix: /resetting
-
-fos_user_change_password:
-    resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
-    prefix: /change-password

@@ -1,6 +1,4 @@
-<?php
-
-namespace VS\UsersBundle\Form;
+<?php namespace VS\UsersBundle\Form;
 
 use Sylius\Bundle\ResourceBundle\Form\Type\AbstractResourceType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -12,12 +10,14 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 
 use VS\UsersBundle\Form\Type\UserInfoFormType;
-use VS\UsersBundle\Entity\User;
-use VS\UsersBundle\Entity\UserInfo;
+use VS\UsersBundle\Model\UserInterface;
+use VS\UsersBundle\Component\UserRole;
 
 class UserFormType extends AbstractResourceType  implements ContainerAwareInterface
 {
@@ -27,42 +27,79 @@ class UserFormType extends AbstractResourceType  implements ContainerAwareInterf
     {
         $this->container = $container;
     }
-    
-    public function getName()
-    {
-        return 'ia_users_users';
-    }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {        
         $builder
-            ->setMethod('PUT')
+            ->setMethod( 'PUT' )
             //->add('apiKey', HiddenType::class)
             //->add('enabled', CheckboxType::class, array('label' => 'Enabled'))
   
-            ->add('email', TextType::class, array('label' => 'registration.еmail', 'translation_domain' => 'IAUsersBundle'))
-            
-            ->add('username', TextType::class, array('label' => 'registration.userName', 'translation_domain' => 'IAUsersBundle'))
-            
-            
-            ->add('password', PasswordType::class, array('label' => 'registration.password', 'translation_domain' => 'IAUsersBundle'))
-               
-            ->add('userInfo', UserInfoFormType::class, [
-                'data_class' => UserInfo::class,
-                'by_reference' => true
+            ->add( 'email', TextType::class, [
+                'label' => 'vs_users.user.email',
+                'translation_domain' => 'VSUsersBundle'
+            ])
+            ->add( 'username', TextType::class, [
+                'label' => 'vs_users.user.username',
+                'translation_domain' => 'VSUsersBundle'
             ])
             
-            ->add('btnSave', SubmitType::class, array('label' => 'Save'))
-            ->add('btnCancel', ButtonType::class, array('label' => 'Cancel'))
+            ->add( 'password', RepeatedType::class, [
+                'type'                  => PasswordType::class,
+                'label'                 => 'vs_users.user.password',
+                'translation_domain'    => 'VSUsersBundle',
+                'first_options'         => ['label' => 'vs_users.user.password'],
+                'second_options'        => ['label' => 'vs_users.user.password_repeat'],
+            ])
+            
+            ->add( 'firstName', TextType::class, [
+                'label'                 => 'vs_users.user.firstName',
+                'translation_domain'    => 'VSUsersBundle'
+            ])
+            ->add( 'lastName', TextType::class, [
+                'label'                 => 'vs_users.user.lastName',
+                'translation_domain'    => 'VSUsersBundle'
+            ])
+            
+            // https://symfony.com/doc/current/security.html#hierarchical-roles
+            ->add( 'roles_options', ChoiceType::class, [
+                'label'                 => 'vs_users.user.roles',
+                'translation_domain'    => 'VSUsersBundle',
+                "mapped"                => false,
+                "multiple"              => true,
+                'choices'               => UserRole::choices()
+            ])
+            
+            ->add( 'btnSave', SubmitType::class, [
+                'label' => 'vs_users.user.save',
+                'translation_domain' => 'VSUsersBundle'
+            ])
+            ->add( 'btnCancel', ButtonType::class, [
+                'label' => 'vs_users.user.cancel',
+                'translation_domain' => 'VSUsersBundle'
+            ])
         ;
     }
 
-    public function configureOptions( OptionsResolver $resolver ): void
+    public function configureOptions( OptionsResolver $resolver ) : void
     {
-        $resolver->setDefaults(array(
-            'data_class' => User::class
-        ));
+        parent::configureOptions( $resolver );
+        
+        $resolver
+            ->setDefined([
+                'users',
+            ])
+            ->setAllowedTypes( 'users', UserInterface::class )
+            
+            ->setDefaults([
+                'data_class' => UserInterface::class,
+            ])
+        ;
     }
 
+    public function getName()
+    {
+        return 'vs_users.user';
+    }
 }
 

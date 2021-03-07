@@ -1,30 +1,16 @@
-parameters:
-#    ia_users.example.class: VS\UsersBundle\Example
+imports:
+    - { resource: services/security.yml }
+    - { resource: services/registration.yml }
+    - { resource: services/reset_password.yml }
 
 services:
     VS\UsersBundle\Repository\UsersRepository: '@vs_users.repository.users'
     
-    ia_users.form.type.users:
+    vs_users.form.type.users:
         class: VS\UsersBundle\Form\UserCrudFormType
         tags:
-            - { name: form.type, alias: 'ia_users_users' }
+            - { name: form.type, alias: 'vs_users_users' }
         arguments: ['@doctrine']
-        
-    ia_users.form.type.registration:
-        class: VS\UsersBundle\Form\RegistrationFormType
-        tags:
-            - { name: form.type, alias: ia_user_registration }
-    ia_user.registration_listener:
-        class: VS\UsersBundle\EventListener\RegistrationListener
-        arguments: []
-        tags:
-            - { name: kernel.event_subscriber }
-    ia_user.password_resetting:
-        class: VS\UsersBundle\EventListener\PasswordResettingListener
-        arguments: ['@router']
-        tags:
-            - { name: kernel.event_subscriber }
-            
 
     vs_users.command.create_user:
         class: VS\UsersBundle\Command\CreateUserCommand
@@ -32,20 +18,3 @@ services:
             - '@vs_users.manager.user'
         tags:
             - { name: console.command }
-            
-    vs_users.manager.user:
-        class: VS\UsersBundle\Component\Manager\UserManager
-        arguments:
-            - '@vs_users.factory.users'
-            - '@vs_users.repository.users'
-            - '@doctrine.orm.entity_manager'
-            - '@security.encoder_factory'
-    
-    vs_users.security.login_form_authenticator:
-        class: VS\UsersBundle\Security\LoginFormAuthenticator
-        arguments:
-            - '@router'
-            - '@security.csrf.token_manager'
-            - '@security.encoder_factory'
-            - '@vs_users.repository.users'
-

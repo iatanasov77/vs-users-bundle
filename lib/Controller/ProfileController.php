@@ -2,43 +2,85 @@
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 use VS\UsersBundle\Form\ProfileFormType;
+use VS\UsersBundle\Form\ChangePasswordFormType;
 
 class ProfileController extends Controller
 {
-    public function showAction( Request $request )
+    public function indexAction( Request $request ) : Response
     {
-        $form = $this->createForm( ProfileFormType::class, $this->getUser()->getUserInfo() );
+        $em         = $this->getDoctrine()->getManager();
+        $oUser      = $this->getUser();
+        $form       = $this->createForm( ProfileFormType::class, $oUser, [
+            'data'      => $oUser,
+            'action'    => $this->generateUrl( 'vs_users_profile_show' ),
+            'method'    => 'POST',
+        ]);
         
-        /*
-         * Fetch Available Packages
-         */
-        $pr                     = $this->getDoctrine()->getRepository( 'IAUsersBundle:Package' );
-        $packages               = $pr->findAll();
+        $otherForms = $this->forms( $request, $oUser );
         
-        $paymentMethods         = $this->getDoctrine()->getRepository( 'IAPaymentBundle:PaymentMethod' )->findAll();
-        //var_dump( $this->container->getParameter( 'ia_payment.accounts' ) ); die;
-        $subscriptionDetails    = $this->userSubscriptionDetails();
+        $form->handleRequest( $request );
+        if ( $form->isSubmitted() ) {
+            $oUser          = $form->getData();
+            
+            $em->persist( $oUser );
+            $em->flush();
+            
+            return $this->redirectToRoute( $this->container->getParameter( 'vs_users.default_redirect' ) );
+        }
         
-        return $this->render( '@IAUsers/Profile/show.html.twig', [
-            'user'                  => $this->getUser(),
-            'subscription'          => $this->getUser()->getSubscription(),
-            'subscriptionDetails'   => $subscriptionDetails,
-            'form'                  => $form->createView(),
-            'packages'              => $packages,
-            'paymentMethods'        => $paymentMethods
+        return $this->render( '@VSUsers/Profile/show.html.twig', [
+            'errors'        => $form->getErrors( true, false ),
+            'form'          => $form->createView(),
+            'user'          => $oUser,
+            'otherForms'    => $otherForms,
         ]);
     }
     
-    private function userSubscriptionDetails()
+    public function changePasswordAction( Request $request ) : Response
     {
-        $sr             = $this->getDoctrine()->getRepository( 'IAUsersBundle:UserSubscription' );
-        $subscription   = $this->getUser()->getSubscription();
+        $em         = $this->getDoctrine()->getManager();
+        $oUser      = $this->getUser();
+        $forms      = $this->forms( $request, $oUser );
+        $f          = $forms['changePasswordForm'];
+        
+        $f->handleRequest( $request );
+        if ( $f->isSubmitted() && $f->isValid() ) {
+            $userManager    = $this->container->get( 'vs_users.manager.user' );
+            $data           = $request->request->all();
+
+            $oldPassword        = $data['change_password_form']['oldPassword'];
+            $newPassword        = $data['change_password_form']['password']['first'];
+            $newPasswordConfirm = $data['change_password_form']['password']['second'];
+            
+            if ( ! $userManager->isPasswordValid( $oUser, $oldPassword ) ) {
+                throw new \Exception( 'Invalid Old Password !!!' );
+            }
+            
+            if ( $newPassword !== $newPasswordConfirm ) {
+                throw new \Exception( 'Passwords Not Equals !!!' );
+            }
+            
+            $userManager->encodePassword( $oUser, $newPassword );
+            $em->persist( $oUser );
+            $em->flush();
+        }
+        
+        return $this->redirectToRoute( 'vs_users_profile_show' );
+    }
+    
+    protected function forms( Request $request, $oUser ) : array
+    {
+        $changePasswordForm = $this->createForm( ChangePasswordFormType::class, $oUser, [
+            'data'      => $oUser,
+            'action'    => $this->generateUrl( 'vs_users_profile_change_password' ),
+            'method'    => 'POST',
+        ]);
         
         return [
-            'active'    => $sr->isActive( $subscription )
+            'changePasswordForm'    => $changePasswordForm,
         ];
     }
 }
-

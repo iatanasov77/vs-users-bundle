@@ -1,6 +1,9 @@
 <?php namespace VS\UsersBundle\Model;
 
-class User implements UserInterface
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+
+class User implements UserInterface, \ArrayAccess
 {
     const ROLE_DEFAULT = "ROLE_DEFAULT";
     
@@ -15,6 +18,11 @@ class User implements UserInterface
      * @var mixed
      */
     protected $info;
+    
+    /**
+     * @var string
+     */
+    protected $apiToken;
     
     /**
      * @var string
@@ -42,6 +50,8 @@ class User implements UserInterface
 
     /**
      * @var array
+     * 
+     * https://symfony.com/doc/current/security.html#hierarchical-roles
      */
     protected $roles;
     
@@ -55,12 +65,12 @@ class User implements UserInterface
     /**
      * @var string
      */
-    protected $firstName;
+    protected $firstName    = 'NOT_EDITED_YET';
     
     /**
      * @var string
      */
-    protected $lastName;
+    protected $lastName     = 'NOT_EDITED_YET';
     
     /**
      * @var \DateTime|null
@@ -82,7 +92,24 @@ class User implements UserInterface
     /**
      * @var bool
      */
+    protected $verified;
+    
+    /**
+     * @var bool
+     */
     protected $enabled;
+    
+    /** @var Collection|UserActivity[] */
+    protected $activities;
+    
+    /** @var Collection|UserNotification[] */
+    protected $notifications;
+    
+    public function __construct()
+    {
+        $this->activities       = new ArrayCollection();
+        $this->notifications    = new ArrayCollection();
+    }
     
     public function getId()
     {
@@ -97,6 +124,18 @@ class User implements UserInterface
     public function setInfo( UserInfo $info ) : self
     {
         $this->info = $info;
+        
+        return $this;
+    }
+    
+    public function getApiToken()
+    {
+        return $this->apiToken;
+    }
+    
+    public function setApiToken( $apiToken ) : self
+    {
+        $this->apiToken = $apiToken;
         
         return $this;
     }
@@ -221,6 +260,18 @@ class User implements UserInterface
         return $this;
     }
     
+    public function setVerified( $verified ) : self
+    {
+        $this->verified = (bool) $verified;
+        
+        return $this;
+    }
+    
+    public function isVerified()
+    {
+        return $this->verified;
+    }
+    
     public function setEnabled( $boolean ) : self
     {
         $this->enabled = (bool) $boolean;
@@ -248,6 +299,13 @@ class User implements UserInterface
         return array_unique( $roles );
     }
     
+    public function setRoles( $roles ) : self
+    {
+        $this->roles    = $roles;
+        
+        return $this;
+    }
+    
     public function hasRole( $role )
     {
         return in_array( strtoupper( $role ), $this->getRoles(), true );
@@ -256,5 +314,37 @@ class User implements UserInterface
     public function eraseCredentials()
     {
         //$this->plainPassword = null;
+    }
+    
+    public function getActivities() : Collection
+    {
+        return $this->activities;
+    }
+    
+    public function getNotifications() : Collection
+    {
+        return $this->notifications;
+    }
+    
+    
+    
+    public function offsetSet( $offset, $value )
+    {
+        
+    }
+    
+    public function offsetUnset( $offset )
+    {
+        
+    }
+    
+    public function offsetExists( $offset )
+    {
+        return isset( $this->$offset );
+    }
+    
+    public function offsetGet($offset)
+    {
+        return isset( $this->$offset ) ? $this->$offset : null;
     }
 }

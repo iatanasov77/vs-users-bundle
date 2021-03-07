@@ -1,4 +1,4 @@
-<?php namespace VS\UsersBundle\Component\Manager;
+<?php namespace VS\UsersBundle\Security;
 
 use Symfony\Component\Security\Core\Encoder\EncoderFactory;
 use Doctrine\ORM\EntityRepository;
@@ -28,7 +28,7 @@ class UserManager
         $this->encoderFactory   = $encoderFactory;
     }
     
-    public function createUser( $username, $email, $password ) : UserInterface
+    public function createUser( $username, $email, $plainPassword ) : UserInterface
     {
         //if ( Assert::notNull( $this->userRepository->findOneByEmail( $username ) ) ) {
         if ( is_object( $this->userRepository->findOneByEmail( $username ) ) ) {
@@ -36,15 +36,11 @@ class UserManager
         }
         
         $user       = $this->userFactory->createNew();
-        $encoder    = $this->encoderFactory->getEncoder( $user );
-        
-        $salt       = md5( time() );
-        $pass       = $encoder->encodePassword( $password, $salt );
         
         $user->setEmail( $email );
         $user->setUsername( $username );
-        $user->setPassword( $pass );
-        $user->setSalt( $salt );
+        
+        $this->encodePassword( $user, $plainPassword );
         
         return $user;
     }
@@ -53,6 +49,23 @@ class UserManager
     {
         $this->entityManager->persist( $user );
         $this->entityManager->flush();
+    }
+    
+    public function encodePassword( UserInterface &$user, $plainPassword )
+    {
+        $encoder    = $this->encoderFactory->getEncoder( $user );
+        $salt       = md5( time() );
+        $pass       = $encoder->encodePassword( $plainPassword, $salt );
+        
+        $user->setPassword( $pass );
+        $user->setSalt( $salt );
+    }
+    
+    public function isPasswordValid( UserInterface $user, $plainPassword )
+    {
+        $encoder    = $this->encoderFactory->getEncoder( $user );
+        
+        return $encoder->isPasswordValid( $user->getPassword(), $plainPassword, $user->getSalt() );
     }
 }
 

@@ -1,51 +1,23 @@
-{% extends "layout.html.twig" %}
 
-{% block title %}{{ parent() }} :: Create User{% endblock %}
+<div class="container-fluid  dashboard-content">
+	<div class="row">   
+        <div class="col-lg-12">
+            <section class="panel">                                          
+			    <div class="panel-body bio-graph-info">
+			        <h1> Profile Info</h1>
+			        
+			        {% block profile_row %}
+			            {# {{ block('form_widget_simple') }} #}
+			        {% endblock profile_row %}
+			        
+			        
+			        {{ form_start(form, { 'attr': {'class': 'form-horizontal '} }) }}
+			            {{ form_widget(form) }}
+			             
+			        {{ form_end(form, {'render_rest': false}) }}
+			    </div>
+			</section>
+		</div>
+	</div>
+</div>
 
-{% block pageTitle %}<i class="icon_genius"></i> Create User{% endblock %}
-
-{% block content %}
-	<div class="container-fluid  dashboard-content">
-    	<!-- ============================================================== -->
-        <!-- pageheader -->
-        <!-- ============================================================== -->
-        <div class="row">
-            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                <div class="page-header">
-                    <h2 class="pageheader-title">Create User</h2>
-                    <p class="pageheader-text">Proin placerat ante duiullam scelerisque a velit ac porta, fusce sit amet vestibulum mi. Morbi lobortis pulvinar quam.</p>
-                    <div class="page-breadcrumb">
-                        <nav aria-label="breadcrumb">
-                            {{ knp_menu_render('breadcrumbs', {'template': 'menu/breadcrumb.html.twig'}) }}
-                        </nav>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- ============================================================== -->
-        <!-- end pageheader -->
-        <!-- ============================================================== -->
-        
-        
-        <div class="row">   
-            <div class="col-lg-12">
-                <section class="panel">                                          
-				    <div class="panel-body bio-graph-info">
-				        <h1> Profile Info</h1>
-				        {% form_theme form with ['IAApplicationCoreBundle:Form:form.html.twig', _self] %}
-				        
-				        {% block profile_row %}
-				            {# {{ block('form_widget_simple') }} #}
-				        {% endblock profile_row %}
-				        
-				        
-				        {{ form_start(form, { 'attr': {'class': 'form-horizontal '} }) }}
-				            {{ form_widget(form) }}
-				             
-				        {{ form_end(form, {'render_rest': false}) }}
-				    </div>
-				</section>
-    		</div>
-    	</div>
-    </div>
-{% endblock content %}
