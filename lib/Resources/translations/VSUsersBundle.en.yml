@@ -1,4 +1,7 @@
 vs_users:
+    profile:
+        change_password:
+            old_password: 'Old Password'
     user:
         email: 'E-mail'
         username: 'Username'
