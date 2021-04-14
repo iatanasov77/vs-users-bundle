@@ -2,6 +2,8 @@ vs_users:
     profile:
         change_password:
             old_password: 'Стара Парола'
+            new_password: 'Нова Парола'
+            new_password_repeat: 'Потвърди Нова Парола'
     user:
         email: 'Емейл'
         userName: 'Потребителско Име'

@@ -1,3 +1,9 @@
+0.2.2	|	Release date: **14.04.2021**
+============================================
+* Improvements:
+  - Some Form label translations.
+
+
 0.2.1	|	Release date: **14.04.2021**
 ============================================
 * Improvements:

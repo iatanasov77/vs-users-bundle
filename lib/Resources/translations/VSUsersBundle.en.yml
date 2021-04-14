@@ -2,6 +2,8 @@ vs_users:
     profile:
         change_password:
             old_password: 'Old Password'
+            new_password: 'New Password'
+            new_password_repeat: 'Confirm New Password'
     user:
         email: 'E-mail'
         username: 'Username'

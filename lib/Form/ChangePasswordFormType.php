@@ -26,10 +26,10 @@ class ChangePasswordFormType extends AbstractType
             
             ->add( 'password', RepeatedType::class, [
                 'type'                  => PasswordType::class,
-                'label'                 => 'vs_users.user.password',
+                'label'                 => 'vs_users.profile.change_password.new_password',
                 'translation_domain'    => 'VSUsersBundle',
-                'first_options'         => ['label' => 'vs_users.user.password'],
-                'second_options'        => ['label' => 'vs_users.user.password_repeat'],
+                'first_options'         => ['label' => 'vs_users.profile.change_password.new_password'],
+                'second_options'        => ['label' => 'vs_users.profile.change_password.new_password_repeat'],
                 'mapped'                => false,
             ])
             
