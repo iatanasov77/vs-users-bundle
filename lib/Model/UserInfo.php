@@ -19,6 +19,11 @@ class UserInfo implements UserInfoInterface
     /**
      * @var string
      */
+    protected $profilePictureFilename;
+    
+    /**
+     * @var string
+     */
     protected $country;
     
     /**
@@ -44,6 +49,30 @@ class UserInfo implements UserInfoInterface
     public function getId()
     {
         return $this->id;
+    }
+    
+    public function getUser()
+    {
+        return $this->user;
+    }
+    
+    public function setUser( User $user ) : self
+    {
+        $this->user = $user;
+        
+        return $this;
+    }
+    
+    public function getProfilePictureFilename()
+    {
+        return $this->profilePictureFilename;
+    }
+    
+    public function setProfilePictureFilename( $profilePictureFilename )
+    {
+        $this->profilePictureFilename = $profilePictureFilename;
+        
+        return $this;
     }
     
     public function getCountry()

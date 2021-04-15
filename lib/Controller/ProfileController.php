@@ -3,6 +3,7 @@
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 use VS\UsersBundle\Form\ProfileFormType;
 use VS\UsersBundle\Form\ChangePasswordFormType;
@@ -24,6 +25,15 @@ class ProfileController extends Controller
         $form->handleRequest( $request );
         if ( $form->isSubmitted() ) {
             $oUser          = $form->getData();
+            
+            $profilePictureFile = $form->get( 'profilePicture' )->getData();
+            if ( $profilePictureFile ) {
+                $oUserInfo   = $oUser->getInfo();
+                
+                $oUserInfo->setProfilePictureFilename( $this->handleProfilePicture( $profilePictureFile ) );
+                $oUserInfo->setUser( $oUser );
+                $em->persist( $oUserInfo );
+            }
             
             $em->persist( $oUser );
             $em->flush();
@@ -82,5 +92,26 @@ class ProfileController extends Controller
         return [
             'changePasswordForm'    => $changePasswordForm,
         ];
+    }
+    
+    protected function handleProfilePicture( $profilePictureFile ) : string
+    {
+        $originalFilename   = pathinfo( $profilePictureFile->getClientOriginalName(), PATHINFO_FILENAME );
+        // this is needed to safely include the file name as part of the URL
+        //$safeFilename       = $slugger->slug( $originalFilename );    // Slugger is included in Symfony 5.0
+        $safeFilename       = $originalFilename;
+        $newFilename        = $safeFilename . '-' . uniqid() . '.' . $profilePictureFile->guessExtension();
+        
+        // Move the file to the directory where brochures are stored
+        try {
+            $profilePictureFile->move(
+                $this->getParameter( 'vs_user.profile_pictures_dir' ),
+                $newFilename
+            );
+        } catch ( FileException $e ) {
+            // ... handle exception if something happens during file upload
+        }
+        
+        return $newFilename;
     }
 }

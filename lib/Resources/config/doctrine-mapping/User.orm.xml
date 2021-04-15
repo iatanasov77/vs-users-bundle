@@ -11,7 +11,11 @@
             <generator strategy="AUTO" />
         </id>
         
-        <one-to-one field="info" target-entity="VS\UsersBundle\Model\UserInfoInterface"  /><!-- inversed-by="user" -->
+        <one-to-one field="info" target-entity="VS\UsersBundle\Model\UserInfoInterface" fetch="EAGER"><!-- inversed-by="user" -->
+        	<cascade>
+                <cascade-all/>
+            </cascade>
+        </one-to-one>
         
         <field name="apiToken" column="api_token" type="string" nullable="false" />
         <field name="salt" column="salt" type="string" nullable="false" />

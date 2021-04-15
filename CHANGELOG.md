@@ -1,3 +1,9 @@
+0.2.3	|	Release date: **15.04.2021**
+============================================
+* New Features:
+  - Add Profile Pictures to the Profile Form.
+
+
 0.2.2	|	Release date: **14.04.2021**
 ============================================
 * Improvements:

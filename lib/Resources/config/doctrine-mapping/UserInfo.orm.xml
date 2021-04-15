@@ -9,8 +9,9 @@
             <generator strategy="AUTO" />
         </id>
         
-        <one-to-one field="user" target-entity="VS\UsersBundle\Model\UserInterface"  />
+        <one-to-one field="user" target-entity="VS\UsersBundle\Model\UserInterface" inversed-by="info" />
         
+        <field name="profilePictureFilename" column="profile_picture" type="string" nullable="true" />
         <field name="country" column="country" type="string" nullable="true" />
         <field name="birthday" column="birthday" type="datetime" nullable="true" />
         <field name="mobile" column="mobile" type="string" nullable="true" />

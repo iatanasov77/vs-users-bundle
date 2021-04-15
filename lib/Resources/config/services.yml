@@ -3,7 +3,14 @@ imports:
     - { resource: services/registration.yml }
     - { resource: services/reset_password.yml }
 
+parameters:
+    vs_user.profile_pictures_dir: '%kernel.project_dir%/public/uploads/profile_pictures'
+
 services:
+    VS\UsersBundle\Controller\ProfileController:
+        tags: ['controller.service_arguments']
+        autowire: false
+        
     VS\UsersBundle\Repository\UsersRepository: '@vs_users.repository.users'
     
     vs_users.form.type.users:
