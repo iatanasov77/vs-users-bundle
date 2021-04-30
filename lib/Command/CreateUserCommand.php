@@ -10,7 +10,7 @@ use VS\UsersBundle\Security\UserManager;
 
 class CreateUserCommand extends Command
 {
-    protected static $defaultName = 'vs:user:create';
+    protected static $defaultName = 'vankosoft:user:create';
     
     private $userManager;
     

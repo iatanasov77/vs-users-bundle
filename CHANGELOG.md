@@ -1,3 +1,10 @@
+0.2.4	|	Release date: **30.04.2021**
+============================================
+* New Features:
+  - Set Servie parameter 'vs_users.api_token.domain' to get value from environment .
+  - Change namespace of the console commands to vankosoft.
+
+
 0.2.3	|	Release date: **15.04.2021**
 ============================================
 * New Features:

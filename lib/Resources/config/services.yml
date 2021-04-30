@@ -4,6 +4,7 @@ imports:
     - { resource: services/reset_password.yml }
 
 parameters:
+    vs_users.api_token.domain: '%env(API_TOKEN_DOMAIN)%'
     vs_user.profile_pictures_dir: '%kernel.project_dir%/public/uploads/profile_pictures'
 
 services:
