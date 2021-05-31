@@ -1,3 +1,9 @@
+0.2.5	|	Release date: **31.05.2021**
+============================================
+* Bug-Fixes:
+  - Fix namespace of Model\SubscriptionInterface.
+
+
 0.2.4	|	Release date: **30.04.2021**
 ============================================
 * New Features:

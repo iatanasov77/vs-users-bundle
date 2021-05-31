@@ -2,7 +2,7 @@
 
 use Doctrine\ORM\Mapping as ORM;
 
-class UserWithAllRelations extends Model\UserWithAllRelations
+class UserWithAllRelations // extends Model\UserWithAllRelations
 {
     /**
      * FOR USERS WITH SUBSCRIPTION DERIVE THIS ENTITY AND ADD USING
@@ -24,7 +24,7 @@ class UserWithAllRelations extends Model\UserWithAllRelations
     protected $userInfo;
 
     /**
-     * @ORM\OneToOne(targetEntity="VS\UsersBundle\Entity\Model\SubscriptionInterface", inversedBy="user")
+     * @ORM\OneToOne(targetEntity="VS\UsersBundle\Model\SubscriptionInterface", inversedBy="user")
      * @ORM\JoinColumn(name="subscriptionId", referencedColumnName="id")
      */
     protected $subscription;
