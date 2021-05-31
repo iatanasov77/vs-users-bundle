@@ -1,3 +1,9 @@
+0.2.6	|	Release date: **31.05.2021**
+============================================
+* New Features:
+  - Add getDate() method into Model/SubscriptionInterface.
+
+
 0.2.5	|	Release date: **31.05.2021**
 ============================================
 * Bug-Fixes:

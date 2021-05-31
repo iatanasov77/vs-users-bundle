@@ -3,4 +3,5 @@
 interface SubscriptionInterface
 {
     public function getUser();
+    public function getDate();
 }
