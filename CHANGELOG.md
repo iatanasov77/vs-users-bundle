@@ -1,3 +1,9 @@
+0.2.7	|	Release date: **09.06.2021**
+============================================
+* New Features:
+  - Make Profile Form to Extend VS Application AbstractForm.
+
+
 0.2.6	|	Release date: **31.05.2021**
 ============================================
 * New Features:

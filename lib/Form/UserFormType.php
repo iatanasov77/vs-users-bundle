@@ -1,6 +1,6 @@
 <?php namespace VS\UsersBundle\Form;
 
-use Sylius\Bundle\ResourceBundle\Form\Type\AbstractResourceType;
+use VS\ApplicationBundle\Form\AbstractForm;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
@@ -12,14 +12,12 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 
 use VS\UsersBundle\Form\Type\UserInfoFormType;
 use VS\UsersBundle\Model\UserInterface;
 use VS\UsersBundle\Component\UserRole;
 
-class UserFormType extends AbstractResourceType  implements ContainerAwareInterface
+class UserFormType extends AbstractForm  implements ContainerAwareInterface
 {
     use ContainerAwareTrait;
     
@@ -28,8 +26,10 @@ class UserFormType extends AbstractResourceType  implements ContainerAwareInterf
         $this->container = $container;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {        
+    public function buildForm( FormBuilderInterface $builder, array $options )
+    {
+        parent::buildForm( $builder, $options );
+        
         $builder
             ->setMethod( 'PUT' )
             //->add('apiKey', HiddenType::class)
@@ -68,15 +68,6 @@ class UserFormType extends AbstractResourceType  implements ContainerAwareInterf
                 "mapped"                => false,
                 "multiple"              => true,
                 'choices'               => UserRole::choices()
-            ])
-            
-            ->add( 'btnSave', SubmitType::class, [
-                'label' => 'vs_users.user.save',
-                'translation_domain' => 'VSUsersBundle'
-            ])
-            ->add( 'btnCancel', ButtonType::class, [
-                'label' => 'vs_users.user.cancel',
-                'translation_domain' => 'VSUsersBundle'
             ])
         ;
     }
