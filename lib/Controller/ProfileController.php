@@ -1,6 +1,6 @@
 <?php namespace VS\UsersBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use VS\UsersBundle\Form\ProfileFormType;
 use VS\UsersBundle\Form\ChangePasswordFormType;
 
-class ProfileController extends Controller
+class ProfileController extends AbstractController
 {
     public function indexAction( Request $request ) : Response
     {

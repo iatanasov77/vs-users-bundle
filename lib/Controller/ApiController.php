@@ -1,12 +1,12 @@
 <?php namespace VS\UsersBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use JMS\Serializer\SerializerBuilder;
 
 use VS\UsersBundle\Entity\User;
 
-class ApiController extends Controller
+class ApiController extends AbstractController
 {
     public function indexAction()
     {
