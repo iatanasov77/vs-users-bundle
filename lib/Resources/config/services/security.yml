@@ -30,11 +30,11 @@ services:
                 apiTokenLifetime: '%vs_users.api_token.lifetime%'
             }
 
-#     vs_users.security.token_authenticator:
-#         class: VS\UsersBundle\Security\TokenAuthenticator
-#         arguments:
-#             - '@vs_users.repository.users'
-# 
+    vs_users.security.token_authenticator:
+        class: VS\UsersBundle\Security\TokenAuthenticator
+        arguments:
+            - '@vs_users.repository.users'
+
     vs_users.security.logout_success_handler:
         class: VS\UsersBundle\Security\LogoutSuccessHandler
         arguments:
