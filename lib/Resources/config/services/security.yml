@@ -6,15 +6,15 @@ parameters:
     vs_users.api_token.expires: 3600
     
 services:
-#     vs_users.manager.user:
-#         class: VS\UsersBundle\Security\UserManager
-#         public: true
-#         arguments:
-#             - '@vs_users.factory.users'
-#             - '@vs_users.repository.users'
-#             - '@doctrine.orm.entity_manager'
-#             - '@security.encoder_factory'
-#     
+    vs_users.manager.user:
+        class: VS\UsersBundle\Security\UserManager
+        public: true
+        arguments:
+            - '@vs_users.factory.users'
+            - '@vs_users.repository.users'
+            - '@doctrine.orm.entity_manager'
+            - '@security.encoder_factory'
+    
 #     vs_users.security.login_form_authenticator:
 #         class: VS\UsersBundle\Security\LoginFormAuthenticator
 #         arguments:
