@@ -20,9 +20,9 @@ services:
             - { name: form.type, alias: 'vs_users_users' }
         arguments: ['@doctrine']
 
-    vs_users.command.create_user:
-        class: VS\UsersBundle\Command\CreateUserCommand
-        arguments:
-            - '@vs_users.manager.user'
-        tags:
-            - { name: console.command }
+#     vs_users.command.create_user:
+#         class: VS\UsersBundle\Command\CreateUserCommand
+#         arguments:
+#             - '@vs_users.manager.user'
+#         tags:
+#             - { name: console.command }
