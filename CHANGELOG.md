@@ -1,3 +1,10 @@
+0.3.2	|	Release date: **14.06.2021**
+============================================
+* Bug-Fixes and Improvements:
+  - Fix Users Resource.
+  - Add Parameter: vs_users.api_token.lifetime
+
+
 0.3.1	|	Release date: **11.06.2021**
 ============================================
 * New Features:
