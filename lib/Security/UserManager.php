@@ -1,6 +1,6 @@
 <?php namespace VS\UsersBundle\Security;
 
-use Symfony\Component\Security\Core\Encoder\EncoderFactory;
+use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\EntityManager;
 
@@ -20,7 +20,7 @@ class UserManager
         FactoryInterface $userFactory,
         EntityRepository $userRepository,
         EntityManager $entityManager,
-        EncoderFactory $encoderFactory
+        PasswordHasherFactoryInterface $encoderFactory
     ) {
         $this->userFactory      = $userFactory;
         $this->userRepository   = $userRepository;

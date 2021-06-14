@@ -13,14 +13,14 @@ services:
             - '@vs_users.factory.users'
             - '@vs_users.repository.users'
             - '@doctrine.orm.entity_manager'
-            - '@security.encoder_factory'
+            - '@security.password_hasher_factory'
     
     vs_users.security.login_form_authenticator:
         class: VS\UsersBundle\Security\LoginFormAuthenticator
         arguments:
             - '@router'
             - '@security.csrf.token_manager'
-            - '@security.encoder_factory'
+            - '@security.password_hasher_factory'
             - '@vs_users.repository.users'
             - {
                 loginRoute: '%vs_users.login_route%',

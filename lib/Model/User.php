@@ -326,7 +326,10 @@ class User implements UserInterface, \ArrayAccess
         return $this->notifications;
     }
     
-    
+    public function getUserIdentifier()
+    {
+        return $this->username;
+    }
     
     public function offsetSet( $offset, $value )
     {

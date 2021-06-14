@@ -1,3 +1,9 @@
+0.3.3	|	Release date: **14.06.2021**
+============================================
+* Bug-Fixes:
+  - Fix Symfony5 deprecated security services.
+
+
 0.3.2	|	Release date: **14.06.2021**
 ============================================
 * Bug-Fixes and Improvements:
