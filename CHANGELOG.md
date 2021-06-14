@@ -1,3 +1,9 @@
+0.3.4	|	Release date: **14.06.2021**
+============================================
+* New Features:
+  - Upgrade application package to 0.10 version.
+
+
 0.3.3	|	Release date: **14.06.2021**
 ============================================
 * Bug-Fixes:
