@@ -51,13 +51,32 @@ class UserManager
         $this->entityManager->flush();
     }
     
+    /**
+     * @NOTE Symfony 4
+     */
+//     public function encodePassword( UserInterface &$user, $plainPassword )
+//     {
+//         $encoder    = $this->encoderFactory->getEncoder( $user );
+        
+//         $salt       = md5( time() );
+//         $pass       = $encoder->encodePassword( $plainPassword, $salt );
+        
+//         $user->setPassword( $pass );
+//         $user->setSalt( $salt );
+//     }
+    
+    /**
+     * @NOTE Symfony 5
+     */
     public function encodePassword( UserInterface &$user, $plainPassword )
     {
-        $encoder    = $this->encoderFactory->getEncoder( $user );
-        $salt       = md5( time() );
-        $pass       = $encoder->encodePassword( $plainPassword, $salt );
+        $hasher         = $this->encoderFactory->getPasswordHasher( $user );
         
-        $user->setPassword( $pass );
+        $hashedPassword = $hasher->hashPassword( $user, $plainPassword );
+        $user->setPassword( $hashedPassword );
+        
+        // Salt not needed already i think
+        $salt       = md5( time() );
         $user->setSalt( $salt );
     }
     

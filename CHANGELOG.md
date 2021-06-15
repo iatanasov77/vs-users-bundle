@@ -1,3 +1,9 @@
+0.3.5	|	Release date: **15.06.2021**
+============================================
+* New Features:
+  - Migrate to Symfony 5 Password Hasher Factory.
+
+
 0.3.4	|	Release date: **14.06.2021**
 ============================================
 * New Features:
