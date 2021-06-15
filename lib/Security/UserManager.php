@@ -42,6 +42,11 @@ class UserManager
         
         $this->encodePassword( $user, $plainPassword );
         
+        /**
+         * This should be Implemented
+         */
+        $user->setApiToken( 'NOT_IMPLEMETED' );
+        
         return $user;
     }
     
@@ -83,11 +88,23 @@ class UserManager
         $user->setSalt( $salt );
     }
     
+    /**
+     * @NOTE Symfony 4
+     */
+//     public function isPasswordValid( UserInterface $user, $plainPassword )
+//     {
+//         $encoder    = $this->encoderFactory->getEncoder( $user );
+        
+//         return $encoder->isPasswordValid( $user->getPassword(), $plainPassword, $user->getSalt() );
+//     }
+    
+    /**
+     * @NOTE Symfony 5
+     */
     public function isPasswordValid( UserInterface $user, $plainPassword )
     {
-        $encoder    = $this->encoderFactory->getEncoder( $user );
+        $encoder    = $this->encoderFactory->getPasswordHasher( $user );
         
-        return $encoder->isPasswordValid( $user->getPassword(), $plainPassword, $user->getSalt() );
+        return $encoder->verify( $user->getPassword(), $plainPassword, $user->getSalt() );
     }
 }
-

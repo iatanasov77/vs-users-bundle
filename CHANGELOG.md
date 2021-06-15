@@ -1,3 +1,9 @@
+0.3.7	|	Release date: **15.06.2021**
+============================================
+* Bug-Fixes, Improvement, Upgrade:
+  - Fix UserManager.
+
+
 0.3.6	|	Release date: **15.06.2021**
 ============================================
 * Bug-Fixes:
