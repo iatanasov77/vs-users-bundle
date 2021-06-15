@@ -72,11 +72,14 @@ class UserManager
     {
         $hasher         = $this->encoderFactory->getPasswordHasher( $user );
         
-        $hashedPassword = $hasher->hashPassword( $user, $plainPassword );
-        $user->setPassword( $hashedPassword );
+        // Using PasswordHasher
+        //$hashedPassword = $hasher->hashPassword( $user, $plainPassword );
         
-        // Salt not needed already i think
-        $salt       = md5( time() );
+        // Using MigratingPasswordHasher
+        $salt           = md5( time() );
+        $hashedPassword = $hasher-> hash( $plainPassword, $salt );
+        
+        $user->setPassword( $hashedPassword );
         $user->setSalt( $salt );
     }
     

@@ -1,3 +1,9 @@
+0.3.6	|	Release date: **15.06.2021**
+============================================
+* Bug-Fixes:
+  - Fix Using of MigratingPasswordHasher.
+
+
 0.3.5	|	Release date: **15.06.2021**
 ============================================
 * New Features:
