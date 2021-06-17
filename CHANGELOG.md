@@ -1,3 +1,9 @@
+0.3.8	|	Release date: **17.06.2021**
+============================================
+* Bug-Fixes:
+  - Fix LoginFormAuthenticator for Symfony5.
+
+
 0.3.7	|	Release date: **15.06.2021**
 ============================================
 * Bug-Fixes, Improvement, Upgrade:

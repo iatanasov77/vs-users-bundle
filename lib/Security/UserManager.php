@@ -82,7 +82,7 @@ class UserManager
         
         // Using MigratingPasswordHasher
         $salt           = md5( time() );
-        $hashedPassword = $hasher-> hash( $plainPassword, $salt );
+        $hashedPassword = $hasher->hash( $plainPassword, $salt );
         
         $user->setPassword( $hashedPassword );
         $user->setSalt( $salt );
