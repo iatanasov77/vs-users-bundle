@@ -1,0 +1,22 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: true
+
+    VS\UsersBundle\Controller\ApiController :
+        tags: ['controller.service_arguments']
+        autowire: true
+
+    VS\UsersBundle\Controller\RegisterController:
+        tags: ['controller.service_arguments']
+        autowire: true
+
+    VS\UsersBundle\Controller\ForgotPasswordController:
+        tags: ['controller.service_arguments']
+        autowire: true
+
+    VS\UsersBundle\Controller\ProfileController:
+        tags: ['controller.service_arguments']
+        autowire: true
+
