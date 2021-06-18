@@ -1,3 +1,10 @@
+0.3.9	|	Release date: **18.06.2021**
+============================================
+* New Features:
+  - Update VankosoftApplicationBundle version.
+  - Update user_management routes.
+
+
 0.3.8	|	Release date: **17.06.2021**
 ============================================
 * Bug-Fixes:
