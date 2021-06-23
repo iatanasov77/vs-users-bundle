@@ -13,8 +13,15 @@ services:
         autowire: true
 
     VS\UsersBundle\Controller\ForgotPasswordController:
-        tags: ['controller.service_arguments']
+        public: true
         autowire: true
+        class: VS\UsersBundle\Controller\ForgotPasswordController
+        tags: ['controller.service_arguments']
+        arguments:
+            - '@vs_users.repository.reset_password_request'
+            #- '@mailer'
+        calls:
+            - setResetPasswordHelper: ['@?symfonycasts.reset_password.helper']
 
     VS\UsersBundle\Controller\ProfileController:
         tags: ['controller.service_arguments']

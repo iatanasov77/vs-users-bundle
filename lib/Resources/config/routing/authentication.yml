@@ -8,8 +8,8 @@ vs_users_register_confirmation:
 
 vs_users_forgot_password_form:
     path:     /forgot-password
-    controller: VS\UsersBundle\Controller\ForgotPasswordController:index }
+    controller: VS\UsersBundle\Controller\ForgotPasswordController:indexAction
 
 vs_users_forgot_password_reset:
     path:     /forgot-password/reset/{token}
-    controller: VS\UsersBundle\Controller\ForgotPasswordController:reset }
+    controller: VS\UsersBundle\Controller\ForgotPasswordController:resetAction

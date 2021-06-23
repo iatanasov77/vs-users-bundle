@@ -1,3 +1,9 @@
+0.3.12	|	Release date: **23.06.2021**
+============================================
+* Bug-Fixes and Improvements:
+  - ResetPassword Fixes and Additions.
+
+
 0.3.11	|	Release date: **23.06.2021**
 ============================================
 * New Features:
