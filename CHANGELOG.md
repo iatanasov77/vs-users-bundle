@@ -1,3 +1,9 @@
+0.3.11	|	Release date: **23.06.2021**
+============================================
+* New Features:
+  - Separate Authentication routes from UserManagement Routes.
+
+
 0.3.10	|	Release date: **18.06.2021**
 ============================================
 * Bug-Fixes:
