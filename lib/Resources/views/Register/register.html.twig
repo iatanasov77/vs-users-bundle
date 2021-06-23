@@ -1,65 +1,107 @@
+{% extends "@VSApplication/layout-login.html.twig" %}
 
-<div class="card-header text-center">
-	<h3 class="mb-1">Registrations Form</h3>
-    <p>Please enter your user information.</p>
-</div>
-<div class="card-body">
+{% block head_styles %}
+	{{ parent() }}
+	
+	<style>
+		.btn-facebook {
+		    color: #fff;
+		    background-color: #3c73df;
+		    border-color: #3c73df;
+		}
+		.btn-twitter {
+		    color: #fff;
+		    background-color: #2caeff;
+		    border-color: #2caeff;
+		}
+		.text-secondary {
+		    color: #ff407b !important;
+		}
+	</style>
+{% endblock %}
 
-	{{ form_errors(form) }}
-	{#
-    {% for err in errors %}
-        <div>{{ err.messageKey | trans( err.messageData, 'security' ) }}</div>
-    {% endfor %}
-    #}
+{% block content %}
+	<!-- ============================================================== -->
+    <!-- login page  -->
+    <!-- ============================================================== -->
+    <div class="card-header text-center">
+    	<h3 class="mb-1">Registration Form</h3>
+        <p>Please enter your user information.</p>
+    </div>
+    <div class="card-body">
     
-    {{ form_start(form, { 'attr': {'class': 'login-form '} }) }}
-    	{{ form_widget(form._token) }}
+    	{{ form_errors(form) }}
+    	{#
+        {% for err in errors %}
+            <div>{{ err.messageKey | trans( err.messageData, 'security' ) }}</div>
+        {% endfor %}
+        #}
         
-        <div class="form-group">                
-            {{ form_widget(form.email, {'attr': {'class': 'form-control form-control-lg', 'placeholder': form.email.vars.label|trans }}) }}
-        </div>
-        <div class="form-group">                
-            {{ form_widget(form.username, {'attr': {'class': 'form-control form-control-lg', 'placeholder': form.username.vars.label|trans}}) }}
-        </div>
-        <div class="form-group">                
-            {{ form_widget(form.password.first, {'attr': {'class': 'form-control form-control-lg', 'placeholder': form.password.first.vars.label|trans}}) }}
-        </div>
-        <div class="form-group">                
-            {{ form_widget(form.password.second, {'attr': {'class': 'form-control form-control-lg', 'placeholder': form.password.second.vars.label|trans}}) }}
-        </div>
-        
-        <div class="form-group row pt-0">
-        	<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-2">
-        		<hr />
-        	</div>
-        </div>
-        <div class="form-group">                
-            {{ form_widget(form.firstName, {'attr': {'class': 'form-control form-control-lg', 'placeholder': form.firstName.vars.label|trans }}) }}
-        </div>
-        <div class="form-group">                
-            {{ form_widget(form.lastName, {'attr': {'class': 'form-control form-control-lg', 'placeholder': form.lastName.vars.label|trans }}) }}
-        </div>
-        <div class="form-group row pt-0">
-        	<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-2">
-        		<hr />
-        	</div>
-        </div>
-        
-        <div class="form-group">
-            <label class="custom-control custom-checkbox">
-            	<input type="checkbox"
-            		class="custom-control-input"
-            		required="required"
-            		id="registration_form_agreeTerms"
-            		name="registration_form[agreeTerms]"
-                />
-                <span class="custom-control-label">{{ form.agreeTerms.vars.label|trans|raw }}</span>
-            </label>
-        </div>
-        
-        <div class="form-group pt-2">
-        	{{ form_widget(form.btnRgister, {'attr': {'class': 'btn btn-block btn-primary'}}) }}
+        {{ form_start(form, { 'attr': {'class': 'login-form '} }) }}
+        	{{ form_widget(form._token) }}
             
-        </div>
-    {{ form_end(form, {'render_rest': false}) }}
-</div>
+            <div class="form-group">                
+                {{ form_widget(form.email, {'attr': {'class': 'form-control form-control-lg', 'placeholder': form.email.vars.label|trans }}) }}
+            </div>
+            <div class="form-group">                
+                {{ form_widget(form.username, {'attr': {'class': 'form-control form-control-lg', 'placeholder': form.username.vars.label|trans}}) }}
+            </div>
+            <div class="form-group">                
+                {{ form_widget(form.password.first, {'attr': {'class': 'form-control form-control-lg', 'placeholder': form.password.first.vars.label|trans}}) }}
+            </div>
+            <div class="form-group">                
+                {{ form_widget(form.password.second, {'attr': {'class': 'form-control form-control-lg', 'placeholder': form.password.second.vars.label|trans}}) }}
+            </div>
+            
+            <div class="form-group row pt-0">
+            	<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-2">
+            		<hr />
+            	</div>
+            </div>
+            <div class="form-group">                
+                {{ form_widget(form.firstName, {'attr': {'class': 'form-control form-control-lg', 'placeholder': form.firstName.vars.label|trans }}) }}
+            </div>
+            <div class="form-group">                
+                {{ form_widget(form.lastName, {'attr': {'class': 'form-control form-control-lg', 'placeholder': form.lastName.vars.label|trans }}) }}
+            </div>
+            <div class="form-group row pt-0">
+            	<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-2">
+            		<hr />
+            	</div>
+            </div>
+            
+            <div class="form-group">
+                <label class="custom-control custom-checkbox">
+                	<input type="checkbox"
+                		class="custom-control-input"
+                		required="required"
+                		id="registration_form_agreeTerms"
+                		name="registration_form[agreeTerms]"
+                    />
+                    <span class="custom-control-label">{{ form.agreeTerms.vars.label|trans|raw }}</span>
+                </label>
+            </div>
+            
+            <div class="form-group pt-2">
+            	{{ form_widget(form.btnRgister, {'attr': {'class': 'btn btn-block btn-primary'}}) }}
+                
+            </div>
+            <div class="form-group row pt-0">
+            	<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-2">
+            		<hr />
+            	</div>
+            </div>
+            <div class="form-group row pt-0">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-2">
+                    <button class="btn btn-block btn-social btn-facebook " type="button">Facebook</button>
+                </div>
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <button class="btn  btn-block btn-social btn-twitter" type="button">Twitter</button>
+                </div>
+            </div>
+        {{ form_end(form, {'render_rest': false}) }}
+    </div>
+    <div class="card-footer bg-white">
+        <p>Already member? <a href="{{ path('vs_application_login') }}" class="text-secondary">Login Here.</a></p>
+    </div>
+{% endblock %}

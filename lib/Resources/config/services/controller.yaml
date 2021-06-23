@@ -8,14 +8,9 @@ services:
         tags: ['controller.service_arguments']
         autowire: true
 
-    VS\UsersBundle\Controller\RegisterController:
-        tags: ['controller.service_arguments']
-        autowire: true
-
     VS\UsersBundle\Controller\ForgotPasswordController:
         public: true
         autowire: true
-        class: VS\UsersBundle\Controller\ForgotPasswordController
         tags: ['controller.service_arguments']
         arguments:
             - '@vs_users.repository.reset_password_request'

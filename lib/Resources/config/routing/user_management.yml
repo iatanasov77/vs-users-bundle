@@ -1,10 +1,10 @@
 vs_users_profile_show:
     path:     /profile
-    controller: VS\UsersBundle\Controller\ProfileController::index
+    controller: VS\UsersBundle\Controller\ProfileController::indexAction
     
 vs_users_profile_change_password:
     path:     /profile/change-password
-    controller: VS\UsersBundle\Controller\ProfileController:changePassword }
+    controller: VS\UsersBundle\Controller\ProfileController:changePasswordAction }
 
 vs_users_crud:
     resource: |

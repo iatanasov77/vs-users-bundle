@@ -1,5 +1,7 @@
 services:
     vs_users.registration_controller:
+        public: true
+        autowire: true
         class: VS\UsersBundle\Controller\RegisterController
         tags: ['controller.service_arguments']
         arguments: ['@mailer']
