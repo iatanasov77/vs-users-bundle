@@ -58,7 +58,7 @@ class ForgotPasswordController extends AbstractController
             return $this->redirectToRoute( 'app_login' );
         }
         
-        return $this->render( '@VSUsers/Reseting/forgot_password.html.twig' );
+        return $this->render( '@VSUsers/Resetting/forgot_password.html.twig' );
     }
     
     public function resetAction( string $token, Request $request ) : Response
@@ -84,7 +84,7 @@ class ForgotPasswordController extends AbstractController
             }
         }
         
-        return $this->render( '@VSUsers/Reseting/change_password.html.twig', [
+        return $this->render( '@VSUsers/Resetting/change_password.html.twig', [
             'user'  => $oUser,
             'token' => $token,
         ]);
