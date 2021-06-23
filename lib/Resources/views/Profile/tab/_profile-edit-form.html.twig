@@ -1,0 +1,51 @@
+{% import "@VSApplication/macros/form.html.twig" as vs_form %}
+
+<section class="panel">                                          
+    <div class="panel-body bio-graph-info">
+        <h1> Profile Info</h1>
+
+        {% block profile_row %}
+            {# {{ block('form_widget_simple') }} #}
+        {% endblock profile_row %}
+        
+        
+        {{ form_start(form, { 'attr': {'class': 'form-horizontal profile_details_form'} }) }}
+        	<div class="row">
+        		{% if app.user.info and app.user.info.profilePictureFilename and installedBundles.LiipImagineBundle is defined %}
+        			<img
+        				src="{{ path( 'vs_cms_images_get_file', { file: 'var/uploads/profile_pictures/' ~ user.info.profilePictureFilename } ) }}?filter=profile_form_thumb"
+        				style="width: 120px; height: 100px;	"	
+        			/>
+        		{% else %}
+        			{#
+        			<img src="{{ path( 'vs_cms_images_get_file', { file: 'var/uploads/profile_pictures/' ~ user.info.profilePictureFilename } ) }}" />
+        			#}
+        			<img src="{{ asset( '/build/images/avatar-1.jpg' ) }}" alt="" class="user-avatar-md rounded-circle" />
+        		{% endif %}
+        	</div>
+        	<div class="form-group">
+        		{{ form_label(form.profilePicture, null, {
+                    'label_attr': {'class': 'col-form-label'}
+                    }) 
+                }}
+                {{ form_widget(form.profilePicture, {'attr': {'class': 'form-control' }}) }}
+            </div>
+            <div class="form-group">
+            	{{ form_label(form.firstName, null, {
+                    'label_attr': {'class': 'col-form-label'}
+                    }) 
+                }}
+                {{ form_widget(form.firstName, {'attr': {'class': 'form-control' }}) }}
+            </div>
+            <div class="form-group">
+            	{{ form_label(form.lastName, null, {
+                    'label_attr': {'class': 'col-form-label'}
+                    }) 
+                }}
+                {{ form_widget(form.lastName, {'attr': {'class': 'form-control' }}) }}
+            </div>
+            
+            {{ vs_form.buttons( form ) }}
+        {{ form_end(form, {'render_rest': false}) }}
+    </div>
+</section>
