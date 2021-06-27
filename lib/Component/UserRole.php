@@ -11,6 +11,7 @@ class UserRole {
         return [
             self::ROLE_SUPER_ADMIN  => self::ROLE_SUPER_ADMIN,
             self::ROLE_ADMIN        => self::ROLE_ADMIN,
+            self::ROLE_AUTHOR       => self::ROLE_AUTHOR,
             self::ROLE_USER         => self::ROLE_USER,
         ];
     }
@@ -20,10 +21,10 @@ class UserRole {
         return [
             self::ROLE_SUPER_ADMIN  => [
                 self::ROLE_ADMIN => [
-                    self::ROLE_AUTHOR,
+                    self::ROLE_AUTHOR => [],
                 ]
             ],
-            self::ROLE_USER,
+            self::ROLE_USER => [],
         ];
     }
 }

@@ -1,3 +1,10 @@
+0.3.22	|	Release date: **27.06.2021**
+============================================
+* Bug-Fixes:
+  - Fix UsersCrud/update.html.twig.
+  - Fix UsersExtController.
+
+
 0.3.21	|	Release date: **27.06.2021**
 ============================================
 * Bug-Fixes:

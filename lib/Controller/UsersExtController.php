@@ -20,32 +20,35 @@ class UsersExtController extends AbstractController
     public function rolesEasyuiComboTreeWithSelectedSource(
         $userId,
         Request $request
-    ): Response {
-        $selectedRoles  = $userId ? $this->usersRepository->find( $userId )->getRoles() : [];
-        $data           = [];
-        $this->buildEasyuiCombotreeData( UserRole::choicesTree(), $data, $selectedRoles );
-        
-        return new JsonResponse( $data );
+        ): JsonResponse {
+            $selectedRoles  = $userId ? $this->usersRepository->find( $userId )->getRoles() : [];
+            $data           = [];
+            $this->buildEasyuiCombotreeData( UserRole::choicesTree(), $data, $selectedRoles );
+            
+            return new JsonResponse( $data );
     }
     
     protected function buildEasyuiCombotreeData( $tree, &$data, array $selectedValues )
     {
         $key    = 0;
-        foreach( $tree as $nodeKey => $nodeChildren ) {
-            $data[$key]   = [
-                'id'        => $nodeKey,
-                'text'      => $nodeKey,
-                'children'  => []
-            ];
-            if ( in_array( $nodeKey, $selectedValues ) ) {
-                $data[$key]['checked'] = true;
+        
+        if ( is_array( $tree ) ) {
+            foreach( $tree as $nodeKey => $nodeChildren ) {
+                $data[$key]   = [
+                    'id'        => $nodeKey,
+                    'text'      => $nodeKey,
+                    'children'  => []
+                ];
+                if ( in_array( $nodeKey, $selectedValues ) ) {
+                    $data[$key]['checked'] = true;
+                }
+                
+                if ( ! empty( $nodeChildren ) ) {
+                    $this->buildEasyuiCombotreeData( $nodeChildren, $data[$key]['children'], $selectedValues );
+                }
+                
+                $key++;
             }
-            
-            if ( ! empty( $nodeChildren ) ) {
-                $this->buildEasyuiCombotreeData( $nodeChildren, $data[$key]['children'], $selectedValues );
-            }
-            
-            $key++;
         }
     }
 }
