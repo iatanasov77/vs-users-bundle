@@ -2,6 +2,7 @@
 
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Validator\Constraints\File;
@@ -11,9 +12,17 @@ use VS\UsersBundle\Model\UserInterface;
 
 class ProfileFormType extends UserFormType
 {
+    public function __construct( RequestStack $requestStack, string $dataClass )
+    {
+        parent::__construct( $requestStack, $dataClass );
+    }
+    
     public function buildForm( FormBuilderInterface $builder, array $options )
     {
         parent::buildForm( $builder, $options );
+        
+        $builder->remove( 'enabled' );
+        $builder->remove( 'verified' );
         
         $builder->remove( 'roles_options' );
         $builder->remove( 'password' );

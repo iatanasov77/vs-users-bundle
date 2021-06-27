@@ -9,10 +9,21 @@ services:
             - setTokenGenerator: ['@?symfonycasts.verify_email.token_generator']
             - setVerifyEmailHelper: ['@?symfonycasts.verify_email.helper']
 
+    vs_users.form.type.profile:
+        class: VS\UsersBundle\Form\ProfileFormType
+        tags:
+            - { name: form.type, alias: vs_users_profile }
+        arguments:
+            - "@request_stack"
+            - '%vs_users.model.users.class%'
+            
     vs_users.form.type.registration:
         class: VS\UsersBundle\Form\RegistrationFormType
         tags:
-            - { name: form.type, alias: ia_user_registration }
+            - { name: form.type, alias: vs_users_registration }
+        arguments:
+            - "@request_stack"
+            - '%vs_users.model.users.class%'
     
 #     ia_user.registration_listener:
 #         class: VS\UsersBundle\EventListener\RegistrationListener

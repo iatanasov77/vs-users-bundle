@@ -2,6 +2,8 @@
 
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\HttpFoundation\RequestStack;
+
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -14,9 +16,17 @@ use VS\UsersBundle\Model\UserInterface;
  */
 class RegistrationFormType extends UserFormType
 {
+    public function __construct( RequestStack $requestStack, string $dataClass )
+    {
+        parent::__construct( $requestStack, $dataClass );
+    }
+    
     public function buildForm( FormBuilderInterface $builder, array $options )
     {
         parent::buildForm( $builder, $options );
+        
+        $builder->remove( 'enabled' );
+        $builder->remove( 'verified' );
         
         $builder->remove( 'roles_options' );
         $builder->remove( 'btnSave' );
