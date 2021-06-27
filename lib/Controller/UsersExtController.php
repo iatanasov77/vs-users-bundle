@@ -1,4 +1,4 @@
-<?php  namespace VS\UsersBundle\Controller;
+<?php namespace VS\UsersBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -7,7 +7,7 @@ use Sylius\Component\Resource\Repository\RepositoryInterface;
 
 use VS\UsersBundle\Component\UserRole;
 
-class UsersExtController
+class UsersExtController extends AbstractController
 {
     /* RepositoryInterface */
     protected $usersRepository;

@@ -1,3 +1,9 @@
+0.3.21	|	Release date: **27.06.2021**
+============================================
+* Bug-Fixes:
+  - Fix UsersExtController.
+
+
 0.3.20	|	Release date: **27.06.2021**
 ============================================
 * New Features and Improvements:
