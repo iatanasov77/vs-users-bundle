@@ -1,7 +1,7 @@
 {% extends "@VSApplication/layout.html.twig" %}
-{% block title %}{{ parent() }} :: My Profile{% endblock %}
 
-{% block pageTitle %}<i class="fa fa-user-md"></i> My Profile{% endblock %}
+{% block title %}{{ parent() }} :: {{ 'vs_users.template.profile_show_title' | trans( {},'VSUsersBundle' ) }}{% endblock %}
+{% block pageTitle %}<i class="fa fa-user-md"></i> {{ 'vs_users.template.profile_show_title' | trans( {},'VSUsersBundle' ) }}{% endblock %}
 
 {% block content %}
     <div class="container-fluid  dashboard-content">
@@ -11,7 +11,7 @@
         <div class="row">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <div class="page-header">
-                    <h2 class="pageheader-title">Profile</h2>
+                    <h2 class="pageheader-title">{{ 'vs_users.template.profile_show_title' | trans( {},'VSUsersBundle' ) }}</h2>
                     <p class="pageheader-text">Proin placerat ante duiullam scelerisque a velit ac porta, fusce sit amet vestibulum mi. Morbi lobortis pulvinar quam.</p>
                     <div class="page-breadcrumb">
                         <nav aria-label="breadcrumb">
@@ -31,18 +31,24 @@
             <!-- ============================================================== -->
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <div class="card">
-                	<h5 class="card-header">My Profile</h5>
+                	<h5 class="card-header">{{ 'vs_users.template.profile_show_title' | trans( {},'VSUsersBundle' ) }}</h5>
                 	<div class="card-body">
                 		<div class="tab-regular">
                             <ul class="nav nav-tabs " id="myTab" role="tablist">
                                 <li class="nav-item">
-                                    <a class="nav-link active" id="details-tab" data-toggle="tab" href="#details" role="tab" aria-controls="home" aria-selected="true">Details</a>
+                                    <a class="nav-link active" id="details-tab" data-toggle="tab" href="#details" role="tab" aria-controls="home" aria-selected="true">
+                                    	{{ 'vs_users.template.profile_show_tab_details' | trans( {},'VSUsersBundle' ) }}
+                                    </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="change_password-tab" data-toggle="tab" href="#change_password" role="tab" aria-controls="profile" aria-selected="false">Change Password</a>
+                                    <a class="nav-link" id="change_password-tab" data-toggle="tab" href="#change_password" role="tab" aria-controls="profile" aria-selected="false">
+                                    	{{ 'vs_users.template.profile_show_tab_change_password' | trans( {},'VSUsersBundle' ) }}
+                                    </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="activity-tab" data-toggle="tab" href="#activity" role="tab" aria-controls="contact" aria-selected="false">Activity</a>
+                                    <a class="nav-link" id="activity-tab" data-toggle="tab" href="#activity" role="tab" aria-controls="contact" aria-selected="false">
+                                    	{{ 'vs_users.template.profile_show_tab_activity' | trans( {},'VSUsersBundle' ) }}
+                                    </a>
                                 </li>
                             </ul>
                     		<div class="tab-content" id="myTabContent">

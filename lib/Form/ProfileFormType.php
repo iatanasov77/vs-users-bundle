@@ -24,7 +24,7 @@ class ProfileFormType extends UserFormType
         
         $builder
             ->add( 'profilePicture', FileType::class, [
-                'label' => 'Profile picture',
+                'label' => 'vs_users.form.profile.picture_lable',
                 'mapped' => false,
                 
                 // make it optional so you don't have to re-upload the Profile Image
@@ -40,7 +40,7 @@ class ProfileFormType extends UserFormType
                             'image/jpeg',
                             'image/png',
                         ],
-                        'mimeTypesMessage' => 'Please upload a valid PDF document',
+                        'mimeTypesMessage' => 'vs_users.form.profile.picture_info',
                     ])
                 ],
             ])

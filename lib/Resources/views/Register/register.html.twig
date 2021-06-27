@@ -25,8 +25,8 @@
     <!-- login page  -->
     <!-- ============================================================== -->
     <div class="card-header text-center">
-    	<h3 class="mb-1">Registration Form</h3>
-        <p>Please enter your user information.</p>
+    	<h3 class="mb-1">{{ 'vs_users.template.register_header_title' | trans( {},'VSUsersBundle' ) }}</h3>
+        <p>{{ 'vs_users.template.register_header_description' | trans( {},'VSUsersBundle' ) }}</p>
     </div>
     <div class="card-body">
     
@@ -102,6 +102,11 @@
         {{ form_end(form, {'render_rest': false}) }}
     </div>
     <div class="card-footer bg-white">
-        <p>Already member? <a href="{{ path('vs_application_login') }}" class="text-secondary">Login Here.</a></p>
+        <p>
+        	{{ 'vs_users.template.register_already_member' | trans( {},'VSUsersBundle' ) }} 
+        	<a href="{{ path('vs_application_login') }}" class="text-secondary">
+        		{{ 'vs_users.template.register_login_here' | trans( {},'VSUsersBundle' ) }}
+        	</a>
+        </p>
     </div>
 {% endblock %}

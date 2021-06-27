@@ -36,34 +36,34 @@ class UserFormType extends AbstractForm  implements ContainerAwareInterface
             //->add('enabled', CheckboxType::class, array('label' => 'Enabled'))
   
             ->add( 'email', TextType::class, [
-                'label' => 'vs_users.user.email',
+                'label' => 'vs_users.form.user.email',
                 'translation_domain' => 'VSUsersBundle'
             ])
             ->add( 'username', TextType::class, [
-                'label' => 'vs_users.user.username',
+                'label' => 'vs_users.form.user.username',
                 'translation_domain' => 'VSUsersBundle'
             ])
             
             ->add( 'password', RepeatedType::class, [
                 'type'                  => PasswordType::class,
-                'label'                 => 'vs_users.user.password',
+                'label'                 => 'vs_users.form.user.password',
                 'translation_domain'    => 'VSUsersBundle',
                 'first_options'         => ['label' => 'vs_users.user.password'],
                 'second_options'        => ['label' => 'vs_users.user.password_repeat'],
             ])
             
             ->add( 'firstName', TextType::class, [
-                'label'                 => 'vs_users.user.firstName',
+                'label'                 => 'vs_users.form.user.firstName',
                 'translation_domain'    => 'VSUsersBundle'
             ])
             ->add( 'lastName', TextType::class, [
-                'label'                 => 'vs_users.user.lastName',
+                'label'                 => 'vs_users.form.user.lastName',
                 'translation_domain'    => 'VSUsersBundle'
             ])
             
             // https://symfony.com/doc/current/security.html#hierarchical-roles
             ->add( 'roles_options', ChoiceType::class, [
-                'label'                 => 'vs_users.user.roles',
+                'label'                 => 'vs_users.form.user.roles',
                 'translation_domain'    => 'VSUsersBundle',
                 "mapped"                => false,
                 "multiple"              => true,

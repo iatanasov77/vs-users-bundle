@@ -25,12 +25,12 @@ class RegistrationFormType extends UserFormType
             ->setMethod( 'POST' )
             ->add( 'registerRole', HiddenType::class, ['data' => 'ROLE_USER', 'mapped' => false] )
             ->add( 'agreeTerms', CheckboxType::class, [
-                'label'                 => 'vs_users.registration.agree_terms',
+                'label'                 => 'vs_users.form.registration.agree_terms',
                 'translation_domain'    => 'VSUsersBundle',
                 'mapped'                => false,
             ])
             ->add( 'btnRgister', SubmitType::class, [
-                'label' => 'vs_users.registration.register',
+                'label' => 'vs_users.form.registration.register',
                 'translation_domain' => 'VSUsersBundle'
             ])
         ;

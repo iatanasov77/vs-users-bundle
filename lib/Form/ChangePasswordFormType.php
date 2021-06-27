@@ -19,14 +19,14 @@ class ChangePasswordFormType extends AbstractType
             ->setMethod( 'POST' )
             
             ->add( 'oldPassword', PasswordType::class, [
-                'label'                 => 'vs_users.profile.change_password.old_password',
+                'label'                 => 'vs_users.form.profile.change_password.old_password',
                 'translation_domain'    => 'VSUsersBundle',
                 'mapped'                => false,
             ])
             
             ->add( 'password', RepeatedType::class, [
                 'type'                  => PasswordType::class,
-                'label'                 => 'vs_users.profile.change_password.new_password',
+                'label'                 => 'vs_users.form.profile.change_password.new_password',
                 'translation_domain'    => 'VSUsersBundle',
                 'first_options'         => ['label' => 'vs_users.profile.change_password.new_password'],
                 'second_options'        => ['label' => 'vs_users.profile.change_password.new_password_repeat'],
@@ -34,11 +34,11 @@ class ChangePasswordFormType extends AbstractType
             ])
             
             ->add( 'btnSave', SubmitType::class, [
-                'label' => 'vs_users.user.save',
+                'label' => 'vs_users.form.user.save',
                 'translation_domain' => 'VSUsersBundle'
             ])
             ->add( 'btnCancel', ButtonType::class, [
-                'label' => 'vs_users.user.cancel',
+                'label' => 'vs_users.form.user.cancel',
                 'translation_domain' => 'VSUsersBundle'
             ])
         ;

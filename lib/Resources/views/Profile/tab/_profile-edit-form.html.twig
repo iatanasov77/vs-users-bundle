@@ -2,7 +2,7 @@
 
 <section class="panel">                                          
     <div class="panel-body bio-graph-info">
-        <h1> Profile Info</h1>
+        <h1>{{ 'vs_users.template.profile_details_header' | trans( {},'VSUsersBundle' ) }}</h1>
 
         {% block profile_row %}
             {# {{ block('form_widget_simple') }} #}
