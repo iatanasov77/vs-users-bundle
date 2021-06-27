@@ -5,13 +5,13 @@
 {% import "@VSApplication/macros/form.html.twig" as vs_form %}
 
 {% if( item.id ) %}
-	{% set pageTitle = 'vs_users.template.userscrud_update_title' | trans( {},'VSUsersBundle' ) %}
+	{% set pageTitle = 'vs_users.template.userscrud_update_title' %}
 {% else %}
-	{% set pageTitle = 'vs_users.template.userscrud_create_title' | trans( {},'VSUsersBundle' ) %}
+	{% set pageTitle = 'vs_users.template.userscrud_create_title' %}
 {% endif %}
 
-{% block title %}{{ parent() }} :: {{ pageTitle }}{% endblock %}
-{% block pageTitle %}<i class="icon_genius"></i> {{ pageTitle }}{% endblock %}
+{% block title %}{{ parent() }} :: {{ pageTitle | trans( {},'VSUsersBundle' ) }}{% endblock %}
+{% block pageTitle %}<i class="icon_genius"></i> {{ pageTitle | trans( {},'VSUsersBundle' ) }}{% endblock %}
 {% block content %}
     <div class="container-fluid  dashboard-content">
     	<!-- ============================================================== -->
@@ -20,7 +20,7 @@
         <div class="row">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <div class="page-header">
-                    <h2 class="pageheader-title">{% if(item.id) %}{{ pageTitle }}:	{{ item.username }}{% else %}{{ pageTitle }}{% endif %}</h2>
+                    <h2 class="pageheader-title">{% if(item.id) %}{{ pageTitle | trans( {},'VSUsersBundle' ) }}:	{{ item.username }}{% else %}{{ pageTitle | trans( {},'VSUsersBundle' ) }}{% endif %}</h2>
                     <p class="pageheader-text">Proin placerat ante duiullam scelerisque a velit ac porta, fusce sit amet vestibulum mi. Morbi lobortis pulvinar quam.</p>
                     <div class="page-breadcrumb">
                     	<nav aria-label="breadcrumb">
@@ -40,7 +40,7 @@
             <!-- ============================================================== -->
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <div class="card">
-                	<h5 class="card-header">'vs_users.template.userscrud_update_header' | trans( {},'VSUsersBundle' )</h5>
+                	<h5 class="card-header">{{ 'vs_users.template.userscrud_update_header' | trans( {},'VSUsersBundle' ) }}</h5>
                 	<div class="card-body">
                 	
                 		{% if useFormMethod is defined %}{% set formMethod = useFormMethod %}{% else %}{% set formMethod = 'PUT' %}{% endif %}

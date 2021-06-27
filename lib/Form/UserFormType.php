@@ -64,8 +64,8 @@ class UserFormType extends AbstractForm
                 'type'                  => PasswordType::class,
                 'label'                 => 'vs_users.form.user.password',
                 'translation_domain'    => 'VSUsersBundle',
-                'first_options'         => ['label' => 'vs_users.user.password'],
-                'second_options'        => ['label' => 'vs_users.user.password_repeat'],
+                'first_options'         => ['label' => 'vs_users.form.user.password'],
+                'second_options'        => ['label' => 'vs_users.form.user.password_repeat'],
             ])
             
             ->add( 'firstName', TextType::class, [
