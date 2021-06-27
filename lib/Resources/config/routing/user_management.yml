@@ -12,3 +12,7 @@ vs_users_crud:
         path: /users
         templates: "@VSUsers/UsersCrud"
     type: sylius.resource
+    
+vs_users_roles_tree_combo_with_selected:
+    path: /json/{userId}/user-roles/easyui-combotree
+    controller: VS\UsersBundle\Controller\UsersExtController::rolesEasyuiComboTreeWithSelectedSource

@@ -38,23 +38,34 @@
                             <th width="150">{{ 'vs_users.template.userscrud_index_tablecolumns_action' | trans( {},'VSUsersBundle' ) }}</th>
                         </tr>
                         {% for item in users %}
-                            <tr>
-                                <td>{{ loop.index }}</td>
-                                <td>{{ item.username  }}</td>
-                                <td>{{ item.email  }}</td>
-                                <td>{{ item.roles | join(' , ')  }}</td>
-                                <td>{{ item.getFullName() }}</td>
-                                <td>
-                                	<div class="btn-group">
-                                		<a class="btn btn-primary" href="{{ path('vs_users_users_update', {'id': item.id}) }}">
-                                            <i class="fas fa-edit"></i>
-                                        </a>
-                                        <a class="btn btn-danger btnDelete" href="#" data-url="{{ path('vs_users_users_delete', {'id': item.id}) }}">
-                                            <i class="icon_close_alt2"></i>
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
+                        	{% set userGranted = false %}
+                        	{% set userRolesBreak = false %}
+                        	{% for userRole in item.roles %}
+                        		{% if is_granted( userRole ) and not userRolesBreak %}
+                        			{% set userGranted = true %}
+                        			{% set userRolesBreak = true %}
+                        		{% endif %}
+                        	{% endfor %}
+                        	
+                        	{% if userGranted %}	{# is_granted( item.roles ) #}
+	                            <tr>
+	                                <td>{{ loop.index }}</td>
+	                                <td>{{ item.username  }}</td>
+	                                <td>{{ item.email  }}</td>
+	                                <td>{{ item.roles | join(' , ')  }}</td>
+	                                <td>{{ item.getFullName() }}</td>
+	                                <td>
+	                                	<div class="btn-group">
+	                                		<a class="btn btn-primary" href="{{ path('vs_users_users_update', {'id': item.id}) }}">
+	                                            <i class="fas fa-edit"></i>
+	                                        </a>
+	                                        <a class="btn btn-danger btnDelete" href="#" data-url="{{ path('vs_users_users_delete', {'id': item.id}) }}">
+	                                            <i class="icon_close_alt2"></i>
+	                                        </a>
+	                                    </div>
+	                                </td>
+	                            </tr>
+	                        {% endif %}
                         {% endfor %}
                     </table>
                 </section>

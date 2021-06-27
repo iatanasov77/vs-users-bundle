@@ -17,7 +17,7 @@
             </cascade>
         </one-to-one>
         
-        <field name="apiToken" column="api_token" type="string" nullable="false" />
+        <field name="apiToken" column="api_token" type="string" nullable="true" />
         <field name="salt" column="salt" type="string" nullable="false" />
         <field name="password" column="password" type="string" nullable="false" />
         <field name="roles" column="roles" type="array" nullable="false" />

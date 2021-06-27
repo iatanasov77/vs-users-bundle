@@ -9,6 +9,8 @@ vs_users:
                 new_password_repeat: 'Confirm New Password'
         user:
             prefered_locale: 'Prefered Locale'
+            roles: 'User Roles'
+            roles_placeholder: '-- Select User Roles --'
             email: 'E-mail'
             username: 'Username'
             password: 'Password'

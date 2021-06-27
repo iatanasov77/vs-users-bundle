@@ -1,3 +1,10 @@
+0.3.20	|	Release date: **27.06.2021**
+============================================
+* New Features and Improvements:
+  - Create ComboTree for Roles Field of the UsersFor
+  - Set nullable=true of ApiToken ORM Mapping.
+
+
 0.3.19	|	Release date: **27.06.2021**
 ============================================
 * Bug-Fixes:

@@ -1,6 +1,13 @@
 services:
     VS\UsersBundle\Repository\UsersRepository: '@vs_users.repository.users'
     
+    vs_users.users_crud.users_ext_controller:
+        class: VS\UsersBundle\Controller\UsersExtController
+        tags: ['controller.service_arguments']
+        autowire: true
+        arguments:
+            - "@vs_users.repository.users"
+        
     vs_users.resources.users.form:
         class: VS\UsersBundle\Form\UserFormType
         tags:
