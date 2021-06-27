@@ -8,13 +8,15 @@ vs_users:
                 new_password: 'Нова Парола'
                 new_password_repeat: 'Потвърди Нова Парола'
         user:
+            prefered_locale: 'Предпочитан Език'
             email: 'Емейл'
             userName: 'Потребителско Име'
             password: 'Парола'
             password_repeat: 'Потвърди Парола'
             firstName: 'Име'
             lastName: 'Фамилия'
-            enabled: 'Enabled'
+            enabled: 'Разрешен'
+            verified: 'Проверен'
             save: 'Save'
             cancel: 'Отмени'
     
@@ -65,3 +67,6 @@ vs_users:
             userscrud_index_tablecolumns_roles: 'Роли'
             userscrud_index_tablecolumns_fullname: 'Цяло Име'
             userscrud_index_tablecolumns_action: 'Действие'
+            userscrud_create_title: 'Създаване на Нов Потребител'
+            userscrud_update_title: 'Редактиране на Потребител'
+            userscrud_update_header: 'Потребител Детайли'

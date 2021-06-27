@@ -15,7 +15,7 @@
                     <p class="pageheader-text">Proin placerat ante duiullam scelerisque a velit ac porta, fusce sit amet vestibulum mi. Morbi lobortis pulvinar quam.</p>
                     <div class="page-breadcrumb">
                         <nav aria-label="breadcrumb">
-                            {{ knp_menu_render('breadcrumbs', {'template': 'menu/breadcrumb.html.twig'}) }}
+                            {{ knp_menu_render('breadcrumbs', {'template': '@VSApplication/Menu/breadcrumb.html.twig'}) }}
                         </nav>
                     </div>
                 </div>
@@ -39,27 +39,19 @@
                         </tr>
                         {% for item in users %}
                             <tr>
-                                <td>
-                                    <input type="checkbox" name="active[{{ item.getId() }}]" />
-                                    {{ item.getId() }}
-                                </td>
-                                <td><a href="{{ path('ia_users_users_update', {'id': item.getId()}) }}?id={{ item.id }}">{{ item.username  }}</a></td>
+                                <td>{{ loop.index }}</td>
+                                <td>{{ item.username  }}</td>
                                 <td>{{ item.email  }}</td>
                                 <td>{{ item.roles | join(' , ')  }}</td>
-                                <td>
-                                	{% if item.userInfo %}
-                                        <a href="{{ path('ia_users_users_update', {'id': item.getId()}) }}">
-                                            {{ item.userInfo.getFullName() }}
-                                        </a>
-                                    {% endif %}
-                                </td>
+                                <td>{{ item.getFullName() }}</td>
                                 <td>
                                 	<div class="btn-group">
-                                        <div class="btn-group">
-                                            <a class="btn btn-danger btnDelete" href="#" data-url="{{ path('ia_users_users_delete', {'id': item.id}) }}">
-                                                <i class="icon_close_alt2"></i>
-                                            </a>
-                                        </div>
+                                		<a class="btn btn-primary" href="{{ path('vs_users_users_update', {'id': item.id}) }}">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a class="btn btn-danger btnDelete" href="#" data-url="{{ path('vs_users_users_delete', {'id': item.id}) }}">
+                                            <i class="icon_close_alt2"></i>
+                                        </a>
                                     </div>
                                 </td>
                             </tr>

@@ -8,6 +8,7 @@ vs_users:
                 new_password: 'New Password'
                 new_password_repeat: 'Confirm New Password'
         user:
+            prefered_locale: 'Prefered Locale'
             email: 'E-mail'
             username: 'Username'
             password: 'Password'
@@ -15,6 +16,7 @@ vs_users:
             firstName: 'First Name'
             lastName: 'Last Name'
             enabled: 'Enabled'
+            verified: 'Verified'
             save: 'Save'
             cancel: 'Cancel'
     
@@ -65,3 +67,6 @@ vs_users:
         userscrud_index_tablecolumns_roles: 'Roles'
         userscrud_index_tablecolumns_fullname: 'Full Name'
         userscrud_index_tablecolumns_action: 'Action'
+        userscrud_create_title: 'Create New User'
+        userscrud_update_title: 'Edit User'
+        userscrud_update_header: 'User Details'

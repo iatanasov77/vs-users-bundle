@@ -3,8 +3,6 @@
 use VS\ApplicationBundle\Form\AbstractForm;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -17,13 +15,15 @@ use VS\UsersBundle\Form\Type\UserInfoFormType;
 use VS\UsersBundle\Model\UserInterface;
 use VS\UsersBundle\Component\UserRole;
 
-class UserFormType extends AbstractForm  implements ContainerAwareInterface
+class UserFormType extends AbstractForm
 {
-    use ContainerAwareTrait;
+    protected $requestStack;
     
-    public function __construct( $container = null )
+    public function __construct( RequestStack $requestStack, string $dataClass )
     {
-        $this->container = $container;
+        parent::__construct( $dataClass );
+        
+        $this->requestStack     = $requestStack;
     }
 
     public function buildForm( FormBuilderInterface $builder, array $options )
@@ -35,6 +35,22 @@ class UserFormType extends AbstractForm  implements ContainerAwareInterface
             //->add('apiKey', HiddenType::class)
             //->add('enabled', CheckboxType::class, array('label' => 'Enabled'))
   
+            ->add( 'enabled', CheckboxType::class, [
+                'label' => 'vs_users.form.user.enabled',
+                'translation_domain'    => 'VSUsersBundle',
+            ])
+            
+            ->add( 'verified', CheckboxType::class, [
+                'label' => 'vs_users.form.user.verified',
+                'translation_domain'    => 'VSUsersBundle',
+            ])
+            ->add( 'prefered_locale', ChoiceType::class, [
+                'label'                 => 'vs_users.form.user.prefered_locale',
+                'translation_domain'    => 'VSUsersBundle',
+                'choices'               => \array_flip( \VS\ApplicationBundle\Component\I18N::LanguagesAvailable() ),
+                'data'                  => $this->requestStack->getCurrentRequest()->getLocale(),
+            ])
+        
             ->add( 'email', TextType::class, [
                 'label' => 'vs_users.form.user.email',
                 'translation_domain' => 'VSUsersBundle'
@@ -81,10 +97,6 @@ class UserFormType extends AbstractForm  implements ContainerAwareInterface
                 'users',
             ])
             ->setAllowedTypes( 'users', UserInterface::class )
-            
-            ->setDefaults([
-                'data_class' => UserInterface::class,
-            ])
         ;
     }
 

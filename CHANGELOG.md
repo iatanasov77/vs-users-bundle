@@ -1,3 +1,12 @@
+0.3.17	|	Release date: **27.06.2021**
+============================================
+* New Features:
+  - Add UsersCrud Create/Update.
+* Bug-Fixes:
+  - Fix UsersCrud Index Template.
+  - Fix Routes in UsersCrud Template.
+
+
 0.3.16	|	Release date: **27.06.2021**
 ============================================
 * New Features:
