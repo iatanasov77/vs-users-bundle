@@ -1,3 +1,10 @@
+0.3.24	|	Release date: **30.06.2021**
+============================================
+* Bug-Fixes:
+  - Fix ProfileController to set User Prefered Locale if is not Set.
+  - Fix Redirect after save Profile.
+
+
 0.3.23	|	Release date: **30.06.2021**
 ============================================
 * New Features:

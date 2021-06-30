@@ -45,6 +45,10 @@ class ProfileController extends AbstractController
         if ( $form->isSubmitted() ) {
             $oUser          = $form->getData();
             
+            if ( ! $oUser->getPreferedLocale() ) {
+                $oUser->setPreferedLocale( $request->getLocale() );
+            }
+            
             $profilePictureFile = $form->get( 'profilePicture' )->getData();
             if ( $profilePictureFile ) {
                 $oUserInfo   = $oUser->getInfo();
@@ -57,7 +61,8 @@ class ProfileController extends AbstractController
             $em->persist( $oUser );
             $em->flush();
             
-            return $this->redirectToRoute( $this->container->getParameter( 'vs_users.default_redirect' ) );
+            //return $this->redirectToRoute( $this->container->getParameter( 'vs_users.default_redirect' ) );
+            return $this->redirectToRoute( 'vs_users_profile_show' );
         }
         
         return $this->render( '@VSUsers/Profile/show.html.twig', [
