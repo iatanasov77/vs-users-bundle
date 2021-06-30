@@ -1,3 +1,11 @@
+0.3.23	|	Release date: **30.06.2021**
+============================================
+* New Features:
+  - Add a Controller Action to return ProfilePicture FileName if File Exists.
+* Bug-Fixes:
+  - Some Fixes.
+
+
 0.3.22	|	Release date: **27.06.2021**
 ============================================
 * Bug-Fixes:

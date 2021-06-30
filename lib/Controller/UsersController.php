@@ -14,10 +14,10 @@ class UsersController extends AbstractCrudController //ResourceController
         $entity->setRoles( $roles );
         //var_dump( $roles ); die;
         
-        $entity->setVerified( true );
+//         $entity->setVerified( true );
         
-        // I dont know yet if these fields should be in the form
-        $entity->setPreferedLocale( $request->getLocale() );
-        $entity->setEnabled( true );
+//         // I dont know yet if these fields should be in the form
+//         $entity->setPreferedLocale( $request->getLocale() );
+//         $entity->setEnabled( true );
     }
 }

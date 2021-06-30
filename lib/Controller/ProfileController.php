@@ -10,6 +10,25 @@ use VS\UsersBundle\Form\ChangePasswordFormType;
 
 class ProfileController extends AbstractController
 {
+    public function profilePictureAction( Request $request ): Response
+    {
+        $profilePicture = false;
+        
+        $userInfo   = $this->getUser()->getInfo();
+        if ( $userInfo && $userInfo->getProfilePictureFilename() ) {
+            $profilePictureFileName = 'uploads/profile_pictures/' . $userInfo->getProfilePictureFilename();
+            if ( file_exists( $profilePictureFileName ) ) {
+                $profilePicture = $profilePictureFileName;
+            }
+        }
+        
+        if ( ! $profilePicture ) {
+            $profilePicture = '/build/images/avatar-1.jpg';
+        }
+        
+        return new Response( $profilePicture, Response::HTTP_OK );
+    }
+    
     public function indexAction( Request $request ) : Response
     {
         $em         = $this->getDoctrine()->getManager();

@@ -13,6 +13,9 @@
 {% block title %}{{ parent() }} :: {{ pageTitle | trans( {},'VSUsersBundle' ) }}{% endblock %}
 {% block pageTitle %}<i class="icon_genius"></i> {{ pageTitle | trans( {},'VSUsersBundle' ) }}{% endblock %}
 {% block content %}
+	{# Used to set Password not required when Edit User #}
+	<div id="user-id" style="display: none;">{{ item.id }}</div>
+    
     <div class="container-fluid  dashboard-content">
     	<!-- ============================================================== -->
         <!-- pageheader -->
@@ -57,9 +60,9 @@
                             {% endif %}
         					
         					<label class="custom-control custom-checkbox">  
-                                <input type="checkbox" id="project_form_enabled"
+                                <input type="checkbox" id="user_form_enabled"
                                     class="custom-control-input form-check-input"
-                                    name="project_form[enabled]"
+                                    name="user_form[enabled]"
                                     value="{{ item.enabled }}"
                                     {% if item.enabled %}checked="checked"{% endif %}
                                 />
@@ -67,9 +70,9 @@
                             </label>
                             
                             <label class="custom-control custom-checkbox">  
-                                <input type="checkbox" id="project_form_enabled"
+                                <input type="checkbox" id="user_form_verified"
                                     class="custom-control-input form-check-input"
-                                    name="project_form[verified]"
+                                    name="user_form[verified]"
                                     value="{{ item.verified }}"
                                     {% if item.verified %}checked="checked"{% endif %}
                                 />

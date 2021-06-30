@@ -1,3 +1,7 @@
+vs_users_profile_picture_file_name:
+    path:     /profile_picture_file_name
+    controller: VS\UsersBundle\Controller\ProfileController::profilePictureAction
+    
 vs_users_profile_show:
     path:     /profile
     controller: VS\UsersBundle\Controller\ProfileController::indexAction
