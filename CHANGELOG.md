@@ -1,3 +1,10 @@
+0.4.0	|	Release date: **02.07.2021**
+============================================
+* New Features:
+  - Update VsApplication Bundle version.
+  - Add Prefered Language Field into the ProfileDetails Form.
+
+
 0.3.24	|	Release date: **30.06.2021**
 ============================================
 * Bug-Fixes:
