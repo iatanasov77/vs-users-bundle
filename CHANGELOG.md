@@ -1,3 +1,9 @@
+1.0.0	|	Release date: **21.09.2021**
+============================================
+* New Features:
+  - Upgrade to Application Bundle 1.0.*
+
+
 0.4.0	|	Release date: **02.07.2021**
 ============================================
 * New Features:
