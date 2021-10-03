@@ -15,7 +15,7 @@
 	"require" : {
 		"php": "^7.2",
 		
-		"vankosoft/application-bundle": "^1.0",
+		"vankosoft/application-bundle": "^1.1",
 		
 		"symfony/security-bundle": "^4.4 || ^5.2",
 		"symfony/mailer": "^4.4 || ^5.2",

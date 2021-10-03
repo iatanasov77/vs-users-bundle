@@ -1,3 +1,9 @@
+1.1.0	|	Release date: **03.10.2021**
+============================================
+* New Features:
+  - Update Applcation Core Version.
+
+
 1.0.1	|	Release date: **26.09.2021**
 ============================================
 * Bug-Fixes:
