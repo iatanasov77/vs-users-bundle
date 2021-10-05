@@ -1,3 +1,9 @@
+1.2.0	|	Release date: **05.10.2021**
+============================================
+* New Features:
+  - Change Dependency Version for vankosoft/application-bundle.
+
+
 1.1.0	|	Release date: **03.10.2021**
 ============================================
 * New Features:
