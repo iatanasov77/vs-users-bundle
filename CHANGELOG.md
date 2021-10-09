@@ -1,3 +1,9 @@
+1.2.1	|	Release date: **09.10.2021**
+============================================
+* New Features:
+  - New LoginForm Authenticator.
+
+
 1.2.0	|	Release date: **05.10.2021**
 ============================================
 * New Features:
