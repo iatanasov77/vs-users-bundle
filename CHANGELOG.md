@@ -1,3 +1,9 @@
+1.2.3	|	Release date: **09.10.2021**
+============================================
+* Bug-Fixes:
+  - Fix New LoginFormAuthenticatorLoginFormAuthenticator.
+
+
 1.2.2	|	Release date: **09.10.2021**
 ============================================
 * Bug-Fixes:

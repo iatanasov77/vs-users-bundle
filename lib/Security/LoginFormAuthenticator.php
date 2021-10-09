@@ -7,6 +7,9 @@ use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\PasswordC
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\CsrfTokenBadge;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Security\Core\Exception\AuthenticationException;
 
 use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -93,5 +96,22 @@ class LoginFormAuthenticator extends AbstractAuthenticator
 //         return $response;
 //     }
 
-
+    public function onAuthenticationSuccess( Request $request, TokenInterface $token, string $firewallName ) : ?Response
+    {
+        // on success, let the request continue
+        return null;
+    }
+    
+    public function onAuthenticationFailure( Request $request, AuthenticationException $exception ) : ?Response
+    {
+        $data = [
+            // you may want to customize or obfuscate the message first
+            'message' => strtr( $exception->getMessageKey(), $exception->getMessageData() )
+            
+            // or to translate this message
+            // $this->translator->trans($exception->getMessageKey(), $exception->getMessageData())
+        ];
+        
+        return new JsonResponse( $data, Response::HTTP_UNAUTHORIZED );
+    }
 }
