@@ -2,7 +2,10 @@
 
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
 use Symfony\Component\Security\Http\Authenticator\AbstractAuthenticator;
+use Symfony\Component\Security\Http\Authenticator\AbstractLoginFormAuthenticator;
+use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
+use Symfony\Component\Security\Http\Authenticator\Passport\PassportInterface;
 use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\PasswordCredentials;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\CsrfTokenBadge;
 
@@ -20,7 +23,8 @@ use Symfony\Component\HttpFoundation\Cookie;
 
 use VS\UsersBundle\Repository\UsersRepository;
 
-class LoginFormAuthenticator extends AbstractAuthenticator
+//class LoginFormAuthenticator extends AbstractAuthenticator
+class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
 {
     use TargetPathTrait;
     
@@ -39,17 +43,12 @@ class LoginFormAuthenticator extends AbstractAuthenticator
         PasswordHasherFactoryInterface $encoderFactory,
         UsersRepository $userRepository,
         array $params
-    ) {
-        $this->urlGenerator     = $urlGenerator;
-        $this->csrfTokenManager = $csrfTokenManager;
-        $this->encoderFactory   = $encoderFactory;
-        $this->userRepository   = $userRepository;
-        $this->params           = $params;
-    }
-    
-    public function supports( Request $request ) : ?bool
-    {
-        return $this->params['loginRoute'] === $request->attributes->get( '_route' ) && $request->isMethod( 'POST' );
+        ) {
+            $this->urlGenerator     = $urlGenerator;
+            $this->csrfTokenManager = $csrfTokenManager;
+            $this->encoderFactory   = $encoderFactory;
+            $this->userRepository   = $userRepository;
+            $this->params           = $params;
     }
     
     public function authenticate( Request $request ) : PassportInterface
@@ -67,51 +66,43 @@ class LoginFormAuthenticator extends AbstractAuthenticator
         );
     }
     
-//     public function onAuthenticationSuccess( Request $request, TokenInterface $token, $providerKey )
-//     {
-//         if ( $targetPath = $this->getTargetPath( $request->getSession(), $providerKey ) ) {
-//             $response   = new RedirectResponse( $targetPath );
-//         } else {
-//             // redirect to some "app_homepage" route - of wherever you want
-//             $response   = new RedirectResponse( $this->urlGenerator->generate( $this->params['defaultRedirect'] ) );
-//         }
-        
-//         if ( false ) {
-//             // Before Symfony 5
-//             $cookieToken = Cookie::create( 'api_token',
-//                 $token->getUser()->getApiToken(),
-//                 time() + (int) $this->params['apiTokenLifetime'],    // new \DateTime( '+1 year' )
-//                 '/', $this->params['apiTokenDomain']   // '.example.com'
-//             );
-//         } else {
-//             // After Symfony 5
-//             $cookieToken = Cookie::create( 'api_token' )
-//                                 ->withValue( $token->getUser()->getApiToken() )
-//                                 ->withExpires( time() + $this->params['apiTokenLifetime'] )
-//                                 ->withDomain( $this->params['apiTokenDomain'] );    // '.example.com'
-//         }
-        
-//         $response->headers->setCookie( $cookieToken );
-        
-//         return $response;
-//     }
-
+    //     public function onAuthenticationSuccess( Request $request, TokenInterface $token, $providerKey )
+    //     {
+    //         if ( $targetPath = $this->getTargetPath( $request->getSession(), $providerKey ) ) {
+    //             $response   = new RedirectResponse( $targetPath );
+    //         } else {
+    //             // redirect to some "app_homepage" route - of wherever you want
+    //             $response   = new RedirectResponse( $this->urlGenerator->generate( $this->params['defaultRedirect'] ) );
+    //         }
+    
+    //         if ( false ) {
+    //             // Before Symfony 5
+    //             $cookieToken = Cookie::create( 'api_token',
+    //                 $token->getUser()->getApiToken(),
+    //                 time() + (int) $this->params['apiTokenLifetime'],    // new \DateTime( '+1 year' )
+    //                 '/', $this->params['apiTokenDomain']   // '.example.com'
+    //             );
+    //         } else {
+    //             // After Symfony 5
+    //             $cookieToken = Cookie::create( 'api_token' )
+    //                                 ->withValue( $token->getUser()->getApiToken() )
+    //                                 ->withExpires( time() + $this->params['apiTokenLifetime'] )
+    //                                 ->withDomain( $this->params['apiTokenDomain'] );    // '.example.com'
+    //         }
+    
+    //         $response->headers->setCookie( $cookieToken );
+    
+    //         return $response;
+    //     }
+    
     public function onAuthenticationSuccess( Request $request, TokenInterface $token, string $firewallName ) : ?Response
     {
         // on success, let the request continue
         return null;
     }
     
-    public function onAuthenticationFailure( Request $request, AuthenticationException $exception ) : ?Response
+    protected function getLoginUrl( Request $request ) : string
     {
-        $data = [
-            // you may want to customize or obfuscate the message first
-            'message' => strtr( $exception->getMessageKey(), $exception->getMessageData() )
-            
-            // or to translate this message
-            // $this->translator->trans($exception->getMessageKey(), $exception->getMessageData())
-        ];
-        
-        return new JsonResponse( $data, Response::HTTP_UNAUTHORIZED );
+        return $this->urlGenerator->generate( $this->params['loginRoute'] );
     }
 }

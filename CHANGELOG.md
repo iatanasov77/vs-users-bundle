@@ -1,3 +1,13 @@
+1.3.0	|	Release date: **10.10.2021**
+============================================
+* New Features:
+  - Add a Security/ApiKeyAuthenticator.
+  - Replace the existing LogoutSuccessHandler with MainLogoutListener for Firewall 'main'
+  - Update ApplicationBundle Version.
+* Bug-Fixes:
+  - Fix New LoginFormAuthenticator.
+
+
 1.2.3	|	Release date: **09.10.2021**
 ============================================
 * Bug-Fixes:

@@ -30,14 +30,20 @@ services:
                 apiTokenLifetime: '%vs_users.api_token.lifetime%'
             }
 
-    vs_users.security.token_authenticator:
-        class: VS\UsersBundle\Security\TokenAuthenticator
+    vs_users.security.api_key_authenticator:
+        class: VS\UsersBundle\Security\ApiKeyAuthenticator
         arguments:
             - '@vs_users.repository.users'
 
+    # Register a listener for the logout event only on the main firewall
+    # https://symfony.com/blog/new-in-symfony-5-1-simpler-logout-customization
     vs_users.security.logout_success_handler:
-        class: VS\UsersBundle\Security\LogoutSuccessHandler
+        class: VS\UsersBundle\Security\MainLogoutListener
         arguments:
             - '@security.http_utils'
             - '/'
+        tags:
+            - name: 'kernel.event_listener'
+              event: 'Symfony\Component\Security\Http\Event\LogoutEvent'
+              dispatcher: security.event_dispatcher.main
 

@@ -24,9 +24,3 @@ services:
         arguments:
             - "@request_stack"
             - '%vs_users.model.users.class%'
-    
-#     ia_user.registration_listener:
-#         class: VS\UsersBundle\EventListener\RegistrationListener
-#         arguments: []
-#         tags:
-#             - { name: kernel.event_subscriber }
