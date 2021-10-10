@@ -1,14 +1,13 @@
 <?php namespace VS\UsersBundle\Security;
 
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Security\Http\Event\LogoutEvent;
 use Symfony\Component\Security\Http\HttpUtils;
 
 /*
  * https://symfony.com/blog/new-in-symfony-5-1-simpler-logout-customization
- * https://github.com/symfony/symfony/issues/37292
+ * https://stackoverflow.com/questions/60998790/symfony-5confirmation-message-after-logout
  */
-final class MainLogoutListener implements EventSubscriberInterface
+final class MainLogoutListener
 {
     /** @var HttpUtils */
     protected $httpUtils;
@@ -22,18 +21,15 @@ final class MainLogoutListener implements EventSubscriberInterface
         $this->targetUrl = $targetUrl;
     }
     
-    public function onLogout( LogoutEvent $event )
+    /**
+     * @param LogoutEvent $logoutEvent
+     * @return void
+     */
+    public function onSymfonyComponentSecurityHttpEventLogoutEvent( LogoutEvent $logoutEvent ) : void
     {
-        $response   = $this->httpUtils->createRedirectResponse( $event->getRequest(), $this->targetUrl );
+        $response   = $this->httpUtils->createRedirectResponse( $logoutEvent->getRequest(), $this->targetUrl );
         $response->headers->clearCookie( 'api_token' );
         
-        $event->setResponse( $response );
-    }
-
-    public static function getSubscribedEvents() : array
-    {
-        return [
-            LogoutEvent::class => 'onLogout',
-        ];
+        $logoutEvent->setResponse( $response );
     }
 }
