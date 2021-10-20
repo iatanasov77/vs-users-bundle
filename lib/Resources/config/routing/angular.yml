@@ -1,0 +1,17 @@
+
+routes:
+    users:
+        name: /users
+        controller: UsersController
+        templateUrl: /bundles/iausers/js/Templates/users.html
+        isFree: true
+    addUser:
+        name: /add-user
+        controller: EditUserController
+        templateUrl: /bundles/iausers/js/Templates/editUser.html
+        isFree: true
+    editUser:
+        name: /edit-user/:userId
+        controller: EditUserController
+        templateUrl: /bundles/iausers/js/Templates/editUser.html
+        isFree: true

@@ -1,0 +1,18 @@
+imports:
+    - { resource: services/controller.yaml }
+    - { resource: services/security.yml }
+    - { resource: services/registration.yml }
+    - { resource: services/reset_password.yml }
+    - { resource: services/user_management.yaml }
+
+parameters:
+    vs_users.api_token.lifetime: 3600
+    vs_users.api_token.domain: '%env(API_TOKEN_DOMAIN)%'
+    vs_user.profile_pictures_dir: '%kernel.project_dir%/public/uploads/profile_pictures'
+
+services:        
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+

@@ -1,0 +1,44 @@
+<div class="container view">
+    <header>
+        <h3>Edit User</h3>
+    </header>
+
+    <div>
+        <a class="nav-pills active" href="#/pages">Back</a>
+    </div>
+    <br /><br />
+
+    <div style="margin-left: 10px;">
+    <form name="formPage">
+        <div class="row add-page">
+            <div class="span3">
+                Email:
+                <br />
+                <input name="email" data-ng-model="item.email" type="text" required placeholder="Email">
+                
+            </div>
+            <div class="span3">
+                Username:
+                <br />
+                <input name="username" data-ng-model="item.username" type="text" required placeholder="Username">
+            </div>
+            <div class="span3">
+                Password:
+                <br />
+                <input name="passwoord" data-ng-model="item.password" type="password" required placeholder="Password">
+            </div>
+            <div class="span3">
+                Confirm Password:
+                <br />
+                <input name="confirmpassword" data-ng-model="item.confirmpassword" type="password" required placeholder="Confirm Password">
+            </div>
+            <br /><br />
+            <div class="span3">
+                <button id="submitPage" class="btn btn-primary" type="button"
+                    data-ng-disabled="!item.email || !item.username || !item.password"
+                    data-ng-click="save()">Save</button>
+            </div>
+        </div>
+    </form>
+</div>
+</div>

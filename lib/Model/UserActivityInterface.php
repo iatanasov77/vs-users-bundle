@@ -1,0 +1,18 @@
+<?php namespace VS\UsersBundle\Model;
+
+use Sylius\Component\Resource\Model\ResourceInterface;
+
+interface UserActivityInterface extends ResourceInterface
+{
+    /** @return integer */
+    public function getId();
+    
+    /** @return string */
+    public function getUser();
+    
+    /** @return \DateTimeInterface */
+    public function getDate();
+    
+    /** @return string */
+    public function getActivity();
+}

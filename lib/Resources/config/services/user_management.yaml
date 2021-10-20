@@ -1,0 +1,23 @@
+services:
+    VS\UsersBundle\Repository\UsersRepository: '@vs_users.repository.users'
+    
+    VS\UsersBundle\Controller\UsersExtController:
+        tags: ['controller.service_arguments']
+        autowire: true
+        arguments:
+            - "@vs_users.repository.users"
+        
+    vs_users.resources.users.form:
+        class: VS\UsersBundle\Form\UserFormType
+        tags:
+            - { name: form.type }
+        arguments:
+            - "@request_stack"
+            - '%vs_users.model.users.class%'
+
+    vs_users.command.create_user:
+        class: VS\UsersBundle\Command\CreateUserCommand
+        arguments:
+            - '@vs_users.manager.user'
+        tags:
+            - { name: console.command }

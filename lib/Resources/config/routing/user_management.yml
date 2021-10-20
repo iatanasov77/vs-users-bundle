@@ -1,0 +1,22 @@
+vs_users_profile_picture_file_name:
+    path:     /profile_picture_file_name
+    controller: VS\UsersBundle\Controller\ProfileController::profilePictureAction
+    
+vs_users_profile_show:
+    path:     /profile
+    controller: VS\UsersBundle\Controller\ProfileController::indexAction
+    
+vs_users_profile_change_password:
+    path:     /profile/change-password
+    controller: VS\UsersBundle\Controller\ProfileController:changePasswordAction }
+
+vs_users_crud:
+    resource: |
+        alias: vs_users.users
+        path: /users
+        templates: "@VSUsers/UsersCrud"
+    type: sylius.resource
+    
+vs_users_roles_tree_combo_with_selected:
+    path: /json/{userId}/user-roles/easyui-combotree
+    controller: VS\UsersBundle\Controller\UsersExtController::rolesEasyuiComboTreeWithSelectedSource
