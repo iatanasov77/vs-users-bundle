@@ -49,7 +49,7 @@ class User implements UserInterface, \ArrayAccess
     protected $password;
 
     /**
-     * @var array
+     * @var Collection|UserRole[]
      * 
      * https://symfony.com/doc/current/security.html#hierarchical-roles
      */
@@ -107,6 +107,7 @@ class User implements UserInterface, \ArrayAccess
     
     public function __construct()
     {
+        $this->roles            = new ArrayCollection();
         $this->activities       = new ArrayCollection();
         $this->notifications    = new ArrayCollection();
     }
@@ -289,14 +290,21 @@ class User implements UserInterface, \ArrayAccess
         return $this->firstName . ' ' . $this->lastName;
     }
     
+    /**
+     * @return Collection|UserRole[]
+     */
     public function getRoles()
     {
+        return $this->roles;
+        
+        /*
         $roles = $this->roles;
         
         // we need to make sure to have at least one role
         $roles[] = static::ROLE_DEFAULT;
         
         return array_unique( $roles );
+        */
     }
     
     public function setRoles( $roles ) : self
@@ -309,6 +317,24 @@ class User implements UserInterface, \ArrayAccess
     public function hasRole( $role )
     {
         return in_array( strtoupper( $role ), $this->getRoles(), true );
+    }
+    
+    public function addRole( UserRoleInterface $role ) : self
+    {
+        if ( ! $this->roles->contains( $role ) ) {
+            $this->roles[] = $role;
+        }
+        
+        return $this;
+    }
+    
+    public function removeRole( UserRoleInterface $role ) : self
+    {
+        if ( $this->roles->contains( $role ) ) {
+            $this->roles->removeElement( $role );
+        }
+        
+        return $this;
     }
     
     public function eraseCredentials()

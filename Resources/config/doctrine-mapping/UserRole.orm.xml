@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                  http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd"
+>
+    <mapped-superclass name="VS\UsersBundle\Model\UserRole">
+        <id name="id" column="id" type="integer">
+            <generator strategy="AUTO" />
+        </id>
+      	
+      	<many-to-one field="parent" name="parent_id" target-entity="VS\UsersBundle\Model\UserRoleInterface">
+        	<cascade>
+                <cascade-all/>
+            </cascade>
+        </many-to-one>
+        
+        <one-to-many field="children" target-entity="VS\UsersBundle\Model\UserRoleInterface" mapped-by="parent">
+            <cascade>
+                <cascade-all/>
+            </cascade>
+        </one-to-many>
+        
+        <many-to-many field="users" target-entity="VS\UsersBundle\Model\UserInterface" mapped-by="roles" />
+        
+        <many-to-one field="taxon" name="taxon_id" target-entity="VS\ApplicationBundle\Model\Interfaces\TaxonInterface" inversed-by="children">
+        	<cascade>
+                <cascade-all/>
+            </cascade>
+        </many-to-one>
+        
+    </mapped-superclass>
+</doctrine-mapping>
