@@ -17,6 +17,7 @@ use VS\UsersBundle\Form\UserFormType;
 
 use VS\UsersBundle\Model\UserRole;
 use VS\UsersBundle\Model\UserRoleInterface;
+use VS\UsersBundle\Repository\UserRolesRepository;
 use VS\UsersBundle\Controller\UsersRolesController;
 use VS\UsersBundle\Form\UserRoleForm;
 
@@ -96,7 +97,7 @@ class Configuration implements ConfigurationInterface
                                         ->scalarNode( 'interface' )->defaultValue( UserRoleInterface::class )->cannotBeEmpty()->end()
                                         ->scalarNode( 'controller' )->defaultValue( UsersRolesController::class )->cannotBeEmpty()->end()
                                         //->scalarNode( 'repository' )->cannotBeEmpty()->end()
-                                        ->scalarNode( 'repository' )->defaultValue( EntityRepository::class )->cannotBeEmpty()->end()
+                                        ->scalarNode( 'repository' )->defaultValue( UserRolesRepository::class )->cannotBeEmpty()->end()
                                         ->scalarNode( 'factory' )->defaultValue( Factory::class )->cannotBeEmpty()->end()
                                         ->scalarNode( 'form' )->defaultValue( UserRoleForm::class )->cannotBeEmpty()->end()
                                     ->end()

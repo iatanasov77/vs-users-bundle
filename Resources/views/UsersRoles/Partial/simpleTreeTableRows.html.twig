@@ -8,5 +8,5 @@
 </tr>
 
 {% for child in item.children %}
-	{% include '@VSUsers/Pages/UsersRoles/Partial/simpleTreeTableRows.html.twig' with {'parentId': item.id, 'item': child} %}   
+	{% include '@VSUsers/UsersRoles/Partial/simpleTreeTableRows.html.twig' with {'parentId': item.id, 'item': child} %}   
 {% endfor %}

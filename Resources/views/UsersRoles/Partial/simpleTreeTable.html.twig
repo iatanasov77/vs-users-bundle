@@ -8,7 +8,7 @@
 	<tbody>
         {% for item in items %}
         	{% if not item.parent %}
-        		{% include '@VSUsers/Pages/UsersRoles/Partial/simpleTreeTableRows.html.twig' with {'item': item, 'parentId': 0} %}
+        		{% include '@VSUsers/UsersRoles/Partial/simpleTreeTableRows.html.twig' with {'item': item, 'parentId': 0} %}
         	{% endif %}
         {% endfor %}
     </tbody>
