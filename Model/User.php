@@ -293,18 +293,25 @@ class User implements UserInterface, \ArrayAccess
     /**
      * @return Collection|UserRole[]
      */
+    public function getRolesTree()
+    {
+        
+    }
+    
+    /**
+     * @return array
+     */
     public function getRoles()
     {
-        return $this->roles;
-        
-        /*
-        $roles = $this->roles;
+        $roles  = [];
+        foreach ( $this->roles as $role ) {
+            $roles[]    = $role->getRole();
+        }
         
         // we need to make sure to have at least one role
         $roles[] = static::ROLE_DEFAULT;
         
         return array_unique( $roles );
-        */
     }
     
     public function setRoles( $roles ) : self
