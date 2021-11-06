@@ -60,5 +60,6 @@ class UsersRolesController extends AbstractCrudController
             
             $entity->setTaxon( $newTaxon );
             $entity->setParent( $parentCategory );
+        }
     }
 }
