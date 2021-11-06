@@ -33,8 +33,8 @@ class UsersRolesController extends AbstractCrudController
     {
         $translatableLocale     = $form['currentLocale']->getData();
         $categoryName           = $form['name']->getData();
-        $parentCategory         = $this->get( 'vs_cms.repository.page_categories' )
-                                        ->findByTaxonId( $_POST['page_category_form']['parent'] );
+        $parentCategory         = $this->get( 'vs_users.repository.user_roles' )
+                                        ->findByTaxonId( $request->request->get( 'parent' ) ); // $_POST['user_role_form']['parent']
         
         if ( $entity->getTaxon() ) {
             $entity->getTaxon()->setCurrentLocale( $translatableLocale );
@@ -60,6 +60,5 @@ class UsersRolesController extends AbstractCrudController
             
             $entity->setTaxon( $newTaxon );
             $entity->setParent( $parentCategory );
-        }
     }
 }

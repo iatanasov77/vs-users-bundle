@@ -33,7 +33,7 @@ class UserRoleForm extends AbstractForm
         $role   = $options['data'];
         
         $builder
-            ->setMethod( $category && $category->getId() ? 'PUT' : 'POST' )
+            ->setMethod( $role && $role->getId() ? 'PUT' : 'POST' )
             
             ->add( 'currentLocale', ChoiceType::class, [
                 'label'                 => 'vs_users.form.user_role.locale',
@@ -55,7 +55,7 @@ class UserRoleForm extends AbstractForm
             ->add( 'parent', EntityType::class, [
                 'label'                 => 'vs_users.form.user_role.parent_role',
                 'translation_domain'    => 'VSUsersBundle',
-                'class'                 => $this->categoryClass,
+                'class'                 => $this->roleClass,
                 'query_builder'         => function ( EntityRepository $er ) use ( $role )
                 {
                     $qb = $er->createQueryBuilder( 'ur' );
