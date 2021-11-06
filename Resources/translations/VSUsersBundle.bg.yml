@@ -37,38 +37,53 @@ vs_users:
             new_password_placeholder_confirm_pasword: 'Потвърди Парола'
             new_password_button: 'Смени Парола'
             
-        template:
-            profile_show_title: 'Моят Профил'
-            profile_show_tab_details: 'Детайли'
-            profile_show_tab_change_password: 'Смени Парола'
-            profile_show_tab_activity: 'Активност'
-            profile_details_header: 'Профил Информация'
-            profile_change_password_header: 'Смени Парола'
-            profile_activity_header: 'Активност'
-            register_confirmation_email_text_1: 'Моля потвърдете вашият емейл като кликнете на линка:'
-            register_confirmation_email_text_2: 'Потвърждаване на Емейл'
-            register_confirmation_email_text_3: 'Линкът изтича след '
-            register_confirmation_email_text_4: 'Поздрави!'
-            register_header_title: 'Регистрация'
-            register_header_description: 'Моля въведете потреителски данни.'
-            register_already_member: 'Вече сте регистриран?'
-            register_login_here: 'Логване тук.'
-            forgot_password_email_header: 'Емейл за Забравена Парола'
-            forgot_password_email_text_1: 'Забравена парола линк:'
-            forgot_password_email_text_2: 'Линкът е валиден до'
-            forgot_password_email_text_3: 'Получавате този мейл тъйк като сте стартирали операция забравена парола.'
-            forgot_password_email_text_4: 'Поздрави!'
-            forgot_password_form_header: "Не се притеснявайте, ще ви изпратим мейл за да смените паролата си."
-            forgot_password_form_email_placeholder: 'Вашият Емейл'
-            forgot_password_form_button_reset: 'Смени Парола'
-            forgot_password_form_button_signup: 'Регистрация'
-            userscrud_index_title: 'Управление на Потребители'
-            userscrud_index_pageheader: 'Потребители'
-            userscrud_index_tablecolumns_username: 'Потребител'
-            userscrud_index_tablecolumns_email: 'Емейл'
-            userscrud_index_tablecolumns_roles: 'Роли'
-            userscrud_index_tablecolumns_fullname: 'Цяло Име'
-            userscrud_index_tablecolumns_action: 'Действие'
-            userscrud_create_title: 'Създаване на Нов Потребител'
-            userscrud_update_title: 'Редактиране на Потребител'
-            userscrud_update_header: 'Потребител Детайли'
+        user_role:
+            locale: Език
+            name: Име
+            role: Роля
+            parent_role: Родителска Роля
+            parent_role_placeholder: '-- Избери Родителска Роля --'
+            
+    template:
+        profile_show_title: 'Моят Профил'
+        profile_show_tab_details: 'Детайли'
+        profile_show_tab_change_password: 'Смени Парола'
+        profile_show_tab_activity: 'Активност'
+        profile_details_header: 'Профил Информация'
+        profile_change_password_header: 'Смени Парола'
+        profile_activity_header: 'Активност'
+        register_confirmation_email_text_1: 'Моля потвърдете вашият емейл като кликнете на линка:'
+        register_confirmation_email_text_2: 'Потвърждаване на Емейл'
+        register_confirmation_email_text_3: 'Линкът изтича след '
+        register_confirmation_email_text_4: 'Поздрави!'
+        register_header_title: 'Регистрация'
+        register_header_description: 'Моля въведете потреителски данни.'
+        register_already_member: 'Вече сте регистриран?'
+        register_login_here: 'Логване тук.'
+        forgot_password_email_header: 'Емейл за Забравена Парола'
+        forgot_password_email_text_1: 'Забравена парола линк:'
+        forgot_password_email_text_2: 'Линкът е валиден до'
+        forgot_password_email_text_3: 'Получавате този мейл тъйк като сте стартирали операция забравена парола.'
+        forgot_password_email_text_4: 'Поздрави!'
+        forgot_password_form_header: "Не се притеснявайте, ще ви изпратим мейл за да смените паролата си."
+        forgot_password_form_email_placeholder: 'Вашият Емейл'
+        forgot_password_form_button_reset: 'Смени Парола'
+        forgot_password_form_button_signup: 'Регистрация'
+        userscrud_index_title: 'Управление на Потребители'
+        userscrud_index_pageheader: 'Потребители'
+        userscrud_index_tablecolumns_username: 'Потребител'
+        userscrud_index_tablecolumns_email: 'Емейл'
+        userscrud_index_tablecolumns_roles: 'Роли'
+        userscrud_index_tablecolumns_fullname: 'Цяло Име'
+        userscrud_index_tablecolumns_action: 'Действие'
+        userscrud_create_title: 'Създаване на Нов Потребител'
+        userscrud_update_title: 'Редактиране на Потребител'
+        userscrud_update_header: 'Потребител Детайли'
+        
+        users_roles_index_title: Потребителски Роли
+        users_roles_index_row_role: Роля
+        users_roles_index_row_actions: Действия
+        users_roles_index_button_edit: Редакция
+        users_roles_update_title: Редактиране на Потребителска Роля
+        users_roles_create_title: Създаване на Потребителска Роля
+        users_roles_update_form_title: Потребителска Роля

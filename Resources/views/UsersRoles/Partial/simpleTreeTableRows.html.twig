@@ -1,0 +1,12 @@
+<tr data-node-id="{{ item.id }}" {% if parentId %}data-node-pid="{{ item.parent.id }}"{% endif %}>
+    <td>{{ item.name }}</td>
+    <td>
+    	<a href="{{ path('vs_users_user_roles_update', {'id': item.id}) }}">
+    		{{ 'vs_users.template.users_roles_index_button_edit' | trans( {},'VSUsersBundle' ) }}
+    	</a>
+    </td>
+</tr>
+
+{% for child in item.children %}
+	{% include '@VSUsers/Pages/UsersRoles/Partial/simpleTreeTableRows.html.twig' with {'parentId': item.id, 'item': child} %}   
+{% endfor %}

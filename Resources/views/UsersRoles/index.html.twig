@@ -1,0 +1,46 @@
+{% extends "@VSApplication/layout.html.twig" %}
+
+{# Override Blocs #}
+{% block title %}{{ parent() }} :: {{ 'vs_users.template.users_roles_index_title' | trans( {},'VSUsersBundle' ) }}{% endblock %}
+{% block pageTitle %}<i class="icon_genius"></i> {{ 'vs_users.template.users_roles_index_title' | trans( {},'VSUsersBundle' ) }}{% endblock %}
+
+{% block content %}
+    <div class="container-fluid  dashboard-content">
+    	<!-- ============================================================== -->
+        <!-- pageheader -->
+        <!-- ============================================================== -->
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="page-header">
+                    <h2 class="pageheader-title">{{ 'vs_users.template.users_roles_index_title' | trans( {},'VSUsersBundle' ) }}</h2>
+                    <p class="pageheader-text">Proin placerat ante duiullam scelerisque a velit ac porta, fusce sit amet vestibulum mi. Morbi lobortis pulvinar quam.</p>
+                    <div class="page-breadcrumb">
+                        <nav aria-label="breadcrumb">
+                            {{ knp_menu_render('breadcrumbs', {'template': '@VSApplication/Menu/breadcrumb.html.twig'}) }}
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- end pageheader -->
+        <!-- ============================================================== -->
+
+        <div class="row">
+            <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12 mb-5">
+                
+                {% if items|length > 0 %}
+                	{% include '@VSUsers/Pages/UsersRoles/Partial/simpleTreeTable.html.twig' %}
+                {% else %}
+                    {{ alerts.info('sylius.ui.there_are_no_mappers_to_display'|trans) }}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block body_scripts %}
+    {{ parent() }}
+    
+    {{ encore_entry_script_tags( 'js/users-roles' ) }}
+{% endblock %}

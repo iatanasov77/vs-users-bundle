@@ -36,6 +36,13 @@ vs_users:
             new_password_placeholder_pasword: 'Password'
             new_password_placeholder_confirm_pasword: 'Confirm Password'
             new_password_button: 'Change Password'
+            
+        user_role:
+            locale: Language
+            name: Name
+            role: Role
+            parent_role: Parent Role
+            parent_role_placeholder: '-- Select Parent Role --'
     
     template:
         profile_show_title: 'My Profile'
@@ -72,3 +79,10 @@ vs_users:
         userscrud_create_title: 'Create New User'
         userscrud_update_title: 'Edit User'
         userscrud_update_header: 'User Details'
+        users_roles_index_title: User Roles
+        users_roles_index_row_role: Role
+        users_roles_index_row_actions: Actions
+        users_roles_index_button_edit: Edit
+        users_roles_update_title: Edit User Role
+        users_roles_create_title: Create User Role
+        users_roles_update_form_title: User Role
