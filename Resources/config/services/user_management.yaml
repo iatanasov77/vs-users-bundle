@@ -6,7 +6,7 @@ services:
         autowire: true
         arguments:
             - "@vs_users.repository.users"
-        
+    
     vs_users.resources.users.form:
         class: VS\UsersBundle\Form\UserFormType
         tags:
@@ -14,6 +14,14 @@ services:
         arguments:
             - "@request_stack"
             - '%vs_users.model.users.class%'
+
+    vs_users.resources.user_roles.form:
+        class: VS\UsersBundle\Form\UserRoleForm
+        tags:
+            - { name: form.type }
+        arguments:
+            - '%vs_users.model.user_roles.class%'
+            - '@vs_users.repository.user_roles'
 
     vs_users.command.create_user:
         class: VS\UsersBundle\Command\CreateUserCommand
