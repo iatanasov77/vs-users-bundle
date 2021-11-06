@@ -13,7 +13,7 @@ class UserRole implements UserRoleInterface
     const ADMIN = 'ROLE_ADMIN';
     const USER_PREMIUM = 'ROLE_USER_PREMIUM';
     
-    /** @var mixed */
+    /** @var integer */
     protected $id;
     
     /** @var string */
