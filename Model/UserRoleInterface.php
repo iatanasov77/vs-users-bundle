@@ -5,6 +5,7 @@ use Doctrine\Common\Collections\Collection;
 interface UserRoleInterface
 {
     public function getName();
+    public function getRole();
     
     public function getParent(): ?UserRoleInterface;
     public function getChildren() : Collection;
