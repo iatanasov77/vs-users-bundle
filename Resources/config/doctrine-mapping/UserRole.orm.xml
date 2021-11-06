@@ -9,6 +9,8 @@
             <generator strategy="AUTO" />
         </id>
       	
+      	<field name="role" column="role" type="string" length="32" nullable="false" />
+        
       	<many-to-one field="parent" name="parent_id" target-entity="VS\UsersBundle\Model\UserRoleInterface">
         	<cascade>
                 <cascade-all/>

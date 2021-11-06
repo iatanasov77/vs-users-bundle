@@ -16,6 +16,9 @@ class UserRole implements UserRoleInterface
     /** @var mixed */
     protected $id;
     
+    /** @var string */
+    protected $role;
+    
     /** @var UserRoleInterface */
     protected $parent;
     
@@ -40,6 +43,18 @@ class UserRole implements UserRoleInterface
     public function getId()
     {
         return $this->id;
+    }
+    
+    public function getRole()
+    {
+        return $this->role;
+    }
+    
+    public function setRole( $role ) : UserRoleInterface
+    {
+        $this->role = $role;
+        
+        return $this;
     }
     
     /**
@@ -127,6 +142,6 @@ class UserRole implements UserRoleInterface
     
     public function __toString()
     {
-        return $this->taxon ? $this->taxon->getName() : '';
+        return $this->role;
     }
 }
