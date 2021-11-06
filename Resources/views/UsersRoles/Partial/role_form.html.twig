@@ -13,6 +13,15 @@
         {{ form_widget(form.currentLocale, {'attr': {'class': 'form-control'}}) }}
     </div>
      
+    <div class="form-group">
+        {{ form_label(form.role, null, {
+            'label_attr': {'class': 'col-form-label'}
+            }) 
+        }}
+        
+        {{ form_widget(form.role, {'attr': {'class': 'form-control'}}) }}
+    </div>
+     
     {% if(item.id) %}
     	{% set taxonId = item.taxon.parent.id %}
     {% else %}
