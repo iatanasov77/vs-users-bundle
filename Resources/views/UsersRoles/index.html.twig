@@ -39,10 +39,18 @@
             </div>
         </div>
     </div>
+    
+    {% include '@VSApplication/Partial/resource-delete.html.twig' %}
+{% endblock %}
+
+{% block head_styles %}
+    {{ parent() }}
+    
+    {{ encore_entry_link_tags( 'js/users-roles-index' ) }}
 {% endblock %}
 
 {% block body_scripts %}
     {{ parent() }}
     
-    {{ encore_entry_script_tags( 'js/users-roles' ) }}
+    {{ encore_entry_script_tags( 'js/users-roles-index' ) }}
 {% endblock %}
