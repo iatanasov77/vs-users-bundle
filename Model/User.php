@@ -49,11 +49,16 @@ class User implements UserInterface, \ArrayAccess
     protected $password;
 
     /**
+     * @var array
+     */
+    protected $rolesArray;
+    
+    /**
      * @var Collection|UserRole[]
      * 
      * https://symfony.com/doc/current/security.html#hierarchical-roles
      */
-    protected $roles;
+    protected $rolesCollection;
     
     /**
      * Prefered locale.
@@ -107,7 +112,7 @@ class User implements UserInterface, \ArrayAccess
     
     public function __construct()
     {
-        $this->roles            = new ArrayCollection();
+        $this->rolesCollection  = new ArrayCollection();
         $this->activities       = new ArrayCollection();
         $this->notifications    = new ArrayCollection();
     }
@@ -291,20 +296,19 @@ class User implements UserInterface, \ArrayAccess
     }
     
     /**
-     * @return Collection|UserRole[]
-     */
-    public function getRolesTree()
-    {
-        
-    }
-    
-    /**
+     * For Backward Compatibility Create 2 Roles Fields <rolesArray and rolesCollection>
+	 * You can choose which to use
+	 * 
      * @return array
      */
     public function getRoles()
     {
+        return $this->getRolesArray();
+        
+        /* EXAMPLE To Use RoleCollection */
+        /*
         $roles  = [];
-        foreach ( $this->roles as $role ) {
+        foreach ( $this->rolesCollection as $role ) {
             $roles[]    = $role->getRole();
         }
         
@@ -312,11 +316,25 @@ class User implements UserInterface, \ArrayAccess
         $roles[] = static::ROLE_DEFAULT;
         
         return array_unique( $roles );
+        */
     }
     
-    public function setRoles( $roles ) : self
+    /**
+     * @return array
+     */
+    public function getRolesArray()
     {
-        $this->roles    = $roles;
+        $roles  = $this->rolesArray ?: [];
+        
+        // we need to make sure to have at least one role
+        $roles[] = static::ROLE_DEFAULT;
+        
+        return array_unique( $roles );
+    }
+    
+    public function setRolesArray( array $roles ) : self
+    {
+        $this->rolesArray    = $roles;
         
         return $this;
     }
@@ -326,10 +344,18 @@ class User implements UserInterface, \ArrayAccess
         return in_array( strtoupper( $role ), $this->getRoles(), true );
     }
     
+    /**
+     * @return Collection|UserRole[]
+     */
+    public function getRolesCollection()
+    {
+        return $this->rolesCollection;
+    }
+    
     public function addRole( UserRoleInterface $role ) : self
     {
-        if ( ! $this->roles->contains( $role ) ) {
-            $this->roles[] = $role;
+        if ( ! $this->rolesCollection->contains( $role ) ) {
+            $this->rolesCollection[]    = $role;
         }
         
         return $this;
@@ -337,8 +363,8 @@ class User implements UserInterface, \ArrayAccess
     
     public function removeRole( UserRoleInterface $role ) : self
     {
-        if ( $this->roles->contains( $role ) ) {
-            $this->roles->removeElement( $role );
+        if ( $this->rolesCollection->contains( $role ) ) {
+            $this->rolesCollection->removeElement( $role );
         }
         
         return $this;
