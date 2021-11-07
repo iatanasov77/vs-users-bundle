@@ -21,10 +21,12 @@
         <field name="salt" column="salt" type="string" nullable="false" />
         <field name="password" column="password" type="string" nullable="false" />
         
-        <!--
-        <field name="roles" column="roles" type="array" nullable="false" />
-        -->
-        <many-to-many field="roles" target-entity="VS\UsersBundle\Model\UserRoleInterface" inversed-by="users">
+		<!-- 
+			For Backward Compatibility Create 2 Roles Fields <rolesArray and rolesCollection>
+			You can choose which to use
+		-->
+        <field name="rolesArray" column="roles_array" type="array" nullable="false" />
+        <many-to-many field="rolesCollection" target-entity="VS\UsersBundle\Model\UserRoleInterface" inversed-by="users">
         	<cascade>
                 <cascade-persist/>
                 <cascade-merge/>
