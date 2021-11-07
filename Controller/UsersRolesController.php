@@ -20,30 +20,35 @@ class UsersRolesController extends AbstractCrudController
     
     protected function customData( Request $request ): array
     {
-        $taxonomy   = $this->get( 'vs_application.repository.taxonomy' )->findByCode(
-            $this->getParameter( 'vs_application.user_roles.taxonomy_code' )
-        );
+        $taxonomyCode   = $this->getParameter( 'vs_application.user_roles.taxonomy_code' );
+        $taxonomy       = $this->get( 'vs_application.repository.taxonomy' )->findByCode( $taxonomyCode );
+        if ( ! $taxonomy ) {
+            throw new \Exception( sprintf( "Taxonomy with code '%s' does not exists. Please create it before!", $taxonomyCode ) );
+        }
         
         return [
-            'taxonomyId'    => $taxonomy ? $taxonomy->getId() : 0,
+            'taxonomy'  => $taxonomy,
         ];
     }
     
     protected function prepareEntity( &$entity, &$form, Request $request )
     {
-        $translatableLocale     = $form['currentLocale']->getData();
-        $categoryName           = $form['name']->getData();
-        $parentCategory         = $this->get( 'vs_users.repository.user_roles' )
-                                        ->findByTaxonId( $request->request->get( 'parent' ) ); // $_POST['user_role_form']['parent']
+        $translatableLocale = $form['currentLocale']->getData();
+        $categoryName       = $form['name']->getData();
+        
+        // Try This to Get Post Values
+        //echo "<pre>"; var_dump( $request->request->all() ); die;
+        $parentRole         = $this->get( 'vs_users.repository.user_roles' )
+                                    ->findByTaxonId( $_POST['user_role_form']['parent'] );
         
         if ( $entity->getTaxon() ) {
             $entity->getTaxon()->setCurrentLocale( $translatableLocale );
             $entity->getTaxon()->setName( $categoryName );
-            if ( $parentCategory ) {
-                $entity->getTaxon()->setParent( $parentCategory->getTaxon() );
+            if ( $parentRole ) {
+                $entity->getTaxon()->setParent( $parentRole->getTaxon() );
             }
             
-            $entity->setParent( $parentCategory );
+            $entity->setParent( $parentRole );
         } else {
             /*
              * @WORKAROUND Create Taxon If not exists
@@ -54,12 +59,12 @@ class UsersRolesController extends AbstractCrudController
             $newTaxon   = $this->createTaxon(
                 $categoryName,
                 $translatableLocale,
-                $parentCategory ? $parentCategory->getTaxon() : null,
+                $parentRole ? $parentRole->getTaxon() : null,
                 $taxonomy->getId()
             );
             
             $entity->setTaxon( $newTaxon );
-            $entity->setParent( $parentCategory );
+            $entity->setParent( $parentRole );
         }
     }
 }

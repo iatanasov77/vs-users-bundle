@@ -30,10 +30,11 @@ class UserRoleForm extends AbstractForm
     {
         parent::buildForm( $builder, $options );
         
-        $role   = $options['data'];
+        $role       = $options['data'];
+        $formMethod = $role && $role->getId() ? 'PUT' : 'POST';
         
         $builder
-            ->setMethod( $role && $role->getId() ? 'PUT' : 'POST' )
+            ->setMethod( $formMethod )
             
             ->add( 'currentLocale', ChoiceType::class, [
                 'label'                 => 'vs_users.form.user_role.locale',

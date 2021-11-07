@@ -1,6 +1,5 @@
 {% import "@VSApplication/Macros/form.html.twig" as vs_form %}
 
-{% if(item.id) %}{% set method = "PUT" %}{% else %}{% set method = "POST" %}{% endif %}
 {{ form_start(form, { 'attr': {'class': 'form-horizontal '} }) }}
     {{ form_widget(form._token) }}
     
@@ -23,21 +22,27 @@
     </div>
      
     {% if(item.id) %}
-    	{% set taxonId = item.taxon.parent.id %}
+    	{% if item.taxon.parent.id == taxonomy.rootTaxon.id %}
+    		{% set taxonId = '' %}
+    	{% else %}
+    	    {% set taxonId = item.taxon.parent.id %}
+    	{% endif %}
     {% else %}
     	{% set taxonId = '' %}
     {% endif %}
+    {% set taxononomyRootTaxonId = taxonomy.rootTaxon.id %}
     {% if item.id %}{% set itemId = item.id %}{% else %}{% set itemId = 0 %}{% endif %}
-    {% set comboDataSourceUrl  = url( 'vs_application_taxonomy_taxons_easyui_combotree', {'taxonomyId': taxonomyId} ) %}
+    {% set comboDataSourceUrl  = url( 'vs_application_taxonomy_taxons_easyui_combotree', {'taxonomyId': taxonomy.id} ) %}
     {% set comboTreePlaceholder = 'vs_users.form.user_role.parent_role_placeholder' | trans( {},'VSUsersBundle' ) %}
     {% set comboDataOptions    = "
     		url:'" ~ comboDataSourceUrl ~ 
-    		"', required:true, prompt:'" ~ comboTreePlaceholder ~"',
+    		"', required:true, multiple : true, checkbox : true, prompt:'" ~ comboTreePlaceholder ~"',
     		onBeforeLoad:function( node ) {
     		    //showSpiner
     		},
     		onLoadSuccess:function( node ) {
-    			$( '#user_role_form_parent' ).combotree( 'setValue', $( '#user_role_form_parent' ).attr( 'data-value' ) );
+    		    var value    = $( '#user_role_form_parent' ).attr( 'data-value' );
+    			$( '#user_role_form_parent' ).combotree( 'setValue', value );
     			//hideSpiner
     		}
     " %}
