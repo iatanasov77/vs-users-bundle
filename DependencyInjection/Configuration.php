@@ -10,6 +10,8 @@ use Sylius\Component\Resource\Factory\Factory;
 use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
 
 use VS\UsersBundle\Model\AvatarImage;
+use VS\UsersBundle\Model\AvatarImageInterface;
+use VS\UsersBundle\Repository\AvatarImageRepository;
 
 use VS\UsersBundle\Model\User;
 use VS\UsersBundle\Model\UserInterface;
@@ -75,6 +77,7 @@ class Configuration implements ConfigurationInterface
                                     ->addDefaultsIfNotSet()
                                     ->children()
                                         ->scalarNode( 'model' )->defaultValue( AvatarImage::class )->cannotBeEmpty()->end()
+                                        ->scalarNode( 'interface' )->defaultValue( AvatarImageInterface::class )->cannotBeEmpty()->end()
                                         ->scalarNode( 'repository' )->defaultValue( AvatarImageRepository::class )->cannotBeEmpty()->end()
                                         ->scalarNode( 'factory' )->defaultValue( Factory::class )->end()
                                     ->end()
@@ -135,6 +138,7 @@ class Configuration implements ConfigurationInterface
                                     ->children()
                                         ->scalarNode( 'model' )->defaultValue( UserInfo::class )->cannotBeEmpty()->end()
                                         ->scalarNode( 'interface' )->defaultValue( UserInfoInterface::class )->cannotBeEmpty()->end()
+                                        ->scalarNode( 'factory' )->defaultValue( Factory::class )->cannotBeEmpty()->end()
                                     ->end()
                                 ->end()
                             ->end()
