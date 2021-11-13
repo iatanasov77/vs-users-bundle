@@ -2,7 +2,7 @@
 
 use Doctrine\ORM\Mapping as ORM;
 
-use VS\CmsBundle\Model\ImageInterface;
+use VS\CmsBundle\Model\FileInterface;
 
 class UserInfo implements UserInfoInterface
 {
@@ -24,7 +24,7 @@ class UserInfo implements UserInfoInterface
     protected $profilePictureFilename;
     
     /**
-     * @var ImageInterface|null
+     * @var FileInterface|null
      */
     protected $avatar;
     
@@ -82,12 +82,12 @@ class UserInfo implements UserInfoInterface
         return $this;
     }
     
-    public function getAvatar(): ?ImageInterface
+    public function getAvatar(): ?FileInterface
     {
         return $this->avatar;
     }
     
-    public function setAvatar( ?ImageInterface $avatar ): self
+    public function setAvatar( ?FileInterface $avatar ): self
     {
         $avatar->setOwner( $this );
         $this->avatar   = $avatar;

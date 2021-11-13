@@ -1,7 +1,7 @@
 <?php namespace VS\UsersBundle\Model;
 
-use VS\CmsBundle\Model\Image;
+use VS\CmsBundle\Model\File;
 
-class AvatarImage extends Image
+class AvatarImage extends File implements AvatarImageInterface
 {
 }
