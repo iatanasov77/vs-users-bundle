@@ -1,3 +1,9 @@
+1.5.0	|	Release date: **14.11.2021**
+============================================
+* New Features:
+* Bug-Fixes:
+* Commits:
+	
 1.4.1	|	Release date: **14.11.2021**
 ============================================
 * Refactoring and Reinitialize:
