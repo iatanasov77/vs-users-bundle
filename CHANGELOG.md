@@ -1,3 +1,15 @@
+1.5.0	|	Release date: **14.11.2021**
+============================================
+* New Features:
+* Bug-Fixes:
+* Commits:
+	
+1.4.1	|	Release date: **14.11.2021**
+============================================
+* Refactoring and Reinitialize:
+  - Refactoring and Reinitialize
+
+
 1.4.0	|	Release date: **21.10.2021**
 ============================================
 * Big Refactoring of Subtree:
@@ -113,6 +125,7 @@
 	  Merge commit '4282e5ae523c8a543395dd1362c724f216dceaad' as 'src/Vankosoft/UsersBundle'
 	[2021-10-21 06:22:04 +0000][Commit: 1718c0515e953eeba8ac6f5d8f9c5ad0af0da6a0]
 	  Refactoring of UsersBundle.
+
 
 1.3.1	|	Release date: **10.10.2021**
 ============================================
