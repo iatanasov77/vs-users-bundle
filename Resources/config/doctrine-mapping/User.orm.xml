@@ -20,7 +20,27 @@
         <field name="apiToken" column="api_token" type="string" nullable="true" />
         <field name="salt" column="salt" type="string" nullable="false" />
         <field name="password" column="password" type="string" nullable="false" />
-        <field name="roles" column="roles" type="array" nullable="false" />
+        
+		<!-- 
+			For Backward Compatibility Create 2 Roles Fields <rolesArray and rolesCollection>
+			You can choose which to use
+		-->
+        <field name="rolesArray" column="roles_array" type="array" nullable="false" />
+        <many-to-many field="rolesCollection" target-entity="VS\UsersBundle\Model\UserRoleInterface" inversed-by="users">
+        	<cascade>
+                <cascade-persist/>
+                <cascade-merge/>
+                <cascade-detach/>
+            </cascade>
+            <join-table name="VSUM_Users_Roles">
+                <join-columns>
+                    <join-column name="user_id" referenced-column-name="id" />
+                </join-columns>
+                <inverse-join-columns>
+                    <join-column name="role_id" referenced-column-name="id" />
+                </inverse-join-columns>
+            </join-table>
+        </many-to-many>
         
         <field name="username" column="username" type="string" nullable="false" />
         <field name="email" column="email" type="string" nullable="false" />

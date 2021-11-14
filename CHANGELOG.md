@@ -1,3 +1,9 @@
+1.4.1	|	Release date: **14.11.2021**
+============================================
+* Refactoring and Reinitialize:
+  - Refactoring and Reinitialize
+
+
 1.4.0	|	Release date: **21.10.2021**
 ============================================
 * Big Refactoring of Subtree:

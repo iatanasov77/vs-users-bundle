@@ -43,12 +43,12 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
         PasswordHasherFactoryInterface $encoderFactory,
         UsersRepository $userRepository,
         array $params
-        ) {
-            $this->urlGenerator     = $urlGenerator;
-            $this->csrfTokenManager = $csrfTokenManager;
-            $this->encoderFactory   = $encoderFactory;
-            $this->userRepository   = $userRepository;
-            $this->params           = $params;
+    ) {
+        $this->urlGenerator     = $urlGenerator;
+        $this->csrfTokenManager = $csrfTokenManager;
+        $this->encoderFactory   = $encoderFactory;
+        $this->userRepository   = $userRepository;
+        $this->params           = $params;
     }
     
     public function authenticate( Request $request ) : PassportInterface

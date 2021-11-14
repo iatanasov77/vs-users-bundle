@@ -7,12 +7,23 @@ use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Sylius\Bundle\ResourceBundle\SyliusResourceBundle;
 use Sylius\Component\Resource\Model\ResourceInterface;
 use Sylius\Component\Resource\Factory\Factory;
+use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
+
+use VS\UsersBundle\Model\AvatarImage;
+use VS\UsersBundle\Model\AvatarImageInterface;
+use VS\UsersBundle\Repository\AvatarImageRepository;
 
 use VS\UsersBundle\Model\User;
 use VS\UsersBundle\Model\UserInterface;
 use VS\UsersBundle\Controller\UsersController;
 use VS\UsersBundle\Repository\UsersRepository;
 use VS\UsersBundle\Form\UserFormType;
+
+use VS\UsersBundle\Model\UserRole;
+use VS\UsersBundle\Model\UserRoleInterface;
+use VS\UsersBundle\Repository\UserRolesRepository;
+use VS\UsersBundle\Controller\UsersRolesController;
+use VS\UsersBundle\Form\UserRoleForm;
 
 use VS\UsersBundle\Model\UserInfo;
 use VS\UsersBundle\Model\UserInfoInterface;
@@ -57,6 +68,24 @@ class Configuration implements ConfigurationInterface
                     ->addDefaultsIfNotSet()
                     ->children()
                     
+                        // Begin Avatar Image
+                        ->arrayNode( 'avatar_image' )
+                            ->addDefaultsIfNotSet()
+                            ->children()
+                                ->variableNode( 'options' )->end()
+                                ->arrayNode( 'classes' )
+                                    ->addDefaultsIfNotSet()
+                                    ->children()
+                                        ->scalarNode( 'model' )->defaultValue( AvatarImage::class )->cannotBeEmpty()->end()
+                                        ->scalarNode( 'interface' )->defaultValue( AvatarImageInterface::class )->cannotBeEmpty()->end()
+                                        ->scalarNode( 'repository' )->defaultValue( AvatarImageRepository::class )->cannotBeEmpty()->end()
+                                        ->scalarNode( 'factory' )->defaultValue( Factory::class )->end()
+                                    ->end()
+                                ->end()
+                            ->end()
+                        ->end()
+                        // End Avatar Image
+                    
                         // Begin Users
                         ->arrayNode('users')
                             ->addDefaultsIfNotSet()
@@ -78,6 +107,27 @@ class Configuration implements ConfigurationInterface
                         ->end()
                         // End Users
                         
+                        // Begin User Roles
+                        ->arrayNode( 'user_roles' )
+                            ->addDefaultsIfNotSet()
+                            ->children()
+                                ->variableNode( 'options' )->end()
+                                ->arrayNode( 'classes' )
+                                    ->addDefaultsIfNotSet()
+                                    ->children()
+                                        ->scalarNode( 'model' )->defaultValue( UserRole::class )->cannotBeEmpty()->end()
+                                        ->scalarNode( 'interface' )->defaultValue( UserRoleInterface::class )->cannotBeEmpty()->end()
+                                        ->scalarNode( 'controller' )->defaultValue( UsersRolesController::class )->cannotBeEmpty()->end()
+                                        //->scalarNode( 'repository' )->cannotBeEmpty()->end()
+                                        ->scalarNode( 'repository' )->defaultValue( UserRolesRepository::class )->cannotBeEmpty()->end()
+                                        ->scalarNode( 'factory' )->defaultValue( Factory::class )->cannotBeEmpty()->end()
+                                        ->scalarNode( 'form' )->defaultValue( UserRoleForm::class )->cannotBeEmpty()->end()
+                                    ->end()
+                                ->end()
+                            ->end()
+                        ->end()
+                        // End User Roles
+                        
                         // Begin UserInfo
                         ->arrayNode('user_info')
                             ->addDefaultsIfNotSet()
@@ -88,6 +138,7 @@ class Configuration implements ConfigurationInterface
                                     ->children()
                                         ->scalarNode( 'model' )->defaultValue( UserInfo::class )->cannotBeEmpty()->end()
                                         ->scalarNode( 'interface' )->defaultValue( UserInfoInterface::class )->cannotBeEmpty()->end()
+                                        ->scalarNode( 'factory' )->defaultValue( Factory::class )->cannotBeEmpty()->end()
                                     ->end()
                                 ->end()
                             ->end()
