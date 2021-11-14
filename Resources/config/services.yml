@@ -6,7 +6,8 @@ imports:
     - { resource: services/user_management.yaml }
 
 parameters:
-    vs_users.cookie_lifetime: 3600
+    vs_users.cookie_lifetime: 86400 # 24 hours
+    vs_users.gc_maxlifetime: 1800   # 30 minutes
     vs_users.api_token.lifetime: 3600
     vs_users.api_token.domain: '%env(API_TOKEN_DOMAIN)%'
     
