@@ -5,11 +5,21 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
+use VS\CmsBundle\Component\FileManager;
 use VS\UsersBundle\Form\ProfileFormType;
 use VS\UsersBundle\Form\ChangePasswordFormType;
 
 class ProfileController extends AbstractController
 {
+    /** @var FileManager */
+    protected FileManager $fm;
+    
+    public function __construct(
+        FileManager $fm
+    ) {
+        $this->fm   = $fm;
+    }
+    
     public function profilePictureAction( Request $request ): Response
     {
         $profilePicture = false;
@@ -53,7 +63,12 @@ class ProfileController extends AbstractController
             if ( $profilePictureFile ) {
                 $oUserInfo   = $oUser->getInfo();
                 
-                $oUserInfo->setProfilePictureFilename( $this->handleProfilePicture( $profilePictureFile ) );
+                $oUserInfo->setProfilePictureFilename(
+                    $this->fm->upload2ArtgrisFileManager(
+                        $profilePictureFile,
+                        $this->getParameter( 'vs_user.profile_pictures_dir' )
+                    )
+                );
                 $oUserInfo->setUser( $oUser );
                 $em->persist( $oUserInfo );
             }
@@ -116,26 +131,5 @@ class ProfileController extends AbstractController
         return [
             'changePasswordForm'    => $changePasswordForm,
         ];
-    }
-    
-    protected function handleProfilePicture( $profilePictureFile ) : string
-    {
-        $originalFilename   = pathinfo( $profilePictureFile->getClientOriginalName(), PATHINFO_FILENAME );
-        // this is needed to safely include the file name as part of the URL
-        //$safeFilename       = $slugger->slug( $originalFilename );    // Slugger is included in Symfony 5.0
-        $safeFilename       = $originalFilename;
-        $newFilename        = $safeFilename . '-' . uniqid() . '.' . $profilePictureFile->guessExtension();
-        
-        // Move the file to the directory where brochures are stored
-        try {
-            $profilePictureFile->move(
-                $this->getParameter( 'vs_user.profile_pictures_dir' ),
-                $newFilename
-            );
-        } catch ( FileException $e ) {
-            // ... handle exception if something happens during file upload
-        }
-        
-        return $newFilename;
     }
 }
