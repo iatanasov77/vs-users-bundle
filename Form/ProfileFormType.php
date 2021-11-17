@@ -33,16 +33,17 @@ class ProfileFormType extends UserFormType
         
         $builder
             ->add( 'profilePicture', FileType::class, [
-                'label' => 'vs_users.form.profile.picture_lable',
-                'mapped' => false,
+                'label'                 => 'vs_users.form.profile.picture_lable',
+                'translation_domain'    => 'VSUsersBundle',
+                'mapped'                => false,
                 
                 // make it optional so you don't have to re-upload the Profile Image
                 // every time you edit the Profile details
-                'required' => false,
+                'required'              => false,
                 
                 // unmapped fields can't define their validation using annotations
                 // in the associated entity, so you can use the PHP constraint classes
-                'constraints' => [
+                'constraints'           => [
                     new File([
                         'maxSize' => '1024k',
                         'mimeTypes' => [
