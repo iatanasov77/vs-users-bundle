@@ -21,4 +21,6 @@ services:
     VS\UsersBundle\Controller\ProfileController:
         tags: ['controller.service_arguments']
         autowire: true
+        arguments:
+            - '@vs_cms.file_manager'
 

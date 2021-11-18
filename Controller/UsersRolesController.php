@@ -18,7 +18,7 @@ class UsersRolesController extends AbstractCrudController
 {
     use TaxonomyHelperTrait;
     
-    protected function customData( Request $request ): array
+    protected function customData( Request $request, $entity = null ): array
     {
         $taxonomyCode   = $this->getParameter( 'vs_application.user_roles.taxonomy_code' );
         $taxonomy       = $this->get( 'vs_application.repository.taxonomy' )->findByCode( $taxonomyCode );
