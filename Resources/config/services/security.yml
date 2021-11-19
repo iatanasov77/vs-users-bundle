@@ -14,6 +14,7 @@ services:
             - '@vs_users.repository.users'
             - '@doctrine.orm.entity_manager'
             - '@security.password_hasher_factory'
+            - '@vs_users.factory.user_info'
     
     vs_users.security.login_form_authenticator:
         class: VS\UsersBundle\Security\LoginFormAuthenticator
