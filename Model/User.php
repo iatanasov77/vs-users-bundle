@@ -68,16 +68,6 @@ class User implements UserInterface, \ArrayAccess
     protected $preferedLocale;
     
     /**
-     * @var string
-     */
-    protected $firstName    = 'NOT_EDITED_YET';
-    
-    /**
-     * @var string
-     */
-    protected $lastName     = 'NOT_EDITED_YET';
-    
-    /**
      * @var \DateTime|null
      */
     protected $lastLogin;
@@ -206,30 +196,6 @@ class User implements UserInterface, \ArrayAccess
         return $this;
     }
     
-    public function getFirstName()
-    {
-        return $this->firstName;
-    }
-    
-    public function setFirstName( $firstName ) : self
-    {
-        $this->firstName = $firstName;
-        
-        return $this;
-    }
-    
-    public function getLastName()
-    {
-        return $this->lastName;
-    }
-    
-    public function setLastName( $lastName ) : self
-    {
-        $this->lastName = $lastName;
-        
-        return $this;
-    }
-    
     public function getLastLogin()
     {
         return $this->lastLogin;
@@ -288,11 +254,6 @@ class User implements UserInterface, \ArrayAccess
     public function isEnabled()
     {
         return $this->enabled;
-    }
-    
-    public function getFullName()
-    {
-        return $this->firstName . ' ' . $this->lastName;
     }
     
     /**
