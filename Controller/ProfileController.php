@@ -141,7 +141,7 @@ class ProfileController extends AbstractController
     
     private function createAvatar( UserInfoInterface &$userInfo, File $file ): void
     {
-        $uploadedImage  = new UploadedFile( $file->getPath(), $file->getBaseName() );
+        $uploadedImage  = new UploadedFile( $file->getRealPath(), $file->getBaseName() );
         
         $avatarImage    = $this->avatarImageFactory->createNew();
         $avatarImage->setFile( $uploadedImage );

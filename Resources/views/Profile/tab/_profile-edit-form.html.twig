@@ -11,15 +11,12 @@
         
         {{ form_start(form, { 'attr': {'class': 'form-horizontal profile_details_form'} }) }}
         	<div class="row">
-        		{% if app.user.info %}
-        			<img
-                        src="{{ app.user.info.avatar.path|imagine_filter('profile_form_thumb') }}"
-        				{# src="{{ path( 'vs_cms_images_get_file', { file: 'var/uploads/profile_pictures/' ~ user.info.profilePictureFilename } ) }}?filter=profile_form_thumb" #}
-        				style="width: 120px; height: 100px;	"
-        			/>
-        		{% else %}
-        			<img src="{{ asset( '/build/images/avatar-1.jpg' ) }}" alt="" class="user-avatar-md rounded-circle" />
-        		{% endif %}
+    			<img
+                    src="{{ app.user.info.avatar.path|imagine_filter('profile_form_thumb') }}"
+    				{# src="{{ path( 'vs_cms_images_get_file', { file: 'var/uploads/profile_pictures/' ~ user.info.profilePictureFilename } ) }}?filter=profile_form_thumb" #}
+    				style="width: 120px; height: 100px;	"
+    			/>
+    			{# <img src="{{ asset( '/build/images/avatar-1.jpg' ) }}" alt="" class="user-avatar-md rounded-circle" /> #}
         	</div>
         	<div class="custom-file mb-3">
         	    {{ form_label(form.profilePicture, null, {
