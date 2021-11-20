@@ -15,17 +15,20 @@ class UserManager
     private $userRepository;
     private $entityManager;
     private $encoderFactory;
+    private $userInfoFactory;
     
     public function __construct(
         FactoryInterface $userFactory,
         EntityRepository $userRepository,
         EntityManager $entityManager,
-        PasswordHasherFactoryInterface $encoderFactory
+        PasswordHasherFactoryInterface $encoderFactory,
+        FactoryInterface $userInfoFactory
     ) {
         $this->userFactory      = $userFactory;
         $this->userRepository   = $userRepository;
         $this->entityManager    = $entityManager;
         $this->encoderFactory   = $encoderFactory;
+        $this->userInfoFactory  = $userInfoFactory;
     }
     
     public function createUser( $username, $email, $plainPassword ) : UserInterface
@@ -39,7 +42,7 @@ class UserManager
         
         $user->setEmail( $email );
         $user->setUsername( $username );
-        
+        $user->setInfo( $this->userInfoFactory->createNew() );
         $this->encodePassword( $user, $plainPassword );
         
         /**
@@ -56,23 +59,6 @@ class UserManager
         $this->entityManager->flush();
     }
     
-    /**
-     * @NOTE Symfony 4
-     */
-//     public function encodePassword( UserInterface &$user, $plainPassword )
-//     {
-//         $encoder    = $this->encoderFactory->getEncoder( $user );
-        
-//         $salt       = md5( time() );
-//         $pass       = $encoder->encodePassword( $plainPassword, $salt );
-        
-//         $user->setPassword( $pass );
-//         $user->setSalt( $salt );
-//     }
-    
-    /**
-     * @NOTE Symfony 5
-     */
     public function encodePassword( UserInterface &$user, $plainPassword )
     {
         $hasher         = $this->encoderFactory->getPasswordHasher( $user );
@@ -88,19 +74,6 @@ class UserManager
         $user->setSalt( $salt );
     }
     
-    /**
-     * @NOTE Symfony 4
-     */
-//     public function isPasswordValid( UserInterface $user, $plainPassword )
-//     {
-//         $encoder    = $this->encoderFactory->getEncoder( $user );
-        
-//         return $encoder->isPasswordValid( $user->getPassword(), $plainPassword, $user->getSalt() );
-//     }
-    
-    /**
-     * @NOTE Symfony 5
-     */
     public function isPasswordValid( UserInterface $user, $plainPassword )
     {
         $encoder    = $this->encoderFactory->getPasswordHasher( $user );
