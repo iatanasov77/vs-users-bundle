@@ -67,22 +67,20 @@ class ProfileController extends AbstractController
                 $oUser->setPreferedLocale( $request->getLocale() );
             }
             
+            $oUserInfo          = $oUser->getInfo();
             $profilePictureFile = $form->get( 'profilePicture' )->getData();
             if ( $profilePictureFile ) {
-                $oUserInfo   = $oUser->getInfo();
-                
                 $this->createAvatar( $oUserInfo, $profilePictureFile );
-                $oUserInfo->setFirstName( $form->get( 'firstName' )->getData() );
-                $oUserInfo->setLastName( $form->get( 'lastName' )->getData() );
-                
-                $oUserInfo->setUser( $oUser );
-                $em->persist( $oUserInfo );
             }
             
+            $oUserInfo->setFirstName( $form->get( 'firstName' )->getData() );
+            $oUserInfo->setLastName( $form->get( 'lastName' )->getData() );
+            
+            $oUserInfo->setUser( $oUser );
+            $em->persist( $oUserInfo );
             $em->persist( $oUser );
             $em->flush();
             
-            //return $this->redirectToRoute( $this->container->getParameter( 'vs_users.default_redirect' ) );
             return $this->redirectToRoute( 'vs_users_profile_show' );
         }
         
@@ -141,13 +139,15 @@ class ProfileController extends AbstractController
     
     private function createAvatar( UserInfoInterface &$userInfo, File $file ): void
     {
-        $uploadedImage  = new UploadedFile( $file->getRealPath(), $file->getBaseName() );
+        $avatarImage    = $userInfo->getAvatar() ?: $this->avatarImageFactory->createNew();
+        $uploadedFile   = new UploadedFile( $file->getRealPath(), $file->getBasename() );
         
-        $avatarImage    = $this->avatarImageFactory->createNew();
-        $avatarImage->setFile( $uploadedImage );
-        
+        $avatarImage->setFile( $uploadedFile );
         $this->imageUploader->upload( $avatarImage );
+        $avatarImage->setFile( null ); // reset File Because: Serialization of 'Symfony\Component\HttpFoundation\File\UploadedFile' is not allowed
         
-        $userInfo->setAvatar( $avatarImage );
+        if ( ! $userInfo->getAvatar() ) {
+            $userInfo->setAvatar( $avatarImage );
+        }
     }
 }

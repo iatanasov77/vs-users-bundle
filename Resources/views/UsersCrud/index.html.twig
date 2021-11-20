@@ -52,7 +52,9 @@
 	                                <td>{{ loop.index }}</td>
 	                                
 	                                <td>
+	                                {% if item.info.avatar %}
 	                                   <img src="{{ item.info.avatar.path|imagine_filter('users_crud_index_thumb') }}" />
+	                                {% endif %}
 	                                   {{ item.username  }}
 	                                </td>
 	                                <td>{{ item.email  }}</td>
