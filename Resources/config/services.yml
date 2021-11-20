@@ -10,9 +10,6 @@ parameters:
     vs_users.gc_maxlifetime: 1800   # 30 minutes
     vs_users.api_token.lifetime: 3600
     vs_users.api_token.domain: '%env(API_TOKEN_DOMAIN)%'
-    
-    # Maybe Already Can Get From AvatarImage Entity and This Parameter Is Not Needed
-    vs_user.profile_pictures_dir: '%kernel.project_dir%/public/file_manager/uploads/profile_pictures'
 
 services:        
     _defaults:

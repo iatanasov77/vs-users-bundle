@@ -57,7 +57,7 @@
 	                                </td>
 	                                <td>{{ item.email  }}</td>
 	                                <td>{{ item.roles | join(' , ')  }}</td>
-	                                <td>{{ item.getFullName() }}</td>
+	                                <td>{{ item.info.getFullName() }}</td>
 	                                <td>
 	                                	<div class="btn-group">
 	                                		<a class="btn btn-primary" href="{{ path('vs_users_users_update', {'id': item.id}) }}">
