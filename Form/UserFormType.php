@@ -68,15 +68,6 @@ class UserFormType extends AbstractForm
                 'second_options'        => ['label' => 'vs_users.form.user.password_repeat'],
             ])
             
-            ->add( 'firstName', TextType::class, [
-                'label'                 => 'vs_users.form.user.firstName',
-                'translation_domain'    => 'VSUsersBundle'
-            ])
-            ->add( 'lastName', TextType::class, [
-                'label'                 => 'vs_users.form.user.lastName',
-                'translation_domain'    => 'VSUsersBundle'
-            ])
-            
             // https://symfony.com/doc/current/security.html#hierarchical-roles
             ->add( 'roles_options', ChoiceType::class, [
                 'label'                 => 'vs_users.form.user.roles',

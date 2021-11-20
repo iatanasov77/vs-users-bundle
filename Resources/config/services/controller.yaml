@@ -22,5 +22,6 @@ services:
         tags: ['controller.service_arguments']
         autowire: true
         arguments:
-            - '@vs_cms.file_manager'
+            - '@vs_users.factory.avatar_image'
+            - '@vs_cms.profile_uploader'
 

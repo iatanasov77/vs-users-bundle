@@ -3,21 +3,29 @@
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Sylius\Component\Resource\Factory\FactoryInterface;
 
-use VS\CmsBundle\Component\FileManager;
+use VS\CmsBundle\Component\Uploader\FileUploaderInterface;
 use VS\UsersBundle\Form\ProfileFormType;
 use VS\UsersBundle\Form\ChangePasswordFormType;
+use VS\UsersBundle\Model\UserInfoInterface;
 
 class ProfileController extends AbstractController
 {
-    /** @var FileManager */
-    protected FileManager $fm;
+    /** @var FactoryInterface */
+    private $avatarImageFactory;
+    
+    private FileUploaderInterface $imageUploader;
     
     public function __construct(
-        FileManager $fm
+        FactoryInterface $avatarImageFactory,
+        FileUploaderInterface $imageUploader
     ) {
-        $this->fm   = $fm;
+        $this->avatarImageFactory   = $avatarImageFactory;
+        $this->imageUploader        = $imageUploader;
     }
     
     public function profilePictureAction( Request $request ): Response
@@ -63,12 +71,10 @@ class ProfileController extends AbstractController
             if ( $profilePictureFile ) {
                 $oUserInfo   = $oUser->getInfo();
                 
-                $oUserInfo->setProfilePictureFilename(
-                    $this->fm->upload2ArtgrisFileManager(
-                        $profilePictureFile,
-                        $this->getParameter( 'vs_user.profile_pictures_dir' )
-                    )
-                );
+                $this->createAvatar( $oUserInfo, $profilePictureFile );
+                $oUserInfo->setFirstName( $form->get( 'firstName' )->getData() );
+                $oUserInfo->setLastName( $form->get( 'lastName' )->getData() );
+                
                 $oUserInfo->setUser( $oUser );
                 $em->persist( $oUserInfo );
             }
@@ -131,5 +137,17 @@ class ProfileController extends AbstractController
         return [
             'changePasswordForm'    => $changePasswordForm,
         ];
+    }
+    
+    private function createAvatar( UserInfoInterface &$userInfo, File $file ): void
+    {
+        $uploadedImage  = new UploadedFile( $file->getPath(), $file->getBaseName() );
+        
+        $avatarImage    = $this->avatarImageFactory->createNew();
+        $avatarImage->setFile( $uploadedImage );
+        
+        $this->imageUploader->upload( $avatarImage );
+        
+        $userInfo->setAvatar( $avatarImage );
     }
 }
