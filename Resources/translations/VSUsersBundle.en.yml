@@ -79,6 +79,8 @@ vs_users:
         userscrud_create_title: 'Create New User'
         userscrud_update_title: 'Edit User'
         userscrud_update_header: 'User Details'
+        userscrud_userinfo_title: 'User Info'
+        userscrud_delete_title: 'Delete User'
         users_roles_index_title: User Roles
         users_roles_index_row_role: Role
         users_roles_index_row_actions: Actions

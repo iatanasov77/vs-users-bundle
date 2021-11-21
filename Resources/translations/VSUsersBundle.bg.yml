@@ -79,7 +79,8 @@ vs_users:
         userscrud_create_title: 'Създаване на Нов Потребител'
         userscrud_update_title: 'Редактиране на Потребител'
         userscrud_update_header: 'Потребител Детайли'
-        
+        userscrud_userinfo_title: 'Потребител Инфо'
+        userscrud_delete_title: 'Изтриване на Потребител'
         users_roles_index_title: Потребителски Роли
         users_roles_index_row_role: Роля
         users_roles_index_row_actions: Действия

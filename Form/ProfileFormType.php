@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Validator\Constraints\File;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 
 use VS\UsersBundle\Model\UserInterface;
@@ -53,6 +54,17 @@ class ProfileFormType extends UserFormType
                         'mimeTypesMessage' => 'vs_users.form.profile.picture_info',
                     ])
                 ],
+            ])
+            
+            ->add( 'firstName', TextType::class, [
+                'label'                 => 'vs_users.form.user.firstName',
+                'translation_domain'    => 'VSUsersBundle',
+                'mapped'                => false,
+            ])
+            ->add( 'lastName', TextType::class, [
+                'label'                 => 'vs_users.form.user.lastName',
+                'translation_domain'    => 'VSUsersBundle',
+                'mapped'                => false,
             ])
         ;
     }
