@@ -7,7 +7,7 @@
     </div>
 {% endif %}
 
-{{ form_start(form, { 'action': path('vs_users_user_info_handle', {'userId': item.id}), 'method': 'POST', 'attr': {'class': 'form-horizontal', 'id': 'formUserInfo'} }) }}
+{{ form_start(form, { 'action': path('vs_users_user_info_handle', {'userId': user.id}), 'method': 'POST', 'attr': {'class': 'form-horizontal', 'id': 'formUserInfo'} }) }}
     {{ form_widget(form._token) }}   
     
     <div class="custom-file mb-3">
@@ -30,13 +30,13 @@
             'label_attr': {'class': 'col-form-label'}
             }) 
         }}
-        {{ form_widget(form.firstName, {'attr': {'class': 'form-control' }, 'value': app.user.info.firstName}) }}
+        {{ form_widget(form.firstName, {'attr': {'class': 'form-control' }}) }}
     </div>
     <div class="form-group">
         {{ form_label(form.lastName, null, {
             'label_attr': {'class': 'col-form-label'}
             }) 
         }}
-        {{ form_widget(form.lastName, {'attr': {'class': 'form-control' }, 'value': app.user.info.lastName}) }}
+        {{ form_widget(form.lastName, {'attr': {'class': 'form-control' }}) }}
     </div>
 {{ form_end(form, {'render_rest': false}) }}
