@@ -41,7 +41,7 @@ class UsersExtController extends AbstractController
     public function displayUserInfo( $userId, Request $request ): Response
     {
         $user       = $this->usersRepository->find( $userId );
-        $userInfo   = $user->info() ?: $this->userInfoFactory->createNew();
+        $userInfo   = $user->getInfo() ?: $this->userInfoFactory->createNew();
         
         return $this->render( '@VSUsers/UsersCrud/Partial/form_user_info.html.twig', [
             'form'      => $this->createForm( UserInfoForm::class, $userInfo )->createView(),
