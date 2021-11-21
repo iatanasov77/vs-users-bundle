@@ -3,7 +3,7 @@
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
-class User implements UserInterface, \ArrayAccess
+class User implements UserInterface
 {
     const ROLE_DEFAULT = "ROLE_DEFAULT";
     
@@ -184,6 +184,14 @@ class User implements UserInterface, \ArrayAccess
         return $this;
     }
     
+    /**
+     * @Note: Required by Symfony\Component\Security\Core\User\UserInterface
+     */
+    public function eraseCredentials()
+    {
+        //$this->plainPassword = null;
+    }
+    
     public function getPreferedLocale()
     {
         return $this->preferedLocale;
@@ -331,11 +339,6 @@ class User implements UserInterface, \ArrayAccess
         return $this;
     }
     
-    public function eraseCredentials()
-    {
-        //$this->plainPassword = null;
-    }
-    
     public function getActivities() : Collection
     {
         return $this->activities;
@@ -344,30 +347,5 @@ class User implements UserInterface, \ArrayAccess
     public function getNotifications() : Collection
     {
         return $this->notifications;
-    }
-    
-    public function getUserIdentifier()
-    {
-        return $this->username;
-    }
-    
-    public function offsetSet( $offset, $value )
-    {
-        
-    }
-    
-    public function offsetUnset( $offset )
-    {
-        
-    }
-    
-    public function offsetExists( $offset )
-    {
-        return isset( $this->$offset );
-    }
-    
-    public function offsetGet($offset)
-    {
-        return isset( $this->$offset ) ? $this->$offset : null;
     }
 }
