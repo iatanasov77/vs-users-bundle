@@ -9,7 +9,7 @@
             <generator strategy="AUTO" />
         </id>
         
-        <one-to-one field="user" target-entity="VS\UsersBundle\Model\UserInterface" inversed-by="info" />
+        <one-to-one field="user" target-entity="VS\UsersBundle\Model\UserInterface" mapped-by="info" />
         
         <one-to-one field="avatar" target-entity="VS\UsersBundle\Model\AvatarImageInterface" mapped-by="owner" orphan-removal="true">
             <cascade>
@@ -25,6 +25,5 @@
         <field name="mobile" column="mobile" type="string" nullable="true" />
         <field name="website" column="website" type="string" nullable="true" />
         <field name="occupation" column="occupation" type="string" nullable="true" />
-        
     </mapped-superclass>
 </doctrine-mapping>

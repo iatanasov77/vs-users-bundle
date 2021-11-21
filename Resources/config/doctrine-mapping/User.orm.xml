@@ -6,7 +6,6 @@
                   xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping"
 >
     <mapped-superclass name="VS\UsersBundle\Model\User">
-
         <id name="id" column="id" type="integer">
             <generator strategy="AUTO" />
         </id>
@@ -63,6 +62,5 @@
                 <cascade-all/>
             </cascade>
         </one-to-many>
-        
     </mapped-superclass>
 </doctrine-mapping>
