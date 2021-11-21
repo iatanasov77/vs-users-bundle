@@ -6,6 +6,9 @@ services:
         autowire: true
         arguments:
             - "@vs_users.repository.users"
+            - "@vs_users.factory.user_info"
+            - '@vs_users.factory.avatar_image'
+            - '@vs_cms.profile_uploader'
     
     vs_users.resources.users.form:
         class: VS\UsersBundle\Form\UserFormType
