@@ -5,8 +5,6 @@ use Doctrine\Common\Collections\Collection;
 
 class User implements UserInterface
 {
-    const ROLE_DEFAULT = "ROLE_DEFAULT";
-    
     /**
      * @var mixed
      */
@@ -282,7 +280,7 @@ class User implements UserInterface
         }
         
         // we need to make sure to have at least one role
-        $roles[] = static::ROLE_DEFAULT;
+        $roles[] = "ROLE_DEFAULT";
         
         return array_unique( $roles );
         */
@@ -296,7 +294,7 @@ class User implements UserInterface
         $roles  = $this->rolesArray ?: [];
         
         // we need to make sure to have at least one role
-        $roles[] = static::ROLE_DEFAULT;
+        //$roles[] = "ROLE_DEFAULT";
         
         return array_unique( $roles );
     }
