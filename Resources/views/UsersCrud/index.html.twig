@@ -38,7 +38,7 @@
                             <th width="150">{{ 'vs_users.template.userscrud_index_tablecolumns_action' | trans( {},'VSUsersBundle' ) }}</th>
                         </tr>
                         {% for item in users %}
-                        	{% set userGranted = false %}
+                            {% set userGranted = is_granted( 'ROLE_SUPER_ADMIN' ) %}
                         	{% set userRolesBreak = false %}
                         	{% for userRole in item.roles %}
                         		{% if is_granted( userRole ) and not userRolesBreak %}
