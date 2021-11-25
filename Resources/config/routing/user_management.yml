@@ -35,3 +35,7 @@ vs_users_user_info_display:
 vs_users_user_info_handle:
     path: /user-info/{userId}/handle
     controller: VS\UsersBundle\Controller\UsersExtController::handleUserInfo
+
+vs_users_roles_collection_tree_combo_with_selected:
+    path: /json/{userId}/user-roles-collection/easyui-combotree
+    controller: VS\UsersBundle\Controller\UsersRolesExtController::rolesEasyuiComboTreeWithSelectedSource
