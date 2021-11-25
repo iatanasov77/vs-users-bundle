@@ -44,7 +44,7 @@ class UsersRolesExtController extends AbstractController
             
             $topRoles   = $this->usersRolesRepository->findBy( ['parent' => null] );
             $rolesTree  = [];
-            $this->getRolesTree( new ArrayCollection( $topRoles ) );
+            $this->getRolesTree( new ArrayCollection( $topRoles ), $rolesTree );
             
             $this->buildEasyuiCombotreeData( $rolesTree, $data, $selectedRoles );
             
