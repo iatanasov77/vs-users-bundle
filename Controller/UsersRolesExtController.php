@@ -9,6 +9,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
 use VS\ApplicationBundle\Component\Status;
+use VS\ApplicationBundle\Repository\TaxonRepository;
 
 class UsersRolesExtController extends AbstractController
 {
@@ -18,13 +19,13 @@ class UsersRolesExtController extends AbstractController
     /** @var RepositoryInterface */
     protected $taxonomyRepository;
     
-    /** @var RepositoryInterface */
+    /** @var TaxonRepository */
     protected $taxonRepository;
     
     public function __construct(
         RepositoryInterface $usersRolesRepository,
         RepositoryInterface $taxonomyRepository,
-        RepositoryInterface $taxonRepository
+        TaxonRepository $taxonRepository
     ) {
         $this->usersRolesRepository = $usersRolesRepository;
         $this->taxonomyRepository   = $taxonomyRepository;
