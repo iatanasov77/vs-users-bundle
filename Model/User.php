@@ -183,7 +183,7 @@ class User implements UserInterface
     }
     
     /**
-     * @Note: Required by Symfony\Component\Security\Core\User\UserInterface
+     * Required by Symfony\Component\Security\Core\User\UserInterface
      */
     public function eraseCredentials()
     {
