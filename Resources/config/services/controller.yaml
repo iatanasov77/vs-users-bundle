@@ -24,4 +24,11 @@ services:
         arguments:
             - '@vs_users.factory.avatar_image'
             - '@vs_cms.profile_uploader'
-
+    
+    VS\UsersBundle\Controller\UsersRolesExtController:
+        tags: ['controller.service_arguments']
+        autowire: true
+        arguments:
+            - '@vs_users.repository.user_roles'
+            - '@vs_application.repository.taxonomy'
+            - '@vs_application.repository.taxon'
