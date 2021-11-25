@@ -93,12 +93,12 @@
                             {% set comboDataSourceUrl  = url('vs_users_roles_collection_tree_combo_with_selected', {'userId': itemId}) %}
                             {% set comboTreePlaceholder = 'vs_users.form.user.roles_placeholder' | trans( {},'VSUsersBundle' ) %}
                             <div class="form-group">
-                                {{ form_label(form.roles_options, null, {
+                                {{ form_label( form.roles_options, null, {
                                     'label_attr': {'class': 'col-form-label'}
-                                    }) 
+                                    } ) 
                                 }}
                                 
-                                {{ vs_tree.easyuiCombobox( form.parent, comboDataSourceUrl, taxonId,
+                                {{ vs_tree.easyuiCombobox( form.roles_options, comboDataSourceUrl, itemId,
                                     {
                                         'elementSelector': '#user_role_form_parent',
                                         'required': true,
