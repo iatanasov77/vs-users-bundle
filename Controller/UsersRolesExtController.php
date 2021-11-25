@@ -14,6 +14,9 @@ use VS\ApplicationBundle\Repository\TaxonRepository;
 class UsersRolesExtController extends AbstractController
 {
     /** @var RepositoryInterface */
+    protected $usersRepository;
+    
+    /** @var RepositoryInterface */
     protected $usersRolesRepository;
     
     /** @var RepositoryInterface */
@@ -23,10 +26,12 @@ class UsersRolesExtController extends AbstractController
     protected $taxonRepository;
     
     public function __construct(
+        RepositoryInterface $usersRepository,
         RepositoryInterface $usersRolesRepository,
         RepositoryInterface $taxonomyRepository,
         TaxonRepository $taxonRepository
     ) {
+        $this->usersRepository      = $usersRepository;
         $this->usersRolesRepository = $usersRolesRepository;
         $this->taxonomyRepository   = $taxonomyRepository;
         $this->taxonRepository      = $taxonRepository;
