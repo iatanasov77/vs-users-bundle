@@ -82,6 +82,20 @@ class User implements UserInterface
         return $this->id;
     }
     
+    /**
+     * For Backward Compatibility Create 2 Roles Fields <rolesArray and rolesCollection>
+     * You can choose which to use
+     *
+     * @return array
+     */
+    public function getRoles()
+    {
+        return $this->getRolesFromArray();
+        
+        /* EXAMPLE To Use RoleCollection */
+        //return $this->getRolesFromCollection();
+    }
+    
     public function getInfo()
     {
         return $this->info;
@@ -188,20 +202,6 @@ class User implements UserInterface
     public function isEnabled()
     {
         return $this->enabled;
-    }
-    
-    /**
-     * For Backward Compatibility Create 2 Roles Fields <rolesArray and rolesCollection>
-	 * You can choose which to use
-	 * 
-     * @return array
-     */
-    public function getRoles()
-    {
-        return $this->getRolesFromArray();
-        
-        /* EXAMPLE To Use RoleCollection */
-        //return $this->getRolesFromCollection();
     }
     
     public function getActivities() : Collection
