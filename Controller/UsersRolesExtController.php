@@ -56,18 +56,18 @@ class UsersRolesExtController extends AbstractController
         $key    = 0;
         
         if ( is_array( $tree ) ) {
-            foreach( $tree as $nodeKey => $nodeChildren ) {
+            foreach( $tree as $nodeKey => $node ) {
                 $data[$key]   = [
-                    'id'        => $nodeKey,
-                    'text'      => $nodeKey,
+                    'id'        => $node['id'],
+                    'text'      => $node['role'],
                     'children'  => []
                 ];
                 if ( in_array( $nodeKey, $selectedValues ) ) {
                     $data[$key]['checked'] = true;
                 }
                 
-                if ( ! empty( $nodeChildren ) ) {
-                    $this->buildEasyuiCombotreeData( $nodeChildren, $data[$key]['children'], $selectedValues );
+                if ( ! empty( $node['children'] ) ) {
+                    $this->buildEasyuiCombotreeData( $node['children'], $data[$key]['children'], $selectedValues );
                 }
                 
                 $key++;
@@ -78,26 +78,15 @@ class UsersRolesExtController extends AbstractController
     private function getRolesTree( Collection $roles, &$rolesTree )
     {
         foreach ( $roles as $role ) {
-            $rolesTree[$role->getRole()] = [];
+            $rolesTree[$role->getRole()] = [
+                'id'        => $role->getId(),
+                'role'      => $role->getRole(),
+                'children'  => [],
+            ];
             
             if ( ! $role->getChildren()->isEmpty() ) {
-                $this->getRolesTree( $role->getChildren(), $rolesTree[$role->getRole()] );
+                $this->getRolesTree( $role->getChildren(), $rolesTree[$role->getRole()]['children'] );
             }
         }
     }
-//     private function getRolesTree( Collection $roles )
-//     {
-//         $taxonomyCode   = $this->getParameter( 'vs_application.user_roles.taxonomy_code' );
-//         $taxonomy       = $this->taxonomyRepository->findByCode( $taxonomyCode );
-        
-//         $taxonTree      = $this->taxonRepository->childrenHierarchy( $taxonomy->getRootTaxon() );
-//         $rolesTree      = [];
-//         foreach ( $this->usersRolesRepository->findAll() as $role ) {
-//             if ( ! $role->getChildren()->isEmpty() ) {
-//                 $this->getRolesTree( $role->getChildren() );
-//             }
-//         }
-        
-//         return $rolesTree;
-//     }
 }

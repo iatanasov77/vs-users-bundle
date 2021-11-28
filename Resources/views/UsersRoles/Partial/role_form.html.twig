@@ -22,7 +22,7 @@
         {{ form_widget(form.role, {'attr': {'class': 'form-control'}}) }}
     </div>
      
-    {% if item.taxon.parent.id == taxonomy.rootTaxon.id %}{% set taxonId = '' %}{% else %}{% set taxonId = item.taxon.parent.id %}{% endif %}
+    {% if not item.taxon or item.taxon.parent.id == taxonomy.rootTaxon.id %}{% set taxonId = '' %}{% else %}{% set taxonId = item.taxon.parent.id %}{% endif %}
     {% set comboDataSourceUrl  = url( 'vs_application_taxonomy_taxons_easyui_combotree', {'taxonomyId': taxonomy.id} ) %}
     {% set comboTreePlaceholder = 'vs_users.form.user_role.parent_role_placeholder' | trans( {},'VSUsersBundle' ) %}
     <div class="form-group">

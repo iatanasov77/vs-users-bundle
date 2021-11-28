@@ -1,4 +1,4 @@
-<?php namespace VS\UsersBundle\Model\Trait;
+<?php namespace VS\UsersBundle\Model\Traits;
 
 trait UserSubscriptionTrait
 {
