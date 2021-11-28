@@ -33,7 +33,6 @@ class UserFormType extends AbstractForm
         $builder
             ->setMethod( 'PUT' )
             //->add('apiKey', HiddenType::class)
-            //->add('enabled', CheckboxType::class, array('label' => 'Enabled'))
   
             ->add( 'enabled', CheckboxType::class, [
                 'label' => 'vs_users.form.user.enabled',
@@ -60,12 +59,13 @@ class UserFormType extends AbstractForm
                 'translation_domain' => 'VSUsersBundle'
             ])
             
-            ->add( 'password', RepeatedType::class, [
+            ->add( 'plain_password', RepeatedType::class, [
                 'type'                  => PasswordType::class,
                 'label'                 => 'vs_users.form.user.password',
                 'translation_domain'    => 'VSUsersBundle',
                 'first_options'         => ['label' => 'vs_users.form.user.password'],
                 'second_options'        => ['label' => 'vs_users.form.user.password_repeat'],
+                "mapped"                => false,
             ])
             
             // https://symfony.com/doc/current/security.html#hierarchical-roles

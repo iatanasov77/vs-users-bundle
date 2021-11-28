@@ -5,7 +5,9 @@ use Doctrine\Common\Collections\Collection;
 
 class User implements UserInterface
 {
-    const ROLE_DEFAULT = "ROLE_DEFAULT";
+    use Traits\UserPasswordTrait;
+    use Traits\UserRolesArrayTrait;
+    use Traits\UserRolesCollectionTrait;
     
     /**
      * @var mixed
@@ -33,32 +35,6 @@ class User implements UserInterface
      * @var string
      */
     protected $email;
-
-    /**
-     * The salt to use for hashing.
-     *
-     * @var string
-     */
-    protected $salt;
-    
-    /**
-     * Encrypted password. Must be persisted.
-     *
-     * @var string
-     */
-    protected $password;
-
-    /**
-     * @var array
-     */
-    protected $rolesArray;
-    
-    /**
-     * @var Collection|UserRole[]
-     * 
-     * https://symfony.com/doc/current/security.html#hierarchical-roles
-     */
-    protected $rolesCollection;
     
     /**
      * Prefered locale.
@@ -80,11 +56,6 @@ class User implements UserInterface
     protected $confirmationToken;
     
     /**
-     * @var \DateTime|null
-     */
-    protected $passwordRequestedAt;
-    
-    /**
      * @var bool
      */
     protected $verified;
@@ -102,7 +73,6 @@ class User implements UserInterface
     
     public function __construct()
     {
-        $this->rolesCollection  = new ArrayCollection();
         $this->activities       = new ArrayCollection();
         $this->notifications    = new ArrayCollection();
     }
@@ -110,6 +80,20 @@ class User implements UserInterface
     public function getId()
     {
         return $this->id;
+    }
+    
+    /**
+     * For Backward Compatibility Create 2 Roles Fields <rolesArray and rolesCollection>
+     * You can choose which to use
+     *
+     * @return array
+     */
+    public function getRoles()
+    {
+        return $this->getRolesFromArray();
+        
+        /* EXAMPLE To Use RoleCollection */
+        //return $this->getRolesFromCollection();
     }
     
     public function getInfo()
@@ -160,38 +144,6 @@ class User implements UserInterface
         return $this;
     }
     
-    public function getSalt()
-    {
-        return $this->salt;
-    }
-    
-    public function setSalt( $salt ) : self
-    {
-        $this->salt = $salt;
-        
-        return $this;
-    }
-    
-    public function getPassword()
-    {
-        return $this->password;
-    }
-    
-    public function setPassword( $password ) : self
-    {
-        $this->password = $password;
-        
-        return $this;
-    }
-    
-    /**
-     * @Note: Required by Symfony\Component\Security\Core\User\UserInterface
-     */
-    public function eraseCredentials()
-    {
-        //$this->plainPassword = null;
-    }
-    
     public function getPreferedLocale()
     {
         return $this->preferedLocale;
@@ -228,18 +180,6 @@ class User implements UserInterface
         return $this;
     }
     
-    public function getPasswordRequestedAt()
-    {
-        return $this->passwordRequestedAt;
-    }
-    
-    public function setPasswordRequestedAt( \DateTime $date = null )
-    {
-        $this->passwordRequestedAt = $date;
-        
-        return $this;
-    }
-    
     public function setVerified( $verified ) : self
     {
         $this->verified = (bool) $verified;
@@ -262,81 +202,6 @@ class User implements UserInterface
     public function isEnabled()
     {
         return $this->enabled;
-    }
-    
-    /**
-     * For Backward Compatibility Create 2 Roles Fields <rolesArray and rolesCollection>
-	 * You can choose which to use
-	 * 
-     * @return array
-     */
-    public function getRoles()
-    {
-        return $this->getRolesArray();
-        
-        /* EXAMPLE To Use RoleCollection */
-        /*
-        $roles  = [];
-        foreach ( $this->rolesCollection as $role ) {
-            $roles[]    = $role->getRole();
-        }
-        
-        // we need to make sure to have at least one role
-        $roles[] = static::ROLE_DEFAULT;
-        
-        return array_unique( $roles );
-        */
-    }
-    
-    /**
-     * @return array
-     */
-    public function getRolesArray()
-    {
-        $roles  = $this->rolesArray ?: [];
-        
-        // we need to make sure to have at least one role
-        $roles[] = static::ROLE_DEFAULT;
-        
-        return array_unique( $roles );
-    }
-    
-    public function setRolesArray( array $roles ) : self
-    {
-        $this->rolesArray    = $roles;
-        
-        return $this;
-    }
-    
-    public function hasRole( $role )
-    {
-        return in_array( strtoupper( $role ), $this->getRoles(), true );
-    }
-    
-    /**
-     * @return Collection|UserRole[]
-     */
-    public function getRolesCollection()
-    {
-        return $this->rolesCollection;
-    }
-    
-    public function addRole( UserRoleInterface $role ) : self
-    {
-        if ( ! $this->rolesCollection->contains( $role ) ) {
-            $this->rolesCollection[]    = $role;
-        }
-        
-        return $this;
-    }
-    
-    public function removeRole( UserRoleInterface $role ) : self
-    {
-        if ( $this->rolesCollection->contains( $role ) ) {
-            $this->rolesCollection->removeElement( $role );
-        }
-        
-        return $this;
     }
     
     public function getActivities() : Collection
