@@ -3,6 +3,9 @@
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
+use VS\UsersBundle\Model\UserRole;
+use VS\UsersBundle\Model\UserRoleInterface;
+
 trait UserRolesCollectionTrait
 {
     /**
