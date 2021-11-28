@@ -14,13 +14,6 @@ trait UserRolesCollectionTrait
      * https://symfony.com/doc/current/security.html#hierarchical-roles
      */
     protected $rolesCollection;
- 
-    public function __construct()
-    {
-        parent::__construct();
-        
-        $this->rolesCollection  = new ArrayCollection();
-    }
     
     /**
      * @return array
