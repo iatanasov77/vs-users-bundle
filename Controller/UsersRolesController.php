@@ -35,11 +35,14 @@ class UsersRolesController extends AbstractCrudController
     {
         $translatableLocale = $form['currentLocale']->getData();
         $roleName       = $form['name']->getData();
+        $parentRole     = null;
         
         // Try This to Get Post Values
         //echo "<pre>"; var_dump( $request->request->all() ); die;
-        $parentRole         = $this->get( 'vs_users.repository.user_roles' )
-                                    ->findByTaxonId( $_POST['user_role_form']['parent'] );
+        if ( isset( $_POST['user_role_form']['parent'] ) ) {
+            $parentRole = $this->get( 'vs_users.repository.user_roles' )
+                                ->findByTaxonId( $_POST['user_role_form']['parent'] );
+        }
         
         if ( $entity->getTaxon() ) {
             $entity->getTaxon()->setCurrentLocale( $translatableLocale );

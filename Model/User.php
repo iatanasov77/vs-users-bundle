@@ -5,6 +5,9 @@ use Doctrine\Common\Collections\Collection;
 
 class User implements UserInterface
 {
+    use Traits\UserRolesArrayTrait;
+    use Traits\UserRolesCollectionTrait;
+    
     /**
      * @var mixed
      */
@@ -45,18 +48,6 @@ class User implements UserInterface
      * @var string
      */
     protected $password;
-
-    /**
-     * @var array
-     */
-    protected $rolesArray;
-    
-    /**
-     * @var Collection|UserRole[]
-     * 
-     * https://symfony.com/doc/current/security.html#hierarchical-roles
-     */
-    protected $rolesCollection;
     
     /**
      * Prefered locale.
@@ -100,7 +91,6 @@ class User implements UserInterface
     
     public function __construct()
     {
-        $this->rolesCollection  = new ArrayCollection();
         $this->activities       = new ArrayCollection();
         $this->notifications    = new ArrayCollection();
     }
@@ -270,71 +260,10 @@ class User implements UserInterface
      */
     public function getRoles()
     {
-        return $this->getRolesArray();
+        return $this->getRolesFromArray();
         
         /* EXAMPLE To Use RoleCollection */
-        /*
-        $roles  = [];
-        foreach ( $this->rolesCollection as $role ) {
-            $roles[]    = $role->getRole();
-        }
-        
-        // we need to make sure to have at least one role
-        $roles[] = "ROLE_DEFAULT";
-        
-        return array_unique( $roles );
-        */
-    }
-    
-    /**
-     * @return array
-     */
-    public function getRolesArray()
-    {
-        $roles  = $this->rolesArray ?: [];
-        
-        // we need to make sure to have at least one role
-        //$roles[] = "ROLE_DEFAULT";
-        
-        return array_unique( $roles );
-    }
-    
-    public function setRolesArray( array $roles ) : self
-    {
-        $this->rolesArray    = $roles;
-        
-        return $this;
-    }
-    
-    public function hasRole( $role )
-    {
-        return in_array( strtoupper( $role ), $this->getRoles(), true );
-    }
-    
-    /**
-     * @return Collection|UserRole[]
-     */
-    public function getRolesCollection()
-    {
-        return $this->rolesCollection;
-    }
-    
-    public function addRole( UserRoleInterface $role ) : self
-    {
-        if ( ! $this->rolesCollection->contains( $role ) ) {
-            $this->rolesCollection[]    = $role;
-        }
-        
-        return $this;
-    }
-    
-    public function removeRole( UserRoleInterface $role ) : self
-    {
-        if ( $this->rolesCollection->contains( $role ) ) {
-            $this->rolesCollection->removeElement( $role );
-        }
-        
-        return $this;
+        //return $this->getRolesFromCollection();
     }
     
     public function getActivities() : Collection
