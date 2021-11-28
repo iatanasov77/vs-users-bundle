@@ -5,6 +5,7 @@ use Doctrine\Common\Collections\Collection;
 
 class User implements UserInterface
 {
+    use Traits\UserPasswordTrait;
     use Traits\UserRolesArrayTrait;
     use Traits\UserRolesCollectionTrait;
     
@@ -34,20 +35,6 @@ class User implements UserInterface
      * @var string
      */
     protected $email;
-
-    /**
-     * The salt to use for hashing.
-     *
-     * @var string
-     */
-    protected $salt;
-    
-    /**
-     * Encrypted password. Must be persisted.
-     *
-     * @var string
-     */
-    protected $password;
     
     /**
      * Prefered locale.
@@ -67,11 +54,6 @@ class User implements UserInterface
      * @var string|null
      */
     protected $confirmationToken;
-    
-    /**
-     * @var \DateTime|null
-     */
-    protected $passwordRequestedAt;
     
     /**
      * @var bool
@@ -148,38 +130,6 @@ class User implements UserInterface
         return $this;
     }
     
-    public function getSalt()
-    {
-        return $this->salt;
-    }
-    
-    public function setSalt( $salt ) : self
-    {
-        $this->salt = $salt;
-        
-        return $this;
-    }
-    
-    public function getPassword()
-    {
-        return $this->password;
-    }
-    
-    public function setPassword( $password ) : self
-    {
-        $this->password = $password;
-        
-        return $this;
-    }
-    
-    /**
-     * Required by Symfony\Component\Security\Core\User\UserInterface
-     */
-    public function eraseCredentials()
-    {
-        //$this->plainPassword = null;
-    }
-    
     public function getPreferedLocale()
     {
         return $this->preferedLocale;
@@ -212,18 +162,6 @@ class User implements UserInterface
     public function setConfirmationToken( $confirmationToken )
     {
         $this->confirmationToken = $confirmationToken;
-        
-        return $this;
-    }
-    
-    public function getPasswordRequestedAt()
-    {
-        return $this->passwordRequestedAt;
-    }
-    
-    public function setPasswordRequestedAt( \DateTime $date = null )
-    {
-        $this->passwordRequestedAt = $date;
         
         return $this;
     }
