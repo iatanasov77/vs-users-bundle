@@ -73,6 +73,7 @@ class User implements UserInterface
     
     public function __construct()
     {
+        $this->rolesCollection  = new ArrayCollection(); // Cannot write this in trait Constructor
         $this->activities       = new ArrayCollection();
         $this->notifications    = new ArrayCollection();
     }
