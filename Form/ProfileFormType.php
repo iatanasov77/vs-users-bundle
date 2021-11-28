@@ -26,7 +26,7 @@ class ProfileFormType extends UserFormType
         $builder->remove( 'verified' );
         
         $builder->remove( 'roles_options' );
-        $builder->remove( 'password' );
+        $builder->remove( 'plain_password' );
         $builder->remove( 'email' );
         $builder->remove( 'username' );
         

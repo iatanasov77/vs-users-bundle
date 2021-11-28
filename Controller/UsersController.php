@@ -8,7 +8,7 @@ class UsersController extends AbstractCrudController //ResourceController
 {
     protected function prepareEntity( &$entity, &$form, Request $request )
     {
-        $plainPassword  = $entity->getPassword();
+        $plainPassword  = $form->get( "plain_password" )->getData();
         if ( $plainPassword ) {
             $userManager    = $this->container->get( 'vs_users.manager.user' );
             $userManager->encodePassword( $entity, $plainPassword );
