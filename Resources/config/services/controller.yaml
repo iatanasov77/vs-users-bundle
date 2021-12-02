@@ -29,6 +29,7 @@ services:
         tags: ['controller.service_arguments']
         autowire: true
         arguments:
+            - '@translator'
             - '@vs_users.repository.users'
             - '@vs_users.repository.user_roles'
             - '@vs_application.repository.taxonomy'
