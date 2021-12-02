@@ -43,6 +43,7 @@ vs_users:
             role: Роля
             parent_role: Родителска Роля
             parent_role_placeholder: '-- Избери Родителска Роля --'
+            parent_role_no_parent: Няма Родител
             
     template:
         profile_show_title: 'Моят Профил'
