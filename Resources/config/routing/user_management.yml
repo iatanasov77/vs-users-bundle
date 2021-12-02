@@ -25,7 +25,7 @@ vs_users_user_roles:
     type: sylius.resource
 
 vs_users_roles_tree_combo_with_selected:
-    path: /json/{userId}/user-roles/easyui-combotree
+    path: /json/{userId}/user-roles-collection/easyui-combotree
     controller: VS\UsersBundle\Controller\UsersExtController::rolesEasyuiComboTreeWithSelectedSource
     
 vs_users_user_info_display:
@@ -36,6 +36,6 @@ vs_users_user_info_handle:
     path: /user-info/{userId}/handle
     controller: VS\UsersBundle\Controller\UsersExtController::handleUserInfo
 
-vs_users_roles_collection_tree_combo_with_selected:
-    path: /json/{userId}/user-roles-collection/easyui-combotree
+vs_users_roles_collection_parent_tree_combo_with_selected:
+    path: /json/{roleId}/user-roles-collection-parent/easyui-combotree
     controller: VS\UsersBundle\Controller\UsersRolesExtController::rolesEasyuiComboTreeWithSelectedSource

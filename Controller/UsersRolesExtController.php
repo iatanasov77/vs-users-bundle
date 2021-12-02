@@ -37,18 +37,18 @@ class UsersRolesExtController extends AbstractController
         $this->taxonRepository      = $taxonRepository;
     }
     
-    public function rolesEasyuiComboTreeWithSelectedSource( $userId, Request $request ): JsonResponse
+    public function rolesEasyuiComboTreeWithSelectedSource( $roleId, Request $request ): JsonResponse
     {
-            $selectedRoles  = $userId ? $this->usersRepository->find( $userId )->getRoles() : [];
-            $data           = [];
-            
-            $topRoles   = $this->usersRolesRepository->findBy( ['parent' => null] );
-            $rolesTree  = [];
-            $this->getRolesTree( new ArrayCollection( $topRoles ), $rolesTree );
-            
-            $this->buildEasyuiCombotreeData( $rolesTree, $data, $selectedRoles );
-            
-            return new JsonResponse( $data );
+        $selectedParent = $roleId ? $this->usersRolesRepository->find( $roleId )->getRoles() : null;
+        $data           = [];
+        
+        $topRoles   = $this->usersRolesRepository->findBy( ['parent' => null] );
+        $rolesTree  = [];
+        $this->getRolesTree( new ArrayCollection( $topRoles ), $rolesTree );
+        
+        $this->buildEasyuiCombotreeData( $rolesTree, $data, $selectedParent );
+        
+        return new JsonResponse( $data );
     }
     
     protected function buildEasyuiCombotreeData( $tree, &$data, array $selectedValues )
