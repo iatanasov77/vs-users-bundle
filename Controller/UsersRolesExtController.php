@@ -48,7 +48,7 @@ class UsersRolesExtController extends AbstractController
         $selectedParent = $roleId ? $this->usersRolesRepository->find( $roleId )->getParent() : null;
         $data[0]           = [
             'id'        => 0,
-            'text'      => $this->get( 'translator' )->trans( 'No Parent' ),
+            'text'      => $this->translator->trans( 'vs_users.form.user_role.parent_role_no_parent', [], 'VSUsersBundle' ),
             'children'  => []
         ];
         
