@@ -43,6 +43,7 @@ vs_users:
             role: Role
             parent_role: Parent Role
             parent_role_placeholder: '-- Select Parent Role --'
+            parent_role_no_parent: No Parent
     
     template:
         profile_show_title: 'My Profile'

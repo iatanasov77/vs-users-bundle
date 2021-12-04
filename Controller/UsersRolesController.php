@@ -40,8 +40,9 @@ class UsersRolesController extends AbstractCrudController
         // Try This to Get Post Values
         //echo "<pre>"; var_dump( $request->request->all() ); die;
         if ( isset( $_POST['user_role_form']['parent'] ) ) {
-            $parentRole = $this->get( 'vs_users.repository.user_roles' )
-                                ->findByTaxonId( $_POST['user_role_form']['parent'] );
+            $repo       = $this->get( 'vs_users.repository.user_roles' );
+            //$parentRole = $repo->findByTaxonId( $_POST['user_role_form']['parent'] );
+            $parentRole = $repo->find( $_POST['user_role_form']['parent'] );
         }
         
         if ( $entity->getTaxon() ) {

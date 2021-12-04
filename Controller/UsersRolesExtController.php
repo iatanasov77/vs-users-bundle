@@ -4,6 +4,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -13,6 +14,9 @@ use VS\ApplicationBundle\Repository\TaxonRepository;
 
 class UsersRolesExtController extends AbstractController
 {
+    /** @var TranslatorInterface */
+    protected $translator;
+    
     /** @var RepositoryInterface */
     protected $usersRepository;
     
@@ -26,29 +30,35 @@ class UsersRolesExtController extends AbstractController
     protected $taxonRepository;
     
     public function __construct(
+        TranslatorInterface $translator,
         RepositoryInterface $usersRepository,
         RepositoryInterface $usersRolesRepository,
         RepositoryInterface $taxonomyRepository,
         TaxonRepository $taxonRepository
     ) {
+        $this->translator           = $translator;
         $this->usersRepository      = $usersRepository;
         $this->usersRolesRepository = $usersRolesRepository;
         $this->taxonomyRepository   = $taxonomyRepository;
         $this->taxonRepository      = $taxonRepository;
     }
     
-    public function rolesEasyuiComboTreeWithSelectedSource( $userId, Request $request ): JsonResponse
+    public function rolesEasyuiComboTreeWithSelectedSource( $roleId, Request $request ): JsonResponse
     {
-            $selectedRoles  = $userId ? $this->usersRepository->find( $userId )->getRoles() : [];
-            $data           = [];
-            
-            $topRoles   = $this->usersRolesRepository->findBy( ['parent' => null] );
-            $rolesTree  = [];
-            $this->getRolesTree( new ArrayCollection( $topRoles ), $rolesTree );
-            
-            $this->buildEasyuiCombotreeData( $rolesTree, $data, $selectedRoles );
-            
-            return new JsonResponse( $data );
+        $selectedParent = $roleId ? $this->usersRolesRepository->find( $roleId )->getParent() : null;
+        $data[0]           = [
+            'id'        => 0,
+            'text'      => $this->translator->trans( 'vs_users.form.user_role.parent_role_no_parent', [], 'VSUsersBundle' ),
+            'children'  => []
+        ];
+        
+        $topRoles   = $this->usersRolesRepository->findBy( ['parent' => null] );
+        $rolesTree  = [];
+        $this->getRolesTree( new ArrayCollection( $topRoles ), $rolesTree );
+        
+        $this->buildEasyuiCombotreeData( $rolesTree, $data[0]['children'], [$selectedParent] );
+        
+        return new JsonResponse( $data );
     }
     
     protected function buildEasyuiCombotreeData( $tree, &$data, array $selectedValues )
