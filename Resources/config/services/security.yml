@@ -5,13 +5,11 @@ parameters:
     
     vs_users.form_create_account: true
     
+    vs_users.gc_maxlifetime: 1800   # 30 minutes
     vs_users.cookie.domain: '%env(COOKIE_DOMAIN)%'
     vs_users.cookie.lifetime: 86400 # 24 hours
-    vs_users.gc_maxlifetime: 1800   # 30 minutes
-    
     vs_users.api_token.domain: '%env(API_TOKEN_DOMAIN)%'
-    vs_users.api_token.expires: 3600
-    vs_users.api_token.lifetime: 3600
+    vs_users.api_token.lifetime: 3600 # 1 hours
     
 services:
     vs_users.manager.user:
