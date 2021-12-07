@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
+use VS\ApplicationBundle\Model\Application;
 use VS\UsersBundle\Model\UserInterface;
 use VS\UsersBundle\Component\UserRole;
 
@@ -75,6 +76,16 @@ class UserFormType extends AbstractForm
                 "mapped"                => false,
                 "multiple"              => true,
                 'choices'               => UserRole::choices()
+            ])
+            
+            ->add( 'applications', EntityType::class, [
+                'label'                 => 'vs_users.form.user.applications_allowed',
+                'translation_domain'    => 'VSUsersBundle',
+                'class'                 => Application::class,
+                'choice_label'          => 'title',
+                "required"              => false,
+                //"mapped"                => false,
+                "multiple"              => true,
             ])
         ;
     }

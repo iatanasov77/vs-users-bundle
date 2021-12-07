@@ -29,6 +29,8 @@ class RegistrationFormType extends UserFormType
         $builder->remove( 'verified' );
         
         $builder->remove( 'roles_options' );
+        $builder->remove( 'applications' );
+        
         $builder->remove( 'btnSave' );
         
         $builder

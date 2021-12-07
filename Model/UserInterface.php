@@ -6,6 +6,8 @@ use Doctrine\Common\Collections\Collection;
 
 interface UserInterface extends BaseUserInterface, ResourceInterface
 {
+    public function hasRole( string $role ): bool;
+    
     public function getRolesFromArray(): array;
     
     public function getRolesFromCollection(): array;
