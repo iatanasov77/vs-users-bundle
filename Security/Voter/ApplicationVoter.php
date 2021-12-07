@@ -36,7 +36,7 @@ class ApplicationVoter implements VoterInterface
             return self::ACCESS_DENIED;
         }
         
-        if ( $user->hasRole( 'ROLE_SUPER_ADMIN' ) ||  ) {
+        if ( $user->hasRole( 'ROLE_SUPER_ADMIN' ) ) {
             return self::ACCESS_GRANTED;
         }
         
