@@ -8,6 +8,7 @@ class User implements UserInterface
     use Traits\UserPasswordTrait;
     use Traits\UserRolesArrayTrait;
     use Traits\UserRolesCollectionTrait;
+    use Traits\UserApplicationsTrait;
     
     /**
      * @var mixed
@@ -76,6 +77,7 @@ class User implements UserInterface
         $this->rolesCollection  = new ArrayCollection(); // Cannot write this in trait Constructor
         $this->activities       = new ArrayCollection();
         $this->notifications    = new ArrayCollection();
+        $this->applications     = new ArrayCollection();
     }
     
     public function getId()
@@ -95,6 +97,11 @@ class User implements UserInterface
         
         /* EXAMPLE To Use RoleCollection */
         //return $this->getRolesFromCollection();
+    }
+    
+    public function hasRole( string $role ): bool
+    {
+        return in_array( strtoupper( $role ), $this->getRoles(), true );
     }
     
     public function getInfo()

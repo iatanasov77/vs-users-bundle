@@ -2,17 +2,53 @@
 
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
+use Symfony\Component\Security\Core\Security;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
-class SuperAdminVoter extends Voter
+use VS\ApplicationBundle\Component\Context\ApplicationContextInterface;
+use VS\UsersBundle\Model\UserInterface;
+
+class ModelVoter extends Voter
 {
     // these strings are just invented: you can use anything
-    const VIEW = 'view';
-    const EDIT = 'edit';
+    const LIST      = 'list';
+    const VIEW      = 'view';
+    const EDIT      = 'edit';
+    const REMOVE    = 'remove';
     
-    protected function supports(string $attribute, $subject): bool
+    private $security;
+    
+    private ApplicationContextInterface $applicationContext;
+    
+    /** @var Collection */
+    private $disabledModels;
+    
+    public function __construct(
+        Security $security,
+        ApplicationContextInterface $applicationContext,
+        array $disabledModels
+    ) {
+            $this->security             = $security;
+            $this->applicationContext   = $applicationContext;
+            $this->disabledModels       = new ArrayCollection( $disabledModels );
+    }
+    
+    protected function supports( string $attribute, $subject ): bool
     {
+        if ( $this->disabledModels->isEmpty() ) {
+            return self::ACCESS_ABSTAIN;
+        }
+        
+        foreach ( $this->disabledModels as $role => $model ) {
+            //return self::ACCESS_GRANTED;
+            //return self::ACCESS_DENIED;
+        }
+        
+        return self::ACCESS_ABSTAIN;
+        
         // if the attribute isn't one we support, return false
-        if (!in_array($attribute, [self::VIEW, self::EDIT])) {
+        if ( ! in_array( $attribute, [self::VIEW, self::EDIT] ) ) {
             return false;
         }
         

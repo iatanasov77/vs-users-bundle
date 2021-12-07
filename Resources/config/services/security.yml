@@ -11,6 +11,15 @@ parameters:
     vs_users.api_token.domain: '%env(API_TOKEN_DOMAIN)%'
     vs_users.api_token.lifetime: 3600 # 1 hours
     
+    vs_users.voter.disabled_models: {}
+#    Disabled Models Example
+##########################################
+#    vs_users.voter.disabled_models:
+#        ROLE_TEST_APPLICATION_ADMIN:
+#            'App\Entity\Post':
+#                - 'edit'
+#                - 'remove'
+    
 services:
     vs_users.manager.user:
         class: VS\UsersBundle\Security\UserManager
@@ -54,3 +63,17 @@ services:
               event: 'Symfony\Component\Security\Http\Event\LogoutEvent'
               dispatcher: security.event_dispatcher.main
 
+    vs_users.security.application_voter:
+        class: VS\UsersBundle\Security\Voter\ApplicationVoter
+        tags: ['security.voter']
+        arguments:
+            - '@security.context'
+            - '@vs_application.context.application'
+    
+    vs_users.security.model_voter:
+        class: VS\UsersBundle\Security\Voter\ModelVoter
+        tags: ['security.voter']
+        arguments:
+            - '@security.context'
+            - '@vs_application.context.application'
+            - '%vs_users.voter.disabled_models%'

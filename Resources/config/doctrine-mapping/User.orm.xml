@@ -20,6 +20,8 @@
         <field name="salt" column="salt" type="string" nullable="false" />
         <field name="password" column="password" type="string" nullable="false" />
         
+        <many-to-many field="applications" target-entity="VS\ApplicationBundle\Model\Interfaces\ApplicationInterface" mapped-by="users" />
+        
 		<!-- 
 			For Backward Compatibility Create 2 Roles Fields <rolesArray and rolesCollection>
 			You can choose which to use

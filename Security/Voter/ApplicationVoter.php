@@ -1,69 +1,57 @@
 <?php namespace VS\UsersBundle\Security\Voter;
 
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\Authorization\Voter\Voter;
+use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
+use Symfony\Component\Security\Core\Security;
+use Symfony\Component\HttpFoundation\Request;
 
-use App\Entity\Post;
-use App\Entity\User;
+use VS\ApplicationBundle\Component\Context\ApplicationContextInterface;
+use VS\UsersBundle\Model\UserInterface;
 
-class ApplicationVoter extends Voter
+class ApplicationVoter implements VoterInterface
 {
-    // these strings are just invented: you can use anything
-    const VIEW = 'view';
-    const EDIT = 'edit';
+    private $security;
     
-    protected function supports(string $attribute, $subject): bool
-    {
-        // if the attribute isn't one we support, return false
-        if (!in_array($attribute, [self::VIEW, self::EDIT])) {
-            return false;
-        }
-        
-        // only vote on `Post` objects
-        if (!$subject instanceof Post) {
-            return false;
-        }
-        
-        return true;
+    private ApplicationContextInterface $applicationContext;
+    
+    public function __construct(
+        Security $security,
+        ApplicationContextInterface $applicationContext
+    ) {
+            $this->security             = $security;
+            $this->applicationContext   = $applicationContext;
     }
     
-    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
+    /**
+     * {@inheritdoc}
+     */
+    public function vote( TokenInterface $token, $subject, array $attributes )
     {
-        $user = $token->getUser();
+        if ( ! $subject instanceof Request ) {
+            return self::ACCESS_ABSTAIN;
+        }
+        $user   = $token->getUser();
         
-        if (!$user instanceof User) {
-            // the user must be logged in; if not, deny access
-            return false;
+        if ( ! $user instanceof UserInterface ) {
+            return self::ACCESS_DENIED;
         }
         
-        // you know $subject is a Post object, thanks to `supports()`
-        /** @var Post $post */
-        $post = $subject;
-        
-        switch ($attribute) {
-            case self::VIEW:
-                return $this->canView($post, $user);
-            case self::EDIT:
-                return $this->canEdit($post, $user);
+        if ( $user->hasRole( 'ROLE_SUPER_ADMIN' ) ||  ) {
+            return self::ACCESS_GRANTED;
         }
         
-        throw new \LogicException('This code should not be reached!');
-    }
-    
-    private function canView(Post $post, User $user): bool
-    {
-        // if they can edit, they can view
-        if ($this->canEdit($post, $user)) {
-            return true;
+        if ( ! $user->getApplications()->isEmpty() ) {
+            return self::ACCESS_ABSTAIN;
         }
         
-        // the Post object could have, for example, a method `isPrivate()`
-        return !$post->isPrivate();
-    }
-    
-    private function canEdit(Post $post, User $user): bool
-    {
-        // this assumes that the Post object has a `getOwner()` method
-        return $user === $post->getOwner();
+        $application    = $this->applicationContext->getApplication();
+        $uri            = $subject->getUri(); // $uri may be needed sometimes
+        foreach ( $user->getApplications() as $userApplication ) {
+            if ( $userApplication == $application ) {
+                return self::ACCESS_GRANTED;
+            }
+        }
+        
+        return self::ACCESS_DENIED;
     }
 }
