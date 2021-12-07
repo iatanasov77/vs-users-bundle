@@ -21,11 +21,14 @@ class UserFormType extends AbstractForm
 {
     protected $requestStack;
     
-    public function __construct( RequestStack $requestStack, string $dataClass )
+    protected $applicationClass;
+    
+    public function __construct( RequestStack $requestStack, string $dataClass, string $applicationClass )
     {
         parent::__construct( $dataClass );
         
         $this->requestStack     = $requestStack;
+        $this->applicationClass = $applicationClass;
     }
 
     public function buildForm( FormBuilderInterface $builder, array $options )
@@ -82,7 +85,7 @@ class UserFormType extends AbstractForm
             ->add( 'applications', EntityType::class, [
                 'label'                 => 'vs_users.form.user.applications_allowed',
                 'translation_domain'    => 'VSUsersBundle',
-                'class'                 => Application::class,
+                'class'                 => $this->applicationClass,
                 'choice_label'          => 'title',
                 "required"              => false,
                 //"mapped"                => false,
