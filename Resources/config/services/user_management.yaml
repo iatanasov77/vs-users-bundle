@@ -17,6 +17,7 @@ services:
         arguments:
             - "@request_stack"
             - '%vs_users.model.users.class%'
+            - '%vs_application.model.application.class%'
 
     vs_users.resources.user_roles.form:
         class: VS\UsersBundle\Form\UserRoleForm
