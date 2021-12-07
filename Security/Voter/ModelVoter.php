@@ -25,9 +25,9 @@ class ModelVoter extends Voter
     private $disabledModels;
     
     public function __construct(
-        Security $security,
         ApplicationContextInterface $applicationContext,
-        array $disabledModels
+        array $disabledModels,
+        Security $security  = null
     ) {
             $this->security             = $security;
             $this->applicationContext   = $applicationContext;
@@ -45,26 +45,14 @@ class ModelVoter extends Voter
             //return self::ACCESS_DENIED;
         }
         
-        return self::ACCESS_ABSTAIN;
-        
-        // if the attribute isn't one we support, return false
-        if ( ! in_array( $attribute, [self::VIEW, self::EDIT] ) ) {
-            return false;
-        }
-        
-        // only vote on `Post` objects
-        if (!$subject instanceof Post) {
-            return false;
-        }
-        
-        return true;
+        return false;
     }
     
-    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
+    protected function voteOnAttribute( string $attribute, $subject, TokenInterface $token ): bool
     {
         $user = $token->getUser();
         
-        if (!$user instanceof User) {
+        if ( ! $user instanceof User ) {
             // the user must be logged in; if not, deny access
             return false;
         }
@@ -82,8 +70,8 @@ class ModelVoter extends Voter
         
         throw new \LogicException('This code should not be reached!');
     }
-    
-    private function canView(Post $post, User $user): bool
+    /*
+    private function canView( Post $post, User $user ): bool
     {
         // if they can edit, they can view
         if ($this->canEdit($post, $user)) {
@@ -99,4 +87,5 @@ class ModelVoter extends Voter
         // this assumes that the Post object has a `getOwner()` method
         return $user === $post->getOwner();
     }
+    */
 }
