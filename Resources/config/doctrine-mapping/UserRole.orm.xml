@@ -9,7 +9,7 @@
             <generator strategy="AUTO" />
         </id>
       	
-      	<field name="role" column="role" type="string" length="32" nullable="false" unique="true" />
+      	<field name="role" column="role" type="string" length="255" nullable="false" unique="true" />
         
         <many-to-one field="taxon" name="taxon_id" target-entity="VS\ApplicationBundle\Model\Interfaces\TaxonInterface" inversed-by="children">
             <cascade>
