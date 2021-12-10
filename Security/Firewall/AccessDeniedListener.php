@@ -9,6 +9,9 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
+/**
+ * MANUAL: https://symfony.com/doc/current/security/access_denied_handler.html#customizing-all-access-denied-responses
+ */
 class AccessDeniedListener implements EventSubscriberInterface
 {
     private $urlGenerator;

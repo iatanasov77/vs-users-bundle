@@ -26,7 +26,7 @@ trait UserApplicationsTrait
     {
         if ( ! $this->applications->contains( $application ) ) {
             $this->applications[] = $application;
-            $application->addRole( $this );
+            //$application->addUser( $this );
         }
         
         return $this;
@@ -36,7 +36,7 @@ trait UserApplicationsTrait
     {
         if ( ! $this->applications->contains( $application ) ) {
             $this->applications->removeElement( $application );
-            $application->removeRole( $this );
+            //$application->removeUser( $this );
         }
         
         return $this;
