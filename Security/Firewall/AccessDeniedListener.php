@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class AccessDeniedListener implements EventSubscriberInterface
@@ -35,7 +36,8 @@ class AccessDeniedListener implements EventSubscriberInterface
     public function onKernelException( ExceptionEvent $event ): void
     {
         $exception  = $event->getThrowable();
-        if ( ! $exception instanceof AccessDeniedException ) {
+        //if ( ! $exception instanceof AccessDeniedException ) {
+        if ( ! $exception instanceof AccessDeniedHttpException ) {
             return;
         }
         
