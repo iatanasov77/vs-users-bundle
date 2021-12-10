@@ -77,3 +77,13 @@ services:
             - '@vs_application.context.application'
             - '%vs_users.voter.disabled_models%'
             #- '@security.context'
+
+    vs_users.security.firewall.access_denied_listener:
+        class: VS\UsersBundle\Security\Firewall\AccessDeniedListener
+        arguments: 
+            - '@router'
+            - {
+                loginRoute: '%vs_users.login_route%',
+            }
+        tags:
+            - { name: 'kernel.event_listener', event: 'kernel.exception', method: 'onKernelException' }
