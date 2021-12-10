@@ -40,7 +40,7 @@ class ApplicationVoter implements VoterInterface
             return self::ACCESS_GRANTED;
         }
         
-        if ( ! $user->getApplications()->isEmpty() ) {
+        if ( $user->getApplications()->isEmpty() ) {
             return self::ACCESS_ABSTAIN;
         }
         
