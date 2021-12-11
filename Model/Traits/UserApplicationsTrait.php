@@ -22,6 +22,22 @@ trait UserApplicationsTrait
         return $this->applications;
     }
     
+    /**
+     * MANUAL: https://jeremymarc.github.io/2013/01/31/symfony-form-and-doctrine-inverse-side-association
+     * 
+     * @param Collection $applications
+     * @return self
+     */
+    public function setApplications( Collection $applications ): self
+    {
+        $this->applications = $applications;
+        foreach ( $applications as $app ) {
+            $app->addUser( $this );
+        }
+        
+        return $this;
+    }
+    
     public function addApplication( ApplicationInterface $application ): UserInterface
     {
         if ( ! $this->applications->contains( $application ) ) {
