@@ -29,6 +29,11 @@ class UsersController extends AbstractCrudController //ResourceController
         $entity->setPreferedLocale( $request->getLocale() );
         $entity->setEnabled( true );
         */
+        
+//         $allowedApplications    = $form->get( "applications" )->getData();
+//         foreach ( $allowedApplications as $app ) {
+//             $entity->addApplication( $app );
+//         }
     }
     
     private function buildRoles( &$entity, array $roles )
