@@ -30,10 +30,8 @@ class UsersController extends AbstractCrudController //ResourceController
         $entity->setEnabled( true );
         */
         
-//         $allowedApplications    = $form->get( "applications" )->getData();
-//         foreach ( $allowedApplications as $app ) {
-//             $entity->addApplication( $app );
-//         }
+        $allowedApplications    = $form->get( "applications" )->getData();
+        $entity->setApplications( $allowedApplications );
     }
     
     private function buildRoles( &$entity, array $roles )
