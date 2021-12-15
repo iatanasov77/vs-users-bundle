@@ -10,7 +10,7 @@
             <generator strategy="AUTO" />
         </id>
         
-        <one-to-one field="info" target-entity="VS\UsersBundle\Model\UserInfoInterface" fetch="EAGER"><!-- inversed-by="user" -->
+        <one-to-one field="info" target-entity="VS\UsersBundle\Model\UserInfoInterface" fetch="EAGER" inversed-by="user">
         	<cascade>
                 <cascade-all/>
             </cascade>
