@@ -9,6 +9,7 @@ services:
             - "@vs_users.factory.user_info"
             - '@vs_users.factory.avatar_image'
             - '@vs_cms.profile_uploader'
+            - '@vs_users.repository.user_roles'
     
     vs_users.resources.users.form:
         class: VS\UsersBundle\Form\UserFormType

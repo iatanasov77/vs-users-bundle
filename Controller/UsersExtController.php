@@ -9,6 +9,8 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 use VS\ApplicationBundle\Component\Status;
 use VS\CmsBundle\Component\Uploader\FileUploaderInterface;
@@ -30,16 +32,21 @@ class UsersExtController extends AbstractController
     /** @var FileUploaderInterface */
     protected $imageUploader;
     
+    /** @var RepositoryInterface */
+    protected $usersRolesRepository;
+    
     public function __construct(
         RepositoryInterface $usersRepository,
         FactoryInterface $userInfoFactory,
         FactoryInterface $avatarImageFactory,
-        FileUploaderInterface $imageUploader
+        FileUploaderInterface $imageUploader,
+        RepositoryInterface $usersRolesRepository
     ) {
         $this->usersRepository      = $usersRepository;
         $this->userInfoFactory      = $userInfoFactory;
         $this->avatarImageFactory   = $avatarImageFactory;
         $this->imageUploader        = $imageUploader;
+        $this->usersRolesRepository = $usersRolesRepository;
     }
     
     public function displayUserInfo( $userId, Request $request ): Response
@@ -88,8 +95,16 @@ class UsersExtController extends AbstractController
     public function rolesEasyuiComboTreeWithSelectedSource( $userId, Request $request ): JsonResponse
     {
             $selectedRoles  = $userId ? $this->usersRepository->find( $userId )->getRoles() : [];
+            
+            
+            $topRoles       = $this->usersRolesRepository->findBy( ['parent' => null] );
+            $rolesTree      = [];
+            $this->getRolesTree( new ArrayCollection( $topRoles ), $rolesTree );
+            
             $data           = [];
-            $this->buildEasyuiCombotreeData( UserRole::choicesTree(), $data, $selectedRoles );
+            
+            $this->buildEasyuiCombotreeData( $rolesTree, $data, $selectedRoles );
+            //$this->buildEasyuiCombotreeData( UserRole::choicesTree(), $data, $selectedRoles );
             
             return new JsonResponse( $data );
     }
@@ -129,6 +144,21 @@ class UsersExtController extends AbstractController
         
         if ( ! $userInfo->getAvatar() ) {
             $userInfo->setAvatar( $avatarImage );
+        }
+    }
+    
+    private function getRolesTree( Collection $roles, &$rolesTree )
+    {
+        foreach ( $roles as $role ) {
+            $rolesTree[$role->getRole()] = [
+                'id'        => $role->getId(),
+                'role'      => $role->getRole(),
+                'children'  => [],
+            ];
+            
+            if ( ! $role->getChildren()->isEmpty() ) {
+                $this->getRolesTree( $role->getChildren(), $rolesTree[$role->getRole()]['children'] );
+            }
         }
     }
 }
