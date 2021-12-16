@@ -95,20 +95,45 @@ class UsersExtController extends AbstractController
     public function rolesEasyuiComboTreeWithSelectedSource( $userId, Request $request ): JsonResponse
     {
             $selectedRoles  = $userId ? $this->usersRepository->find( $userId )->getRoles() : [];
-            
+            $data           = [];
             
             $topRoles       = $this->usersRolesRepository->findBy( ['parent' => null] );
             $rolesTree      = [];
             $this->getRolesTree( new ArrayCollection( $topRoles ), $rolesTree );
+            $this->buildEasyuiCombotreeDataFromCollection( $rolesTree, $data, $selectedRoles );
             
-            $data           = [];
-            
-            $this->buildEasyuiCombotreeData( $rolesTree, $data, $selectedRoles );
             //$this->buildEasyuiCombotreeData( UserRole::choicesTree(), $data, $selectedRoles );
             
             return new JsonResponse( $data );
     }
     
+    protected function buildEasyuiCombotreeDataFromCollection( $tree, &$data, array $selectedValues )
+    {
+        $key    = 0;
+        
+        if ( is_array( $tree ) ) {
+            foreach( $tree as $nodeKey => $node ) {
+                $data[$key]   = [
+                    'id'        => $node['id'],
+                    'text'      => $node['role'],
+                    'children'  => []
+                ];
+                if ( in_array( $nodeKey, $selectedValues ) ) {
+                    $data[$key]['checked'] = true;
+                }
+                
+                if ( ! empty( $node['children'] ) ) {
+                    $this->buildEasyuiCombotreeDataFromCollection( $node['children'], $data[$key]['children'], $selectedValues );
+                }
+                
+                $key++;
+            }
+        }
+    }
+    
+    /**
+     * OLD Way
+     */
     protected function buildEasyuiCombotreeData( $tree, &$data, array $selectedValues )
     {
         $key    = 0;
