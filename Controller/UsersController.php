@@ -52,9 +52,10 @@ class UsersController extends AbstractCrudController //ResourceController
      */
     private function clearApplications( &$entity )
     {
-        $em     = $this->getDoctrine()->getManager();
+        $appRepo    = $this->get( 'vs_application.repository.application' );
+        $em         = $this->getDoctrine()->getManager();
         
-        foreach ( $entity->getApplications() as $app ) {
+        foreach ( $appRepo->findAll() as $app ) {
             $app->removeUser( $entity );
             $em->persist( $app );
         }
