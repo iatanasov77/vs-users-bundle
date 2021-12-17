@@ -31,7 +31,7 @@ class UsersController extends AbstractCrudController //ResourceController
         */
         
         $allowedApplications    = $form->get( "applications" )->getData();
-        $entity->clearApplications();
+        $this->clearApplications( $entity );
         $entity->setApplications( $allowedApplications );
     }
     
@@ -44,5 +44,21 @@ class UsersController extends AbstractCrudController //ResourceController
         foreach ( $roles as $r ) {
             $entity->addRole( $repo->find( $r['id'] ) );
         }
+    }
+    
+    /**
+     * Used before setApplications method to fix when removing an application
+     * MANUAL: https://stackoverflow.com/questions/38955114/symfony-doctrine-remove-manytomany-association/38955917
+     */
+    private function clearApplications( &$entity )
+    {
+        $em     = $this->getDoctrine()->getManager();
+        
+        foreach ( $entity->getApplications() as $app ) {
+            $app->removeUser( $entity );
+            $em->persist( $app );
+        }
+        
+        return $this;
     }
 }
