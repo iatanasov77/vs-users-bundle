@@ -38,6 +38,21 @@ trait UserApplicationsTrait
         return $this;
     }
     
+    /**
+     * Used before setApplications method to fix when removing an application
+     * MANUAL: https://stackoverflow.com/questions/38955114/symfony-doctrine-remove-manytomany-association/38955917
+     * 
+     * @return self
+     */
+    public function clearApplications(): self
+    {
+        foreach ( $this->applications as $app ) {
+            $this->removeApplication( $app );
+        }
+        
+        return $this;
+    }
+    
     public function addApplication( ApplicationInterface $application ): UserInterface
     {
         if ( ! $this->applications->contains( $application ) ) {
@@ -50,7 +65,7 @@ trait UserApplicationsTrait
     
     public function removeApplication( ApplicationInterface $application ): UserInterface
     {
-        if ( ! $this->applications->contains( $application ) ) {
+        if ( $this->applications->contains( $application ) ) {
             $this->applications->removeElement( $application );
             $application->removeUser( $this );
         }
