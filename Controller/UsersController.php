@@ -31,6 +31,7 @@ class UsersController extends AbstractCrudController //ResourceController
         */
         
         $allowedApplications    = $form->get( "applications" )->getData();
+        $entity->clearApplications();
         $entity->setApplications( $allowedApplications );
     }
     
