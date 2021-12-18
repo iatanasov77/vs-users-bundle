@@ -19,6 +19,7 @@ vs_users:
             lastName: 'Фамилия'
             enabled: 'Разрешен'
             verified: 'Проверен'
+            applications_allowed: Разрешени Приложения
             save: 'Save'
             cancel: 'Отмени'
     

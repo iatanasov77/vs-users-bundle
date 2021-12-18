@@ -19,6 +19,7 @@ vs_users:
             lastName: 'Last Name'
             enabled: 'Enabled'
             verified: 'Verified'
+            applications_allowed: Allowed Applications
             save: 'Save'
             cancel: 'Cancel'
     

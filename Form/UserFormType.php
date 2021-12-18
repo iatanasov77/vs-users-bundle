@@ -11,7 +11,9 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
+use VS\ApplicationBundle\Model\Application;
 use VS\UsersBundle\Model\UserInterface;
 use VS\UsersBundle\Component\UserRole;
 
@@ -19,11 +21,14 @@ class UserFormType extends AbstractForm
 {
     protected $requestStack;
     
-    public function __construct( RequestStack $requestStack, string $dataClass )
+    protected $applicationClass;
+    
+    public function __construct( RequestStack $requestStack, string $dataClass, string $applicationClass )
     {
         parent::__construct( $dataClass );
         
         $this->requestStack     = $requestStack;
+        $this->applicationClass = $applicationClass;
     }
 
     public function buildForm( FormBuilderInterface $builder, array $options )
@@ -75,6 +80,16 @@ class UserFormType extends AbstractForm
                 "mapped"                => false,
                 "multiple"              => true,
                 'choices'               => UserRole::choices()
+            ])
+            
+            ->add( 'applications', EntityType::class, [
+                'label'                 => 'vs_users.form.user.applications_allowed',
+                'translation_domain'    => 'VSUsersBundle',
+                'class'                 => $this->applicationClass,
+                'choice_label'          => 'title',
+                "required"              => false,
+                //"mapped"                => false,
+                "multiple"              => true,
             ])
         ;
     }

@@ -29,6 +29,10 @@ class UsersController extends AbstractCrudController //ResourceController
         $entity->setPreferedLocale( $request->getLocale() );
         $entity->setEnabled( true );
         */
+        
+        $allowedApplications    = $form->get( "applications" )->getData();
+        $this->clearApplications( $entity );
+        $entity->setApplications( $allowedApplications );
     }
     
     private function buildRoles( &$entity, array $roles )
@@ -40,5 +44,23 @@ class UsersController extends AbstractCrudController //ResourceController
         foreach ( $roles as $r ) {
             $entity->addRole( $repo->find( $r['id'] ) );
         }
+    }
+    
+    /**
+     * Used before setApplications method to fix when removing an application
+     * MANUAL: https://stackoverflow.com/questions/38955114/symfony-doctrine-remove-manytomany-association/38955917
+     */
+    private function clearApplications( &$entity )
+    {
+        $userApps   = $entity->getApplications();
+        $appRepo    = $this->get( 'vs_application.repository.application' );
+        
+        foreach ( $appRepo->findAll() as $app ) {
+            if ( ! $userApps->contains( $app ) ) {
+                $app->removeUser( $entity );
+            }
+        }
+        
+        return $this;
     }
 }

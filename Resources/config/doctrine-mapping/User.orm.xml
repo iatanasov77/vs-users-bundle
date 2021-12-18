@@ -10,7 +10,7 @@
             <generator strategy="AUTO" />
         </id>
         
-        <one-to-one field="info" target-entity="VS\UsersBundle\Model\UserInfoInterface" fetch="EAGER"><!-- inversed-by="user" -->
+        <one-to-one field="info" target-entity="VS\UsersBundle\Model\UserInfoInterface" fetch="EAGER" inversed-by="user">
         	<cascade>
                 <cascade-all/>
             </cascade>
@@ -19,6 +19,12 @@
         <field name="apiToken" column="api_token" type="string" nullable="true" />
         <field name="salt" column="salt" type="string" nullable="false" />
         <field name="password" column="password" type="string" nullable="false" />
+        
+        <many-to-many field="applications" target-entity="VS\ApplicationBundle\Model\Interfaces\ApplicationInterface" mapped-by="users">
+            <cascade>
+                <cascade-all/>
+            </cascade>
+        </many-to-many>
         
 		<!-- 
 			For Backward Compatibility Create 2 Roles Fields <rolesArray and rolesCollection>

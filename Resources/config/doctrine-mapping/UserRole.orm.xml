@@ -9,9 +9,15 @@
             <generator strategy="AUTO" />
         </id>
       	
-      	<field name="role" column="role" type="string" length="32" nullable="false" />
+      	<field name="role" column="role" type="string" length="255" nullable="false" unique="true" />
         
-      	<many-to-one field="parent" name="parent_id" target-entity="VS\UsersBundle\Model\UserRoleInterface">
+        <one-to-one field="taxon" name="taxon_id" target-entity="VS\ApplicationBundle\Model\Interfaces\TaxonInterface">
+            <cascade>
+                <cascade-all/>
+            </cascade>
+        </one-to-one>
+        
+      	<many-to-one field="parent" name="parent_id" target-entity="VS\UsersBundle\Model\UserRoleInterface" inversed-by="children">
         	<cascade>
                 <cascade-all/>
             </cascade>
@@ -23,13 +29,6 @@
             </cascade>
         </one-to-many>
         
-        <many-to-many field="users" target-entity="VS\UsersBundle\Model\UserInterface" mapped-by="roles" />
-        
-        <many-to-one field="taxon" name="taxon_id" target-entity="VS\ApplicationBundle\Model\Interfaces\TaxonInterface" inversed-by="children">
-        	<cascade>
-                <cascade-all/>
-            </cascade>
-        </many-to-one>
-        
+        <many-to-many field="users" target-entity="VS\UsersBundle\Model\UserInterface" mapped-by="rolesCollection" />
     </mapped-superclass>
 </doctrine-mapping>
