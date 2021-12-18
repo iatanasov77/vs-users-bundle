@@ -30,8 +30,8 @@ class UsersController extends AbstractCrudController //ResourceController
         $entity->setEnabled( true );
         */
         
-        $this->clearApplications( $entity );
         $allowedApplications    = $form->get( "applications" )->getData();
+        $this->clearApplications( $entity );
         $entity->setApplications( $allowedApplications );
     }
     
@@ -52,12 +52,13 @@ class UsersController extends AbstractCrudController //ResourceController
      */
     private function clearApplications( &$entity )
     {
+        $userApps   = $entity->getApplications();
         $appRepo    = $this->get( 'vs_application.repository.application' );
-        $em         = $this->getDoctrine()->getManager();
         
         foreach ( $appRepo->findAll() as $app ) {
-            $app->removeUser( $entity );
-            $em->persist( $app );
+            if ( ! $userApps->contains( $app ) ) {
+                $app->removeUser( $entity );
+            }
         }
         
         return $this;
