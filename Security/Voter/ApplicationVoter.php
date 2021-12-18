@@ -18,8 +18,8 @@ class ApplicationVoter implements VoterInterface
         ApplicationContextInterface $applicationContext,
         Security $security  = null
     ) {
-            $this->security             = $security;
             $this->applicationContext   = $applicationContext;
+            $this->security             = $security;
     }
     
     /**
