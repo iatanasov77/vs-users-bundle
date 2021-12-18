@@ -1,10 +1,10 @@
-<?php namespace VS\UsersBundle\Controller;
+<?php namespace Vankosoft\UsersBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use JMS\Serializer\SerializerBuilder;
 
-use VS\UsersBundle\Entity\User;
+use Vankosoft\UsersBundle\Entity\User;
 
 class ApiController extends AbstractController
 {
@@ -57,7 +57,7 @@ class ApiController extends AbstractController
     	$data = $this->get("request")->getContent();
 
         $serializer = SerializerBuilder::create()->build();
-        $contact = $serializer->deserialize($data, 'VS\UsersBundle\Entity\User', 'json');
+        $contact = $serializer->deserialize($data, 'Vankosoft\UsersBundle\Entity\User', 'json');
         $phones = $contact->getPhones();
 
         $entityManager = $this->getDoctrine()->getManager();

@@ -1,4 +1,4 @@
-<?php namespace VS\UsersBundle\Controller;
+<?php namespace Vankosoft\UsersBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -8,10 +8,10 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 
-use VS\CmsBundle\Component\Uploader\FileUploaderInterface;
-use VS\UsersBundle\Form\ProfileFormType;
-use VS\UsersBundle\Form\ChangePasswordFormType;
-use VS\UsersBundle\Model\UserInfoInterface;
+use Vankosoft\CmsBundle\Component\Uploader\FileUploaderInterface;
+use Vankosoft\UsersBundle\Form\ProfileFormType;
+use Vankosoft\UsersBundle\Form\ChangePasswordFormType;
+use Vankosoft\UsersBundle\Model\UserInfoInterface;
 
 class ProfileController extends AbstractController
 {

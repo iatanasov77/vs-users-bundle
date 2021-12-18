@@ -1,4 +1,4 @@
-<?php namespace VS\UsersBundle\Repository;
+<?php namespace Vankosoft\UsersBundle\Repository;
 
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 

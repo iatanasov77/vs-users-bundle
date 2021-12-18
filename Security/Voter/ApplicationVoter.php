@@ -1,12 +1,12 @@
-<?php namespace VS\UsersBundle\Security\Voter;
+<?php namespace Vankosoft\UsersBundle\Security\Voter;
 
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Request;
 
-use VS\ApplicationBundle\Component\Context\ApplicationContextInterface;
-use VS\UsersBundle\Model\UserInterface;
+use Vankosoft\ApplicationBundle\Component\Context\ApplicationContextInterface;
+use Vankosoft\UsersBundle\Model\UserInterface;
 
 class ApplicationVoter implements VoterInterface
 {

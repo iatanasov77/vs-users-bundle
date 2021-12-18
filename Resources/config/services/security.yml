@@ -17,7 +17,7 @@ parameters:
     
 services:
     vs_users.manager.user:
-        class: VS\UsersBundle\Security\UserManager
+        class: Vankosoft\UsersBundle\Security\UserManager
         public: true
         arguments:
             - '@vs_users.factory.users'
@@ -27,7 +27,7 @@ services:
             - '@vs_users.factory.user_info'
     
     vs_users.security.login_form_authenticator:
-        class: VS\UsersBundle\Security\LoginFormAuthenticator
+        class: Vankosoft\UsersBundle\Security\LoginFormAuthenticator
         arguments:
             - '@router'
             - '@security.csrf.token_manager'
@@ -42,14 +42,14 @@ services:
             }
 
     vs_users.security.api_key_authenticator:
-        class: VS\UsersBundle\Security\ApiKeyAuthenticator
+        class: Vankosoft\UsersBundle\Security\ApiKeyAuthenticator
         arguments:
             - '@vs_users.repository.users'
 
     # Register a listener for the logout event only on the main firewall
     # https://symfony.com/blog/new-in-symfony-5-1-simpler-logout-customization
     vs_users.security.logout_success_handler:
-        class: VS\UsersBundle\Security\MainLogoutListener
+        class: Vankosoft\UsersBundle\Security\MainLogoutListener
         arguments:
             - '@security.http_utils'
             - '/'
@@ -59,13 +59,13 @@ services:
               dispatcher: security.event_dispatcher.main
 
     vs_users.security.application_voter:
-        class: VS\UsersBundle\Security\Voter\ApplicationVoter
+        class: Vankosoft\UsersBundle\Security\Voter\ApplicationVoter
         tags: ['security.voter']
         arguments:
             - '@vs_application.context.application'
     
     vs_users.security.voter.crud_disabled_models:
-        class: VS\UsersBundle\Security\Voter\CrudDisabledModelsVoter
+        class: Vankosoft\UsersBundle\Security\Voter\CrudDisabledModelsVoter
         tags: ['security.voter']
         arguments:
             - '@vs_application.context.application'
@@ -73,7 +73,7 @@ services:
             - '@service_container'
             
     vs_users.security.voter.crud_owner_models:
-        class: VS\UsersBundle\Security\Voter\CrudOwnerModelsVoter
+        class: Vankosoft\UsersBundle\Security\Voter\CrudOwnerModelsVoter
         tags: ['security.voter']
         arguments:
             - '@vs_application.context.application'
@@ -81,7 +81,7 @@ services:
             - '@service_container'
 
     vs_users.security.firewall.access_denied_listener:
-        class: VS\UsersBundle\Security\Firewall\AccessDeniedListener
+        class: Vankosoft\UsersBundle\Security\Firewall\AccessDeniedListener
         arguments: 
             - '@router'
             - {

@@ -1,4 +1,4 @@
-<?php namespace VS\UsersBundle\Controller;
+<?php namespace Vankosoft\UsersBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -9,8 +9,8 @@ use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
-use VS\ApplicationBundle\Component\Status;
-use VS\ApplicationBundle\Repository\TaxonRepository;
+use Vankosoft\ApplicationBundle\Component\Status;
+use Vankosoft\ApplicationBundle\Repository\TaxonRepository;
 
 class UsersRolesExtController extends AbstractController
 {

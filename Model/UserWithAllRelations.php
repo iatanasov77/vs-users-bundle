@@ -1,4 +1,4 @@
-<?php namespace VS\UsersBundle\Model;
+<?php namespace Vankosoft\UsersBundle\Model;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -6,7 +6,7 @@ class UserWithAllRelations // extends Model\UserWithAllRelations
 {
     /**
      * FOR USERS WITH SUBSCRIPTION DERIVE THIS ENTITY AND ADD USING
-     * THE TRAIT `VS\UsersBundle\Entity\Traits\UserSubscriptionTrait` FORM THIS BUNDLE
+     * THE TRAIT `Vankosoft\UsersBundle\Entity\Traits\UserSubscriptionTrait` FORM THIS BUNDLE
      */
     //use Traits\UserSubscriptionTrait;
     
@@ -18,24 +18,24 @@ class UserWithAllRelations // extends Model\UserWithAllRelations
     protected $id;
     
     /**
-     * @ORM\OneToOne(targetEntity="VS\UsersBundle\Entity\UserInfo", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="Vankosoft\UsersBundle\Entity\UserInfo", cascade={"persist"})
      * @ORM\JoinColumn(name="user_info_id", referencedColumnName="id")
      */
     protected $userInfo;
 
     /**
-     * @ORM\OneToOne(targetEntity="VS\UsersBundle\Model\SubscriptionInterface", inversedBy="user")
+     * @ORM\OneToOne(targetEntity="Vankosoft\UsersBundle\Model\SubscriptionInterface", inversedBy="user")
      * @ORM\JoinColumn(name="subscriptionId", referencedColumnName="id")
      */
     protected $subscription;
     
     /**
-     * @ORM\OneToMany(targetEntity="VS\UsersBundle\Entity\UserActivity", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="Vankosoft\UsersBundle\Entity\UserActivity", mappedBy="user")
      */
     protected $activities;
     
     /**
-     * @ORM\OneToMany(targetEntity="VS\UsersBundle\Entity\UserNotification", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="Vankosoft\UsersBundle\Entity\UserNotification", mappedBy="user")
      */
     protected $notifications;
     
@@ -47,7 +47,7 @@ class UserWithAllRelations // extends Model\UserWithAllRelations
     // She ti eba i formite
     public function __get( $var )
     {
-        if ( property_exists ( 'VS\UsersBundle\Entity\UserInfo' , $var ) ) {
+        if ( property_exists ( 'Vankosoft\UsersBundle\Entity\UserInfo' , $var ) ) {
             return $this->userInfo ? $this->userInfo->$var : null;
         }
     }
