@@ -11,16 +11,9 @@ parameters:
     vs_users.api_token.domain: '%env(API_TOKEN_DOMAIN)%'
     vs_users.api_token.lifetime: 3600 # 1 hours
     
-    vs_users.voter.disabled_models: {}
-#    Disabled Models Example
-##########################################
-#    vs_users.voter.disabled_models:
-#        ROLE_TEST_APPLICATION_ADMIN:
-#            'App\Entity\Post':
-#                - !php/const VS\UsersBundle\Security\Voter\ModelVoter::LIST
-#                - !php/const VS\UsersBundle\Security\Voter\ModelVoter::VIEW
-#                - !php/const VS\UsersBundle\Security\Voter\ModelVoter::EDIT
-#                - !php/const VS\UsersBundle\Security\Voter\ModelVoter::REMOVE
+    vs_users.voter.crud_disabled_models: {}
+    vs_users.voter.crud_owner_models: {}
+
     
 services:
     vs_users.manager.user:
@@ -70,15 +63,22 @@ services:
         tags: ['security.voter']
         arguments:
             - '@vs_application.context.application'
-            #- '@security.context'
     
-    vs_users.security.model_voter:
-        class: VS\UsersBundle\Security\Voter\ModelVoter
+    vs_users.security.voter.crud_disabled_models:
+        class: VS\UsersBundle\Security\Voter\CrudDisabledModelsVoter
         tags: ['security.voter']
         arguments:
             - '@vs_application.context.application'
-            - '%vs_users.voter.disabled_models%'
-            #- '@security.context'
+            - '%vs_users.voter.crud_disabled_models%'
+            - '@service_container'
+            
+    vs_users.security.voter.crud_owner_models:
+        class: VS\UsersBundle\Security\Voter\CrudOwnerModelsVoter
+        tags: ['security.voter']
+        arguments:
+            - '@vs_application.context.application'
+            - '%vs_users.voter.crud_owner_models%'
+            - '@service_container'
 
     vs_users.security.firewall.access_denied_listener:
         class: VS\UsersBundle\Security\Firewall\AccessDeniedListener
