@@ -17,8 +17,10 @@ parameters:
 #    vs_users.voter.disabled_models:
 #        ROLE_TEST_APPLICATION_ADMIN:
 #            'App\Entity\Post':
-#                - 'edit'
-#                - 'remove'
+#                - !php/const VS\UsersBundle\Security\Voter\ModelVoter::LIST
+#                - !php/const VS\UsersBundle\Security\Voter\ModelVoter::VIEW
+#                - !php/const VS\UsersBundle\Security\Voter\ModelVoter::EDIT
+#                - !php/const VS\UsersBundle\Security\Voter\ModelVoter::REMOVE
     
 services:
     vs_users.manager.user:

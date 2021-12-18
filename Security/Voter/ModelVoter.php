@@ -29,9 +29,9 @@ class ModelVoter extends Voter
         array $disabledModels,
         Security $security  = null
     ) {
-            $this->security             = $security;
             $this->applicationContext   = $applicationContext;
             $this->disabledModels       = new ArrayCollection( $disabledModels );
+            $this->security             = $security;
     }
     
     protected function supports( string $attribute, $subject ): bool
