@@ -1,4 +1,4 @@
-<?php namespace VS\UsersBundle\Repository;
+<?php namespace Vankosoft\UsersBundle\Repository;
 
 use SymfonyCasts\Bundle\ResetPassword\Model\ResetPasswordRequestInterface;
 use SymfonyCasts\Bundle\ResetPassword\Persistence\ResetPasswordRequestRepositoryInterface;

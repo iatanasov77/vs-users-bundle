@@ -1,4 +1,4 @@
-<?php namespace VS\UsersBundle\Controller;
+<?php namespace Vankosoft\UsersBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,11 +12,11 @@ use Sylius\Component\Resource\Factory\FactoryInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
-use VS\ApplicationBundle\Component\Status;
-use VS\CmsBundle\Component\Uploader\FileUploaderInterface;
-use VS\UsersBundle\Component\UserRole;
-use VS\UsersBundle\Form\UserInfoForm;
-use VS\UsersBundle\Model\UserInfoInterface;
+use Vankosoft\ApplicationBundle\Component\Status;
+use Vankosoft\CmsBundle\Component\Uploader\FileUploaderInterface;
+use Vankosoft\UsersBundle\Component\UserRole;
+use Vankosoft\UsersBundle\Form\UserInfoForm;
+use Vankosoft\UsersBundle\Model\UserInfoInterface;
 
 class UsersExtController extends AbstractController
 {

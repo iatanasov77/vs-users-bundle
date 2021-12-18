@@ -2,7 +2,7 @@ services:
     vs_users.registration_controller:
         public: true
         autowire: true
-        class: VS\UsersBundle\Controller\RegisterController
+        class: Vankosoft\UsersBundle\Controller\RegisterController
         tags: ['controller.service_arguments']
         arguments: ['@mailer']
         calls:
@@ -10,7 +10,7 @@ services:
             - setVerifyEmailHelper: ['@?symfonycasts.verify_email.helper']
 
     vs_users.form.type.profile:
-        class: VS\UsersBundle\Form\ProfileFormType
+        class: Vankosoft\UsersBundle\Form\ProfileFormType
         tags:
             - { name: form.type, alias: vs_users_profile }
         arguments:
@@ -18,7 +18,7 @@ services:
             - '%vs_users.model.users.class%'
             
     vs_users.form.type.registration:
-        class: VS\UsersBundle\Form\RegistrationFormType
+        class: Vankosoft\UsersBundle\Form\RegistrationFormType
         tags:
             - { name: form.type, alias: vs_users_registration }
         arguments:

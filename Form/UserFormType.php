@@ -1,6 +1,6 @@
-<?php namespace VS\UsersBundle\Form;
+<?php namespace Vankosoft\UsersBundle\Form;
 
-use VS\ApplicationBundle\Form\AbstractForm;
+use Vankosoft\ApplicationBundle\Form\AbstractForm;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -13,9 +13,9 @@ use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
-use VS\ApplicationBundle\Model\Application;
-use VS\UsersBundle\Model\UserInterface;
-use VS\UsersBundle\Component\UserRole;
+use Vankosoft\ApplicationBundle\Model\Application;
+use Vankosoft\UsersBundle\Model\UserInterface;
+use Vankosoft\UsersBundle\Component\UserRole;
 
 class UserFormType extends AbstractForm
 {
@@ -51,7 +51,7 @@ class UserFormType extends AbstractForm
             ->add( 'prefered_locale', ChoiceType::class, [
                 'label'                 => 'vs_users.form.user.prefered_locale',
                 'translation_domain'    => 'VSUsersBundle',
-                'choices'               => \array_flip( \VS\ApplicationBundle\Component\I18N::LanguagesAvailable() ),
+                'choices'               => \array_flip( \Vankosoft\ApplicationBundle\Component\I18N::LanguagesAvailable() ),
                 'data'                  => $this->requestStack->getCurrentRequest()->getLocale(),
             ])
         

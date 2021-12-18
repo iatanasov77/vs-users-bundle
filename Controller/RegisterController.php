@@ -1,4 +1,4 @@
-<?php namespace VS\UsersBundle\Controller;
+<?php namespace Vankosoft\UsersBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -9,8 +9,8 @@ use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelperInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Generator\VerifyEmailTokenGenerator;
 
-use VS\UsersBundle\Form\RegistrationFormType;
-use VS\UsersBundle\Model\UserInterface;
+use Vankosoft\UsersBundle\Form\RegistrationFormType;
+use Vankosoft\UsersBundle\Model\UserInterface;
 
 class RegisterController extends AbstractController
 {

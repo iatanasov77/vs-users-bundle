@@ -1,4 +1,4 @@
-<?php namespace VS\UsersBundle\Form;
+<?php namespace Vankosoft\UsersBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -8,7 +8,7 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
-use VS\UsersBundle\Model\UserInfo;
+use Vankosoft\UsersBundle\Model\UserInfo;
 
 class UserInfoForm extends AbstractType
 {

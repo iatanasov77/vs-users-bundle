@@ -5,12 +5,12 @@
                   http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd"
                   xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping"
 >
-    <mapped-superclass name="VS\UsersBundle\Model\User">
+    <mapped-superclass name="Vankosoft\UsersBundle\Model\User">
         <id name="id" column="id" type="integer">
             <generator strategy="AUTO" />
         </id>
         
-        <one-to-one field="info" target-entity="VS\UsersBundle\Model\UserInfoInterface" fetch="EAGER" inversed-by="user">
+        <one-to-one field="info" target-entity="Vankosoft\UsersBundle\Model\UserInfoInterface" fetch="EAGER" inversed-by="user">
         	<cascade>
                 <cascade-all/>
             </cascade>
@@ -20,7 +20,7 @@
         <field name="salt" column="salt" type="string" nullable="false" />
         <field name="password" column="password" type="string" nullable="false" />
         
-        <many-to-many field="applications" target-entity="VS\ApplicationBundle\Model\Interfaces\ApplicationInterface" mapped-by="users">
+        <many-to-many field="applications" target-entity="Vankosoft\ApplicationBundle\Model\Interfaces\ApplicationInterface" mapped-by="users">
             <cascade>
                 <cascade-all/>
             </cascade>
@@ -31,7 +31,7 @@
 			You can choose which to use
 		-->
         <field name="rolesArray" column="roles_array" type="array" nullable="false" />
-        <many-to-many field="rolesCollection" target-entity="VS\UsersBundle\Model\UserRoleInterface" inversed-by="users">
+        <many-to-many field="rolesCollection" target-entity="Vankosoft\UsersBundle\Model\UserRoleInterface" inversed-by="users">
         	<cascade>
                 <cascade-persist/>
                 <cascade-merge/>
@@ -58,12 +58,12 @@
         <field name="verified" column="verified" type="boolean" nullable="true" />
         <field name="enabled" column="enabled" type="boolean" nullable="true" />
         
-        <one-to-many field="activities" target-entity="VS\UsersBundle\Model\UserActivityInterface" mapped-by="user">
+        <one-to-many field="activities" target-entity="Vankosoft\UsersBundle\Model\UserActivityInterface" mapped-by="user">
             <cascade>
                 <cascade-all/>
             </cascade>
         </one-to-many>
-        <one-to-many field="notifications" target-entity="VS\UsersBundle\Model\UserNotificationInterface" mapped-by="user">
+        <one-to-many field="notifications" target-entity="Vankosoft\UsersBundle\Model\UserNotificationInterface" mapped-by="user">
             <cascade>
                 <cascade-all/>
             </cascade>

@@ -1,4 +1,4 @@
-<?php namespace VS\UsersBundle\Security;
+<?php namespace Vankosoft\UsersBundle\Security;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,7 +15,7 @@ use Symfony\Component\Security\Http\Authenticator\Passport\SelfValidatingPasspor
 use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\CustomCredentials;
 
-use VS\UsersBundle\Repository\UsersRepository;
+use Vankosoft\UsersBundle\Repository\UsersRepository;
 
 /**
  * https://symfony.com/doc/current/security/authenticator_manager.html
