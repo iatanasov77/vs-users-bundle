@@ -1,4 +1,4 @@
-<?php namespace VS\UsersBundle\Model\Traits;
+<?php namespace Vankosoft\UsersBundle\Model\Traits;
 
 trait UserRolesArrayTrait
 {

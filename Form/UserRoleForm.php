@@ -1,6 +1,6 @@
-<?php namespace VS\UsersBundle\Form;
+<?php namespace Vankosoft\UsersBundle\Form;
 
-use VS\ApplicationBundle\Form\AbstractForm;
+use Vankosoft\ApplicationBundle\Form\AbstractForm;
 use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\FormBuilderInterface;
 
@@ -10,7 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
-use VS\ApplicationBundle\Component\I18N;
+use Vankosoft\ApplicationBundle\Component\I18N;
 
 class UserRoleForm extends AbstractForm
 {

@@ -1,9 +1,9 @@
-<?php namespace VS\UsersBundle\Model\Traits;
+<?php namespace Vankosoft\UsersBundle\Model\Traits;
 
 trait UserSubscriptionTrait
 {
     /**
-     * @ORM\OneToOne(targetEntity="VS\UsersBundle\Entity\UserSubscription", inversedBy="user")
+     * @ORM\OneToOne(targetEntity="Vankosoft\UsersBundle\Entity\UserSubscription", inversedBy="user")
      * @ORM\JoinColumn(name="subscriptionId", referencedColumnName="id")
      */
     protected $subscription;

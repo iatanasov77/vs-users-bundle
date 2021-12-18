@@ -1,8 +1,8 @@
-<?php namespace VS\UsersBundle\Repository;
+<?php namespace Vankosoft\UsersBundle\Repository;
 
 use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
 
-use VS\CmsBundle\Model\FileInterface;
+use Vankosoft\CmsBundle\Model\FileInterface;
 
 final class AvatarImageRepository extends EntityRepository implements AvatarImageRepositoryInterface
 {

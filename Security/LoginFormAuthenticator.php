@@ -1,4 +1,4 @@
-<?php namespace VS\UsersBundle\Security;
+<?php namespace Vankosoft\UsersBundle\Security;
 
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
 use Symfony\Component\Security\Http\Authenticator\AbstractAuthenticator;
@@ -21,7 +21,7 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\HttpFoundation\Cookie;
 
-use VS\UsersBundle\Repository\UsersRepository;
+use Vankosoft\UsersBundle\Repository\UsersRepository;
 
 //class LoginFormAuthenticator extends AbstractAuthenticator
 class LoginFormAuthenticator extends AbstractLoginFormAuthenticator

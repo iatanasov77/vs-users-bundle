@@ -1,4 +1,4 @@
-<?php namespace VS\UsersBundle\Model;
+<?php namespace Vankosoft\UsersBundle\Model;
 
 use Sylius\Component\Resource\Model\ResourceInterface;
 use Doctrine\Common\Collections\Collection;

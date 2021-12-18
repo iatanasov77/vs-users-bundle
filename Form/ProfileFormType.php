@@ -1,4 +1,4 @@
-<?php namespace VS\UsersBundle\Form;
+<?php namespace Vankosoft\UsersBundle\Form;
 
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 
-use VS\UsersBundle\Model\UserInterface;
+use Vankosoft\UsersBundle\Model\UserInterface;
 
 class ProfileFormType extends UserFormType
 {

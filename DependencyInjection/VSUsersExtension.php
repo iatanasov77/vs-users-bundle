@@ -1,4 +1,4 @@
-<?php namespace VS\UsersBundle\DependencyInjection;
+<?php namespace Vankosoft\UsersBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;

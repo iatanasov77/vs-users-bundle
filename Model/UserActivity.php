@@ -1,4 +1,4 @@
-<?php namespace VS\UsersBundle\Model;
+<?php namespace Vankosoft\UsersBundle\Model;
 
 class UserActivity implements UserActivityInterface
 {

@@ -1,8 +1,8 @@
-<?php namespace VS\UsersBundle\Model;
+<?php namespace Vankosoft\UsersBundle\Model;
 
 use Doctrine\ORM\Mapping as ORM;
 
-use VS\CmsBundle\Model\FileInterface;
+use Vankosoft\CmsBundle\Model\FileInterface;
 
 class UserInfo implements UserInfoInterface
 {

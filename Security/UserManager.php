@@ -1,4 +1,4 @@
-<?php namespace VS\UsersBundle\Security;
+<?php namespace Vankosoft\UsersBundle\Security;
 
 use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface;
 use Doctrine\ORM\EntityRepository;
@@ -7,7 +7,7 @@ use Doctrine\ORM\EntityManager;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 use Webmozart\Assert\Assert;
 
-use VS\UsersBundle\Model\UserInterface;
+use Vankosoft\UsersBundle\Model\UserInterface;
 
 class UserManager
 {

@@ -1,4 +1,4 @@
-<?php namespace VS\UsersBundle\Security\Voter;
+<?php namespace Vankosoft\UsersBundle\Security\Voter;
 
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 

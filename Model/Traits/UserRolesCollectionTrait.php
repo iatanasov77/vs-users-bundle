@@ -1,10 +1,10 @@
-<?php namespace VS\UsersBundle\Model\Traits;
+<?php namespace Vankosoft\UsersBundle\Model\Traits;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
-use VS\UsersBundle\Model\UserRole;
-use VS\UsersBundle\Model\UserRoleInterface;
+use Vankosoft\UsersBundle\Model\UserRole;
+use Vankosoft\UsersBundle\Model\UserRoleInterface;
 
 trait UserRolesCollectionTrait
 {

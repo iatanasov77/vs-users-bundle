@@ -1,4 +1,4 @@
-<?php namespace VS\UsersBundle\Component;
+<?php namespace Vankosoft\UsersBundle\Component;
 
 class UserRole {
     const ROLE_SUPER_ADMIN  = 'ROLE_SUPER_ADMIN';

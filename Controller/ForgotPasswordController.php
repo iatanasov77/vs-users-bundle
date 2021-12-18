@@ -1,4 +1,4 @@
-<?php namespace VS\UsersBundle\Controller;
+<?php namespace Vankosoft\UsersBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -9,8 +9,8 @@ use SymfonyCasts\Bundle\ResetPassword\Controller\ResetPasswordControllerTrait;
 use SymfonyCasts\Bundle\ResetPassword\ResetPasswordHelperInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-use VS\UsersBundle\Model\UserInterface;
-use VS\UsersBundle\Repository\ResetPasswordRequestRepository;
+use Vankosoft\UsersBundle\Model\UserInterface;
+use Vankosoft\UsersBundle\Repository\ResetPasswordRequestRepository;
 
 class ForgotPasswordController extends AbstractController
 {

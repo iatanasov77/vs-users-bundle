@@ -1,4 +1,4 @@
-<?php namespace VS\UsersBundle\Security\Firewall;
+<?php namespace Vankosoft\UsersBundle\Security\Firewall;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Response;

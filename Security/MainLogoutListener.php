@@ -1,4 +1,4 @@
-<?php namespace VS\UsersBundle\Security;
+<?php namespace Vankosoft\UsersBundle\Security;
 
 use Symfony\Component\Security\Http\Event\LogoutEvent;
 use Symfony\Component\Security\Http\HttpUtils;

@@ -1,9 +1,9 @@
-<?php namespace VS\UsersBundle\Model\Traits;
+<?php namespace Vankosoft\UsersBundle\Model\Traits;
 
 use Doctrine\Common\Collections\Collection;
-use VS\UsersBundle\Model\UserInterface;
-use VS\ApplicationBundle\Model\Interfaces\ApplicationInterface;
-use VS\ApplicationBundle\Model\Application;
+use Vankosoft\UsersBundle\Model\UserInterface;
+use Vankosoft\ApplicationBundle\Model\Interfaces\ApplicationInterface;
+use Vankosoft\ApplicationBundle\Model\Application;
 
 trait UserApplicationsTrait
 {

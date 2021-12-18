@@ -1,7 +1,7 @@
 services:
-    VS\UsersBundle\Repository\UsersRepository: '@vs_users.repository.users'
+    Vankosoft\UsersBundle\Repository\UsersRepository: '@vs_users.repository.users'
     
-    VS\UsersBundle\Controller\UsersExtController:
+    Vankosoft\UsersBundle\Controller\UsersExtController:
         tags: ['controller.service_arguments']
         autowire: true
         arguments:
@@ -12,7 +12,7 @@ services:
             - '@vs_users.repository.user_roles'
     
     vs_users.resources.users.form:
-        class: VS\UsersBundle\Form\UserFormType
+        class: Vankosoft\UsersBundle\Form\UserFormType
         tags:
             - { name: form.type }
         arguments:
@@ -21,7 +21,7 @@ services:
             - '%vs_application.model.application.class%'
 
     vs_users.resources.user_roles.form:
-        class: VS\UsersBundle\Form\UserRoleForm
+        class: Vankosoft\UsersBundle\Form\UserRoleForm
         tags:
             - { name: form.type }
         arguments:
@@ -29,7 +29,7 @@ services:
             - '@vs_users.repository.user_roles'
 
     vs_users.command.create_user:
-        class: VS\UsersBundle\Command\CreateUserCommand
+        class: Vankosoft\UsersBundle\Command\CreateUserCommand
         arguments:
             - '@vs_users.manager.user'
         tags:
