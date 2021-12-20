@@ -1,6 +1,6 @@
-<?php namespace VS\UsersBundle\Model;
+<?php namespace Vankosoft\UsersBundle\Model;
 
-use VS\CmsBundle\Model\File;
+use Vankosoft\CmsBundle\Model\File;
 
 class AvatarImage extends File implements AvatarImageInterface
 {

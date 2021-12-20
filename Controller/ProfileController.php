@@ -1,15 +1,33 @@
-<?php namespace VS\UsersBundle\Controller;
+<?php namespace Vankosoft\UsersBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Sylius\Component\Resource\Factory\FactoryInterface;
 
-use VS\UsersBundle\Form\ProfileFormType;
-use VS\UsersBundle\Form\ChangePasswordFormType;
+use Vankosoft\CmsBundle\Component\Uploader\FileUploaderInterface;
+use Vankosoft\UsersBundle\Form\ProfileFormType;
+use Vankosoft\UsersBundle\Form\ChangePasswordFormType;
+use Vankosoft\UsersBundle\Model\UserInfoInterface;
 
 class ProfileController extends AbstractController
 {
+    /** @var FactoryInterface */
+    private $avatarImageFactory;
+    
+    private FileUploaderInterface $imageUploader;
+    
+    public function __construct(
+        FactoryInterface $avatarImageFactory,
+        FileUploaderInterface $imageUploader
+    ) {
+        $this->avatarImageFactory   = $avatarImageFactory;
+        $this->imageUploader        = $imageUploader;
+    }
+    
     public function profilePictureAction( Request $request ): Response
     {
         $profilePicture = false;
@@ -49,19 +67,20 @@ class ProfileController extends AbstractController
                 $oUser->setPreferedLocale( $request->getLocale() );
             }
             
+            $oUserInfo          = $oUser->getInfo();
             $profilePictureFile = $form->get( 'profilePicture' )->getData();
             if ( $profilePictureFile ) {
-                $oUserInfo   = $oUser->getInfo();
-                
-                $oUserInfo->setProfilePictureFilename( $this->handleProfilePicture( $profilePictureFile ) );
-                $oUserInfo->setUser( $oUser );
-                $em->persist( $oUserInfo );
+                $this->createAvatar( $oUserInfo, $profilePictureFile );
             }
             
+            $oUserInfo->setFirstName( $form->get( 'firstName' )->getData() );
+            $oUserInfo->setLastName( $form->get( 'lastName' )->getData() );
+            
+            $oUserInfo->setUser( $oUser );
+            $em->persist( $oUserInfo );
             $em->persist( $oUser );
             $em->flush();
             
-            //return $this->redirectToRoute( $this->container->getParameter( 'vs_users.default_redirect' ) );
             return $this->redirectToRoute( 'vs_users_profile_show' );
         }
         
@@ -118,24 +137,17 @@ class ProfileController extends AbstractController
         ];
     }
     
-    protected function handleProfilePicture( $profilePictureFile ) : string
+    private function createAvatar( UserInfoInterface &$userInfo, File $file ): void
     {
-        $originalFilename   = pathinfo( $profilePictureFile->getClientOriginalName(), PATHINFO_FILENAME );
-        // this is needed to safely include the file name as part of the URL
-        //$safeFilename       = $slugger->slug( $originalFilename );    // Slugger is included in Symfony 5.0
-        $safeFilename       = $originalFilename;
-        $newFilename        = $safeFilename . '-' . uniqid() . '.' . $profilePictureFile->guessExtension();
+        $avatarImage    = $userInfo->getAvatar() ?: $this->avatarImageFactory->createNew();
+        $uploadedFile   = new UploadedFile( $file->getRealPath(), $file->getBasename() );
         
-        // Move the file to the directory where brochures are stored
-        try {
-            $profilePictureFile->move(
-                $this->getParameter( 'vs_user.profile_pictures_dir' ),
-                $newFilename
-            );
-        } catch ( FileException $e ) {
-            // ... handle exception if something happens during file upload
+        $avatarImage->setFile( $uploadedFile );
+        $this->imageUploader->upload( $avatarImage );
+        $avatarImage->setFile( null ); // reset File Because: Serialization of 'Symfony\Component\HttpFoundation\File\UploadedFile' is not allowed
+        
+        if ( ! $userInfo->getAvatar() ) {
+            $userInfo->setAvatar( $avatarImage );
         }
-        
-        return $newFilename;
     }
 }

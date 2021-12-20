@@ -1,12 +1,12 @@
-<?php namespace VS\UsersBundle\Command;
+<?php namespace Vankosoft\UsersBundle\Command;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 
-use VS\UsersBundle\Model\UserInterface;
-use VS\UsersBundle\Security\UserManager;
+use Vankosoft\UsersBundle\Model\UserInterface;
+use Vankosoft\UsersBundle\Security\UserManager;
 
 class CreateUserCommand extends Command
 {

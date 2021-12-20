@@ -1,4 +1,4 @@
-<?php namespace VS\UsersBundle\DependencyInjection;
+<?php namespace Vankosoft\UsersBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -9,30 +9,30 @@ use Sylius\Component\Resource\Model\ResourceInterface;
 use Sylius\Component\Resource\Factory\Factory;
 use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
 
-use VS\UsersBundle\Model\AvatarImage;
-use VS\UsersBundle\Model\AvatarImageInterface;
-use VS\UsersBundle\Repository\AvatarImageRepository;
+use Vankosoft\UsersBundle\Model\AvatarImage;
+use Vankosoft\UsersBundle\Model\AvatarImageInterface;
+use Vankosoft\UsersBundle\Repository\AvatarImageRepository;
 
-use VS\UsersBundle\Model\User;
-use VS\UsersBundle\Model\UserInterface;
-use VS\UsersBundle\Controller\UsersController;
-use VS\UsersBundle\Repository\UsersRepository;
-use VS\UsersBundle\Form\UserFormType;
+use Vankosoft\UsersBundle\Model\User;
+use Vankosoft\UsersBundle\Model\UserInterface;
+use Vankosoft\UsersBundle\Controller\UsersController;
+use Vankosoft\UsersBundle\Repository\UsersRepository;
+use Vankosoft\UsersBundle\Form\UserFormType;
 
-use VS\UsersBundle\Model\UserRole;
-use VS\UsersBundle\Model\UserRoleInterface;
-use VS\UsersBundle\Repository\UserRolesRepository;
-use VS\UsersBundle\Controller\UsersRolesController;
-use VS\UsersBundle\Form\UserRoleForm;
+use Vankosoft\UsersBundle\Model\UserRole;
+use Vankosoft\UsersBundle\Model\UserRoleInterface;
+use Vankosoft\UsersBundle\Repository\UserRolesRepository;
+use Vankosoft\UsersBundle\Controller\UsersRolesController;
+use Vankosoft\UsersBundle\Form\UserRoleForm;
 
-use VS\UsersBundle\Model\UserInfo;
-use VS\UsersBundle\Model\UserInfoInterface;
-use VS\UsersBundle\Model\UserActivity;
-use VS\UsersBundle\Model\UserActivityInterface;
-use VS\UsersBundle\Model\UserNotification;
-use VS\UsersBundle\Model\UserNotificationInterface;
-use VS\UsersBundle\Model\ResetPasswordRequest;
-use VS\UsersBundle\Repository\ResetPasswordRequestRepository;
+use Vankosoft\UsersBundle\Model\UserInfo;
+use Vankosoft\UsersBundle\Model\UserInfoInterface;
+use Vankosoft\UsersBundle\Model\UserActivity;
+use Vankosoft\UsersBundle\Model\UserActivityInterface;
+use Vankosoft\UsersBundle\Model\UserNotification;
+use Vankosoft\UsersBundle\Model\UserNotificationInterface;
+use Vankosoft\UsersBundle\Model\ResetPasswordRequest;
+use Vankosoft\UsersBundle\Repository\ResetPasswordRequestRepository;
 
 /**
  * This is the class that validates and merges configuration from your app/config files

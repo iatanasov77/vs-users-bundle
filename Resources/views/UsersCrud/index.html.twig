@@ -38,28 +38,48 @@
                             <th width="150">{{ 'vs_users.template.userscrud_index_tablecolumns_action' | trans( {},'VSUsersBundle' ) }}</th>
                         </tr>
                         {% for item in users %}
-                        	{% set userGranted = false %}
+                            {% set userGranted = is_granted( 'ROLE_SUPER_ADMIN' ) %}
                         	{% set userRolesBreak = false %}
                         	{% for userRole in item.roles %}
-                        		{% if is_granted( userRole ) and not userRolesBreak %}
-                        			{% set userGranted = true %}
-                        			{% set userRolesBreak = true %}
-                        		{% endif %}
+                        	    {% if userRole.id|default('') is not same as ('') %} {# Check if userRole is Object #}}
+                            		{% if is_granted( userRole ) and not userRolesBreak %}
+                            			{% set userGranted = true %}
+                            			{% set userRolesBreak = true %}
+                            		{% endif %}
+                            	{% endif %}
                         	{% endfor %}
                         	
                         	{% if userGranted %}	{# is_granted( item.roles ) #}
 	                            <tr>
 	                                <td>{{ loop.index }}</td>
-	                                <td>{{ item.username  }}</td>
+	                                
+	                                <td>
+	                                {% if item.info.avatar %}
+	                                   <img src="{{ item.info.avatar.path|imagine_filter('users_crud_index_thumb') }}" />
+	                                {% endif %}
+	                                   {{ item.username  }}
+	                                </td>
 	                                <td>{{ item.email  }}</td>
 	                                <td>{{ item.roles | join(' , ')  }}</td>
-	                                <td>{{ item.getFullName() }}</td>
+	                                <td>{{ item.info.getFullName() }}</td>
 	                                <td>
 	                                	<div class="btn-group">
-	                                		<a class="btn btn-primary" href="{{ path('vs_users_users_update', {'id': item.id}) }}">
+	                                		<a class="btn btn-primary" 
+	                                		    href="{{ path('vs_users_users_update', {'id': item.id}) }}"
+	                                		    title="{{ 'vs_users.template.userscrud_update_title' | trans( {},'VSUsersBundle' ) }}"
+	                                		>
 	                                            <i class="fas fa-edit"></i>
 	                                        </a>
-	                                        <a class="btn btn-danger btnDelete" href="#" data-url="{{ path('vs_users_users_delete', {'id': item.id}) }}">
+	                                        <a class="btn btn-primary btnUserInfo" href="javascript:void(0);"
+	                                            data-url="{{ path('vs_users_user_info_display', {'userId': item.id}) }}"
+	                                            title="{{ 'vs_users.template.userscrud_userinfo_title' | trans( {},'VSUsersBundle' ) }}"
+	                                        >
+                                                <i class="fas fa-info"></i>
+                                            </a>
+	                                        <a class="btn btn-danger btnDelete" href="javascript:void(0);"
+	                                            data-url="{{ path('vs_users_users_delete', {'id': item.id}) }}"
+	                                            title="{{ 'vs_users.template.userscrud_delete_title' | trans( {},'VSUsersBundle' ) }}"
+	                                        >
 	                                            <i class="icon_close_alt2"></i>
 	                                        </a>
 	                                    </div>
@@ -72,4 +92,14 @@
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block modals %}
+    {% include '@VSUsers/UsersCrud/Modals/user_info.html.twig' %}
+{% endblock %}
+
+{% block body_scripts %}
+    {{ parent() }}
+   
+    {{ encore_entry_script_tags( 'js/users-index' ) }}
 {% endblock %}

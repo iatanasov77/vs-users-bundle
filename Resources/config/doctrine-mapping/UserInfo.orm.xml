@@ -4,26 +4,26 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                   http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd"
 >
-    <mapped-superclass name="VS\UsersBundle\Model\UserInfo">
+    <mapped-superclass name="Vankosoft\UsersBundle\Model\UserInfo">
         <id name="id" column="id" type="integer">
             <generator strategy="AUTO" />
         </id>
         
-        <one-to-one field="user" target-entity="VS\UsersBundle\Model\UserInterface" inversed-by="info" />
+        <one-to-one field="user" target-entity="Vankosoft\UsersBundle\Model\UserInterface" mapped-by="info" />
         
-        <!-- "profilePictureFilename" will be removed after the avatar begin to work correctly -->
-        <field name="profilePictureFilename" column="profile_picture" type="string" nullable="true" />
-        <one-to-one field="avatar" target-entity="VS\UsersBundle\Model\AvatarImageInterface" mapped-by="owner" orphan-removal="true">
+        <one-to-one field="avatar" target-entity="Vankosoft\UsersBundle\Model\AvatarImageInterface" mapped-by="owner" orphan-removal="true">
             <cascade>
                 <cascade-all/>
             </cascade>
         </one-to-one>
+        
+        <field name="firstName" column="first_name" type="string" nullable="false" />
+        <field name="lastName" column="last_name" type="string" nullable="false" />
         
         <field name="country" column="country" type="string" nullable="true" />
         <field name="birthday" column="birthday" type="datetime" nullable="true" />
         <field name="mobile" column="mobile" type="string" nullable="true" />
         <field name="website" column="website" type="string" nullable="true" />
         <field name="occupation" column="occupation" type="string" nullable="true" />
-        
     </mapped-superclass>
 </doctrine-mapping>

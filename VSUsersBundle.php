@@ -1,4 +1,4 @@
-<?php namespace VS\UsersBundle;
+<?php namespace Vankosoft\UsersBundle;
 
 use Sylius\Bundle\ResourceBundle\AbstractResourceBundle;
 use Sylius\Bundle\ResourceBundle\SyliusResourceBundle;
@@ -18,7 +18,7 @@ class VSUsersBundle extends AbstractResourceBundle
     
     public function getContainerExtension()
     {
-        return new \VS\UsersBundle\DependencyInjection\VSUsersExtension();
+        return new \Vankosoft\UsersBundle\DependencyInjection\VSUsersExtension();
     }
     
     public function build( ContainerBuilder $container ): void
@@ -26,7 +26,7 @@ class VSUsersBundle extends AbstractResourceBundle
         parent::build( $container );
         
         $mappings = [
-            realpath( __DIR__.'/Resources/config/doctrine-mapping' ) => 'VS\UsersBundle\Model',
+            realpath( __DIR__.'/Resources/config/doctrine-mapping' ) => 'Vankosoft\UsersBundle\Model',
         ];
         
         if ( class_exists( 'Doctrine\Bundle\DoctrineBundle\DependencyInjection\Compiler\DoctrineOrmMappingsPass' ) ) {

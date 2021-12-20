@@ -1,4 +1,4 @@
-<?php namespace VS\UsersBundle\Form;
+<?php namespace Vankosoft\UsersBundle\Form;
 
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -8,7 +8,7 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
-use VS\UsersBundle\Model\UserInterface;
+use Vankosoft\UsersBundle\Model\UserInterface;
 
 /*
  * Form Inheritance:
@@ -29,6 +29,8 @@ class RegistrationFormType extends UserFormType
         $builder->remove( 'verified' );
         
         $builder->remove( 'roles_options' );
+        $builder->remove( 'applications' );
+        
         $builder->remove( 'btnSave' );
         
         $builder

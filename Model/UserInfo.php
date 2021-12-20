@@ -1,8 +1,8 @@
-<?php namespace VS\UsersBundle\Model;
+<?php namespace Vankosoft\UsersBundle\Model;
 
 use Doctrine\ORM\Mapping as ORM;
 
-use VS\CmsBundle\Model\FileInterface;
+use Vankosoft\CmsBundle\Model\FileInterface;
 
 class UserInfo implements UserInfoInterface
 {
@@ -18,15 +18,21 @@ class UserInfo implements UserInfoInterface
      */
     protected $user;
     
-    /**
-     * @var string
-     */
-    protected $profilePictureFilename;
     
     /**
      * @var FileInterface|null
      */
     protected $avatar;
+    
+    /**
+     * @var string
+     */
+    protected $firstName    = 'NOT_EDITED_YET';
+    
+    /**
+     * @var string
+     */
+    protected $lastName     = 'NOT_EDITED_YET';
     
     /**
      * @var string
@@ -70,18 +76,6 @@ class UserInfo implements UserInfoInterface
         return $this;
     }
     
-    public function getProfilePictureFilename()
-    {
-        return $this->profilePictureFilename;
-    }
-    
-    public function setProfilePictureFilename( $profilePictureFilename )
-    {
-        $this->profilePictureFilename = $profilePictureFilename;
-        
-        return $this;
-    }
-    
     public function getAvatar(): ?FileInterface
     {
         return $this->avatar;
@@ -91,6 +85,30 @@ class UserInfo implements UserInfoInterface
     {
         $avatar->setOwner( $this );
         $this->avatar   = $avatar;
+        
+        return $this;
+    }
+    
+    public function getFirstName()
+    {
+        return $this->firstName;
+    }
+    
+    public function setFirstName( $firstName ) : self
+    {
+        $this->firstName = $firstName;
+        
+        return $this;
+    }
+    
+    public function getLastName()
+    {
+        return $this->lastName;
+    }
+    
+    public function setLastName( $lastName ) : self
+    {
+        $this->lastName = $lastName;
         
         return $this;
     }
@@ -152,5 +170,10 @@ class UserInfo implements UserInfoInterface
         $this->occupation = $occupation;
         
         return $this;
+    }
+    
+    public function getFullName()
+    {
+        return $this->firstName . ' ' . $this->lastName;
     }
 }

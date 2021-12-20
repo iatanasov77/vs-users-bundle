@@ -19,6 +19,7 @@ vs_users:
             lastName: 'Фамилия'
             enabled: 'Разрешен'
             verified: 'Проверен'
+            applications_allowed: Разрешени Приложения
             save: 'Save'
             cancel: 'Отмени'
     
@@ -43,6 +44,7 @@ vs_users:
             role: Роля
             parent_role: Родителска Роля
             parent_role_placeholder: '-- Избери Родителска Роля --'
+            parent_role_no_parent: Няма Родител
             
     template:
         profile_show_title: 'Моят Профил'
@@ -79,7 +81,8 @@ vs_users:
         userscrud_create_title: 'Създаване на Нов Потребител'
         userscrud_update_title: 'Редактиране на Потребител'
         userscrud_update_header: 'Потребител Детайли'
-        
+        userscrud_userinfo_title: 'Потребител Инфо'
+        userscrud_delete_title: 'Изтриване на Потребител'
         users_roles_index_title: Потребителски Роли
         users_roles_index_row_role: Роля
         users_roles_index_row_actions: Действия
