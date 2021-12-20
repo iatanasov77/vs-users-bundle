@@ -1,3 +1,134 @@
+1.5.1	|	Release date: **20.12.2021**
+============================================
+* Commits:
+	[2021-11-14 18:22:56 +0000][Commit: 956d1c48fa6fde6d1c428999542cce8d369470de]
+	  Merge branch 'release/1.5.0' into 1.5
+	[2021-11-16 07:27:38 +0000][Commit: 5ad6a78be53f25e5c86245ef3ec8a63eab9dfede]
+	  Connect Controllers that upload files to  FileManager.
+	[2021-11-16 19:48:01 +0000][Commit: 5f0c0b8d585e5eb8e37ffab54fb9aea170423f27]
+	  Improve Templates.
+	[2021-11-16 19:54:51 +0000][Commit: bf1463341425bee5915d21c77920d4f3648a0b2d]
+	  Improve Templates.
+	[2021-11-17 08:15:11 +0000][Commit: 058611ca6667c1beadd576fc7ef99dc6438901da]
+	  Styling File Input.
+	[2021-11-17 09:48:08 +0000][Commit: 41bc84c5ed626231cb1a435ebdb4b4e5a8ade284]
+	  Improve File Inputs to Display Selected Files.
+	[2021-11-18 10:28:49 +0000][Commit: 6fddbb8c21e864df2e17d4fd5a86042bc21292ef]
+	  Fix All Controllers that Inherit AbstractCrudController for new declaration of  customData method.
+	[2021-11-19 20:54:42 +0000][Commit: 49e1041698351a6234ac8810f069f3aa9d425295]
+	  Fix Handling ALl Images.
+	[2021-11-19 22:04:35 +0000][Commit: aa264ec55b1b33a0d35727e29f58c86ec8a063eb]
+	  Refactoring UsersBundle to use Avatar instead of Profile Picture Field.
+	[2021-11-20 06:19:30 +0000][Commit: a5b0facf2981b65165d7f7c88411fc0f614fb238]
+	  Remove Swiftmailer.
+	[2021-11-20 11:21:35 +0000][Commit: cd5cf446a4ffa13c82ad4226f75ff76afd8affdd]
+	  Set Profile Form and Controller to Use Profile Image Uploader Service.
+	[2021-11-20 11:35:53 +0000][Commit: 58753f6f3619b2496ff17db5334d63014ffc753b]
+	  Set Profile Form and Controller to Use Profile Image Uploader Service.
+	[2021-11-20 16:42:22 +0000][Commit: 06090fa1c9879b58adad465ab81354fc8f35f5ef]
+	  Fix Profile Picture Form Submit. Fix Installator about Creating Users.
+	[2021-11-20 16:54:33 +0000][Commit: 9237e2c18b7bd07d88b5209eada0c1c44b66b693]
+	  Remove firstName, lastName from UsersCrud::update but need to be added anywere.
+	[2021-11-21 05:27:00 +0000][Commit: cbbe207c3db04e356078cf4740d661601a8afb9f]
+	  Display UserInfo in UsersCrud.
+	[2021-11-21 05:51:32 +0000][Commit: b4f650b15f08f775177bc4af02555f7d67d7f128]
+	  Commit
+	[2021-11-21 06:06:44 +0000][Commit: a092afd157d9c4967abc0c507378bd06631f99af]
+	  Fix UsersExtController::displayUserInfo
+	[2021-11-21 07:00:48 +0000][Commit: dfbc1a1640ae41d3aac8b7773fad1617e2ffc95d]
+	  Fix UsersExtController::handleUserInfo
+	[2021-11-21 07:37:14 +0000][Commit: 21908187bac736d9f130d56e090bfe6c69ed5bb5]
+	  Refactoring of UsersBundle/Model/User
+	[2021-11-21 17:02:16 +0000][Commit: 9f2fe8e9ad1c2a81fb5b4602189435a13a102381]
+	  Refactoring of Doctring Mapping Between User and UserInfo Models.
+	[2021-11-23 06:37:41 +0000][Commit: fdf6cb57d39da12484f13e4e1442d4573ce78b79]
+	  Commit
+	[2021-11-24 06:55:14 +0000][Commit: 909381a9833004dd530a0ddabf660668a84c2387]
+	  Add Twig Macros for Form Tree Types.
+	[2021-11-24 07:43:38 +0000][Commit: cb4fde4e6edb89c3bd04ef3382ce8fff11356626]
+	  Commit
+	[2021-11-25 04:10:35 +0000][Commit: 3f75d1dcf30d1093554c30a602a5b66f16311176]
+	  Build Roles Tree From Role Collection.
+	[2021-11-25 04:25:46 +0000][Commit: 3a8b0af614ffdafa79dbc374fbd693e83986d0ca]
+	  Fix Argument type of UsersRolesExtController
+	[2021-11-25 04:32:25 +0000][Commit: 389fd820c14f2d030dd80c1657fef500dca7fb6c]
+	  Add Missing Argument of UsersRolesExtController
+	[2021-11-25 04:36:36 +0000][Commit: a351f566c1be96600f815079a343fb075ceb54c2]
+	  Fix UsersRolesExtController
+	[2021-11-25 04:40:19 +0000][Commit: e84a23a9ceb418174fc616e0f070b8ae78a3a119]
+	  Fix UsersRolesExtController
+	[2021-11-25 04:42:49 +0000][Commit: 0feda037bfccadc6fe146408350b23a16ee3d8ca]
+	  Fix UsersRolesExtController
+	[2021-11-25 04:53:39 +0000][Commit: 7578d276b4e6d7b289be10be3d7db17edae6e3a4]
+	  Use UsersRolesExtController to RolesTree into UsersCrud Update Action.
+	[2021-11-25 04:58:37 +0000][Commit: 147dbd6a456989ab522a09dc8b6d9ba827348db9]
+	  Fix UsersCrud Template.
+	[2021-11-25 12:18:45 +0000][Commit: 2e57e01159283ea117f49c0b3768ae9da9c5ee07]
+	  Fix Users Model.
+	[2021-11-25 14:18:02 +0000][Commit: d252a044cdd3d3b00dd4dc40b8a7a1e480b2d50a]
+	  Fix.
+	[2021-11-25 14:26:34 +0000][Commit: 598ac1a6d142d584395b7630acd5795f7ca5e5de]
+	  Fix.
+	[2021-11-28 08:03:40 +0000][Commit: d50f35c91bfe7f3d0014b14dc113cec8f8e00574]
+	  Refactoting User Entity and Make UsersCrud to Save User with Roles Collection.
+	[2021-11-28 08:15:59 +0000][Commit: fbdb749115d569469b035e384942b5a9752a801d]
+	  Fix UserRoleInteface Namespace.
+	[2021-11-28 09:17:02 +0000][Commit: 98e38b48d7ed59bcc461d0272082876a9f0565aa]
+	  Use Not Mapped Plain Password Field in UserFormType.
+	[2021-11-28 09:23:44 +0000][Commit: 4ab6399d5870061b8c47de850faaf5092c2166c1]
+	  Fix Edit User Templait to use plain_password field.
+	[2021-11-28 12:02:06 +0000][Commit: 500cdc00cc1ce368354f4a8af7b517f401c5b5e3]
+	  Refactoring.
+	[2021-11-28 14:11:27 +0000][Commit: 64da222cbe4ea726dc451b6b84f110e4718bc0e7]
+	  Fix Initializing Roles Collection in User Model.
+	[2021-11-28 15:25:29 +0000][Commit: 4b709dc6e8c0d3dc1ab07c5cb52d7901f27b3575]
+	  Create Security Voters.
+	[2021-12-02 07:32:02 +0000][Commit: 9d2bc43d23f94df1e479ceeb506777f48a8470ed]
+	  Fix Using of vs_tree.easyuiCombobox
+	[2021-12-02 08:00:42 +0000][Commit: e66cfabec01ee206095338f6875e0ffba888ee82]
+	  UsersRoles Update Parent Combo.
+	[2021-12-02 08:06:11 +0000][Commit: c403238150cc598f1af2d87102040f6243877f77]
+	  UsersRoles Update Parent Combo.
+	[2021-12-02 08:56:03 +0000][Commit: 0a1e673bd68fffa0c6f6c331d88c7bf15d8a676b]
+	  Add Translator into the UsersRolesExtController.
+	[2021-12-02 09:01:56 +0000][Commit: 9b91c302567034a48a3f83260524891a94dd6043]
+	  Add Translator into the UsersRolesExtController.
+	[2021-12-04 10:19:30 +0000][Commit: 56a1aff166895558b3cfa9c553e9ad69884d4f54]
+	  Improve Security Configuration.
+	[2021-12-04 11:19:00 +0000][Commit: 363c1ed985590502dc33a0faf12792bb357cabb1]
+	  Improve Security Configuration.
+	[2021-12-07 10:16:34 +0000][Commit: 69775bac1e6584af00d85f7d62410c29a3aca849]
+	  Add User Property for Allowed Applications.
+	[2021-12-07 10:20:44 +0000][Commit: 5755189a696ffd21d3d9e2f2342d1b3183aa7a4f]
+	  Fix Stupid Bug.
+	[2021-12-07 10:32:32 +0000][Commit: 0621dc8ead6c5943c30be74ff31a0f8c6ff8d5b3]
+	  Fix Voter Services.
+	[2021-12-07 10:38:30 +0000][Commit: a5398116e34e325dd28e2ff2f0d1da16e3fb843f]
+	  Fix Stupid Bug.
+	[2021-12-07 17:18:38 +0000][Commit: 4215ab8681c87bdd23caec0f92135f8ae8b8422a]
+	  Fix UserFormType.
+	[2021-12-09 05:27:08 +0000][Commit: 1460f8334d70ba5120bb6cf580e714e615b6f073]
+	  Fix Length of Database Column.
+	[2021-12-10 06:57:46 +0000][Commit: 353c92b28dc3c01047a804b923f468e7c121f248]
+	  Fix Application Voter.
+	[2021-12-10 07:28:49 +0000][Commit: 467a9f315ab561d71aae675fb3243ae1e7360d34]
+	  Add an AccessDiniedListener.
+	[2021-12-10 07:52:37 +0000][Commit: 02f2ac0165daa5d23f7fde72fd91162ff5881823]
+	  Fix AccessDiniedListener.
+	[2021-12-10 08:20:34 +0000][Commit: 2bc426baf82d8e57b7744a800486ea7f0278b44c]
+	  Add User Applications Mapping Cascade Actions..
+	[2021-12-10 08:46:03 +0000][Commit: fbbd7d9714544978b0f24855a0e673e16684a163]
+	  Fix Application Model For Users Association..
+	  Repair Relation Between User and UserInfo Models.
+	  Repair Relation Between UserRole and Taxon  Models.
+	  Improve Users CRUD form element for Roles.
+	  Fix Users CRUD form element for Roles.
+	  Fix Users CRUD Controller to remove Applications.
+	  Improve Security Voters Configuration.
+	  Create Security Crud Voters.
+	  Change Vankosoft Namespace.
+	  Some Fixes and Improvements.
+
 1.5.0	|	Release date: **14.11.2021**
 ============================================
 * New Features:
