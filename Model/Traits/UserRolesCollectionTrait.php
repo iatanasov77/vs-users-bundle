@@ -19,10 +19,7 @@ trait UserRolesCollectionTrait
      * @return array
      */
     public function getRolesFromCollection(): array
-    {
-        // we need to make sure to have at least one role
-        $roles  = ["ROLE_DEFAULT"];
-        
+    {        
         foreach ( $this->rolesCollection as $role ) {
             $roles[]    = $role->getRole();
         }
