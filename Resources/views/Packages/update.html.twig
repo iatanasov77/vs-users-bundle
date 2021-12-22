@@ -2,63 +2,64 @@
 
 {% block title %}{{ parent() }} :: Create New Package{% endblock %}
 
-{% block pageTitle %}<i class="icon_genius"></i> Create New Package{% endblock %}
+{% block pageTitle %}
+    <h2 class="pageheader-title"><i class="icon_genius"></i> Create New Package</h2>
+    <p class="pageheader-text">Proin placerat ante duiullam scelerisque a velit ac porta, fusce sit amet vestibulum mi. Morbi lobortis pulvinar quam.</p>
+{% endblock %}
 
 {% block content %}
     <div class="row">   
         <div class="col-lg-12">
-
             {{ form_start(form, { 'attr': {'class': 'form-horizontal '} }) }}
-            {{ form_widget(form._token) }}
-
-            {% if form_errors(form) is not empty %}
-                <div class="alert alert-block alert-danger fade in">
-                    <button type="button" class="close close-sm" data-dismiss="alert">
-                        <i class="icon-remove"></i>
-                    </button>
-                    <strong>Error!</strong> {{ form_errors(form) }}
-                </div>
-            {% endif %}
-            <section class="panel">
-                <header class="panel-heading"> Package </header>
-                <div class="panel-body">
-                    <div class="form-group">    
-                        {{ form_label(form.enabled, null, {
-                            'label_attr': {'class': 'control-label col-lg-1'}
-                            }) 
-                        }}
-                        <div class="col-lg-10">
-                            <div class="checkbox">
-                                {{ form_widget(form.enabled) }}
+                {{ form_widget(form._token) }}
+    
+                {% if form_errors(form) is not empty %}
+                    <div class="alert alert-block alert-danger fade in">
+                        <button type="button" class="close close-sm" data-dismiss="alert">
+                            <i class="icon-remove"></i>
+                        </button>
+                        <strong>Error!</strong> {{ form_errors(form) }}
+                    </div>
+                {% endif %}
+                <section class="panel">
+                    <header class="panel-heading"> Package </header>
+                    <div class="panel-body">
+                        <div class="form-group">    
+                            {{ form_label(form.enabled, null, {
+                                'label_attr': {'class': 'control-label col-lg-1'}
+                                }) 
+                            }}
+                            <div class="col-lg-10">
+                                <div class="checkbox">
+                                    {{ form_widget(form.enabled) }}
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        {{ form_label(form.title, null, {
-                            'label_attr': {'class': 'col-sm-1 control-label'}
-                            }) 
-                        }}
-                        <div class="col-sm-10">
-                            {{ form_widget(form.title, {'attr': {'class': 'form-control'}}) }}
+                        <div class="form-group">
+                            {{ form_label(form.title, null, {
+                                'label_attr': {'class': 'col-sm-1 control-label'}
+                                }) 
+                            }}
+                            <div class="col-sm-10">
+                                {{ form_widget(form.title, {'attr': {'class': 'form-control'}}) }}
+                            </div>
                         </div>
+    
+                        <fieldset>
+                            <legend>Package Plans</legend>
+    
+                            <div class="fieldsContainer" data-prototype="{% filter escape %}{% include 'IAUsersBundle:Packages:add-plan-prototype.html.twig' with {'form': form.plans.vars.prototype} %}{% endfilter %}">
+                                {% for plan in form.plans %}
+                                    {% include 'IAUsersBundle:Packages:add-plan-prototype.html.twig' with {'form': plan} %}
+                                {% endfor %}
+                            </div>
+    
+                        </fieldset>    
                     </div>
-
-                    <fieldset>
-                        <legend>Package Plans</legend>
-
-                        <div class="fieldsContainer" data-prototype="{% filter escape %}{% include 'IAUsersBundle:Packages:add-plan-prototype.html.twig' with {'form': form.plans.vars.prototype} %}{% endfilter %}">
-                            {% for plan in form.plans %}
-                                {% include 'IAUsersBundle:Packages:add-plan-prototype.html.twig' with {'form': plan} %}
-                            {% endfor %}
-                        </div>
-
-                    </fieldset>    
-                </div>
-            </section>
-            {{ form_widget(form.btnSave, {'attr': {'class': 'btn btn-primary', 'id':'btnSave'}}) }}
-            {{ form_widget(form.btnCancel, {'attr': {'class': 'btn btn-default', 'id':'btnCancel'}}) }}
+                </section>
+                {{ form_widget(form.btnSave, {'attr': {'class': 'btn btn-primary', 'id':'btnSave'}}) }}
+                {{ form_widget(form.btnCancel, {'attr': {'class': 'btn btn-default', 'id':'btnCancel'}}) }}
             {{ form_end(form, {'render_rest': false}) }}
-
         </div>
     </div>   
 {% endblock content %}
