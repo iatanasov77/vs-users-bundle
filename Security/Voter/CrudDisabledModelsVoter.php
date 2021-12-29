@@ -32,7 +32,7 @@ class CrudDisabledModelsVoter extends CrudVoter
     
     protected function supports( string $attribute, $subject ): bool
     {
-        return in_array( get_class( $subject ), array_keys( $this->disabledModels ) );
+        return is_object( $subject ) && in_array( get_class( $subject ), array_keys( $this->disabledModels ) );
     }
     
     /**
