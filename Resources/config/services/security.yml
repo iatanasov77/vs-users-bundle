@@ -80,6 +80,14 @@ services:
             - '%vs_users.voter.crud_owner_models%'
             - '@service_container'
 
+    vs_users.security.request_voter:
+        class: Vankosoft\UsersBundle\Security\Voter\RequestVoter
+        tags: ['security.voter']
+        arguments:
+            - '@vs_application.context.application'
+            - '@security.helper'
+            - '@security.role_hierarchy'
+    
     vs_users.security.firewall.access_denied_listener:
         class: Vankosoft\UsersBundle\Security\Firewall\AccessDeniedListener
         arguments: 
