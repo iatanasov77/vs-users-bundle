@@ -33,6 +33,7 @@ services:
             - '@security.csrf.token_manager'
             - '@security.password_hasher_factory'
             - '@vs_users.repository.users'
+            - '@doctrine.orm.entity_manager'
             - {
                 loginRoute: '%vs_users.login_route%',
                 loginBy: '%vs_users.login_by%',

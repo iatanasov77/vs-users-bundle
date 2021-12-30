@@ -21,6 +21,8 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\HttpFoundation\Cookie;
 
+use Doctrine\ORM\EntityManager;
+
 use Vankosoft\UsersBundle\Repository\UsersRepository;
 
 //class LoginFormAuthenticator extends AbstractAuthenticator
@@ -42,12 +44,14 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
         CsrfTokenManagerInterface $csrfTokenManager,
         PasswordHasherFactoryInterface $encoderFactory,
         UsersRepository $userRepository,
+        EntityManager $entityManager,
         array $params
     ) {
         $this->urlGenerator     = $urlGenerator;
         $this->csrfTokenManager = $csrfTokenManager;
         $this->encoderFactory   = $encoderFactory;
         $this->userRepository   = $userRepository;
+        $this->entityManager    = $entityManager;
         $this->params           = $params;
     }
     
@@ -97,6 +101,12 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
     
     public function onAuthenticationSuccess( Request $request, TokenInterface $token, string $firewallName ) : ?Response
     {
+        $user   = $token->getUser();
+        
+        $user->setLastLogin( new \DateTime() );
+        $this->entityManager->persist( $user );
+        $this->entityManager->flush();
+        
         // on success, let the request continue
         return null;
     }
