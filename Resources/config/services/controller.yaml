@@ -22,8 +22,7 @@ services:
         tags: ['controller.service_arguments']
         autowire: true
         arguments:
-            - '@vs_users.factory.avatar_image'
-            - '@vs_cms.profile_uploader'
+            - '@vs_users.manager.user'
     
     Vankosoft\UsersBundle\Controller\UsersRolesExtController:
         tags: ['controller.service_arguments']
