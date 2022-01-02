@@ -8,9 +8,13 @@ class UsersController extends AbstractCrudController //ResourceController
 {
     protected function prepareEntity( &$entity, &$form, Request $request )
     {
+        $userManager    = $this->container->get( 'vs_users.manager.user' );
+        
+        // Set User Info
+        $this->setUserInfo( $entity, $form );
+        
         $plainPassword  = $form->get( "plain_password" )->getData();
         if ( $plainPassword ) {
-            $userManager    = $this->container->get( 'vs_users.manager.user' );
             $userManager->encodePassword( $entity, $plainPassword );
         }
         
@@ -62,5 +66,22 @@ class UsersController extends AbstractCrudController //ResourceController
         }
         
         return $this;
+    }
+    
+    private function setUserInfo( &$entity, $form )
+    {
+        $userManager    = $this->container->get( 'vs_users.manager.user' );
+        $userInfo       = $entity->getInfo();
+        if ( ! $userInfo ) {
+            $userInfo   = $this->container->get( 'vs_users.factory.user_info' )->createNew();
+            $entity->setInfo( $userInfo );
+        }
+        
+        /*
+        $profilePictureFile = $form->get( 'profilePicture' )->getData();
+        if ( $profilePictureFile ) {
+            $userManager->createAvatar( $userInfo, $profilePictureFile );
+        }
+        */
     }
 }

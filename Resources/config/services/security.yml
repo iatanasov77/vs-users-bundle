@@ -25,6 +25,8 @@ services:
             - '@doctrine.orm.entity_manager'
             - '@security.password_hasher_factory'
             - '@vs_users.factory.user_info'
+            - '@vs_users.factory.avatar_image'
+            - '@vs_cms.profile_uploader'
     
     vs_users.security.login_form_authenticator:
         class: Vankosoft\UsersBundle\Security\LoginFormAuthenticator
