@@ -12,6 +12,7 @@ use Sylius\Component\Resource\Factory\FactoryInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
+use Vankosoft\UsersBundle\Security\UserManager;
 use Vankosoft\ApplicationBundle\Component\Status;
 use Vankosoft\CmsBundle\Component\Uploader\FileUploaderInterface;
 use Vankosoft\UsersBundle\Component\UserRole;
@@ -26,11 +27,8 @@ class UsersExtController extends AbstractController
     /** @var FactoryInterface */
     protected $userInfoFactory;
     
-    /** @var FactoryInterface */
-    protected $avatarImageFactory;
-    
-    /** @var FileUploaderInterface */
-    protected $imageUploader;
+    /** @var UserManager */
+    protected $userManager;
     
     /** @var RepositoryInterface */
     protected $usersRolesRepository;
@@ -38,14 +36,12 @@ class UsersExtController extends AbstractController
     public function __construct(
         RepositoryInterface $usersRepository,
         FactoryInterface $userInfoFactory,
-        FactoryInterface $avatarImageFactory,
-        FileUploaderInterface $imageUploader,
+        UserManager $userManager,
         RepositoryInterface $usersRolesRepository
     ) {
         $this->usersRepository      = $usersRepository;
         $this->userInfoFactory      = $userInfoFactory;
-        $this->avatarImageFactory   = $avatarImageFactory;
-        $this->imageUploader        = $imageUploader;
+        $this->userManager          = $userManager;
         $this->usersRolesRepository = $usersRolesRepository;
     }
     
@@ -74,7 +70,7 @@ class UsersExtController extends AbstractController
             
             $profilePictureFile = $form->get( 'profilePicture' )->getData();
             if ( $profilePictureFile ) {
-                $this->createAvatar( $userInfo, $profilePictureFile );
+                $this->userManager->createAvatar( $userInfo, $profilePictureFile );
             }
             
             $user->setInfo( $userInfo );
@@ -155,20 +151,6 @@ class UsersExtController extends AbstractController
                 
                 $key++;
             }
-        }
-    }
-    
-    protected function createAvatar( UserInfoInterface &$userInfo, File $file ): void
-    {
-        $avatarImage    = $userInfo->getAvatar() ?: $this->avatarImageFactory->createNew();
-        $uploadedFile   = new UploadedFile( $file->getRealPath(), $file->getBasename() );
-        
-        $avatarImage->setFile( $uploadedFile );
-        $this->imageUploader->upload( $avatarImage );
-        $avatarImage->setFile( null ); // reset File Because: Serialization of 'Symfony\Component\HttpFoundation\File\UploadedFile' is not allowed
-        
-        if ( ! $userInfo->getAvatar() ) {
-            $userInfo->setAvatar( $avatarImage );
         }
     }
     
