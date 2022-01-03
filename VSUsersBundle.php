@@ -1,10 +1,11 @@
 <?php namespace Vankosoft\UsersBundle;
 
-use Sylius\Bundle\ResourceBundle\AbstractResourceBundle;
-use Sylius\Bundle\ResourceBundle\SyliusResourceBundle;
-
+use Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Doctrine\Bundle\DoctrineBundle\DependencyInjection\Compiler\DoctrineOrmMappingsPass;
+
+use Sylius\Bundle\ResourceBundle\AbstractResourceBundle;
+use Sylius\Bundle\ResourceBundle\SyliusResourceBundle;
 
 class VSUsersBundle extends AbstractResourceBundle
 {
@@ -34,7 +35,7 @@ class VSUsersBundle extends AbstractResourceBundle
     /**
      * {@inheritdoc}
      */
-    public function getContainerExtension()
+    public function getContainerExtension(): ?ExtensionInterface
     {
         return new \Vankosoft\UsersBundle\DependencyInjection\VSUsersExtension();
     }
