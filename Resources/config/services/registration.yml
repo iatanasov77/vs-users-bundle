@@ -16,6 +16,7 @@ services:
         arguments:
             - "@request_stack"
             - '%vs_users.model.users.class%'
+            - '%vs_application.model.application.class%'
             
     vs_users.form.type.registration:
         class: Vankosoft\UsersBundle\Form\RegistrationFormType

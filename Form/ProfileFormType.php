@@ -15,9 +15,9 @@ class ProfileFormType extends UserFormType
 {
     use Traits\UserInfoFormTrait;
     
-    public function __construct( RequestStack $requestStack, string $dataClass )
+    public function __construct( RequestStack $requestStack, string $dataClass, string $applicationClass )
     {
-        parent::__construct( $requestStack, $dataClass );
+        parent::__construct( $requestStack, $dataClass, $applicationClass );
     }
     
     public function buildForm( FormBuilderInterface $builder, array $options )
