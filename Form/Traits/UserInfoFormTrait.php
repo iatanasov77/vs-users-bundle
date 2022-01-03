@@ -8,13 +8,13 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 trait UserInfoFormTrait
 {
-    public function buildUserInfoForm( FormBuilderInterface &$builder ): void
+    public function buildUserInfoForm( FormBuilderInterface &$builder, array $options ): void
     {
         $builder
             ->add( 'profilePicture', FileType::class, [
                 'label'                 => 'vs_users.form.profile.picture_lable',
                 'translation_domain'    => 'VSUsersBundle',
-                'mapped'                => false,
+                'mapped'                => $options['profilePictureMapped'],
                 
                 // make it optional so you don't have to re-upload the Profile Image
                 // every time you edit the Profile details
@@ -37,11 +37,13 @@ trait UserInfoFormTrait
             ->add( 'firstName', TextType::class, [
                 'label'                 => 'vs_users.form.user.firstName',
                 'translation_domain'    => 'VSUsersBundle',
+                'mapped'                => $options['firstNameMapped'],
             ])
             
             ->add( 'lastName', TextType::class, [
                 'label'                 => 'vs_users.form.user.lastName',
                 'translation_domain'    => 'VSUsersBundle',
+                'mapped'                => $options['lastNameMapped'],
             ])
         ;
     }
