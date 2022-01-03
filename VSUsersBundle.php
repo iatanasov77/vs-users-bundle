@@ -16,11 +16,6 @@ class VSUsersBundle extends AbstractResourceBundle
         ];
     }
     
-    public function getContainerExtension()
-    {
-        return new \Vankosoft\UsersBundle\DependencyInjection\VSUsersExtension();
-    }
-    
     public function build( ContainerBuilder $container ): void
     {
         parent::build( $container );
@@ -34,5 +29,13 @@ class VSUsersBundle extends AbstractResourceBundle
             //$container->addCompilerPass( DoctrineOrmMappingsPass::createYamlMappingDriver( $mappings ) );
             //$container->addCompilerPass( DoctrineOrmMappingsPass::createAnnotationMappingDriver( \array_values( $mappings ), \array_keys( $mappings ) ) );
         }
+    }
+    
+    /**
+     * {@inheritdoc}
+     */
+    public function getContainerExtension()
+    {
+        return new \Vankosoft\UsersBundle\DependencyInjection\VSUsersExtension();
     }
 }
