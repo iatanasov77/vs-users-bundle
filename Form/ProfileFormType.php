@@ -24,7 +24,7 @@ class ProfileFormType extends UserFormType
     {
         parent::buildForm( $builder, $options );
         
-        $this->buildUserInfoForm( $builder );
+        $this->buildUserInfoForm( $builder, $options );
         $builder->setMethod( 'POST' );
         
         $builder->remove( 'enabled' );
@@ -45,6 +45,12 @@ class ProfileFormType extends UserFormType
                 'users',
             ])
             ->setAllowedTypes( 'users', UserInterface::class )
+            
+            ->setDefaults([
+                'profilePictureMapped'  => false,
+                'firstNameMapped'       => false,
+                'lastNameMapped'        => false,
+            ])
         ;
     }
     

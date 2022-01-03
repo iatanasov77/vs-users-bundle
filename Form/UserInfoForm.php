@@ -12,7 +12,7 @@ class UserInfoForm extends AbstractType
     
     public function buildForm( FormBuilderInterface $builder, array $options ): void
     {
-        $this->buildUserInfoForm( $builder );
+        $this->buildUserInfoForm( $builder, $options );
         $builder->setMethod( 'POST' );
     }
     
@@ -20,6 +20,10 @@ class UserInfoForm extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => UserInfo::class,
+            
+            'profilePictureMapped'  => false,
+            'firstNameMapped'       => true,
+            'lastNameMapped'        => true,
         ]);
     }
 }
