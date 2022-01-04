@@ -1,9 +1,0 @@
-{% extends 'knp_menu.html.twig' %}
-
-{% block root %}
-    {% for parentItem in item.children %}
-        <a class="dropdown-item" href="{{ parentItem.uri }}">
-        	<i class="{{ parentItem.attributes.iconClass }}"></i>{{ parentItem.name }}
-        </a>
-    {% endfor %}
-{% endblock %}
