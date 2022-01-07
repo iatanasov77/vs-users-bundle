@@ -13,62 +13,27 @@ use Vankosoft\UsersBundle\Model\UserInterface;
 
 class ProfileFormType extends UserFormType
 {
-    public function __construct( RequestStack $requestStack, string $dataClass )
+    use Traits\UserInfoFormTrait;
+    
+    public function __construct( RequestStack $requestStack, string $dataClass, string $applicationClass )
     {
-        parent::__construct( $requestStack, $dataClass );
+        parent::__construct( $requestStack, $dataClass, $applicationClass );
     }
     
     public function buildForm( FormBuilderInterface $builder, array $options )
     {
         parent::buildForm( $builder, $options );
         
+        $this->buildUserInfoForm( $builder, $options );
+        $builder->setMethod( 'POST' );
+        
         $builder->remove( 'enabled' );
         $builder->remove( 'verified' );
-        
         $builder->remove( 'roles_options' );
         $builder->remove( 'applications' );
-        
         $builder->remove( 'plain_password' );
         $builder->remove( 'email' );
         $builder->remove( 'username' );
-        
-        $builder->setMethod( 'POST' );
-        
-        $builder
-            ->add( 'profilePicture', FileType::class, [
-                'label'                 => 'vs_users.form.profile.picture_lable',
-                'translation_domain'    => 'VSUsersBundle',
-                'mapped'                => false,
-                
-                // make it optional so you don't have to re-upload the Profile Image
-                // every time you edit the Profile details
-                'required'              => false,
-                
-                // unmapped fields can't define their validation using annotations
-                // in the associated entity, so you can use the PHP constraint classes
-                'constraints'           => [
-                    new File([
-                        'maxSize' => '1024k',
-                        'mimeTypes' => [
-                            'image/jpeg',
-                            'image/png',
-                        ],
-                        'mimeTypesMessage' => 'vs_users.form.profile.picture_info',
-                    ])
-                ],
-            ])
-            
-            ->add( 'firstName', TextType::class, [
-                'label'                 => 'vs_users.form.user.firstName',
-                'translation_domain'    => 'VSUsersBundle',
-                'mapped'                => false,
-            ])
-            ->add( 'lastName', TextType::class, [
-                'label'                 => 'vs_users.form.user.lastName',
-                'translation_domain'    => 'VSUsersBundle',
-                'mapped'                => false,
-            ])
-        ;
     }
     
     public function configureOptions( OptionsResolver $resolver ) : void
@@ -80,6 +45,12 @@ class ProfileFormType extends UserFormType
                 'users',
             ])
             ->setAllowedTypes( 'users', UserInterface::class )
+            
+            ->setDefaults([
+                'profilePictureMapped'  => false,
+                'firstNameMapped'       => false,
+                'lastNameMapped'        => false,
+            ])
         ;
     }
     
