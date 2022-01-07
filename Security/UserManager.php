@@ -7,12 +7,7 @@ use Doctrine\ORM\EntityManager;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 use Webmozart\Assert\Assert;
 
-use Symfony\Component\HttpFoundation\File\File;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Vankosoft\CmsBundle\Component\Uploader\FileUploaderInterface;
-
 use Vankosoft\UsersBundle\Model\UserInterface;
-use Vankosoft\UsersBundle\Model\UserInfoInterface;
 
 class UserManager
 {
@@ -22,28 +17,18 @@ class UserManager
     private $encoderFactory;
     private $userInfoFactory;
     
-    /** @var FactoryInterface */
-    private $avatarImageFactory;
-    
-    /** @var FileUploaderInterface */
-    private $imageUploader;
-    
     public function __construct(
         FactoryInterface $userFactory,
         EntityRepository $userRepository,
         EntityManager $entityManager,
         PasswordHasherFactoryInterface $encoderFactory,
-        FactoryInterface $userInfoFactory,
-        FactoryInterface $avatarImageFactory,
-        FileUploaderInterface $imageUploader
+        FactoryInterface $userInfoFactory
     ) {
-        $this->userFactory          = $userFactory;
-        $this->userRepository       = $userRepository;
-        $this->entityManager        = $entityManager;
-        $this->encoderFactory       = $encoderFactory;
-        $this->userInfoFactory      = $userInfoFactory;
-        $this->avatarImageFactory   = $avatarImageFactory;
-        $this->imageUploader        = $imageUploader;
+        $this->userFactory      = $userFactory;
+        $this->userRepository   = $userRepository;
+        $this->entityManager    = $entityManager;
+        $this->encoderFactory   = $encoderFactory;
+        $this->userInfoFactory  = $userInfoFactory;
     }
     
     public function createUser( $username, $email, $plainPassword ) : UserInterface
@@ -94,19 +79,5 @@ class UserManager
         $encoder    = $this->encoderFactory->getPasswordHasher( $user );
         
         return $encoder->verify( $user->getPassword(), $plainPassword, $user->getSalt() );
-    }
-    
-    public function createAvatar( UserInfoInterface &$userInfo, File $file ): void
-    {
-        $avatarImage    = $userInfo->getAvatar() ?: $this->avatarImageFactory->createNew();
-        $uploadedFile   = new UploadedFile( $file->getRealPath(), $file->getBasename() );
-        
-        $avatarImage->setFile( $uploadedFile );
-        $this->imageUploader->upload( $avatarImage );
-        $avatarImage->setFile( null ); // reset File Because: Serialization of 'Symfony\Component\HttpFoundation\File\UploadedFile' is not allowed
-        
-        if ( ! $userInfo->getAvatar() ) {
-            $userInfo->setAvatar( $avatarImage );
-        }
     }
 }

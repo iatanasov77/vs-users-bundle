@@ -6,22 +6,26 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Sylius\Component\Resource\Factory\FactoryInterface;
 
-
-use Vankosoft\UsersBundle\Security\UserManager;
+use Vankosoft\CmsBundle\Component\Uploader\FileUploaderInterface;
 use Vankosoft\UsersBundle\Form\ProfileFormType;
 use Vankosoft\UsersBundle\Form\ChangePasswordFormType;
 use Vankosoft\UsersBundle\Model\UserInfoInterface;
 
 class ProfileController extends AbstractController
 {
-    /** @var UserManager */
-    protected $userManager;
+    /** @var FactoryInterface */
+    private $avatarImageFactory;
+    
+    private FileUploaderInterface $imageUploader;
     
     public function __construct(
-        UserManager $userManager
+        FactoryInterface $avatarImageFactory,
+        FileUploaderInterface $imageUploader
     ) {
-        $this->userManager  = $userManager;
+        $this->avatarImageFactory   = $avatarImageFactory;
+        $this->imageUploader        = $imageUploader;
     }
     
     public function profilePictureAction( Request $request ): Response
@@ -37,7 +41,7 @@ class ProfileController extends AbstractController
         }
         
         if ( ! $profilePicture ) {
-            $profilePicture = '/build/default/images/avatar-1.jpg';
+            $profilePicture = '/build/images/avatar-1.jpg';
         }
         
         return new Response( $profilePicture, Response::HTTP_OK );
@@ -66,7 +70,7 @@ class ProfileController extends AbstractController
             $oUserInfo          = $oUser->getInfo();
             $profilePictureFile = $form->get( 'profilePicture' )->getData();
             if ( $profilePictureFile ) {
-                $this->userManager->createAvatar( $oUserInfo, $profilePictureFile );
+                $this->createAvatar( $oUserInfo, $profilePictureFile );
             }
             
             $oUserInfo->setFirstName( $form->get( 'firstName' )->getData() );
@@ -131,5 +135,19 @@ class ProfileController extends AbstractController
         return [
             'changePasswordForm'    => $changePasswordForm,
         ];
+    }
+    
+    private function createAvatar( UserInfoInterface &$userInfo, File $file ): void
+    {
+        $avatarImage    = $userInfo->getAvatar() ?: $this->avatarImageFactory->createNew();
+        $uploadedFile   = new UploadedFile( $file->getRealPath(), $file->getBasename() );
+        
+        $avatarImage->setFile( $uploadedFile );
+        $this->imageUploader->upload( $avatarImage );
+        $avatarImage->setFile( null ); // reset File Because: Serialization of 'Symfony\Component\HttpFoundation\File\UploadedFile' is not allowed
+        
+        if ( ! $userInfo->getAvatar() ) {
+            $userInfo->setAvatar( $avatarImage );
+        }
     }
 }
