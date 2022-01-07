@@ -27,9 +27,6 @@ class ApplicationVoter implements VoterInterface
      */
     public function vote( TokenInterface $token, $subject, array $attributes )
     {
-        if ( ! $subject instanceof Request ) {
-            return self::ACCESS_ABSTAIN;
-        }
         $user   = $token->getUser();
         
         if ( ! $user instanceof UserInterface ) {
@@ -45,7 +42,6 @@ class ApplicationVoter implements VoterInterface
         }
         
         $application    = $this->applicationContext->getApplication();
-        $uri            = $subject->getUri(); // $uri may be needed sometimes
         foreach ( $user->getApplications() as $userApplication ) {
             if ( $userApplication == $application ) {
                 return self::ACCESS_GRANTED;
