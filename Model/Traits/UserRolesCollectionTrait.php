@@ -59,4 +59,17 @@ trait UserRolesCollectionTrait
         
         return $this;
     }
+    
+    public function getRolesAncestors(): Collection
+    {
+        $ancestors = [];
+        
+        foreach ( $this->getRolesCollection() as $r ) {
+            for ( $ancestor = $r->getParent(); null !== $ancestor; $ancestor = $ancestor->getParent() ) {
+                array_push( $ancestors, $ancestor );
+            }
+        }
+        
+        return new ArrayCollection( $ancestors );
+    }
 }
