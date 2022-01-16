@@ -41,7 +41,7 @@ class ProfileController extends AbstractController
         }
         
         if ( ! $profilePicture ) {
-            $profilePicture = '/build/images/avatar-1.jpg';
+            $profilePicture = '/build/default/images/avatar-1.jpg';
         }
         
         return new Response( $profilePicture, Response::HTTP_OK );
