@@ -32,7 +32,6 @@
                 	<h5 class="card-header">Package Plan Details</h5>
 
                     {{ form_start(form, { 'attr': {'class': 'form-horizontal '} }) }}
-                        {{ form_widget(form._token) }}
             
                         {% if form_errors(form) is not empty %}
                             <div class="alert alert-block alert-danger fade in">
