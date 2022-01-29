@@ -2,8 +2,6 @@
 {% import "@VSApplication/Macros/tree.html.twig" as vs_tree %}
 
 {{ form_start(form, { 'attr': {'class': 'form-horizontal '} }) }}
-    {{ form_widget(form._token) }}
-    
     <div class="form-group">
         {{ form_label(form.currentLocale, null, {
             'label_attr': {'class': 'col-form-label'}

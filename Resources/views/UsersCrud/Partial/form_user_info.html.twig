@@ -7,8 +7,7 @@
     </div>
 {% endif %}
 
-{{ form_start(form, { 'action': path('vs_users_user_info_handle', {'userId': user.id}), 'method': 'POST', 'attr': {'class': 'form-horizontal', 'id': 'formUserInfo'} }) }}
-    {{ form_widget(form._token) }}   
+{{ form_start(form, { 'action': path('vs_users_user_info_handle', {'userId': user.id}), 'method': 'POST', 'attr': {'class': 'form-horizontal', 'id': 'formUserInfo'} }) }}  
     
     <div class="custom-file mb-3">
         {{ form_label(form.profilePicture, null, {

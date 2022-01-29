@@ -9,8 +9,7 @@
         <div class="col-lg-12">
 
             {{ form_start(form, { 'attr': {'class': 'form-horizontal '} }) }}
-            {{ form_widget(form._token) }}
-
+            
             {% if form_errors(form) is not empty %}
                 <div class="alert alert-block alert-danger fade in">
                     <button type="button" class="close close-sm" data-dismiss="alert">
