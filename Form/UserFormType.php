@@ -15,6 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 use Vankosoft\ApplicationBundle\Model\Application;
+use Vankosoft\ApplicationBundle\Repository\ApplicationRepository;
 use Vankosoft\UsersBundle\Model\UserInterface;
 use Vankosoft\UsersBundle\Component\UserRole;
 
@@ -98,7 +99,7 @@ class UserFormType extends AbstractForm
                 "required"              => false,
                 //"mapped"                => false,
                 "multiple"              => true,
-                'query_builder' => function( EntityRepository $repository ) {
+                'query_builder' => function( ApplicationRepository $repository ) {
                     $qb = $repository->createQueryBuilder( 'app' );
                     if( $this->auth->isGranted( 'ROLE_SUPER_ADMIN' ) ) {
                         return $qb;
