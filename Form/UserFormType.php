@@ -105,7 +105,7 @@ class UserFormType extends AbstractForm
                         return $qb;
                     } else {
                         return $qb
-                            ->where( $qb->expr()->neq( 'app.code', '?appCode' ) )
+                            ->where( $qb->expr()->neq( 'app.code', ':appCode' ) )
                             ->setParameter( 'appCode', 'admin-panel' )
                         ;
                     }
