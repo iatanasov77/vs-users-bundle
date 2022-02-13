@@ -19,6 +19,7 @@ services:
             - "@request_stack"
             - '%vs_users.model.users.class%'
             - '%vs_application.model.application.class%'
+            - '@security.helper'
 
     vs_users.resources.user_roles.form:
         class: Vankosoft\UsersBundle\Form\UserRoleForm
