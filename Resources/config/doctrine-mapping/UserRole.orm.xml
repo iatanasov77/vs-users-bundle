@@ -11,7 +11,7 @@
       	
       	<field name="role" column="role" type="string" length="255" nullable="false" unique="true" />
         
-        <one-to-one field="taxon" name="taxon_id" target-entity="Vankosoft\ApplicationBundle\Model\Interfaces\TaxonInterface">
+        <one-to-one field="taxon" name="taxon_id" target-entity="Vankosoft\ApplicationBundle\Model\Interfaces\TaxonInterface" orphan-removal="true">
             <cascade>
                 <cascade-all/>
             </cascade>
