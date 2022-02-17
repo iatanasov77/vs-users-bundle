@@ -55,7 +55,8 @@ class ChangePasswordFormType extends AbstractType
             ->setAllowedTypes( 'users', UserInterface::class )
             
             ->setDefaults([
-                'data_class' => UserInterface::class,
+                'csrf_protection'   => false,
+                'data_class'        => UserInterface::class,
             ])
         ;
     }

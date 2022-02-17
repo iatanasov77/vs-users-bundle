@@ -19,7 +19,8 @@ class UserInfoForm extends AbstractType
     public function configureOptions( OptionsResolver $resolver ): void
     {
         $resolver->setDefaults([
-            'data_class' => UserInfo::class,
+            'csrf_protection'       => false,
+            'data_class'            => UserInfo::class,
             
             'profilePictureMapped'  => false,
             'firstNameMapped'       => true,
