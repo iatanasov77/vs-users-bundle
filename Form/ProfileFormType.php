@@ -47,6 +47,7 @@ class ProfileFormType extends UserFormType
             ->setAllowedTypes( 'users', UserInterface::class )
             
             ->setDefaults([
+                'csrf_protection'       => false,
                 'profilePictureMapped'  => false,
                 'firstNameMapped'       => false,
                 'lastNameMapped'        => false,

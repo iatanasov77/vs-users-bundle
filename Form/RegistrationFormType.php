@@ -53,6 +53,9 @@ class RegistrationFormType extends UserFormType
         parent::configureOptions( $resolver );
         
         $resolver
+            ->setDefaults([
+                'csrf_protection' => false,
+            ])
             ->setDefined([
                 'users',
             ])
