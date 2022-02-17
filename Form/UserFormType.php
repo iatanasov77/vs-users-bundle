@@ -119,6 +119,9 @@ class UserFormType extends AbstractForm
         parent::configureOptions( $resolver );
         
         $resolver
+            ->setDefaults([
+                'csrf_protection' => false,
+            ])
             ->setDefined([
                 'users',
             ])
