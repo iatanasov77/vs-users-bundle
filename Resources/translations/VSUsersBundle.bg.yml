@@ -1,5 +1,7 @@
 vs_users:
     form:
+        generate_password: Генерирай Парола
+        
         profile:
             picture_lable: 'Снимка на Профила'
             picture_info: 'Позволени Типове: jpeg, png'
