@@ -32,7 +32,7 @@
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <div class="card">
                 	<h5 class="card-header">{{ 'vs_users.template.profile_show_title' | trans( {},'VSUsersBundle' ) }}</h5>
-                	<div class="card-body">
+                	<div class="card-body profile-data">
                 		<div class="tab-regular">
                             <ul class="nav nav-tabs " id="myTab" role="tablist">
                                 <li class="nav-item">
@@ -59,7 +59,6 @@
                                     {% include '@VSUsers/Profile/tab/_profile-change_password.html.twig' with {'f': otherForms.changePasswordForm.createView} %}
                                 </div>
                                 <div class="tab-pane fade" id="activity" role="tabpanel" aria-labelledby="contact-tab">
-                               
                                     {% include '@VSUsers/Profile/tab/_profile-activity.html.twig' %}
                                 </div>
                             </div>
