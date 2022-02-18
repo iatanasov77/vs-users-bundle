@@ -3,6 +3,7 @@
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -16,9 +17,9 @@ use Vankosoft\UsersBundle\Model\UserInterface;
  */
 class RegistrationFormType extends UserFormType
 {
-    public function __construct( RequestStack $requestStack, string $dataClass )
+    public function __construct( RequestStack $requestStack, string $dataClass, string $applicationClass, AuthorizationCheckerInterface $auth )
     {
-        parent::__construct( $requestStack, $dataClass );
+        parent::__construct( $requestStack, $dataClass, $applicationClass, $auth );
     }
     
     public function buildForm( FormBuilderInterface $builder, array $options )
