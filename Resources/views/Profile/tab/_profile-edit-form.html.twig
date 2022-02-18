@@ -1,9 +1,8 @@
 {% import "@VSApplication/Macros/form.html.twig" as vs_form %}
 
-<section class="panel">                                          
+<h3>{{ 'vs_users.template.profile_details_header' | trans( {},'VSUsersBundle' ) }}</h3>
+<section class="panel">
     <div class="panel-body bio-graph-info">
-        <h1>{{ 'vs_users.template.profile_details_header' | trans( {},'VSUsersBundle' ) }}</h1>
-                
         {{ form_start(form, { 'attr': {'class': 'form-horizontal profile_details_form'} }) }}
         	<div class="row">
     			<img
