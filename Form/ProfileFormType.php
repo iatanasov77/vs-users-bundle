@@ -3,6 +3,7 @@
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Validator\Constraints\File;
@@ -15,9 +16,9 @@ class ProfileFormType extends UserFormType
 {
     use Traits\UserInfoFormTrait;
     
-    public function __construct( RequestStack $requestStack, string $dataClass, string $applicationClass )
+    public function __construct( RequestStack $requestStack, string $dataClass, string $applicationClass, AuthorizationCheckerInterface $auth )
     {
-        parent::__construct( $requestStack, $dataClass, $applicationClass );
+        parent::__construct( $requestStack, $dataClass, $applicationClass, $auth );
     }
     
     public function buildForm( FormBuilderInterface $builder, array $options )
