@@ -4,13 +4,16 @@
 <section class="panel">
     <div class="panel-body bio-graph-info">
         {{ form_start(form, { 'attr': {'class': 'form-horizontal profile_details_form'} }) }}
-        	<div class="row">
-    			<img
+            <div class="row">
+            {% if app.user.info.avatar %}
+                <img
                     src="{{ app.user.info.avatar.path|imagine_filter('profile_form_thumb') }}"
     				{# src="{{ path( 'vs_cms_images_get_file', { file: 'var/uploads/profile_pictures/' ~ user.info.profilePictureFilename } ) }}?filter=profile_form_thumb" #}
     				style="width: 120px; height: 100px; border: 2px solid #000000;"
-    			/>
-    			{# <img src="{{ asset( '/build/default/images/avatar-1.jpg' ) }}" alt="" class="user-avatar-md rounded-circle" /> #}
+                />
+            {% else %}
+                <img src="{{ asset( '/build/default/images/avatar-1.jpg' ) }}" alt="" class="user-avatar-md rounded-circle" />
+            {% endif %}
         	</div>
         	<div class="custom-file mb-3">
         	    {{ form_label(form.profilePicture, null, {
