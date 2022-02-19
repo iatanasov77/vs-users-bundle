@@ -1,5 +1,7 @@
 vs_users:
     form:
+        generate_password: Generate Password
+        
         profile:
             picture_lable: 'Profile picture'
             picture_info: 'Allowed Types: jpeg, png'

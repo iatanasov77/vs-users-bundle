@@ -32,7 +32,7 @@
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <div class="card">
                 	<h5 class="card-header">{{ 'vs_users.template.profile_show_title' | trans( {},'VSUsersBundle' ) }}</h5>
-                	<div class="card-body">
+                	<div class="card-body profile-data">
                 		<div class="tab-regular">
                             <ul class="nav nav-tabs " id="myTab" role="tablist">
                                 <li class="nav-item">
@@ -52,14 +52,13 @@
                                 </li>
                             </ul>
                     		<div class="tab-content" id="myTabContent">
-                                <div class="tab-pane fade show active" id="details" role="tabpanel" aria-labelledby="home-tab">
+                                <div class="tab-pane fade show active" id="details" role="tabpanel" aria-labelledby="details-tab">
                                     {% include '@VSUsers/Profile/tab/_profile-edit-form.html.twig' %}
                                 </div>
-                                <div class="tab-pane fade" id="change_password" role="tabpanel" aria-labelledby="profile-tab">
+                                <div class="tab-pane fade" id="change_password" role="tabpanel" aria-labelledby="change_password-tab">
                                     {% include '@VSUsers/Profile/tab/_profile-change_password.html.twig' with {'f': otherForms.changePasswordForm.createView} %}
                                 </div>
-                                <div class="tab-pane fade" id="activity" role="tabpanel" aria-labelledby="contact-tab">
-                               
+                                <div class="tab-pane fade" id="activity" role="tabpanel" aria-labelledby="activity-tab">
                                     {% include '@VSUsers/Profile/tab/_profile-activity.html.twig' %}
                                 </div>
                             </div>
@@ -70,6 +69,11 @@
         </div>
     </div>
 {% endblock content %}
+
+{% block head_styles %} 
+    {{ parent() }}
+    {{ encore_entry_link_tags( 'js/profile' ) }}
+{% endblock %}
 
 {% block body_scripts %}
 	{{ parent() }}

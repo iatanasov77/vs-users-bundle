@@ -30,5 +30,11 @@
 			"Vankosoft\\UsersBundle\\" : "lib/"
 		}
 	},
+    "repositories": [
+        {
+            "type": "path",
+            "url": "../*"
+        }
+    ],
 	"minimum-stability" : "dev"
 }
