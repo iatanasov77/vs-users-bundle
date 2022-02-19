@@ -56,7 +56,7 @@ class UsersController extends AbstractCrudController
     private function buildUserInfo( &$entity, &$form )
     {
         if ( ! $entity->getInfo() ) {
-            $userInfo   = $this->get( 'vs_users.factory.users' )->createNew();
+            $userInfo   = $this->get( 'vs_users.factory.user_info' )->createNew();
             
             // May Be First and Last Name Should Be Added to Create User Form
             $userInfo->setFirstName( 'NOT' );
