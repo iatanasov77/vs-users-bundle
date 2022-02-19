@@ -4,7 +4,7 @@ use Vankosoft\ApplicationBundle\Controller\AbstractCrudController;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Collections\ArrayCollection;
 
-class UsersController extends AbstractCrudController //ResourceController
+class UsersController extends AbstractCrudController
 {
     protected function prepareEntity( &$entity, &$form, Request $request )
     {
@@ -13,6 +13,8 @@ class UsersController extends AbstractCrudController //ResourceController
             $userManager    = $this->container->get( 'vs_users.manager.user' );
             $userManager->encodePassword( $entity, $plainPassword );
         }
+        
+        $this->buildUserInfo( $entity, $form );
         
         $selectedRoles  = \json_decode( $request->request->get( 'selectedRoles' ), true );
         $this->buildRoles( $entity, $selectedRoles );
@@ -62,5 +64,18 @@ class UsersController extends AbstractCrudController //ResourceController
         }
         
         return $this;
+    }
+    
+    private function buildUserInfo( &$entity, &$form )
+    {
+        if ( ! $entity->getInfo() ) {
+            $userInfo   = $this->get( 'vs_users.factory.users' )->createNew();
+            
+            // May Be First and Last Name Should Be Added to Create User Form
+            $userInfo->setFirstName( 'NOT' );
+            $userInfo->setLastName( 'EDITED' );
+            
+            $entity->setInfo( $userInfo );
+        }
     }
 }
