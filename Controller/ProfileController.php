@@ -12,18 +12,25 @@ use Vankosoft\CmsBundle\Component\Uploader\FileUploaderInterface;
 use Vankosoft\UsersBundle\Form\ProfileFormType;
 use Vankosoft\UsersBundle\Form\ChangePasswordFormType;
 use Vankosoft\UsersBundle\Model\UserInfoInterface;
+use Vankosoft\UsersBundle\Security\UserManager;
 
 class ProfileController extends AbstractController
 {
+    /** @var UserManager */
+    private UserManager $userManager;
+    
     /** @var FactoryInterface */
     private $avatarImageFactory;
     
+    /** @var FileUploaderInterface */
     private FileUploaderInterface $imageUploader;
     
     public function __construct(
+        UserManager $userManager,
         FactoryInterface $avatarImageFactory,
         FileUploaderInterface $imageUploader
     ) {
+        $this->userManager          = $userManager;
         $this->avatarImageFactory   = $avatarImageFactory;
         $this->imageUploader        = $imageUploader;
     }
@@ -101,14 +108,13 @@ class ProfileController extends AbstractController
         
         $f->handleRequest( $request );
         if ( $f->isSubmitted() && $f->isValid() ) {
-            $userManager    = $this->container->get( 'vs_users.manager.user' );
             $data           = $request->request->all();
 
             $oldPassword        = $data['change_password_form']['oldPassword'];
             $newPassword        = $data['change_password_form']['password']['first'];
             $newPasswordConfirm = $data['change_password_form']['password']['second'];
             
-            if ( ! $userManager->isPasswordValid( $oUser, $oldPassword ) ) {
+            if ( ! $this->userManager->isPasswordValid( $oUser, $oldPassword ) ) {
                 throw new \Exception( 'Invalid Old Password !!!' );
             }
             
@@ -116,7 +122,7 @@ class ProfileController extends AbstractController
                 throw new \Exception( 'Passwords Not Equals !!!' );
             }
             
-            $userManager->encodePassword( $oUser, $newPassword );
+            $this->userManager->encodePassword( $oUser, $newPassword );
             $em->persist( $oUser );
             $em->flush();
         }
