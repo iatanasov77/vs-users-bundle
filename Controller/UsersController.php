@@ -18,19 +18,6 @@ class UsersController extends AbstractCrudController
         
         $selectedRoles  = \json_decode( $request->request->get( 'selectedRoles' ), true );
         $this->buildRoles( $entity, $selectedRoles );
-        /*
-        $roles  = $form->get( "roles_options" )->getData();
-        var_dump( $roles ); die;
-        $entity->setRoles( $roles );
-        */
-        
-        /*
-        $entity->setVerified( true );
-
-        // I dont know yet if these fields should be in the form
-        $entity->setPreferedLocale( $request->getLocale() );
-        $entity->setEnabled( true );
-        */
         
         $allowedApplications    = $form->get( "applications" )->getData();
         $this->clearApplications( $entity );
@@ -75,6 +62,7 @@ class UsersController extends AbstractCrudController
             $userInfo->setFirstName( 'NOT' );
             $userInfo->setLastName( 'EDITED' );
             
+            $this->getDoctrine()->getManager()->persist( $userInfo );
             $entity->setInfo( $userInfo );
         }
     }
