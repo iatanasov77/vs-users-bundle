@@ -35,7 +35,7 @@ class CrudOwnerModelsVoter extends CrudVoter
     
     protected function supports( string $attribute, $subject ): bool
     {
-        return in_array( get_class( $subject ), $this->ownerModels );
+        return is_object( $subject ) && in_array( get_class( $subject ), $this->ownerModels );
     }
     
     /**

@@ -38,7 +38,6 @@
         #}
         
         {{ form_start(form, { 'attr': {'class': 'login-form '} }) }}
-        	{{ form_widget(form._token) }}
             
             <div class="form-group">                
                 {{ form_widget(form.email, {'attr': {'class': 'form-control form-control-lg', 'placeholder': form.email.vars.label|trans }}) }}

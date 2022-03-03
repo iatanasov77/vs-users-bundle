@@ -4,6 +4,7 @@ use Vankosoft\ApplicationBundle\Form\AbstractForm;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -14,6 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 use Vankosoft\ApplicationBundle\Model\Application;
+use Vankosoft\ApplicationBundle\Repository\ApplicationRepository;
 use Vankosoft\UsersBundle\Model\UserInterface;
 use Vankosoft\UsersBundle\Component\UserRole;
 
@@ -23,12 +25,19 @@ class UserFormType extends AbstractForm
     
     protected $applicationClass;
     
-    public function __construct( RequestStack $requestStack, string $dataClass, string $applicationClass )
-    {
+    protected $auth;
+    
+    public function __construct(
+        RequestStack $requestStack,
+        string $dataClass,
+        string $applicationClass,
+        AuthorizationCheckerInterface $auth
+    ) {
         parent::__construct( $dataClass );
         
         $this->requestStack     = $requestStack;
         $this->applicationClass = $applicationClass;
+        $this->auth             = $auth;
     }
 
     public function buildForm( FormBuilderInterface $builder, array $options )
@@ -90,6 +99,17 @@ class UserFormType extends AbstractForm
                 "required"              => false,
                 //"mapped"                => false,
                 "multiple"              => true,
+                'query_builder' => function( ApplicationRepository $repository ) {
+                    $qb = $repository->createQueryBuilder( 'app' );
+                    if( $this->auth->isGranted( 'ROLE_SUPER_ADMIN' ) ) {
+                        return $qb;
+                    } else {
+                        return $qb
+                            ->where( $qb->expr()->neq( 'app.code', ':appCode' ) )
+                            ->setParameter( 'appCode', 'admin-panel' )
+                        ;
+                    }
+                },
             ])
         ;
     }
@@ -99,6 +119,9 @@ class UserFormType extends AbstractForm
         parent::configureOptions( $resolver );
         
         $resolver
+            ->setDefaults([
+                'csrf_protection' => false,
+            ])
             ->setDefined([
                 'users',
             ])
