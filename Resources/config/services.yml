@@ -1,0 +1,13 @@
+imports:
+    - { resource: services/controller.yaml }
+    - { resource: services/security.yml }
+    - { resource: services/registration.yml }
+    - { resource: services/reset_password.yml }
+    - { resource: services/user_management.yaml }
+
+services:        
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+

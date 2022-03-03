@@ -1,0 +1,55 @@
+# Subscription Controller
+ia_paid_membership_subscription_subscribe:
+    path:     /subscribe/{planId}
+    defaults: { _controller: IAUsersBundle:Subscription:subscribe }
+ia_paid_membership_subscription_create:
+    path:     /create_subscription/{paymentId}
+    defaults: { _controller: IAUsersBundle:Subscription:create }
+    
+# Payment Controller
+########################
+# Get Main Form Action
+ia_paid_membership_checkout_select_method:
+    path:     /checkout_plan/{planId}/select_method
+    defaults: { _controller: IAUsersBundle:Checkout:selectMethod }
+    
+# Resource Controllers
+ia_paid_membership_packages:
+    resource: |
+        alias: ia_users.packages
+        except: ['show']
+        path: /packages
+        templates: "IAUsersBundle:Packages"
+    type: sylius.resource   
+    
+ia_paid_membership_packages_update:
+    path: /packages/{id}/edit
+    methods: [GET, POST]
+    defaults:
+        _controller: ia_users.controller.packages:updateAction
+        _sylius:
+            template: IAUsersBundle:Packages:update.html.twig
+    
+ia_paid_membership_plans:
+    resource: |
+        alias: ia_users.plans
+        except: ['show']
+        path: /plans
+        templates: "IAUsersBundle:Plans"
+    type: sylius.resource
+    
+ia_paid_membership_plans_update:
+    path: /plans/{id}/edit
+    methods: [GET, POST]
+    defaults:
+        _controller: ia_users.controller.plans:updateAction
+        _sylius:
+            template: IAUsersBundle:Plans:update.html.twig
+
+ia_paid_membership_packageplans:
+    resource: |
+        alias: ia_users.packageplans
+        except: ['show']
+        path: /packageplans
+        templates: "IAUsersBundle:PackagePlans"
+    type: sylius.resource   
