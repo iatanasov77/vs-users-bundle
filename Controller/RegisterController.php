@@ -72,7 +72,7 @@ class RegisterController extends AbstractController
         RepositoryInterface $userRolesRepository,
         MailerInterface $mailer,
         RepositoryInterface $pagesRepository,
-        array $parametrs
+        array $parameters
     ) {
             $this->userManager          = $userManager;
             $this->usersRepository      = $usersRepository;
@@ -80,7 +80,7 @@ class RegisterController extends AbstractController
             $this->userRolesRepository  = $userRolesRepository;
             $this->mailer               = $mailer;
             $this->pagesRepository      = $pagesRepository;
-            $this->params               = $parametrs;
+            $this->params               = $parameters;
     }
     
     public function setTokenGenerator( VerifyEmailTokenGenerator $tokenGenerator ) : void

@@ -18,6 +18,10 @@ services:
             - '@mailer'
             - '@vs_users.factory.reset_password_request'
             - '@vs_users.manager.user'
+            - {
+                defaultRedirect: '%vs_users.default_redirect%',
+                mailerUser: '%vs_application.mailer_user%',
+            }
         calls:
             - setResetPasswordHelper: ['@?symfonycasts.reset_password.helper']
 
