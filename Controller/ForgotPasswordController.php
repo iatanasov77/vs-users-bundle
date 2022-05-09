@@ -8,6 +8,7 @@ use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use SymfonyCasts\Bundle\ResetPassword\Controller\ResetPasswordControllerTrait;
 use SymfonyCasts\Bundle\ResetPassword\ResetPasswordHelperInterface;
 use SymfonyCasts\Bundle\ResetPassword\Exception\ExpiredResetPasswordTokenException;
+use SymfonyCasts\Bundle\ResetPassword\Exception\TooManyPasswordRequestsException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Sylius\Component\Resource\Factory\Factory;
@@ -81,8 +82,12 @@ class ForgotPasswordController extends AbstractController
                 return $this->redirectToRoute( 'app_login' );
             }
 
-            $this->addFlash( 'notice', 'Email sent with link to reset your password !' );
-            $this->sendMail( $user, $mailer );
+            try {
+                $this->sendMail( $user, $mailer );
+                $this->addFlash( 'notice', 'Email sent with link to reset your password !' );
+            } catch ( TooManyPasswordRequestsException $e ) {
+                $this->addFlash( 'notice', 'TooManyPasswordRequestsException !' );
+            }
             
             return $this->redirectToRoute( 'app_login' );
         }
