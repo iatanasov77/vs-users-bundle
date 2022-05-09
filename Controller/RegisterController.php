@@ -182,7 +182,7 @@ class RegisterController extends AbstractController
                                 );
         
         $email = ( new TemplatedEmail() )
-                ->from( $this->getParameter( 'mailer_user' ) )
+                ->from( $this->getParameter( 'vs_application.mailer_user' ) )
                 ->to( $oUser->getEmail() )
                 ->htmlTemplate( '@VSUsers/Register/confirmation_email.html.twig' )
                 ->context([
