@@ -7,6 +7,7 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use SymfonyCasts\Bundle\ResetPassword\Controller\ResetPasswordControllerTrait;
 use SymfonyCasts\Bundle\ResetPassword\ResetPasswordHelperInterface;
+use SymfonyCasts\Bundle\ResetPassword\Exception\ExpiredResetPasswordTokenException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Sylius\Component\Resource\Factory\Factory;
@@ -91,9 +92,14 @@ class ForgotPasswordController extends AbstractController
     
     public function resetAction( string $token, Request $request ) : Response
     {
-        $oUser   = $this->resetPasswordHelper->validateTokenAndFetchUser( $token );
+        $tokenExpired   = false;
+        try {
+            $oUser   = $this->resetPasswordHelper->validateTokenAndFetchUser( $token );
+        } catch ( ExpiredResetPasswordTokenException $e ) {
+            $tokenExpired   = true;
+        }
         
-        if ( $request->isMethod( 'POST' ) ) {
+        if ( $request->isMethod( 'POST' ) && ! $tokenExpired ) {
             $password           = $request->request->get( 'password' );
             $passwordConfirm    = $request->request->get( 'password_confirm' );
             if ( $password === $passwordConfirm ) {
@@ -120,7 +126,7 @@ class ForgotPasswordController extends AbstractController
         $resetToken = $this->resetPasswordHelper->generateResetToken( $oUser );
         $resetUrl   = $this->generateUrl(
                         'vs_users_forgot_password_reset',
-                        [token => $resetToken->getToken()],
+                        ['token' => $resetToken->getToken()],
                         UrlGeneratorInterface::ABSOLUTE_URL
                     );
         
