@@ -1,4 +1,5 @@
 parameters:
+    vs_users.registration_form: 'Vankosoft\UsersBundle\Form\RegistrationFormType'
     vs_users.register_role: 'role-application-admin'
 
 services:
