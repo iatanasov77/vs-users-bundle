@@ -92,6 +92,10 @@ class RegisterController extends AbstractController
     
     public function index( Request $request, MailerInterface $mailer ) : Response
     {
+        if ( $this->getUser() ) {
+            return $this->redirectToRoute( $this->getParameter( 'vs_users.default_redirect' ) );
+        }
+        
         $em         = $this->getDoctrine()->getManager();
         $oUser      = $this->usersFactory->createNew();
         $form       = $this->createForm( RegistrationFormType::class, $oUser, [
