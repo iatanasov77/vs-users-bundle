@@ -8,10 +8,12 @@ use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use SymfonyCasts\Bundle\ResetPassword\Controller\ResetPasswordControllerTrait;
 use SymfonyCasts\Bundle\ResetPassword\ResetPasswordHelperInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Sylius\Component\Resource\Factory\Factory;
 
 use Vankosoft\UsersBundle\Model\UserInterface;
 use Vankosoft\UsersBundle\Repository\ResetPasswordRequestRepository;
+use Vankosoft\UsersBundle\Security\UserManager;
 
 class ForgotPasswordController extends AbstractController
 {
@@ -28,6 +30,21 @@ class ForgotPasswordController extends AbstractController
     private $repository;
     
     /**
+     * @var RepositoryInterface
+     */
+    private $usersRepository;
+    
+    /**
+     * @var MailerInterface
+     */
+    private $mailer;
+    
+    /**
+     * @var UserManager
+     */
+    private $userManager;
+    
+    /**
      * Used from service to set helper because so can to hellper to be optional, how it is explained here:
      * https://symfony.com/doc/current/service_container/optional_dependencies.html
      *
@@ -38,17 +55,26 @@ class ForgotPasswordController extends AbstractController
         $this->resetPasswordHelper  = $helper;
     }
     
-    public function __construct( ResetPasswordRequestRepository $repository, Factory $resetPasswordRequestFactory )
-    {
-        $this->repository           = $repository;
-        $this->repository->setRequestFactory( $resetPasswordRequestFactory );
+    public function __construct(
+        ResetPasswordRequestRepository $repository,
+        RepositoryInterface $usersRepository,
+        MailerInterface $mailer,
+        Factory $resetPasswordRequestFactory,
+        UserManager $userManager
+    ) {
+            $this->repository           = $repository;
+            $this->usersRepository      = $usersRepository;
+            $this->mailer               = $mailer;
+            $this->userManager          = $userManager;
+            
+            $this->repository->setRequestFactory( $resetPasswordRequestFactory );
     }
     
     public function indexAction( Request $request, MailerInterface $mailer ) : Response
     {
         if ( $request->isMethod( 'POST' ) ) {
             $email  = $request->request->get( 'email' );
-            $user   = $this->getRepository()->findOneBy( ['email' => $email] );
+            $user   = $this->usersRepository->findOneBy( ['email' => $email] );
             if ( ! $user ) {
                 $this->addFlash( 'error', 'This email not found !' );
                 return $this->redirectToRoute( 'app_login' );
@@ -68,14 +94,12 @@ class ForgotPasswordController extends AbstractController
         $oUser   = $this->resetPasswordHelper->validateTokenAndFetchUser( $token );
         
         if ( $request->isMethod( 'POST' ) ) {
-            $userManager    = $this->container->get( 'vs_users.manager.user' );
-            
             $password           = $request->request->get( 'password' );
             $passwordConfirm    = $request->request->get( 'password_confirm' );
             if ( $password === $passwordConfirm ) {
                 $em = $this->getDoctrine()->getManager();
                 
-                $userManager->encodePassword( $oUser, $password );
+                $this->userManager->encodePassword( $oUser, $password );
                 $em->persist( $oUser );
                 $em->flush();
                 
@@ -91,11 +115,6 @@ class ForgotPasswordController extends AbstractController
         ]);
     }
     
-    protected function getRepository()
-    {
-        return $this->get( 'vs_users.repository.users' );
-    }
-    
     private function sendMail( UserInterface $oUser, MailerInterface $mailer )
     {
         $resetToken = $this->resetPasswordHelper->generateResetToken( $oUser );
@@ -106,7 +125,7 @@ class ForgotPasswordController extends AbstractController
                     );
         
         $email = ( new TemplatedEmail() )
-                    ->from( $this->container->getParameter( 'mailer_user' ) )
+                    ->from( $this->getParameter( 'mailer_user' ) )
                     ->to( $oUser->getEmail() )
                     ->htmlTemplate( '@VSUsers/Resetting/forgot_password_email.html.twig' )
                     ->context([
