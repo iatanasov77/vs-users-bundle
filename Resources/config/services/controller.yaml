@@ -14,8 +14,10 @@ services:
         tags: ['controller.service_arguments']
         arguments:
             - '@vs_users.repository.reset_password_request'
+            - '@vs_users.repository.users'
+            - '@mailer'
             - '@vs_users.factory.reset_password_request'
-            #- '@mailer'
+            - '@vs_users.manager.user'
         calls:
             - setResetPasswordHelper: ['@?symfonycasts.reset_password.helper']
 
