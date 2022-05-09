@@ -100,7 +100,7 @@ class RegisterController extends AbstractController
         
         $em         = $this->getDoctrine()->getManager();
         $oUser      = $this->usersFactory->createNew();
-        $form       = $this->createForm( RegistrationFormType::class, $oUser, [
+        $form       = $this->createForm( $this->getParameter( 'vs_users.registration_form' ) , $oUser, [
             'data'      => $oUser,
             'action'    => $this->generateUrl( 'vs_users_register_form' ),
             'method'    => 'POST',
