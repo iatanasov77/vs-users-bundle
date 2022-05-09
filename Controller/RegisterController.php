@@ -11,6 +11,7 @@ use SymfonyCasts\Bundle\VerifyEmail\Generator\VerifyEmailTokenGenerator;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 use Sylius\Component\Resource\Factory\Factory;
 
+use Vankosoft\UsersBundle\Security\UserManager;
 use Vankosoft\UsersBundle\Form\RegistrationFormType;
 use Vankosoft\UsersBundle\Model\UserInterface;
 
@@ -92,6 +93,10 @@ class RegisterController extends AbstractController
     
     public function index( Request $request, MailerInterface $mailer ) : Response
     {
+        if ( $this->getUser() ) {
+            return $this->redirectToRoute( $this->getParameter( 'vs_users.default_redirect' ) );
+        }
+        
         $em         = $this->getDoctrine()->getManager();
         $oUser      = $this->usersFactory->createNew();
         $form       = $this->createForm( RegistrationFormType::class, $oUser, [
