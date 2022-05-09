@@ -61,9 +61,9 @@ class RegisterController extends AbstractController
     private $pagesRepository;
     
     /**
-     * @var string
+     * @var array
      */
-    private $formClass;
+    private $params;
 
     public function __construct(
         UserManager $userManager,
@@ -72,7 +72,7 @@ class RegisterController extends AbstractController
         RepositoryInterface $userRolesRepository,
         MailerInterface $mailer,
         RepositoryInterface $pagesRepository,
-        string $formClass
+        array $parametrs
     ) {
             $this->userManager          = $userManager;
             $this->usersRepository      = $usersRepository;
@@ -80,7 +80,7 @@ class RegisterController extends AbstractController
             $this->userRolesRepository  = $userRolesRepository;
             $this->mailer               = $mailer;
             $this->pagesRepository      = $pagesRepository;
-            $this->formClass            = $formClass;
+            $this->params               = $parametrs;
     }
     
     public function setTokenGenerator( VerifyEmailTokenGenerator $tokenGenerator ) : void
@@ -102,12 +102,12 @@ class RegisterController extends AbstractController
     public function index( Request $request, MailerInterface $mailer ): Response
     {
         if ( $this->getUser() ) {
-            return $this->redirectToRoute( $this->getParameter( 'vs_users.default_redirect' ) );
+            return $this->redirectToRoute( $this->params['defaultRedirect'] );
         }
         
         $em         = $this->getDoctrine()->getManager();
         $oUser      = $this->usersFactory->createNew();
-        $form       = $this->createForm( $this->formClass, $oUser, [
+        $form       = $this->createForm( $this->params['registrationForm'], $oUser, [
             'data'      => $oUser,
             'action'    => $this->generateUrl( 'vs_users_register_form' ),
             'method'    => 'POST',
@@ -125,7 +125,7 @@ class RegisterController extends AbstractController
             //$oUser->setApiToken( $this->tokenGenerator->createToken( strval( time() ), $oUser->getEmail() ) );
             
             //$oUser->setRoles( [$request->request->get( 'registerRole' )] );
-            $oUser->addRole( $this->userRolesRepository->findByTaxonCode( $this->getParameter( 'vs_users.register_role' ) ) );
+            $oUser->addRole( $this->userRolesRepository->findByTaxonCode( $this->params['registerRole'] ) );
             
             $oUser->setPreferedLocale( $request->getLocale() );
             $oUser->setVerified( false );
@@ -136,7 +136,7 @@ class RegisterController extends AbstractController
             
             $this->sendConfirmationMail( $oUser, $mailer );
             
-            return $this->redirectToRoute( $this->getParameter( 'vs_users.default_redirect' ) );
+            return $this->redirectToRoute( $this->params['defaultRedirect'] );
         }
         
         $termsPage  = $this->pagesRepository->findBySlug( 'terms-and-conditions' );
@@ -156,14 +156,14 @@ class RegisterController extends AbstractController
         $id = $request->get( 'id' ); // retrieve the user id from the url
         // Verify the user id exists and is not null
         if( null === $id ) {
-            return $this->redirectToRoute( $this->getParameter( 'vs_users.default_redirect' ) );
+            return $this->redirectToRoute( $this->params['defaultRedirect'] );
         }
 
         $user = $this->usersRepository->find( $id );
 
         // Ensure the user exists in persistence
         if ( null === $user ) {
-            return $this->redirectToRoute( $this->getParameter( 'vs_users.default_redirect' ) );
+            return $this->redirectToRoute( $this->params['defaultRedirect'] );
         }
                 
         try {
@@ -182,7 +182,7 @@ class RegisterController extends AbstractController
         
         $this->addFlash( 'success', 'Your e-mail address has been verified.' );
         
-        return $this->redirectToRoute( $this->getParameter( 'vs_users.default_redirect' ) );
+        return $this->redirectToRoute( $this->params['defaultRedirect'] );
     }
     
     private function sendConfirmationMail( UserInterface $oUser, MailerInterface $mailer )
@@ -195,7 +195,7 @@ class RegisterController extends AbstractController
                                 );
         
         $email = ( new TemplatedEmail() )
-                ->from( $this->getParameter( 'vs_application.mailer_user' ) )
+                ->from( $this->params['mailerUser'] )
                 ->to( $oUser->getEmail() )
                 ->htmlTemplate( '@VSUsers/Register/confirmation_email.html.twig' )
                 ->context([
