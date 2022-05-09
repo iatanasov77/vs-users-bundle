@@ -8,10 +8,22 @@ use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 
+use Symfony\Contracts\Service\ServiceProviderInterface;
+
 class ResetPasswordRequestRepository extends EntityRepository implements ResetPasswordRequestRepositoryInterface, ContainerAwareInterface
 {
     use ContainerAwareTrait;
     use ResetPasswordRequestRepositoryTrait;
+    
+    /**
+     * Replace container with service locator
+     */
+    private $serviceLocator;
+    
+    public function setServiceLocator( ServiceProviderInterface $serviceLocator )
+    {
+        $this->serviceLocator   = $serviceLocator;
+    }
     
     /**
      * Create a new ResetPasswordRequest object.
@@ -27,7 +39,16 @@ class ResetPasswordRequestRepository extends EntityRepository implements ResetPa
         string $hashedToken
     ): ResetPasswordRequestInterface
     {
-        $resetPasswordRequest   = $this->container->get( 'vs_users.factory.reset_password_request' )->createNew();
+        if ( ! $this->container && ! $this->serviceLocator ) {
+            throw new \Exception( 'ResetPasswordRequestRepository need to be initialized !!!' );
+        }
+        
+        if ( $this->container ) {
+            $resetPasswordRequest   = $this->container->get( 'vs_users.factory.reset_password_request' )->createNew();
+        } elseif ( $this->serviceLocator ) {
+            $resetPasswordRequest   = $this->serviceLocator->get( 'vs_users.factory.reset_password_request' )->createNew();
+        }
+        
         $resetPasswordRequest->initialize( $expiresAt, $selector, $hashedToken, $user );
         
         return $resetPasswordRequest;
