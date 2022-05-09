@@ -47,6 +47,28 @@ class ForgotPasswordController extends AbstractController
     private $userManager;
     
     /**
+     * @var array
+     */
+    private $params;
+    
+    public function __construct(
+        ResetPasswordRequestRepository $repository,
+        RepositoryInterface $usersRepository,
+        MailerInterface $mailer,
+        Factory $resetPasswordRequestFactory,
+        UserManager $userManager,
+        array $parameters
+    ) {
+            $this->repository           = $repository;
+            $this->usersRepository      = $usersRepository;
+            $this->mailer               = $mailer;
+            $this->userManager          = $userManager;
+            $this->params               = $parameters;
+            
+            $this->repository->setRequestFactory( $resetPasswordRequestFactory );
+    }
+    
+    /**
      * Used from service to set helper because so can to hellper to be optional, how it is explained here:
      * https://symfony.com/doc/current/service_container/optional_dependencies.html
      *
@@ -55,21 +77,6 @@ class ForgotPasswordController extends AbstractController
     public function setResetPasswordHelper( ResetPasswordHelperInterface $helper ) : void
     {
         $this->resetPasswordHelper  = $helper;
-    }
-    
-    public function __construct(
-        ResetPasswordRequestRepository $repository,
-        RepositoryInterface $usersRepository,
-        MailerInterface $mailer,
-        Factory $resetPasswordRequestFactory,
-        UserManager $userManager
-    ) {
-            $this->repository           = $repository;
-            $this->usersRepository      = $usersRepository;
-            $this->mailer               = $mailer;
-            $this->userManager          = $userManager;
-            
-            $this->repository->setRequestFactory( $resetPasswordRequestFactory );
     }
     
     public function indexAction( Request $request, MailerInterface $mailer ) : Response
@@ -136,7 +143,7 @@ class ForgotPasswordController extends AbstractController
                     );
         
         $email = ( new TemplatedEmail() )
-                    ->from( $this->getParameter( 'vs_application.mailer_user' ) )
+                    ->from( $this->params['mailerUser'] )
                     ->to( $oUser->getEmail() )
                     ->htmlTemplate( '@VSUsers/Resetting/forgot_password_email.html.twig' )
                     ->context([
