@@ -59,6 +59,11 @@ class RegisterController extends AbstractController
      * @var RepositoryInterface
      */
     private $pagesRepository;
+    
+    /**
+     * @var string
+     */
+    private $formClass;
 
     public function __construct(
         UserManager $userManager,
@@ -66,7 +71,8 @@ class RegisterController extends AbstractController
         Factory $usersFactory,
         RepositoryInterface $userRolesRepository,
         MailerInterface $mailer,
-        RepositoryInterface $pagesRepository
+        RepositoryInterface $pagesRepository,
+        string $formClass
     ) {
             $this->userManager          = $userManager;
             $this->usersRepository      = $usersRepository;
@@ -74,6 +80,7 @@ class RegisterController extends AbstractController
             $this->userRolesRepository  = $userRolesRepository;
             $this->mailer               = $mailer;
             $this->pagesRepository      = $pagesRepository;
+            $this->formClass            = $formClass;
     }
     
     public function setTokenGenerator( VerifyEmailTokenGenerator $tokenGenerator ) : void
@@ -92,7 +99,7 @@ class RegisterController extends AbstractController
         $this->verifyEmailHelper    = $helper;
     }
     
-    public function index( Request $request, MailerInterface $mailer ) : Response
+    public function index( Request $request, MailerInterface $mailer ): Response
     {
         if ( $this->getUser() ) {
             return $this->redirectToRoute( $this->getParameter( 'vs_users.default_redirect' ) );
@@ -100,7 +107,7 @@ class RegisterController extends AbstractController
         
         $em         = $this->getDoctrine()->getManager();
         $oUser      = $this->usersFactory->createNew();
-        $form       = $this->createForm( $this->getParameter( 'vs_users.registration_form' ) , $oUser, [
+        $form       = $this->createForm( $this->formClass, $oUser, [
             'data'      => $oUser,
             'action'    => $this->generateUrl( 'vs_users_register_form' ),
             'method'    => 'POST',
