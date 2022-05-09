@@ -8,6 +8,7 @@ use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use SymfonyCasts\Bundle\ResetPassword\Controller\ResetPasswordControllerTrait;
 use SymfonyCasts\Bundle\ResetPassword\ResetPasswordHelperInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Sylius\Component\Resource\Factory\Factory;
 
 use Vankosoft\UsersBundle\Model\UserInterface;
 use Vankosoft\UsersBundle\Repository\ResetPasswordRequestRepository;
@@ -37,9 +38,10 @@ class ForgotPasswordController extends AbstractController
         $this->resetPasswordHelper  = $helper;
     }
     
-    public function __construct( ResetPasswordRequestRepository $repository )
+    public function __construct( ResetPasswordRequestRepository $repository, Factory $resetPasswordRequestFactory )
     {
         $this->repository           = $repository;
+        $this->repository->setRequestFactory( $resetPasswordRequestFactory );
     }
     
     public function indexAction( Request $request, MailerInterface $mailer ) : Response
@@ -63,7 +65,6 @@ class ForgotPasswordController extends AbstractController
     
     public function resetAction( string $token, Request $request ) : Response
     {
-        $this->repository->setContainer( $this->container );
         $oUser   = $this->resetPasswordHelper->validateTokenAndFetchUser( $token );
         
         if ( $request->isMethod( 'POST' ) ) {
@@ -97,8 +98,6 @@ class ForgotPasswordController extends AbstractController
     
     private function sendMail( UserInterface $oUser, MailerInterface $mailer )
     {
-        $this->repository->setContainer( $this->container );
-        
         $resetToken = $this->resetPasswordHelper->generateResetToken( $oUser );
         $resetUrl   = $this->generateUrl(
                         'vs_users_forgot_password_reset',
