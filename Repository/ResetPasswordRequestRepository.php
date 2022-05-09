@@ -4,25 +4,20 @@ use SymfonyCasts\Bundle\ResetPassword\Model\ResetPasswordRequestInterface;
 use SymfonyCasts\Bundle\ResetPassword\Persistence\ResetPasswordRequestRepositoryInterface;
 use SymfonyCasts\Bundle\ResetPassword\Persistence\Repository\ResetPasswordRequestRepositoryTrait;
 use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
+use Sylius\Component\Resource\Factory\Factory;
 
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Symfony\Component\DependencyInjection\ContainerAwareTrait;
-
-use Symfony\Contracts\Service\ServiceProviderInterface;
-
-class ResetPasswordRequestRepository extends EntityRepository implements ResetPasswordRequestRepositoryInterface, ContainerAwareInterface
+class ResetPasswordRequestRepository extends EntityRepository implements ResetPasswordRequestRepositoryInterface
 {
-    use ContainerAwareTrait;
     use ResetPasswordRequestRepositoryTrait;
     
     /**
-     * Replace container with service locator
+     * @var Factory
      */
-    private $serviceLocator;
+    private $requestFactory;
     
-    public function setServiceLocator( ServiceProviderInterface $serviceLocator )
+    public function setRequestFactory( Factory $requestFactory )
     {
-        $this->serviceLocator   = $serviceLocator;
+        $this->requestFactory   = $requestFactory;
     }
     
     /**
@@ -39,16 +34,11 @@ class ResetPasswordRequestRepository extends EntityRepository implements ResetPa
         string $hashedToken
     ): ResetPasswordRequestInterface
     {
-        if ( ! $this->container && ! $this->serviceLocator ) {
+        if ( ! $this->requestFactory ) {
             throw new \Exception( 'ResetPasswordRequestRepository need to be initialized !!!' );
         }
         
-        if ( $this->container ) {
-            $resetPasswordRequest   = $this->container->get( 'vs_users.factory.reset_password_request' )->createNew();
-        } elseif ( $this->serviceLocator ) {
-            $resetPasswordRequest   = $this->serviceLocator->get( 'vs_users.factory.reset_password_request' )->createNew();
-        }
-        
+        $resetPasswordRequest   = $this->requestFactory->createNew();
         $resetPasswordRequest->initialize( $expiresAt, $selector, $hashedToken, $user );
         
         return $resetPasswordRequest;
