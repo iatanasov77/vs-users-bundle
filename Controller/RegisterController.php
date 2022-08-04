@@ -105,16 +105,10 @@ class RegisterController extends AbstractController
             return $this->redirectToRoute( $this->params['defaultRedirect'] );
         }
         
-        $em         = $this->getDoctrine()->getManager();
-        $oUser      = $this->usersFactory->createNew();
-        $form       = $this->createForm( $this->params['registrationForm'], $oUser, [
-            'data'      => $oUser,
-            'action'    => $this->generateUrl( 'vs_users_register_form' ),
-            'method'    => 'POST',
-        ]);
-        
+        $form   = $this->getForm();
         $form->handleRequest( $request );
         if ( $form->isSubmitted() ) {
+            $em             = $this->getDoctrine()->getManager();
             $formUser       = $form->getData();
             $plainPassword  = $form->get( "plain_password" )->getData();
             $oUser          = $this->userManager->createUser(
@@ -139,14 +133,7 @@ class RegisterController extends AbstractController
             return $this->redirectToRoute( $this->params['defaultRedirect'] );
         }
         
-        $termsPage  = $this->pagesRepository->findBySlug( 'terms-and-conditions' );
-        
-        return $this->render( '@VSUsers/Register/register.html.twig', [
-            'errors' => $form->getErrors( true, false ),
-            'form'  => $form->createView(),
-            'termsPageTitle'    => $termsPage ? $termsPage->getTitle() : null,
-            'termsPageContent'  => $termsPage ? $termsPage->getText() : null,
-        ]);
+        return $this->render( '@VSUsers/Register/register.html.twig', $this->templateParams( $form ) );
     }
     
     public function verify( Request $request ): Response
@@ -183,6 +170,30 @@ class RegisterController extends AbstractController
         $this->addFlash( 'success', 'Your e-mail address has been verified.' );
         
         return $this->redirectToRoute( $this->params['defaultRedirect'] );
+    }
+    
+    protected function getForm()
+    {
+        $oUser      = $this->usersFactory->createNew();
+        $form       = $this->createForm( $this->params['registrationForm'], $oUser, [
+            'data'      => $oUser,
+            'action'    => $this->generateUrl( 'vs_users_register_form' ),
+            'method'    => 'POST',
+        ]);
+        
+        return $form;
+    }
+    
+    protected function templateParams( $form )
+    {
+        $termsPage  = $this->pagesRepository->findBySlug( 'terms-and-conditions' );
+        
+        return [
+            'errors'            => $form->getErrors( true, false ),
+            'form'              => $form->createView(),
+            'termsPageTitle'    => $termsPage ? $termsPage->getTitle() : null,
+            'termsPageContent'  => $termsPage ? $termsPage->getText() : null,
+        ];
     }
     
     private function sendConfirmationMail( UserInterface $oUser, MailerInterface $mailer )
