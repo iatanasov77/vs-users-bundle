@@ -63,7 +63,7 @@ class RegisterController extends AbstractController
     /**
      * @var array
      */
-    private $params;
+    protected $params;
 
     public function __construct(
         UserManager $userManager,
