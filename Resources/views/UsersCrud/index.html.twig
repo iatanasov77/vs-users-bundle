@@ -16,7 +16,7 @@
                         <th>{{ 'vs_users.template.userscrud_index_tablecolumns_fullname' | trans( {},'VSUsersBundle' ) }}</th>
                         <th width="150">{{ 'vs_users.template.userscrud_index_tablecolumns_action' | trans( {},'VSUsersBundle' ) }}</th>
                     </tr>
-                    {% for item in users %}
+                    {% for item in resources %}
                         {% set userGranted = is_granted( 'ROLE_SUPER_ADMIN' ) %}
                     	{% set userRolesBreak = false %}
                     	{% for userRole in item.roles %}
@@ -67,6 +67,10 @@
                         {% endif %}
                     {% endfor %}
                 </table>
+                
+                {% if resources.haveToPaginate() %}
+                    {{ pagerfanta( resources, null, { 'proximity': 10 } ) }}
+                {% endif %}
             </section>
         </div>
     </div>
