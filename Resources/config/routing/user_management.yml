@@ -16,7 +16,7 @@ vs_users_crud_index_paginated:
     defaults:
         _controller: vs_users.controller.users:indexAction
         _sylius:
-            paginate: 2
+            paginate: 10
             sortable: true
             sorting:
                 id: asc
