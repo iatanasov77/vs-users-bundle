@@ -4,6 +4,7 @@ use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticato
 use Symfony\Component\Security\Guard\PasswordAuthenticatedInterface;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
@@ -18,6 +19,10 @@ use Vankosoft\UsersBundle\Repository\UsersRepository;
 
 /**
  *  Needed For RegistrationController:verify Action
+ *  ================================================
+ *  Examples: https://stackoverflow.com/questions/9550079/how-to-programmatically-login-authenticate-a-user
+ *  
+ *  There is example for Symfony 6 Also
  */
 class AnotherLoginFormAuthenticator extends AbstractFormLoginAuthenticator implements PasswordAuthenticatedInterface
 {
@@ -87,8 +92,7 @@ class AnotherLoginFormAuthenticator extends AbstractFormLoginAuthenticator imple
     
     public function onAuthenticationSuccess( Request $request, TokenInterface $token, $providerKey )
     {
-        //return new RedirectResponse( $this->urlGenerator->generate( 'app_homepage' ) );
-        return null;
+        return new RedirectResponse( $this->urlGenerator->generate( $this->params['redirectAfterLogin'] ) );
     }
     
     protected function getLoginUrl()
