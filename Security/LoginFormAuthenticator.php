@@ -20,18 +20,15 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\HttpFoundation\Cookie;
-use Doctrine\ORM\EntityManager;
 
-// Needed For RegistrationController:verify Action
-use Symfony\Component\Security\Guard\AuthenticatorInterface;
+use Doctrine\ORM\EntityManager;
 
 use Vankosoft\UsersBundle\Repository\UsersRepository;
 
 //class LoginFormAuthenticator extends AbstractAuthenticator
-class LoginFormAuthenticator extends AbstractLoginFormAuthenticator implements AuthenticatorInterface
+class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
 {
     use TargetPathTrait;
-    use GuardAuthenticatorTrait;
     
     private $entityManager;
     private $urlGenerator;
