@@ -44,6 +44,17 @@ services:
                 apiTokenLifetime: '%vs_users.api_token.lifetime%'
             }
 
+    vs_users.security.another_login_form_authenticator:
+        class: Vankosoft\UsersBundle\Security\AnotherLoginFormAuthenticator
+        arguments:
+            - '@router'
+            - '@security.csrf.token_manager'
+            - '@security.password_hasher_factory'
+            - '@vs_users.repository.users'
+            - {
+                loginRoute: '%vs_users.login_route%',
+            }
+        
     vs_users.security.api_key_authenticator:
         class: Vankosoft\UsersBundle\Security\ApiKeyAuthenticator
         arguments:

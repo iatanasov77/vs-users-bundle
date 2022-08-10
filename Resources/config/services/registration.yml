@@ -17,7 +17,7 @@ services:
             - '@mailer'
             - '@vs_cms.repository.pages'
             - '@security.authentication.guard_handler'
-            - '@vs_users.security.login_form_authenticator'
+            - '@vs_users.security.another_login_form_authenticator'
             - {
                 registrationForm: '%vs_users.registration_form%',
                 registerRole: '%vs_users.register_role%',
