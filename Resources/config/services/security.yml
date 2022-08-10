@@ -2,6 +2,7 @@ parameters:
     vs_users.login_route: 'vs_application_login'
     vs_users.login_by: 'email'
     vs_users.default_redirect: 'vs_application_dashboard'
+    vs_users.redirect_after_verify: 'vs_users_profile_show'
     
     vs_users.form_create_account: true
     
@@ -13,7 +14,7 @@ parameters:
     
     vs_users.voter.crud_disabled_models: {}
     vs_users.voter.crud_owner_models: {}
-
+  
     
 services:
     vs_users.manager.user:
@@ -44,6 +45,18 @@ services:
                 apiTokenLifetime: '%vs_users.api_token.lifetime%'
             }
 
+    vs_users.security.another_login_form_authenticator:
+        class: Vankosoft\UsersBundle\Security\AnotherLoginFormAuthenticator
+        arguments:
+            - '@router'
+            - '@security.csrf.token_manager'
+            - '@security.password_hasher_factory'
+            - '@vs_users.repository.users'
+            - {
+                loginRoute: '%vs_users.login_route%',
+                redirectAfterLogin: '%vs_users.redirect_after_verify%',
+            }
+        
     vs_users.security.api_key_authenticator:
         class: Vankosoft\UsersBundle\Security\ApiKeyAuthenticator
         arguments:

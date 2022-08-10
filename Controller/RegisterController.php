@@ -16,7 +16,7 @@ use Sylius\Component\Resource\Factory\Factory;
 use Vankosoft\UsersBundle\Security\UserManager;
 use Vankosoft\UsersBundle\Form\RegistrationFormType;
 use Vankosoft\UsersBundle\Model\UserInterface;
-use Vankosoft\UsersBundle\Security\LoginFormAuthenticator;
+use Vankosoft\UsersBundle\Security\AnotherLoginFormAuthenticator;
 
 class RegisterController extends AbstractController
 {
@@ -75,7 +75,7 @@ class RegisterController extends AbstractController
         MailerInterface $mailer,
         RepositoryInterface $pagesRepository,
         GuardAuthenticatorHandler $guardHandler,
-        LoginFormAuthenticator $authenticator,
+        AnotherLoginFormAuthenticator $authenticator,
         array $parameters
     ) {
             $this->userManager          = $userManager;

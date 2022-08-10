@@ -1,15 +1,3 @@
-vs_users_profile_picture_file_name:
-    path:     /profile_picture_file_name
-    controller: Vankosoft\UsersBundle\Controller\ProfileController::profilePictureAction
-    
-vs_users_profile_show:
-    path:     /profile
-    controller: Vankosoft\UsersBundle\Controller\ProfileController::indexAction
-    
-vs_users_profile_change_password:
-    path:     /profile/change-password
-    controller: Vankosoft\UsersBundle\Controller\ProfileController:changePasswordAction
-
 vs_users_crud_index_paginated:
     path: /users/
     methods: [GET]
@@ -43,14 +31,6 @@ vs_users_roles_tree_combo_with_selected:
     path: /json/{userId}/user-roles-collection/easyui-combotree
     controller: Vankosoft\UsersBundle\Controller\UsersExtController::rolesEasyuiComboTreeWithSelectedSource
     
-vs_users_user_info_display:
-    path: /user-info/{userId}/display
-    controller: Vankosoft\UsersBundle\Controller\UsersExtController::displayUserInfo
-
-vs_users_user_info_handle:
-    path: /user-info/{userId}/handle
-    controller: Vankosoft\UsersBundle\Controller\UsersExtController::handleUserInfo
-
 vs_users_roles_collection_parent_tree_combo_with_selected:
     path: /json/{roleId}/user-roles-collection-parent/easyui-combotree
     controller: Vankosoft\UsersBundle\Controller\UsersRolesExtController::rolesEasyuiComboTreeWithSelectedSource
