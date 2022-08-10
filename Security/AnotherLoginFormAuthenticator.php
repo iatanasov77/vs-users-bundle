@@ -90,7 +90,7 @@ class AnotherLoginFormAuthenticator extends AbstractFormLoginAuthenticator imple
         return null;
     }
     
-    protected function getLoginUrl( Request $request ): string
+    protected function getLoginUrl()
     {
         return $this->urlGenerator->generate( $this->params['loginRoute'] );
     }
