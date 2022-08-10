@@ -4,6 +4,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelperInterface;
@@ -15,6 +16,7 @@ use Sylius\Component\Resource\Factory\Factory;
 use Vankosoft\UsersBundle\Security\UserManager;
 use Vankosoft\UsersBundle\Form\RegistrationFormType;
 use Vankosoft\UsersBundle\Model\UserInterface;
+use Vankosoft\UsersBundle\Security\LoginFormAuthenticator;
 
 class RegisterController extends AbstractController
 {
@@ -72,6 +74,8 @@ class RegisterController extends AbstractController
         RepositoryInterface $userRolesRepository,
         MailerInterface $mailer,
         RepositoryInterface $pagesRepository,
+        GuardAuthenticatorHandler $guardHandler,
+        LoginFormAuthenticator $authenticator,
         array $parameters
     ) {
             $this->userManager          = $userManager;
@@ -80,6 +84,10 @@ class RegisterController extends AbstractController
             $this->userRolesRepository  = $userRolesRepository;
             $this->mailer               = $mailer;
             $this->pagesRepository      = $pagesRepository;
+            
+            $this->guardHandler         = $guardHandler;
+            $this->authenticator        = $authenticator;
+            
             $this->params               = $parameters;
     }
     
@@ -138,8 +146,6 @@ class RegisterController extends AbstractController
     
     public function verify( Request $request ): Response
     {
-//         $this->denyAccessUnlessGranted( 'IS_AUTHENTICATED_FULLY' );
-//         $user = $this->getUser();
         $id = $request->get( 'id' ); // retrieve the user id from the url
         // Verify the user id exists and is not null
         if( null === $id ) {
@@ -147,7 +153,6 @@ class RegisterController extends AbstractController
         }
 
         $user = $this->usersRepository->find( $id );
-
         // Ensure the user exists in persistence
         if ( null === $user ) {
             return $this->redirectToRoute( $this->params['defaultRedirect'] );
@@ -168,6 +173,15 @@ class RegisterController extends AbstractController
         $this->getDoctrine()->getManager()->flush();
         
         $this->addFlash( 'success', 'Your e-mail address has been verified.' );
+        
+        if ( $this->params['loginAfterVerify'] ) {
+            return $this->guardHandler->authenticateUserAndHandleSuccess(
+                $user,
+                $request,
+                $this->authenticator,
+                'main' // firewall name in security.yaml
+            );
+        }
         
         return $this->redirectToRoute( $this->params['defaultRedirect'] );
     }
