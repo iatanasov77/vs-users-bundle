@@ -4,14 +4,21 @@ use SymfonyCasts\Bundle\ResetPassword\Model\ResetPasswordRequestInterface;
 use SymfonyCasts\Bundle\ResetPassword\Persistence\ResetPasswordRequestRepositoryInterface;
 use SymfonyCasts\Bundle\ResetPassword\Persistence\Repository\ResetPasswordRequestRepositoryTrait;
 use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
+use Sylius\Component\Resource\Factory\Factory;
 
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Symfony\Component\DependencyInjection\ContainerAwareTrait;
-
-class ResetPasswordRequestRepository extends EntityRepository implements ResetPasswordRequestRepositoryInterface, ContainerAwareInterface
+class ResetPasswordRequestRepository extends EntityRepository implements ResetPasswordRequestRepositoryInterface
 {
-    use ContainerAwareTrait;
     use ResetPasswordRequestRepositoryTrait;
+    
+    /**
+     * @var Factory
+     */
+    private $requestFactory;
+    
+    public function setRequestFactory( Factory $requestFactory )
+    {
+        $this->requestFactory   = $requestFactory;
+    }
     
     /**
      * Create a new ResetPasswordRequest object.
@@ -27,7 +34,11 @@ class ResetPasswordRequestRepository extends EntityRepository implements ResetPa
         string $hashedToken
     ): ResetPasswordRequestInterface
     {
-        $resetPasswordRequest   = $this->container->get( 'vs_users.factory.reset_password_request' )->createNew();
+        if ( ! $this->requestFactory ) {
+            throw new \Exception( 'ResetPasswordRequestRepository need to be initialized !!!' );
+        }
+        
+        $resetPasswordRequest   = $this->requestFactory->createNew();
         $resetPasswordRequest->initialize( $expiresAt, $selector, $hashedToken, $user );
         
         return $resetPasswordRequest;
