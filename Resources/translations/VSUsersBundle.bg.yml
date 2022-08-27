@@ -14,7 +14,7 @@ vs_users:
             roles: 'Потребителски Роли'
             roles_placeholder: '-- Избери Потребителски Роли --'
             email: 'Емейл'
-            userName: 'Потребителско Име'
+            username: 'Потребителско Име'
             password: 'Парола'
             password_repeat: 'Потвърди Парола'
             firstName: 'Име'
