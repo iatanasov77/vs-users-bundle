@@ -20,7 +20,7 @@ class UserNotifications
         Factory $userNotificationsFactory,
         EntityManager $entityManager
     ) {
-        $this->userRolesRepository      = $$userRolesRepository;
+        $this->userRolesRepository      = $userRolesRepository;
         $this->userNotificationsFactory = $userNotificationsFactory;
         $this->entityManager            = $entityManager;
     }
