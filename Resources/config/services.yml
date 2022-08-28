@@ -4,6 +4,7 @@ imports:
     - { resource: services/registration.yml }
     - { resource: services/reset_password.yml }
     - { resource: services/user_management.yaml }
+    - { resource: services/user_notifications.yaml }
 
 services:        
     _defaults:
