@@ -25,7 +25,7 @@ class UserNotifications
         $this->entityManager            = $entityManager;
     }
     
-    public function sentNotificationByRole( string $role, string $notification )
+    public function sentNotificationByRole( string $role, string $from, string $notification )
     {
         $role   = $this->userRolesRepository->findByTaxonCode( $role );
         if ( ! $role ) {
@@ -34,6 +34,7 @@ class UserNotifications
         
         foreach ( $role->getUsers() as $user ) {
             $oNotification  = $this->userNotificationsFactory->createNew();
+            $oNotification->setNotificationFrom( $from );
             $oNotification->setNotification( $notification );
             $oNotification->setUser( $user );
             
