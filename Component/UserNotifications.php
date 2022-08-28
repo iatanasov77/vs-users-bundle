@@ -15,7 +15,7 @@ class UserNotifications
     /** @var EntityManager */
     private $entityManager;
     
-    public function userNotificationsFactory(
+    public function __construct(
         UserRolesRepository $userRolesRepository,
         Factory $userNotificationsFactory,
         EntityManager $entityManager
