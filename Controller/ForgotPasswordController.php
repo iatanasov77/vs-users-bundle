@@ -10,6 +10,7 @@ use SymfonyCasts\Bundle\ResetPassword\ResetPasswordHelperInterface;
 use SymfonyCasts\Bundle\ResetPassword\Exception\ExpiredResetPasswordTokenException;
 use SymfonyCasts\Bundle\ResetPassword\Exception\TooManyPasswordRequestsException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Doctrine\Persistence\ManagerRegistry;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Sylius\Component\Resource\Factory\Factory;
 
@@ -20,6 +21,9 @@ use Vankosoft\UsersBundle\Security\UserManager;
 class ForgotPasswordController extends AbstractController
 {
     use ResetPasswordControllerTrait;
+    
+    /** @var ManagerRegistry */
+    protected ManagerRegistry $doctrine;
     
     /**
      * @var ResetPasswordHelperInterface
@@ -52,6 +56,7 @@ class ForgotPasswordController extends AbstractController
     private $params;
     
     public function __construct(
+        ManagerRegistry $doctrine,
         ResetPasswordRequestRepository $repository,
         RepositoryInterface $usersRepository,
         MailerInterface $mailer,
@@ -59,13 +64,14 @@ class ForgotPasswordController extends AbstractController
         UserManager $userManager,
         array $parameters
     ) {
-            $this->repository           = $repository;
-            $this->usersRepository      = $usersRepository;
-            $this->mailer               = $mailer;
-            $this->userManager          = $userManager;
-            $this->params               = $parameters;
-            
-            $this->repository->setRequestFactory( $resetPasswordRequestFactory );
+        $this->doctrine             = $doctrine;
+        $this->repository           = $repository;
+        $this->usersRepository      = $usersRepository;
+        $this->mailer               = $mailer;
+        $this->userManager          = $userManager;
+        $this->params               = $parameters;
+        
+        $this->repository->setRequestFactory( $resetPasswordRequestFactory );
     }
     
     /**
@@ -115,7 +121,7 @@ class ForgotPasswordController extends AbstractController
             $password           = $request->request->get( 'password' );
             $passwordConfirm    = $request->request->get( 'password_confirm' );
             if ( $password === $passwordConfirm ) {
-                $em = $this->getDoctrine()->getManager();
+                $em = $this->doctrine->getManager();
                 
                 $this->userManager->encodePassword( $oUser, $password );
                 $em->persist( $oUser );
