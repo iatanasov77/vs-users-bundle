@@ -13,6 +13,7 @@ services:
         autowire: true
         tags: ['controller.service_arguments']
         arguments:
+            - '@doctrine'
             - '@vs_users.repository.reset_password_request'
             - '@vs_users.repository.users'
             - '@mailer'
@@ -29,6 +30,7 @@ services:
         tags: ['controller.service_arguments']
         autowire: true
         arguments:
+            - '@doctrine'
             - '@vs_users.manager.user'
             - '@vs_users.factory.avatar_image'
             - '@vs_cms.profile_uploader'
