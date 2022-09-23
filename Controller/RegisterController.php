@@ -10,6 +10,7 @@ use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelperInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Generator\VerifyEmailTokenGenerator;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
+use Doctrine\Persistence\ManagerRegistry;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Sylius\Component\Resource\Factory\Factory;
 
@@ -62,12 +63,16 @@ class RegisterController extends AbstractController
      */
     private $pagesRepository;
     
+    /** @var ManagerRegistry */
+    protected ManagerRegistry $doctrine;
+    
     /**
      * @var array
      */
     protected $params;
 
     public function __construct(
+        ManagerRegistry $doctrine,
         UserManager $userManager,
         RepositoryInterface $usersRepository,
         Factory $usersFactory,
@@ -78,17 +83,18 @@ class RegisterController extends AbstractController
         AnotherLoginFormAuthenticator $authenticator,
         array $parameters
     ) {
-            $this->userManager          = $userManager;
-            $this->usersRepository      = $usersRepository;
-            $this->usersFactory         = $usersFactory;
-            $this->userRolesRepository  = $userRolesRepository;
-            $this->mailer               = $mailer;
-            $this->pagesRepository      = $pagesRepository;
-            
-            $this->guardHandler         = $guardHandler;
-            $this->authenticator        = $authenticator;
-            
-            $this->params               = $parameters;
+        $this->doctrine             = $doctrine;
+        $this->userManager          = $userManager;
+        $this->usersRepository      = $usersRepository;
+        $this->usersFactory         = $usersFactory;
+        $this->userRolesRepository  = $userRolesRepository;
+        $this->mailer               = $mailer;
+        $this->pagesRepository      = $pagesRepository;
+        
+        $this->guardHandler         = $guardHandler;
+        $this->authenticator        = $authenticator;
+        
+        $this->params               = $parameters;
     }
     
     public function setTokenGenerator( VerifyEmailTokenGenerator $tokenGenerator ) : void
@@ -116,7 +122,7 @@ class RegisterController extends AbstractController
         $form   = $this->getForm();
         $form->handleRequest( $request );
         if ( $form->isSubmitted() ) {
-            $em             = $this->getDoctrine()->getManager();
+            $em             = $this->doctrine->getManager();
             $formUser       = $form->getData();
             $plainPassword  = $form->get( "plain_password" )->getData();
             $oUser          = $this->userManager->createUser(
@@ -169,8 +175,8 @@ class RegisterController extends AbstractController
         // Mark your user as verified.
         $user->setVerified( true );
         $user->setEnabled( true );
-        $this->getDoctrine()->getManager()->persist( $user );
-        $this->getDoctrine()->getManager()->flush();
+        $this->doctrine->getManager()->persist( $user );
+        $this->doctrine->getManager()->flush();
         
         $this->addFlash( 'success', 'Your e-mail address has been verified.' );
         

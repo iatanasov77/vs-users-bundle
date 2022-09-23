@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Doctrine\Persistence\ManagerRegistry;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 
 use Vankosoft\CmsBundle\Component\Uploader\FileUploaderInterface;
@@ -16,6 +17,9 @@ use Vankosoft\UsersBundle\Security\UserManager;
 
 class ProfileController extends AbstractController
 {
+    /** @var ManagerRegistry */
+    protected ManagerRegistry $doctrine;
+    
     /** @var UserManager */
     private UserManager $userManager;
     
@@ -26,10 +30,12 @@ class ProfileController extends AbstractController
     private FileUploaderInterface $imageUploader;
     
     public function __construct(
+        ManagerRegistry $doctrine,
         UserManager $userManager,
         FactoryInterface $avatarImageFactory,
         FileUploaderInterface $imageUploader
     ) {
+        $this->doctrine             = $doctrine;
         $this->userManager          = $userManager;
         $this->avatarImageFactory   = $avatarImageFactory;
         $this->imageUploader        = $imageUploader;
@@ -56,7 +62,7 @@ class ProfileController extends AbstractController
     
     public function indexAction( Request $request ) : Response
     {
-        $em         = $this->getDoctrine()->getManager();
+        $em         = $this->doctrine->getManager();
         $oUser      = $this->getUser();
         $form       = $this->createForm( ProfileFormType::class, $oUser, [
             'data'      => $oUser,
@@ -101,7 +107,7 @@ class ProfileController extends AbstractController
     
     public function changePasswordAction( Request $request ) : Response
     {
-        $em         = $this->getDoctrine()->getManager();
+        $em         = $this->doctrine->getManager();
         $oUser      = $this->getUser();
         $forms      = $this->forms( $request, $oUser );
         $f          = $forms['changePasswordForm'];

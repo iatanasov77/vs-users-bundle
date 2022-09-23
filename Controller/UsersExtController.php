@@ -11,6 +11,7 @@ use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\Persistence\ManagerRegistry;
 
 use Vankosoft\ApplicationBundle\Component\Status;
 use Vankosoft\CmsBundle\Component\Uploader\FileUploaderInterface;
@@ -20,6 +21,9 @@ use Vankosoft\UsersBundle\Model\UserInfoInterface;
 
 class UsersExtController extends AbstractController
 {
+    /** @var ManagerRegistry */
+    protected ManagerRegistry $doctrine;
+    
     /** @var RepositoryInterface */
     protected $usersRepository;
     
@@ -36,12 +40,14 @@ class UsersExtController extends AbstractController
     protected $usersRolesRepository;
     
     public function __construct(
+        ManagerRegistry $doctrine,
         RepositoryInterface $usersRepository,
         FactoryInterface $userInfoFactory,
         FactoryInterface $avatarImageFactory,
         FileUploaderInterface $imageUploader,
         RepositoryInterface $usersRolesRepository
     ) {
+        $this->doctrine             = $doctrine;
         $this->usersRepository      = $usersRepository;
         $this->userInfoFactory      = $userInfoFactory;
         $this->avatarImageFactory   = $avatarImageFactory;
@@ -66,7 +72,7 @@ class UsersExtController extends AbstractController
         $user       = $this->usersRepository->find( $userId );
         $userInfo   = $user->getInfo() ?: $this->userInfoFactory->createNew();
         $form       = $this->createForm( UserInfoForm::class, $userInfo );
-        $em         = $this->getDoctrine()->getManager();
+        $em         = $this->doctrine->getManager();
         
         $form->handleRequest( $request );
         if ( $form->isSubmitted() ) {
