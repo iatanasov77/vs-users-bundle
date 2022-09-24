@@ -60,20 +60,12 @@ class ProfileController extends AbstractController
         return new Response( $profilePicture, Response::HTTP_OK );
     }
     
-    public function indexAction( Request $request ) : Response
+    public function indexAction( Request $request ): Response
     {
-        $em         = $this->doctrine->getManager();
-        $oUser      = $this->getUser();
-        $form       = $this->createForm( ProfileFormType::class, $oUser, [
-            'data'      => $oUser,
-            'action'    => $this->generateUrl( 'vs_users_profile_show' ),
-            'method'    => 'POST',
-        ]);
-        
-        $otherForms = $this->forms( $request, $oUser );
-        
+        $form   = $this->getProfileEditForm();
         $form->handleRequest( $request );
         if ( $form->isSubmitted() ) {
+            $em             = $this->doctrine->getManager();
             $oUser          = $form->getData();
             
             if ( ! $oUser->getPreferedLocale() ) {
@@ -97,15 +89,10 @@ class ProfileController extends AbstractController
             return $this->redirectToRoute( 'vs_users_profile_show' );
         }
         
-        return $this->render( '@VSUsers/Profile/show.html.twig', [
-            'errors'        => $form->getErrors( true, false ),
-            'form'          => $form->createView(),
-            'user'          => $oUser,
-            'otherForms'    => $otherForms,
-        ]);
+        return $this->render( '@VSUsers/Profile/show.html.twig', $this->templateParams( $form ) );
     }
     
-    public function changePasswordAction( Request $request ) : Response
+    public function changePasswordAction( Request $request ): Response
     {
         $em         = $this->doctrine->getManager();
         $oUser      = $this->getUser();
@@ -136,10 +123,33 @@ class ProfileController extends AbstractController
         return $this->redirectToRoute( 'vs_users_profile_show' );
     }
     
-    protected function forms( Request $request, $oUser ) : array
+    protected function templateParams( $form )
     {
-        $changePasswordForm = $this->createForm( ChangePasswordFormType::class, $oUser, [
-            'data'      => $oUser,
+        $termsPage  = $this->pagesRepository->findBySlug( 'terms-and-conditions' );
+        
+        return [
+            'errors'        => $form->getErrors( true, false ),
+            'form'          => $form->createView(),
+            'user'          => $this->getUser(),
+            'otherForms'    => $this->getOtherForms(),
+        ];
+    }
+    
+    protected function getProfileEditForm()
+    {
+        $form       = $this->createForm( ProfileFormType::class, $this->getUser(), [
+            'data'      => $this->getUser(),
+            'action'    => $this->generateUrl( 'vs_users_profile_show' ),
+            'method'    => 'POST',
+        ]);
+        
+        return $form;
+    }
+    
+    protected function getOtherForms(): array
+    {
+        $changePasswordForm = $this->createForm( ChangePasswordFormType::class, $this->getUser(), [
+            'data'      => $this->getUser(),
             'action'    => $this->generateUrl( 'vs_users_profile_change_password' ),
             'method'    => 'POST',
         ]);
