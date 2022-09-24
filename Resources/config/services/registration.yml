@@ -10,6 +10,7 @@ services:
         class: Vankosoft\UsersBundle\Controller\RegisterController
         tags: ['controller.service_arguments']
         arguments:
+            - '@doctrine'
             - '@vs_users.manager.user'
             - '@vs_users.repository.users'
             - '@vs_users.factory.users'

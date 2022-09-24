@@ -5,6 +5,7 @@ services:
         tags: ['controller.service_arguments']
         autowire: true
         arguments:
+            - '@doctrine'
             - "@vs_users.repository.users"
             - "@vs_users.factory.user_info"
             - '@vs_users.factory.avatar_image'
