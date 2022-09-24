@@ -28,7 +28,7 @@ class ForgotPasswordController extends AbstractController
     /**
      * @var ResetPasswordHelperInterface
      */
-    private $resetPasswordHelper;
+    protected $resetPasswordHelper;
     
     /**
      * @var ResetPasswordRequestRepository
