@@ -125,8 +125,6 @@ class ProfileController extends AbstractController
     
     protected function templateParams( $form )
     {
-        //$termsPage  = $this->pagesRepository->findBySlug( 'terms-and-conditions' );
-        
         return [
             'errors'        => $form->getErrors( true, false ),
             'form'          => $form->createView(),
