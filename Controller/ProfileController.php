@@ -23,6 +23,9 @@ class ProfileController extends AbstractController
     /** @var ManagerRegistry */
     protected ManagerRegistry $doctrine;
     
+    /** @var string */
+    protected string $usersClass;
+    
     /** @var UserManager */
     private UserManager $userManager;
     
@@ -34,11 +37,13 @@ class ProfileController extends AbstractController
     
     public function __construct(
         ManagerRegistry $doctrine,
+        string $usersClass,
         UserManager $userManager,
         FactoryInterface $avatarImageFactory,
         FileUploaderInterface $imageUploader
     ) {
         $this->doctrine             = $doctrine;
+        $this->usersClass           = $usersClass;
         $this->userManager          = $userManager;
         $this->avatarImageFactory   = $avatarImageFactory;
         $this->imageUploader        = $imageUploader;
@@ -189,6 +194,7 @@ class ProfileController extends AbstractController
     {
         $subscriptions  = [];
         if ( $this->hasExtension ( self::EXTENSION_PAYMENT ) ) {
+            var_dump( $this->usersClass ); die;
             $subscriptions  = $this->getUser()->getSubscriptions( User::SUBSCRIPTION_TYPE_PAID );
         }
         
