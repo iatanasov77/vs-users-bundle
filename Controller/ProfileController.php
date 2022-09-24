@@ -17,6 +17,9 @@ use Vankosoft\UsersBundle\Security\UserManager;
 
 class ProfileController extends AbstractController
 {
+    const EXTENSION_PAYMENT             = 'VSPaymentBundle';
+    const EXTENSION_USERSUBSCRIPTIONS   = 'VSUsersSubscriptionsBundle';
+    
     /** @var ManagerRegistry */
     protected ManagerRegistry $doctrine;
     
@@ -126,10 +129,15 @@ class ProfileController extends AbstractController
     protected function templateParams( $form )
     {
         return [
-            'errors'        => $form->getErrors( true, false ),
-            'form'          => $form->createView(),
-            'user'          => $this->getUser(),
-            'otherForms'    => $this->getOtherForms(),
+            'errors'                    => $form->getErrors( true, false ),
+            'form'                      => $form->createView(),
+            'user'                      => $this->getUser(),
+            'otherForms'                => $this->getOtherForms(),
+            
+            'hasPaymentExtension'       => $this->hasExtension( self::EXTENSION_PAYMENT ),
+            'hasSubscriptionsExtension' => $this->hasExtension( self::EXTENSION_USERSUBSCRIPTIONS ),
+            'newsletterSubscriptions'   => $this->getNewsletterSubscriptions(),
+            'paidSubscriptions'         => $this->getPaidSubscriptions(),
         ];
     }
     
@@ -155,6 +163,36 @@ class ProfileController extends AbstractController
         return [
             'changePasswordForm'    => $changePasswordForm,
         ];
+    }
+    
+    protected function hasExtension( $extension ): bool
+    {
+        return \array_key_exists( $extension, $this->getParameter( 'kernel.bundles' ) );
+    }
+    
+    protected function getNewsletterSubscriptions()
+    {
+        $subscriptions  = [];
+        if ( $this->hasExtension ( self::EXTENSION_USERSUBSCRIPTIONS ) ) {
+            try {
+                //$subscriptions  = $this->getUser()->getSubscriptions( User::SUBSCRIPTION_TYPE_NEWSLETTER );
+                $subscriptions  = [];
+            } catch( \Doctrine\DBAL\Exception\TableNotFoundException $e ) {
+                $subscriptions  = [];
+            }
+        }
+        
+        return $subscriptions;
+    }
+    
+    protected function getPaidSubscriptions()
+    {
+        $subscriptions  = [];
+        if ( $this->hasExtension ( self::EXTENSION_PAYMENT ) ) {
+            $subscriptions  = $this->getUser()->getSubscriptions( User::SUBSCRIPTION_TYPE_PAID );
+        }
+        
+        return $subscriptions;
     }
     
     private function createAvatar( UserInfoInterface &$userInfo, File $file ): void
