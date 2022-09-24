@@ -194,8 +194,7 @@ class ProfileController extends AbstractController
     {
         $subscriptions  = [];
         if ( $this->hasExtension ( self::EXTENSION_PAYMENT ) ) {
-            var_dump( $this->usersClass ); die;
-            $subscriptions  = $this->getUser()->getSubscriptions( User::SUBSCRIPTION_TYPE_PAID );
+            $subscriptions  = $this->getUser()->getSubscriptions( ( '\\' . $this->usersClass )::SUBSCRIPTION_TYPE_PAID );
         }
         
         return $subscriptions;
