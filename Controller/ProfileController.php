@@ -178,9 +178,12 @@ class ProfileController extends AbstractController
     protected function getNewsletterSubscriptions()
     {
         $subscriptions  = [];
-        if ( $this->hasExtension ( self::EXTENSION_USERSUBSCRIPTIONS ) ) {
+        if (
+            $this->hasExtension ( self::EXTENSION_USERSUBSCRIPTIONS ) &&
+            $this->getUser() instanceof \Vankosoft\UsersSubscriptionsBundle\Model\Interfaces\SubscribedUserInterface
+        ) {
             try {
-                //$subscriptions  = $this->getUser()->getSubscriptions( User::SUBSCRIPTION_TYPE_NEWSLETTER );
+                //$subscriptions  = $this->getUser()->getSubscriptions( ( '\\' . $this->usersClass )::SUBSCRIPTION_TYPE_NEWSLETTER );
                 $subscriptions  = [];
             } catch( \Doctrine\DBAL\Exception\TableNotFoundException $e ) {
                 $subscriptions  = [];
@@ -193,7 +196,10 @@ class ProfileController extends AbstractController
     protected function getPaidSubscriptions()
     {
         $subscriptions  = [];
-        if ( $this->hasExtension ( self::EXTENSION_PAYMENT ) ) {
+        if (
+            $this->hasExtension ( self::EXTENSION_PAYMENT ) &&
+            $this->getUser() instanceof \Vankosoft\UsersSubscriptionsBundle\Model\Interfaces\SubscribedUserInterface
+        ) {
             $subscriptions  = $this->getUser()->getSubscriptions( ( '\\' . $this->usersClass )::SUBSCRIPTION_TYPE_PAID );
         }
         
