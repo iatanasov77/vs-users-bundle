@@ -31,8 +31,12 @@ vs_users:
             occupation: 'Професия'
             mobile: 'Мобилен телефон'
             websiteUrl: 'Уеб сайт'
-            agree_terms: 'By creating an account, you agree the <a href="%vs_app.page.tac%">terms and conditions</a>'    
+            agree_terms: 'Чрез създаване на акаунт, вие се съгласявате със <a href="%vs_app.page.tac%">правилата и условията</a>'    
             register: 'Създай Акаунт'
+            
+            button_register: Регистрирай Акаунт
+            agreement_text: Чрез създаване на акаунт, вие се съгласявате със
+            terms_and_conditions: правилата и условията
             
         resetting:
             new_password_lable: 'Въведете вашата нова парола.'
