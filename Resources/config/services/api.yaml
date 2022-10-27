@@ -1,0 +1,13 @@
+services:
+    vs_users.api_manager:
+        class: Vankosoft\UsersBundle\Security\ApiManager
+        arguments:
+            - '@security.token_storage'
+            - '@lexik_jwt_authentication.jwt_manager'
+            
+    Vankosoft\UsersBundle\Controller\ApiLoginController:
+        tags: ['controller.service_arguments']
+        arguments:
+            - '@vs_users.api_manager'
+
+
