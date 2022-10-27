@@ -4,10 +4,6 @@ services:
         autoconfigure: true
         public: true
 
-    Vankosoft\UsersBundle\Controller\ApiController :
-        tags: ['controller.service_arguments']
-        autowire: true
-
     Vankosoft\UsersBundle\Controller\ForgotPasswordController:
         public: true
         autowire: true
