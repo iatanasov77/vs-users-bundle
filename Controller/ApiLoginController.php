@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Vankosoft\ApplicationBundle\Component\Status;
 use Vankosoft\UsersBundle\Repository\UsersRepositoryInterface;
 
-use Vankosoft\UsersBundle\Security\ApiManager;
+use Vankosoft\UsersBundle\Security\Api\ApiManager;
 
 class ApiLoginController extends AbstractController
 {

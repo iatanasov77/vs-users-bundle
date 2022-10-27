@@ -1,4 +1,4 @@
-<?php namespace Vankosoft\UsersBundle\Security;
+<?php namespace Vankosoft\UsersBundle\Security\Api;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,7 +20,7 @@ use Vankosoft\UsersBundle\Repository\UsersRepository;
 /**
  * https://symfony.com/doc/current/security/authenticator_manager.html
  * 
- * NOT FINISHED
+ * NOT FINISHED AND MAY BE NOT NEEDED ANYMORE
  */
 class ApiKeyAuthenticator extends AbstractAuthenticator
 {

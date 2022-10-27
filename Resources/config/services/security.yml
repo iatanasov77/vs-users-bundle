@@ -56,11 +56,6 @@ services:
                 loginRoute: '%vs_users.login_route%',
                 redirectAfterLogin: '%vs_users.redirect_after_verify%',
             }
-        
-    vs_users.security.api_key_authenticator:
-        class: Vankosoft\UsersBundle\Security\ApiKeyAuthenticator
-        arguments:
-            - '@vs_users.repository.users'
 
     # Register a listener for the logout event only on the main firewall
     # https://symfony.com/blog/new-in-symfony-5-1-simpler-logout-customization
