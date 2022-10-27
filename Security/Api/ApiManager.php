@@ -1,4 +1,4 @@
-<?php namespace Vankosoft\UsersBundle\Security;
+<?php namespace Vankosoft\UsersBundle\Security\Api;
 
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
