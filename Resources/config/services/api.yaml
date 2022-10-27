@@ -1,4 +1,9 @@
 services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: true
+    
     vs_users.api_manager:
         class: Vankosoft\UsersBundle\Security\ApiManager
         arguments:
