@@ -70,35 +70,6 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
         );
     }
     
-    //     public function onAuthenticationSuccess( Request $request, TokenInterface $token, $providerKey )
-    //     {
-    //         if ( $targetPath = $this->getTargetPath( $request->getSession(), $providerKey ) ) {
-    //             $response   = new RedirectResponse( $targetPath );
-    //         } else {
-    //             // redirect to some "app_homepage" route - of wherever you want
-    //             $response   = new RedirectResponse( $this->urlGenerator->generate( $this->params['defaultRedirect'] ) );
-    //         }
-    
-    //         if ( false ) {
-    //             // Before Symfony 5
-    //             $cookieToken = Cookie::create( 'api_token',
-    //                 $token->getUser()->getApiToken(),
-    //                 time() + (int) $this->params['apiTokenLifetime'],    // new \DateTime( '+1 year' )
-    //                 '/', $this->params['apiTokenDomain']   // '.example.com'
-    //             );
-    //         } else {
-    //             // After Symfony 5
-    //             $cookieToken = Cookie::create( 'api_token' )
-    //                                 ->withValue( $token->getUser()->getApiToken() )
-    //                                 ->withExpires( time() + $this->params['apiTokenLifetime'] )
-    //                                 ->withDomain( $this->params['apiTokenDomain'] );    // '.example.com'
-    //         }
-    
-    //         $response->headers->setCookie( $cookieToken );
-    
-    //         return $response;
-    //     }
-    
     public function onAuthenticationSuccess( Request $request, TokenInterface $token, string $firewallName ) : ?Response
     {
         $user   = $token->getUser();
