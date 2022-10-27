@@ -30,10 +30,14 @@ class ApiLoginController extends AbstractController
                 'hostname'  => $application->getHostname()
             ];
         }
-        */
+        
+        
+        
         
         $user   = $this->apiManager->getToken()->getUser();
         var_dump( $user ); die;
+        */
+        $data   = $this->apiManager->getToken();
         
         return new JsonResponse([
             'status'    => Status::STATUS_OK,
