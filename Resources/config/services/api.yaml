@@ -14,5 +14,6 @@ services:
         tags: ['controller.service_arguments']
         arguments:
             - '@vs_users.api_manager'
+            - '@vs_users.repository.users'
 
 

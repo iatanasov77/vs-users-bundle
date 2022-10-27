@@ -4,8 +4,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
 use Vankosoft\ApplicationBundle\Component\Status;
+use Vankosoft\UsersBundle\Repository\UsersRepositoryInterface;
 
 use Vankosoft\UsersBundle\Security\ApiManager;
 
@@ -14,30 +14,30 @@ class ApiLoginController extends AbstractController
     /** @var ApiManager */
     protected $apiManager;
     
-    public function __construct( ApiManager $apiManager )
+    /** @var UsersRepositoryInterface */
+    protected $usersRepository;
+    
+    public function __construct( ApiManager $apiManager, UsersRepositoryInterface $usersRepository )
     {
-        $this->apiManager   = $apiManager;
+        $this->apiManager       = $apiManager;
+        $this->usersRepository  = $usersRepository;
     }
     
     public function getLoggedUser( Request $request ): Response
     {
-        /*
-        $data   = [];
-        foreach ( $this->applicationRepository->findAll() as $application ) {
-            $data[] = [
-                'code'      => $application->getCode(),
-                'title'     => $application->getTitle(),
-                'hostname'  => $application->getHostname()
-            ];
-        }
+        $token  = $this->apiManager->getToken();
+        $user   = $this->usersRepository->findOneBy( ['username' => $token['username']] );
         
-        
-        
-        
-        $user   = $this->apiManager->getToken()->getUser();
-        var_dump( $user ); die;
-        */
-        $data   = $this->apiManager->getToken();
+        $data   = [
+            'tokenCreatedTimestamp' => $token['iat'],
+            'tokenExpiredTimestamp' => $token['exp'],
+            'user'                  => [
+                'username'  => $user->getUsername(),
+                'email'     => $user->getEmail(),
+                'firstName' => $user->getInfo()->getFirstName(),
+                'lastName'  => $user->getInfo()->getLastName(),
+            ]
+        ];
         
         return new JsonResponse([
             'status'    => Status::STATUS_OK,
