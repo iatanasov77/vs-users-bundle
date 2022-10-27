@@ -42,7 +42,7 @@ class ApiKeyAuthenticator extends AbstractAuthenticator
         return $request->headers->has( 'X-AUTH-TOKEN' );
     }
     
-    public function authenticate( Request $request ) : PassportInterface
+    public function authenticate( Request $request ): PassportInterface
     {
         $email      = 'email@example.com';
         //$apiToken = $request->cookies->get( 'api_token' ),
@@ -74,13 +74,13 @@ class ApiKeyAuthenticator extends AbstractAuthenticator
         ));
     }
     
-    public function onAuthenticationSuccess( Request $request, TokenInterface $token, string $firewallName ) : ?Response
+    public function onAuthenticationSuccess( Request $request, TokenInterface $token, string $firewallName ): ?Response
     {
         // on success, let the request continue
         return null;
     }
     
-    public function onAuthenticationFailure( Request $request, AuthenticationException $exception ) : ?Response
+    public function onAuthenticationFailure( Request $request, AuthenticationException $exception ): ?Response
     {
         $data = [
             // you may want to customize or obfuscate the message first
