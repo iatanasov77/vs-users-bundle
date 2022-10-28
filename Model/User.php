@@ -224,6 +224,6 @@ class User implements UserInterface
     
     public function getUserIdentifier(): string
     {
-        return 'username';
+        return $this->username;
     }
 }
