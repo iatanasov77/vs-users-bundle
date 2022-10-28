@@ -10,7 +10,6 @@ use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
 use Symfony\Component\Security\Http\Authenticator\AbstractAuthenticator;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
-use Symfony\Component\Security\Http\Authenticator\Passport\PassportInterface;
 use Symfony\Component\Security\Http\Authenticator\Passport\SelfValidatingPassport;
 use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\CustomCredentials;
@@ -42,7 +41,7 @@ class ApiKeyAuthenticator extends AbstractAuthenticator
         return $request->headers->has( 'X-AUTH-TOKEN' );
     }
     
-    public function authenticate( Request $request ): PassportInterface
+    public function authenticate( Request $request ): Passport
     {
         $email      = 'email@example.com';
         //$apiToken = $request->cookies->get( 'api_token' ),
