@@ -204,4 +204,9 @@ class User implements UserInterface
     {
         return $this->notifications;
     }
+    
+    public function getUserIdentifier(): string
+    {
+        return 'username';
+    }
 }
