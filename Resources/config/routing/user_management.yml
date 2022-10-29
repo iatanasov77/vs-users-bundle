@@ -1,25 +1,12 @@
-vs_users_crud_index_paginated:
-    path: /users/
-    methods: [GET]
-    defaults:
-        _controller: vs_users.controller.users:indexAction
-        _sylius:
-            paginate: 10
-            sortable: true
-            sorting:
-                id: asc
-            filterable: true
-            template: "@VSUsers/UsersCrud/index.html.twig"
-    options:
-        expose: true
-
 vs_users_crud:
     resource: |
         alias: vs_users.users
         path: /users
         templates: "@VSUsers/UsersCrud"
     type: sylius.resource
-
+    options:
+        expose: true
+        
 vs_users_user_roles:
     resource: |
         alias: vs_users.user_roles
