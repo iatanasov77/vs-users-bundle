@@ -1,5 +1,0 @@
-vs_users_api_get_logged_user:
-    path:     /api/logged-user
-    controller: Vankosoft\UsersBundle\Controller\ApiLoginController::getLoggedUser
-    
-
