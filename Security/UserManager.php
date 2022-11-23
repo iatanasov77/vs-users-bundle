@@ -60,11 +60,6 @@ class UserManager
         $user->setInfo( $this->userInfoFactory->createNew() );
         $this->encodePassword( $user, $plainPassword );
         
-        /**
-         * This should be Implemented
-         */
-        $user->setApiToken( 'NOT_IMPLEMETED' );
-        
         return $user;
     }
     
