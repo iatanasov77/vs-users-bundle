@@ -130,9 +130,7 @@ class RegisterController extends AbstractController
                 $formUser->getEmail(),
                 $plainPassword
             );
-            //$oUser->setApiToken( $this->tokenGenerator->createToken( strval( time() ), $oUser->getEmail() ) );
             
-            //$oUser->setRoles( [$request->request->get( 'registerRole' )] );
             $oUser->addRole( $this->userRolesRepository->findByTaxonCode( $this->params['registerRole'] ) );
             
             $oUser->setPreferedLocale( $request->getLocale() );

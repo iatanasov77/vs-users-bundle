@@ -25,11 +25,6 @@ class User implements UserInterface
     /**
      * @var string
      */
-    protected $apiToken;
-    
-    /**
-     * @var string
-     */
     protected $username;
 
     /**
@@ -112,18 +107,6 @@ class User implements UserInterface
     public function setInfo( UserInfo $info ) : self
     {
         $this->info = $info;
-        
-        return $this;
-    }
-    
-    public function getApiToken()
-    {
-        return $this->apiToken;
-    }
-    
-    public function setApiToken( $apiToken ) : self
-    {
-        $this->apiToken = $apiToken;
         
         return $this;
     }
