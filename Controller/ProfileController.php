@@ -104,7 +104,7 @@ class ProfileController extends AbstractController
     {
         $em         = $this->doctrine->getManager();
         $oUser      = $this->getUser();
-        $forms      = $this->forms( $request, $oUser );
+        $forms      = $this->getOtherForms();
         $f          = $forms['changePasswordForm'];
         
         $f->handleRequest( $request );
