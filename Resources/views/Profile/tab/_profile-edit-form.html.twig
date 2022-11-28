@@ -11,7 +11,7 @@
                     {# src="{{ path( 'vs_cms_images_get_file', { file: 'var/uploads/profile_pictures/' ~ user.info.profilePictureFilename } ) }}?filter=profile_form_thumb" #}
                     style="width: 120px; height: 100px; border: 2px solid #000000;"
                 />
-                {% set profilePictureName = app.user.info.avatar.path | split( '/   ' ) | last %}
+                {% set profilePictureName = app.user.info.avatar.path | split( '/' ) | last %}
             {% else %}
                 <img src="{{ asset( '/build/default/images/avatar-1.jpg' ) }}" alt="" class="user-avatar-md rounded-circle" />
                 {% set profilePictureName = 'avatar-1.jpg' %}
