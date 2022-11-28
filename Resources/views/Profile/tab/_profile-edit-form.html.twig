@@ -24,7 +24,7 @@
                 <div class="custom-file">
                     
                     {{ form_label(form.profilePicture, profilePictureName, {
-                        'label_attr': {'class': 'custom-file-label profile-picture'}
+                        'label_attr': {'class': 'custom-file-label profile-picture', 'id': 'profilePictureName'}
                         }) 
                     }}
                     {{ form_widget(form.profilePicture, {'attr': {'class': 'custom-file-input' }}) }}
