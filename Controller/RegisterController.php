@@ -4,7 +4,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
+//use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
+use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelperInterface;
@@ -21,6 +22,16 @@ use Vankosoft\UsersBundle\Security\AnotherLoginFormAuthenticator;
 
 class RegisterController extends AbstractController
 {
+    /**
+     * @var UserAuthenticatorInterface
+     */
+    private $guardHandler;
+    
+    /**
+     * @var AnotherLoginFormAuthenticator
+     */
+    private $authenticator;
+    
     /**
      * @var UserManager
      */
@@ -54,7 +65,7 @@ class RegisterController extends AbstractController
     /**
      * Needed to generate Api Token
      * 
-     * @var VerifyEmailHelperInterface
+     * @var VerifyEmailTokenGenerator
      */
     private $tokenGenerator;
     
@@ -79,7 +90,8 @@ class RegisterController extends AbstractController
         RepositoryInterface $userRolesRepository,
         MailerInterface $mailer,
         RepositoryInterface $pagesRepository,
-        GuardAuthenticatorHandler $guardHandler,
+        //GuardAuthenticatorHandler $guardHandler,
+        UserAuthenticatorInterface $guardHandler,
         AnotherLoginFormAuthenticator $authenticator,
         array $parameters
     ) {
@@ -179,11 +191,10 @@ class RegisterController extends AbstractController
         $this->addFlash( 'success', 'Your e-mail address has been verified.' );
         
         if ( $this->params['loginAfterVerify'] ) {
-            return $this->guardHandler->authenticateUserAndHandleSuccess(
+            return $this->guardHandler->authenticateUser(
                 $user,
-                $request,
                 $this->authenticator,
-                'main' // firewall name in security.yaml
+                $request
             );
         }
         
