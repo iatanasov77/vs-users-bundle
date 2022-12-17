@@ -1,7 +1,0 @@
-api_login_check:
-    path: /api/login_check
-
-api_test:
-    path: /api/test
-    controller: Vankosoft\ApplicationBundle\Controller\ApiTestController::index
-    

@@ -1,89 +1,39 @@
 {
-    "name": "vankosoft\/application",
-    "type": "library",
-    "version": "v1.10.0",
-    "description": "VankoSoft Symfony Application",
-    "keywords": [
-        "symfony",
-        "sylius",
-        "application",
-        "distribution"
-    ],
-    "homepage": "https:\/\/github.com\/iatanasov77\/vs-application-library",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Ivan I. Atanasov",
-            "email": "i.atanasov77@gmail.com"
-        }
-    ],
-    "require": {
-        "php": "^7.4|^8.1",
-        "symfony\/monolog-bundle": "^3.8",
-        "symfony\/webpack-encore-bundle": "^1.16",
-        "symfony\/templating": "^5.4 || ^6.1",
-        "symfony\/security-bundle": "^5.4 || ^6.1",
-        "symfony\/mailer": "^5.4 || ^6.1",
-        "twig\/extra-bundle": "^3.3",
-        "twig\/string-extra": "^3.3",
-        "symfonycasts\/verify-email-bundle": "^1.12",
-        "symfonycasts\/reset-password-bundle": "1.14.*",
-        "lexik\/jwt-authentication-bundle": "^2.16",
-        "doctrine\/doctrine-migrations-bundle": "^3.2",
-        "stof\/doctrine-extensions-bundle": "^1.7",
-        "doctrine\/doctrine-fixtures-bundle": "^3.4",
-        "knplabs\/knp-menu-bundle": "^3.1",
-        "knplabs\/knp-paginator-bundle": "^5.9",
-        "knplabs\/knp-time-bundle": "^1.20",
-        "knplabs\/knp-gaufrette-bundle": "^0.8",
-        "friendsofsymfony\/ckeditor-bundle": "^2.4",
-        "liip\/imagine-bundle": "^2.9",
-        "artgris\/filemanager-bundle": "^2.5",
-        "spe\/filesize-extension-bundle": "^2.0",
-        "sylius\/resource-bundle": "^1.10",
-        "sylius\/taxonomy": "^1.11",
-        "sylius\/locale": "^1.11",
-        "sylius\/theme-bundle": "^2.2",
-        "sylius-labs\/doctrine-migrations-extra-bundle": "^0.2",
-        "sylius\/fixtures-bundle": "^1.8",
-        "friendsofsymfony\/jsrouting-bundle": "^3.2",
-        "willdurand\/js-translation-bundle": "^5.0",
-        "hackzilla\/password-generator-bundle": "^5.0",
-        "pagerfanta\/doctrine-orm-adapter": "^3.6",
-        "pagerfanta\/twig": "^3.6"
-    },
-    "replace": {
-        "vankosoft\/application-bundle": "self.version",
-        "vankosoft\/application-instalator-bundle": "self.version",
-        "vankosoft\/users-bundle": "self.version",
-        "vankosoft\/cms-bundle": "self.version"
-    },
-    "suggest": {
-        "symfony\/debug-bundle": "Allows developement debugging",
-        "symfony\/maker-bundle": "Standard symfony console maker tools",
-        "symplify\/changelog-linker": "Allows generation of nice CHANGELOG.md file"
-    },
-    "conflict": {
-        "doctrine\/doctrine-bundle": "<1.3",
-        "symfony\/doctrine-bridge": "<2.7"
-    },
-    "config": {
-        "preferred-install": {
-            "*": "dist"
-        },
-        "sort-packages": true
-    },
-    "extra": {
-        "symfony": {
-            "allow-contrib": false
-        }
-    },
-    "autoload": {
-        "psr-4": {
-            "Vankosoft\\ApplicationInstalatorBundle\\": "src\/Vankosoft\/ApplicationInstalatorBundle\/",
-            "Vankosoft\\ApplicationBundle\\": "src\/Vankosoft\/ApplicationBundle\/",
-            "Vankosoft\\UsersBundle\\": "src\/Vankosoft\/UsersBundle\/",
-            "Vankosoft\\CmsBundle\\": "src\/Vankosoft\/CmsBundle\/"
-        }
-    }
+	"name" : "vankosoft/users-bundle",
+	"type" : "symfony-bundle",
+	"description" : "Symfony VSUsersBundle",
+	"keywords" : [
+		"User management"
+	],
+	"homepage" : "https://github.com/iatanasov77/vs-users-bundle",
+	"license" : "MIT",
+	"authors" : [{
+			"name" : "Ivan I. Atanasov",
+			"email" : "i.atanasov77@gmail.com"
+		}
+	],
+	"require" : {
+		"php" : "^7.4|^8.1",
+		"vankosoft/application-bundle" : "^1.3",
+		"symfony/security-bundle" : "^5.4 || ^6.1",
+		"symfony/mailer" : "^4.4 || ^5.2",
+		"symfonycasts/verify-email-bundle" : "^1.5",
+		"symfonycasts/reset-password-bundle" : "^1.8",
+		"lexik/jwt-authentication-bundle" : "^2.11"
+	},
+	"conflict" : {
+		"doctrine/doctrine-bundle" : "<1.3",
+		"symfony/doctrine-bridge" : "<2.7"
+	},
+	"autoload" : {
+		"psr-4" : {
+			"Vankosoft\\UsersBundle\\" : "lib/"
+		}
+	},
+	"repositories" : [{
+			"type" : "path",
+			"url" : "../*"
+		}
+	],
+	"minimum-stability" : "dev"
 }

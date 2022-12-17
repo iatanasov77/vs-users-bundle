@@ -1,6 +1,0 @@
-vs_cms_images_get_file:
-    path: /images/{file}
-    controller: Vankosoft\CmsBundle\Controller\GetImageController::getFile
-    requirements:
-        file: .+
-

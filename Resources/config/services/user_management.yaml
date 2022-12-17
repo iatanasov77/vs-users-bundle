@@ -1,0 +1,38 @@
+services:
+    Vankosoft\UsersBundle\Repository\UsersRepository: '@vs_users.repository.users'
+    
+    Vankosoft\UsersBundle\Controller\UsersExtController:
+        tags: ['controller.service_arguments']
+        autowire: true
+        arguments:
+            - '@doctrine'
+            - "@vs_users.repository.users"
+            - "@vs_users.factory.user_info"
+            - '@vs_users.factory.avatar_image'
+            - '@vs_cms.profile_uploader'
+            - '@vs_users.repository.user_roles'
+    
+    vs_users.resources.users.form:
+        class: Vankosoft\UsersBundle\Form\UserFormType
+        tags:
+            - { name: form.type }
+        arguments:
+            - "@request_stack"
+            - '%vs_users.model.users.class%'
+            - '%vs_application.model.application.class%'
+            - '@security.helper'
+
+    vs_users.resources.user_roles.form:
+        class: Vankosoft\UsersBundle\Form\UserRoleForm
+        tags:
+            - { name: form.type }
+        arguments:
+            - '%vs_users.model.user_roles.class%'
+            - '@vs_users.repository.user_roles'
+
+    vs_users.command.create_user:
+        class: Vankosoft\UsersBundle\Command\CreateUserCommand
+        arguments:
+            - '@vs_users.manager.user'
+        tags:
+            - { name: console.command }
