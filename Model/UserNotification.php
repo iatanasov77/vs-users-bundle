@@ -13,6 +13,9 @@ class UserNotification implements UserNotificationInterface
     protected $user;
 
     /** @var string */
+    protected $notificationFrom;
+    
+    /** @var string */
     protected $notification;
 
     /** @var \DateTimeInterface */
@@ -52,6 +55,18 @@ class UserNotification implements UserNotificationInterface
         $this->date = $date;
         
         return $this;
+    }
+    
+    function setNotificationFrom($notificationFrom)
+    {
+        $this->notificationFrom = $notificationFrom;
+        
+        return $this;
+    }
+    
+    function getNotificationFrom()
+    {
+        return $this->notificationFrom;
     }
     
     function setNotification($notification)

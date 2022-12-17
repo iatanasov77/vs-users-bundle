@@ -25,11 +25,6 @@ class User implements UserInterface
     /**
      * @var string
      */
-    protected $apiToken;
-    
-    /**
-     * @var string
-     */
     protected $username;
 
     /**
@@ -91,7 +86,7 @@ class User implements UserInterface
      *
      * @return array
      */
-    public function getRoles()
+    public function getRoles(): array
     {
         return $this->getRolesFromArray();
         
@@ -112,18 +107,6 @@ class User implements UserInterface
     public function setInfo( UserInfo $info ) : self
     {
         $this->info = $info;
-        
-        return $this;
-    }
-    
-    public function getApiToken()
-    {
-        return $this->apiToken;
-    }
-    
-    public function setApiToken( $apiToken ) : self
-    {
-        $this->apiToken = $apiToken;
         
         return $this;
     }
@@ -220,5 +203,10 @@ class User implements UserInterface
     public function getNotifications() : Collection
     {
         return $this->notifications;
+    }
+    
+    public function getUserIdentifier(): string
+    {
+        return $this->username;
     }
 }

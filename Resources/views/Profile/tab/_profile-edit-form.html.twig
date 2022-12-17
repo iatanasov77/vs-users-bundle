@@ -8,30 +8,31 @@
             {% if app.user.info.avatar %}
                 <img
                     src="{{ app.user.info.avatar.path|imagine_filter('profile_form_thumb') }}"
-    				{# src="{{ path( 'vs_cms_images_get_file', { file: 'var/uploads/profile_pictures/' ~ user.info.profilePictureFilename } ) }}?filter=profile_form_thumb" #}
-    				style="width: 120px; height: 100px; border: 2px solid #000000;"
+                    {# src="{{ path( 'vs_cms_images_get_file', { file: 'var/uploads/profile_pictures/' ~ user.info.profilePictureFilename } ) }}?filter=profile_form_thumb" #}
+                    style="width: 120px; height: 100px; border: 2px solid #000000;"
                 />
+                {% set profilePictureName = app.user.info.avatar.originalName %}
             {% else %}
                 <img src="{{ asset( '/build/default/images/avatar-1.jpg' ) }}" alt="" class="user-avatar-md rounded-circle" />
+                {% set profilePictureName = 'avatar-1.jpg' %}
             {% endif %}
-        	</div>
-        	<div class="custom-file mb-3">
-        	    {{ form_label(form.profilePicture, null, {
-                    'label_attr': {'class': 'col-form-label'}
-                    
-                    }) 
-                }}
-        		{{ form_label(form.profilePicture, null, {
-                    'label_attr': {'class': 'custom-file-label'}
-                    }) 
-                }}
-                {{ form_widget(form.profilePicture, {'attr': {'class': 'custom-file-input' }}) }}
-                <span class="custom-file-control form-control-file"></span>
             </div>
-            <div class="mb-1">&nbsp;</div>
+            <div class="form-group mt-3">
+                <label for="profile_form_profilePicture" class="col-form-label">
+                    {{ 'vs_users.form.profile.picture_lable'  | trans( {},'VSUsersBundle' ) }}
+                </label>
+                <div class="custom-file">
+                    
+                    {{ form_label(form.profilePicture, profilePictureName, {
+                        'label_attr': {'class': 'custom-file-label profile-picture', 'id': 'profilePictureName'}
+                        }) 
+                    }}
+                    {{ form_widget(form.profilePicture, {'attr': {'class': 'custom-file-input' }}) }}
+                </div>
+            </div>
             
             <div class="form-group">
-            	{{ form_label(form.prefered_locale, null, {
+                {{ form_label(form.prefered_locale, null, {
                     'label_attr': {'class': 'col-form-label'}
                     }) 
                 }}
@@ -39,14 +40,14 @@
             </div>
             
             <div class="form-group">
-            	{{ form_label(form.firstName, null, {
+                {{ form_label(form.firstName, null, {
                     'label_attr': {'class': 'col-form-label'}
                     }) 
                 }}
                 {{ form_widget(form.firstName, {'attr': {'class': 'form-control' }, 'value': app.user.info.firstName}) }}
             </div>
             <div class="form-group">
-            	{{ form_label(form.lastName, null, {
+                {{ form_label(form.lastName, null, {
                     'label_attr': {'class': 'col-form-label'}
                     }) 
                 }}

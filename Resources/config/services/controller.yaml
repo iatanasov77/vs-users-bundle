@@ -4,15 +4,12 @@ services:
         autoconfigure: true
         public: true
 
-    Vankosoft\UsersBundle\Controller\ApiController :
-        tags: ['controller.service_arguments']
-        autowire: true
-
     Vankosoft\UsersBundle\Controller\ForgotPasswordController:
         public: true
         autowire: true
         tags: ['controller.service_arguments']
         arguments:
+            - '@doctrine'
             - '@vs_users.repository.reset_password_request'
             - '@vs_users.repository.users'
             - '@mailer'
@@ -29,6 +26,8 @@ services:
         tags: ['controller.service_arguments']
         autowire: true
         arguments:
+            - '@doctrine'
+            - '%vs_users.model.users.class%'
             - '@vs_users.manager.user'
             - '@vs_users.factory.avatar_image'
             - '@vs_cms.profile_uploader'

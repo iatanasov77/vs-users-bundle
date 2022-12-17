@@ -4,12 +4,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
+//use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
+use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelperInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Generator\VerifyEmailTokenGenerator;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
+use Doctrine\Persistence\ManagerRegistry;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Sylius\Component\Resource\Factory\Factory;
 
@@ -20,6 +22,16 @@ use Vankosoft\UsersBundle\Security\AnotherLoginFormAuthenticator;
 
 class RegisterController extends AbstractController
 {
+    /**
+     * @var UserAuthenticatorInterface
+     */
+    private $guardHandler;
+    
+    /**
+     * @var AnotherLoginFormAuthenticator
+     */
+    private $authenticator;
+    
     /**
      * @var UserManager
      */
@@ -53,7 +65,7 @@ class RegisterController extends AbstractController
     /**
      * Needed to generate Api Token
      * 
-     * @var VerifyEmailHelperInterface
+     * @var VerifyEmailTokenGenerator
      */
     private $tokenGenerator;
     
@@ -62,33 +74,39 @@ class RegisterController extends AbstractController
      */
     private $pagesRepository;
     
+    /** @var ManagerRegistry */
+    protected ManagerRegistry $doctrine;
+    
     /**
      * @var array
      */
     protected $params;
 
     public function __construct(
+        ManagerRegistry $doctrine,
         UserManager $userManager,
         RepositoryInterface $usersRepository,
         Factory $usersFactory,
         RepositoryInterface $userRolesRepository,
         MailerInterface $mailer,
         RepositoryInterface $pagesRepository,
-        GuardAuthenticatorHandler $guardHandler,
+        //GuardAuthenticatorHandler $guardHandler,
+        UserAuthenticatorInterface $guardHandler,
         AnotherLoginFormAuthenticator $authenticator,
         array $parameters
     ) {
-            $this->userManager          = $userManager;
-            $this->usersRepository      = $usersRepository;
-            $this->usersFactory         = $usersFactory;
-            $this->userRolesRepository  = $userRolesRepository;
-            $this->mailer               = $mailer;
-            $this->pagesRepository      = $pagesRepository;
-            
-            $this->guardHandler         = $guardHandler;
-            $this->authenticator        = $authenticator;
-            
-            $this->params               = $parameters;
+        $this->doctrine             = $doctrine;
+        $this->userManager          = $userManager;
+        $this->usersRepository      = $usersRepository;
+        $this->usersFactory         = $usersFactory;
+        $this->userRolesRepository  = $userRolesRepository;
+        $this->mailer               = $mailer;
+        $this->pagesRepository      = $pagesRepository;
+        
+        $this->guardHandler         = $guardHandler;
+        $this->authenticator        = $authenticator;
+        
+        $this->params               = $parameters;
     }
     
     public function setTokenGenerator( VerifyEmailTokenGenerator $tokenGenerator ) : void
@@ -116,7 +134,7 @@ class RegisterController extends AbstractController
         $form   = $this->getForm();
         $form->handleRequest( $request );
         if ( $form->isSubmitted() ) {
-            $em             = $this->getDoctrine()->getManager();
+            $em             = $this->doctrine->getManager();
             $formUser       = $form->getData();
             $plainPassword  = $form->get( "plain_password" )->getData();
             $oUser          = $this->userManager->createUser(
@@ -124,9 +142,7 @@ class RegisterController extends AbstractController
                 $formUser->getEmail(),
                 $plainPassword
             );
-            //$oUser->setApiToken( $this->tokenGenerator->createToken( strval( time() ), $oUser->getEmail() ) );
             
-            //$oUser->setRoles( [$request->request->get( 'registerRole' )] );
             $oUser->addRole( $this->userRolesRepository->findByTaxonCode( $this->params['registerRole'] ) );
             
             $oUser->setPreferedLocale( $request->getLocale() );
@@ -169,17 +185,16 @@ class RegisterController extends AbstractController
         // Mark your user as verified.
         $user->setVerified( true );
         $user->setEnabled( true );
-        $this->getDoctrine()->getManager()->persist( $user );
-        $this->getDoctrine()->getManager()->flush();
+        $this->doctrine->getManager()->persist( $user );
+        $this->doctrine->getManager()->flush();
         
         $this->addFlash( 'success', 'Your e-mail address has been verified.' );
         
         if ( $this->params['loginAfterVerify'] ) {
-            return $this->guardHandler->authenticateUserAndHandleSuccess(
+            return $this->guardHandler->authenticateUser(
                 $user,
-                $request,
                 $this->authenticator,
-                'main' // firewall name in security.yaml
+                $request
             );
         }
         

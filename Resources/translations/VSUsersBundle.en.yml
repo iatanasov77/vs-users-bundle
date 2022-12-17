@@ -33,6 +33,10 @@ vs_users:
             websiteUrl: 'Website URL'
             agree_terms: 'By creating an account, you agree the <a href="%vs_app.page.tac%">terms and conditions</a>'    
             register: 'Register'
+            
+            button_register: Register An Account
+            agreement_text: By creating an account, you agree the
+            terms_and_conditions: terms and conditions
 
         resetting:
             new_password_lable: 'Enter your new password.'

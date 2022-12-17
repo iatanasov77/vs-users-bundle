@@ -1,0 +1,32 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: true
+    
+    # May be Not Needed Anymore
+    vs_users.security.api_key_authenticator:
+        class: Vankosoft\UsersBundle\Security\Api\ApiKeyAuthenticator
+        arguments:
+            - '@vs_users.repository.users'
+            
+    vs_users.jwt_authentication_success_listener:
+        class: Vankosoft\UsersBundle\Security\Api\JwtAuthenticationSuccessListener
+        arguments: 
+            - '@doctrine.orm.entity_manager'
+        tags:
+            - { name: 'kernel.event_listener', event: 'lexik_jwt_authentication.on_authentication_success', method: 'onAuthenticationSuccess' }
+            
+    vs_users.api_manager:
+        class: Vankosoft\UsersBundle\Security\Api\ApiManager
+        arguments:
+            - '@security.token_storage'
+            - '@lexik_jwt_authentication.jwt_manager'
+            
+    Vankosoft\UsersBundle\Controller\ApiLoginController:
+        tags: ['controller.service_arguments']
+        arguments:
+            - '@vs_users.api_manager'
+            - '@vs_users.repository.users'
+
+

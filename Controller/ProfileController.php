@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Doctrine\Persistence\ManagerRegistry;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 
 use Vankosoft\CmsBundle\Component\Uploader\FileUploaderInterface;
@@ -16,6 +17,15 @@ use Vankosoft\UsersBundle\Security\UserManager;
 
 class ProfileController extends AbstractController
 {
+    const EXTENSION_PAYMENT             = 'VSPaymentBundle';
+    const EXTENSION_USERSUBSCRIPTIONS   = 'VSUsersSubscriptionsBundle';
+    
+    /** @var ManagerRegistry */
+    protected ManagerRegistry $doctrine;
+    
+    /** @var string */
+    protected string $usersClass;
+    
     /** @var UserManager */
     private UserManager $userManager;
     
@@ -26,10 +36,14 @@ class ProfileController extends AbstractController
     private FileUploaderInterface $imageUploader;
     
     public function __construct(
+        ManagerRegistry $doctrine,
+        string $usersClass,
         UserManager $userManager,
         FactoryInterface $avatarImageFactory,
         FileUploaderInterface $imageUploader
     ) {
+        $this->doctrine             = $doctrine;
+        $this->usersClass           = $usersClass;
         $this->userManager          = $userManager;
         $this->avatarImageFactory   = $avatarImageFactory;
         $this->imageUploader        = $imageUploader;
@@ -54,20 +68,12 @@ class ProfileController extends AbstractController
         return new Response( $profilePicture, Response::HTTP_OK );
     }
     
-    public function indexAction( Request $request ) : Response
+    public function indexAction( Request $request ): Response
     {
-        $em         = $this->getDoctrine()->getManager();
-        $oUser      = $this->getUser();
-        $form       = $this->createForm( ProfileFormType::class, $oUser, [
-            'data'      => $oUser,
-            'action'    => $this->generateUrl( 'vs_users_profile_show' ),
-            'method'    => 'POST',
-        ]);
-        
-        $otherForms = $this->forms( $request, $oUser );
-        
+        $form   = $this->getProfileEditForm();
         $form->handleRequest( $request );
         if ( $form->isSubmitted() ) {
+            $em             = $this->doctrine->getManager();
             $oUser          = $form->getData();
             
             if ( ! $oUser->getPreferedLocale() ) {
@@ -91,19 +97,14 @@ class ProfileController extends AbstractController
             return $this->redirectToRoute( 'vs_users_profile_show' );
         }
         
-        return $this->render( '@VSUsers/Profile/show.html.twig', [
-            'errors'        => $form->getErrors( true, false ),
-            'form'          => $form->createView(),
-            'user'          => $oUser,
-            'otherForms'    => $otherForms,
-        ]);
+        return $this->render( '@VSUsers/Profile/show.html.twig', $this->templateParams( $form ) );
     }
     
-    public function changePasswordAction( Request $request ) : Response
+    public function changePasswordAction( Request $request ): Response
     {
-        $em         = $this->getDoctrine()->getManager();
+        $em         = $this->doctrine->getManager();
         $oUser      = $this->getUser();
-        $forms      = $this->forms( $request, $oUser );
+        $forms      = $this->getOtherForms();
         $f          = $forms['changePasswordForm'];
         
         $f->handleRequest( $request );
@@ -130,10 +131,36 @@ class ProfileController extends AbstractController
         return $this->redirectToRoute( 'vs_users_profile_show' );
     }
     
-    protected function forms( Request $request, $oUser ) : array
+    protected function templateParams( $form )
     {
-        $changePasswordForm = $this->createForm( ChangePasswordFormType::class, $oUser, [
-            'data'      => $oUser,
+        return [
+            'errors'                    => $form->getErrors( true, false ),
+            'form'                      => $form->createView(),
+            'user'                      => $this->getUser(),
+            'otherForms'                => $this->getOtherForms(),
+            
+            'hasPaymentExtension'       => $this->hasExtension( self::EXTENSION_PAYMENT ),
+            'hasSubscriptionsExtension' => $this->hasExtension( self::EXTENSION_USERSUBSCRIPTIONS ),
+            'newsletterSubscriptions'   => $this->getNewsletterSubscriptions(),
+            'paidSubscriptions'         => $this->getPaidSubscriptions(),
+        ];
+    }
+    
+    protected function getProfileEditForm()
+    {
+        $form       = $this->createForm( ProfileFormType::class, $this->getUser(), [
+            'data'      => $this->getUser(),
+            'action'    => $this->generateUrl( 'vs_users_profile_show' ),
+            'method'    => 'POST',
+        ]);
+        
+        return $form;
+    }
+    
+    protected function getOtherForms(): array
+    {
+        $changePasswordForm = $this->createForm( ChangePasswordFormType::class, $this->getUser(), [
+            'data'      => $this->getUser(),
             'action'    => $this->generateUrl( 'vs_users_profile_change_password' ),
             'method'    => 'POST',
         ]);
@@ -141,6 +168,42 @@ class ProfileController extends AbstractController
         return [
             'changePasswordForm'    => $changePasswordForm,
         ];
+    }
+    
+    protected function hasExtension( $extension ): bool
+    {
+        return \array_key_exists( $extension, $this->getParameter( 'kernel.bundles' ) );
+    }
+    
+    protected function getNewsletterSubscriptions()
+    {
+        $subscriptions  = [];
+        if (
+            $this->hasExtension ( self::EXTENSION_USERSUBSCRIPTIONS ) &&
+            $this->getUser() instanceof \Vankosoft\UsersSubscriptionsBundle\Model\Interfaces\SubscribedUserInterface
+        ) {
+            try {
+                //$subscriptions  = $this->getUser()->getSubscriptions( ( '\\' . $this->usersClass )::SUBSCRIPTION_TYPE_NEWSLETTER );
+                $subscriptions  = [];
+            } catch( \Doctrine\DBAL\Exception\TableNotFoundException $e ) {
+                $subscriptions  = [];
+            }
+        }
+        
+        return $subscriptions;
+    }
+    
+    protected function getPaidSubscriptions()
+    {
+        $subscriptions  = [];
+        if (
+            $this->hasExtension ( self::EXTENSION_PAYMENT ) &&
+            $this->getUser() instanceof \Vankosoft\UsersSubscriptionsBundle\Model\Interfaces\SubscribedUserInterface
+        ) {
+            $subscriptions  = $this->getUser()->getSubscriptions( ( '\\' . $this->usersClass )::SUBSCRIPTION_TYPE_PAID );
+        }
+        
+        return $subscriptions;
     }
     
     private function createAvatar( UserInfoInterface &$userInfo, File $file ): void
