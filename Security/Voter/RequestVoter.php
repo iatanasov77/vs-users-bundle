@@ -17,6 +17,8 @@ class RequestVoter implements VoterInterface
     
     private ApplicationContextInterface $applicationContext;
     
+    private $roleHierarchy;
+    
     public function __construct(
         ApplicationContextInterface $applicationContext,
         ?AuthorizationCheckerInterface $security,
