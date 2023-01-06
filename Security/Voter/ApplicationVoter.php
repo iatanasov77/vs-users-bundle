@@ -25,7 +25,7 @@ class ApplicationVoter implements VoterInterface
     /**
      * {@inheritdoc}
      */
-    public function vote( TokenInterface $token, $subject, array $attributes )
+    public function vote( TokenInterface $token, $subject, array $attributes ): int
     {
         $user   = $token->getUser();
         
