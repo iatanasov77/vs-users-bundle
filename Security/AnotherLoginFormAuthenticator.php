@@ -44,7 +44,7 @@ class AnotherLoginFormAuthenticator extends AbstractLoginFormAuthenticator
             $this->params           = $params;
     }
     
-    public function supports( Request $request )
+    public function supports( Request $request ): bool
     {
         return $this->params['loginRoute'] === $request->attributes->get( '_route' ) && $request->isMethod( 'POST' );
     }
