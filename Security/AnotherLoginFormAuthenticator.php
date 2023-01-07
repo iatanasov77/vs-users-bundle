@@ -5,6 +5,7 @@ use Symfony\Component\Security\Http\Authenticator\AbstractLoginFormAuthenticator
 use Symfony\Component\Security\Guard\PasswordAuthenticatedInterface;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -92,7 +93,7 @@ class AnotherLoginFormAuthenticator extends AbstractLoginFormAuthenticator
         return $credentials['password'];
     }
     
-    public function onAuthenticationSuccess( Request $request, TokenInterface $token, $providerKey )
+    public function onAuthenticationSuccess( Request $request, TokenInterface $token, string $firewallName ): ?Response
     {
         return new RedirectResponse( $this->urlGenerator->generate( $this->params['redirectAfterLogin'] ) );
     }
