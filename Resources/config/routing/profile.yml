@@ -8,7 +8,7 @@ vs_users_profile_picture_file_name:
     
 vs_users_profile_change_password:
     path:     /profile/change-password
-    controller: Vankosoft\UsersBundle\Controller\ProfileController:changePasswordAction
+    controller: Vankosoft\UsersBundle\Controller\ProfileController::changePasswordAction
     
 vs_users_user_info_display:
     path: /user-info/{userId}/display
