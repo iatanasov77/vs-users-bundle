@@ -54,7 +54,7 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
         $this->params           = $params;
     }
     
-    public function authenticate( Request $request ) : Passport
+    public function authenticate( Request $request ): Passport
     {
         $password   = $request->request->get( '_password' );
         $username   = $request->request->get( '_username' );
@@ -69,7 +69,7 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
         );
     }
     
-    public function onAuthenticationSuccess( Request $request, TokenInterface $token, string $firewallName ) : ?Response
+    public function onAuthenticationSuccess( Request $request, TokenInterface $token, string $firewallName ): ?Response
     {
         $user   = $token->getUser();
         
@@ -81,7 +81,7 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
         return null;
     }
     
-    protected function getLoginUrl( Request $request ) : string
+    protected function getLoginUrl( Request $request ): string
     {
         return $this->urlGenerator->generate( $this->params['loginRoute'] );
     }
