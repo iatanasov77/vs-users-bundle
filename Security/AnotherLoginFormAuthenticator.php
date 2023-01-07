@@ -97,7 +97,12 @@ class AnotherLoginFormAuthenticator extends AbstractLoginFormAuthenticator
         return new RedirectResponse( $this->urlGenerator->generate( $this->params['redirectAfterLogin'] ) );
     }
     
-    protected function getLoginUrl()
+//     protected function getLoginUrl()
+//     {
+//         return $this->urlGenerator->generate( $this->params['loginRoute'] );
+//     }
+    
+    protected function getLoginUrl( Request $request ): string
     {
         return $this->urlGenerator->generate( $this->params['loginRoute'] );
     }
