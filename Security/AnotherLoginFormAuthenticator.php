@@ -26,7 +26,7 @@ use Vankosoft\UsersBundle\Repository\UsersRepository;
  *  There is example for Symfony 6 Also
  */
 //class AnotherLoginFormAuthenticator extends AbstractFormLoginAuthenticator implements PasswordAuthenticatedInterface
-class AnotherLoginFormAuthenticator extends AbstractLoginFormAuthenticator implements PasswordAuthenticatedInterface
+class AnotherLoginFormAuthenticator extends AbstractLoginFormAuthenticator
 {
     use TargetPathTrait;
     
