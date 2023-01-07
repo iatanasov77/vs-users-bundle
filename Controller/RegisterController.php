@@ -126,8 +126,12 @@ class RegisterController extends AbstractController
     
     public function index( Request $request, MailerInterface $mailer ): Response
     {
-        if ( $this->getUser() ) {
-            return $this->redirectToRoute( $this->params['defaultRedirect'] );
+        try {
+            if ( $this->getUser() ) {
+                return $this->redirectToRoute( $this->params['defaultRedirect'] );
+            }
+        } catch ( \LogicException $e ) {
+            
         }
         
         $form   = $this->getForm();
