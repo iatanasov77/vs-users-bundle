@@ -69,6 +69,7 @@ vs_users:
         register_header_description: 'Please enter your user information.'
         register_already_member: 'Already member?'
         register_login_here: 'Login Here.'
+        forgot_password_header_title: 'Forgot Password'
         forgot_password_email_header: 'Forgot Password email'
         forgot_password_email_text_1: 'Reset password link:'
         forgot_password_email_text_2: 'The Link is valid up to'

@@ -69,6 +69,7 @@ vs_users:
         register_header_description: 'Моля въведете потреителски данни.'
         register_already_member: 'Вече сте регистриран?'
         register_login_here: 'Логване тук.'
+        forgot_password_header_title: 'Забравена Парола'
         forgot_password_email_header: 'Емейл за Забравена Парола'
         forgot_password_email_text_1: 'Забравена парола линк:'
         forgot_password_email_text_2: 'Линкът е валиден до'
