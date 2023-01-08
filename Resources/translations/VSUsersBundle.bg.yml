@@ -56,6 +56,7 @@ vs_users:
         profile_show_title: 'Моят Профил'
         profile_show_tab_details: 'Детайли'
         profile_show_tab_change_password: 'Смени Парола'
+        profile_show_tab_subscriptions: 'Абонаменти'
         profile_show_tab_activity: 'Активност'
         profile_details_header: 'Профил Информация'
         profile_change_password_header: 'Смени Парола'

@@ -28,7 +28,7 @@
                         {% if hasSubscriptionsExtension %}
                             <li class="nav-item">
                                 <a class="nav-link" id="subscriptions-tab" data-bs-toggle="tab" data-bs-target="#subscriptions" href="javascript:void(0);" role="tab" aria-controls="subscription" aria-selected="false">
-                                    Subscriptions
+                                    {{ 'vs_users.template.profile_show_tab_subscriptions' | trans( {},'VSUsersBundle' ) }}
                                 </a>
                             </li>
                         {% endif %}

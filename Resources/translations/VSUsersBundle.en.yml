@@ -56,6 +56,7 @@ vs_users:
         profile_show_title: 'My Profile'
         profile_show_tab_details: 'Details'
         profile_show_tab_change_password: 'Change Password'
+        profile_show_tab_subscriptions: 'Subscriptions'
         profile_show_tab_activity: 'Activity'
         profile_details_header: 'Profile Info'
         profile_change_password_header: 'Change Password'
