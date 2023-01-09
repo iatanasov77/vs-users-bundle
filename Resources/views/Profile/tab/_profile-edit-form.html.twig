@@ -21,13 +21,12 @@
                 <label for="profile_form_profilePicture" class="col-form-label">
                     {{ 'vs_users.form.profile.picture_lable'  | trans( {},'VSUsersBundle' ) }}
                 </label>
-                <div class="custom-file">
-                    
+                <div class="input-group form-field-file">
+                    {{ form_widget(form.profilePicture, {'attr': {'class': 'form-control' }}) }}
                     {{ form_label(form.profilePicture, profilePictureName, {
-                        'label_attr': {'class': 'custom-file-label profile-picture', 'id': 'profilePictureName'}
+                        'label_attr': {'class': 'input-group-text', 'id': 'profilePictureName'}
                         }) 
                     }}
-                    {{ form_widget(form.profilePicture, {'attr': {'class': 'custom-file-input' }}) }}
                 </div>
             </div>
             
