@@ -80,7 +80,12 @@
                 		id="registration_form_agreeTerms"
                 		name="registration_form[agreeTerms]"
                     />
-                    <span class="custom-control-label">{{ form.agreeTerms.vars.label|trans|raw }}</span>
+                    <span class="custom-control-label">
+                        {{ form.agreeTerms.vars.label|trans|raw }}
+                        <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#terms-and-conditions-modal">
+                            {{ 'vs_users.form.registration.terms_and_conditions' | trans( {},'VSUsersBundle' ) }}
+                        </a>
+                    </span>
                 </label>
             </div>
             
