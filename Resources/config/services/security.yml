@@ -17,6 +17,12 @@ parameters:
   
     
 services:
+    vs_users.security_bridge:
+        class: Vankosoft\UsersBundle\Security\SecurityBridge
+        public: true
+        arguments:
+            - '@security.token_storage'
+
     vs_users.manager.user:
         class: Vankosoft\UsersBundle\Security\UserManager
         public: true
