@@ -14,6 +14,8 @@ class SecurityBridge
     
     public function getUser()
     {
-        return $this->tokenStorage->getToken()->getUser();
+        $token  = $this->tokenStorage->getToken();
+        
+        return $token ? $token->getUser() : null;
     }
 }
