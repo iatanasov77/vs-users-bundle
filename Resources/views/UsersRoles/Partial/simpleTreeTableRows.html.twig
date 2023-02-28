@@ -12,7 +12,7 @@
         >
             <i class="fas fa-edit"></i>
         </a>
-        <a class="btn btn-danger btnDelete" 
+        <a class="btn btn-danger btnDeleteResource" 
         	href="{{ path('vs_users_user_roles_delete', {'id': item.id}) }}"
         	data-csrfToken="{{ csrf_token( item.id ) }}"
         	title="{{ 'vs_cms.template.button_delete' | trans( {},'VSCmsBundle' ) }}"
