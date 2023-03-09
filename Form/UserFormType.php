@@ -41,7 +41,7 @@ class UserFormType extends AbstractForm
         $this->auth             = $auth;
     }
 
-    public function buildForm( FormBuilderInterface $builder, array $options )
+    public function buildForm( FormBuilderInterface $builder, array $options ): void
     {
         parent::buildForm( $builder, $options );
         
