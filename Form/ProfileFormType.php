@@ -21,7 +21,7 @@ class ProfileFormType extends UserFormType
         parent::__construct( $requestStack, $dataClass, $applicationClass, $auth );
     }
     
-    public function buildForm( FormBuilderInterface $builder, array $options )
+    public function buildForm( FormBuilderInterface $builder, array $options ): void
     {
         parent::buildForm( $builder, $options );
         
@@ -37,7 +37,7 @@ class ProfileFormType extends UserFormType
         $builder->remove( 'username' );
     }
     
-    public function configureOptions( OptionsResolver $resolver ) : void
+    public function configureOptions( OptionsResolver $resolver ): void
     {
         parent::configureOptions( $resolver );
         

@@ -22,7 +22,7 @@ class RegistrationFormType extends UserFormType
         parent::__construct( $requestStack, $dataClass, $applicationClass, $auth );
     }
     
-    public function buildForm( FormBuilderInterface $builder, array $options )
+    public function buildForm( FormBuilderInterface $builder, array $options ): void
     {
         parent::buildForm( $builder, $options );
         
@@ -49,7 +49,7 @@ class RegistrationFormType extends UserFormType
         ;
     }
     
-    public function configureOptions( OptionsResolver $resolver ) : void
+    public function configureOptions( OptionsResolver $resolver ): void
     {   
         parent::configureOptions( $resolver );
         
