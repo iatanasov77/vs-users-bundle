@@ -41,7 +41,7 @@
                         
                         {% if hasPaymentExtension %}
                             <li class="nav-item">
-                                <a class="nav-link" id="subscriptions-tab" data-bs-toggle="tab" data-bs-target="#subscriptions" href="javascript:void(0);" role="tab" aria-controls="subscription" aria-selected="false">
+                                <a class="nav-link" id="orders-tab" data-bs-toggle="tab" data-bs-target="#orders" href="javascript:void(0);" role="tab" aria-controls="order" aria-selected="false">
                                     {{ 'vs_users.template.profile_show_tab_orders' | trans( {},'VSUsersBundle' ) }}
                                 </a>
                             </li>
@@ -67,7 +67,7 @@
                         {% endif %}
                         
                         {% if hasPaymentExtension %}
-                            <div class="tab-pane fade" id="subscriptions" role="tabpanel" aria-labelledby="subscriptions-tab">
+                            <div class="tab-pane fade" id="orders" role="tabpanel" aria-labelledby="orders-tab">
                                 {% include '@VSUsers/Profile/tab/_profile-orders.html.twig' %}
                             </div>
                         {% endif %}
