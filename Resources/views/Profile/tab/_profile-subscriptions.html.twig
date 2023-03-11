@@ -1,11 +1,11 @@
-<h3>Subscriptions</h3>
+<h3>{{ 'vs_users.template.profile_show_tab_subscriptions' | trans( {},'VSUsersBundle' ) }}</h3>
 <section class="panel">
     <div class="panel-body bio-graph-info">
         
         {% if hasSubscriptionsExtension and newsletterSubscriptions is not empty %}
         <div class="row">
             <fieldset class="fieldset-project-fields" style="width: 100%;">
-                <legend  class="w-auto">Newsletter Subscriptions</legend>
+                <legend  class="w-auto">{{ 'vs_users.template.profile_newsletter_subscriptions' | trans( {},'VSUsersBundle' ) }}</legend>
                 
                 {% for subscription in newsletterSubscriptions %}
                     <div class="row">
@@ -23,15 +23,15 @@
         {% if hasPaymentExtension and paidSubscriptions is not empty %}
         <div class="row">
             <fieldset class="fieldset-project-fields" style="width: 100%;">
-                <legend  class="w-auto">Paid Subscriptions</legend>
+                <legend  class="w-auto">{{ 'vs_users.template.profile_paid_subscriptions' | trans( {},'VSUsersBundle' ) }}</legend>
                 
                 <table>
                     <thead>
                         <tr style="border-bottom: 1px solid black;">
-                            <th style="width: 300px;">Title</th>
-                            <th style="width: 70px; text-align: center;">Price</th>
-                            <th style="text-align: center;">Active</th>
-                            <th style="text-align: center;">Expire at</th>
+                            <th style="width: 300px;">{{ 'vs_users.template.profile_paid_subscription_title' | trans( {},'VSUsersBundle' ) }}</th>
+                            <th style="width: 70px; text-align: center;">{{ 'vs_users.template.profile_paid_subscription_price' | trans( {},'VSUsersBundle' ) }}</th>
+                            <th style="text-align: center;">{{ 'vs_users.template.profile_paid_subscription_active' | trans( {},'VSUsersBundle' ) }}</th>
+                            <th style="text-align: center;">{{ 'vs_users.template.profile_paid_subscription_expire' | trans( {},'VSUsersBundle' ) }}</th>
                         </tr>
                     </thead>
                     <tbody>

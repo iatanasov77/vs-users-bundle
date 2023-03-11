@@ -57,10 +57,23 @@ vs_users:
         profile_show_tab_details: 'Details'
         profile_show_tab_change_password: 'Change Password'
         profile_show_tab_subscriptions: 'Subscriptions'
+        profile_show_tab_orders: 'Orders'
         profile_show_tab_activity: 'Activity'
         profile_details_header: 'Profile Info'
         profile_change_password_header: 'Change Password'
         profile_activity_header: 'Activity'
+        profile_activity_name: Activity name
+        profile_newsletter_subscriptions: Newsletter Subscriptions
+        profile_paid_subscriptions: Paid Subscriptions
+        profile_paid_subscription_title: Title
+        profile_paid_subscription_price: Price
+        profile_paid_subscription_active: Active
+        profile_paid_subscription_expire: Expire at
+        profile_order_payment_method: Payment Method
+        profile_order_total: Total
+        profile_order_status: Status
+        profile_order_description: Description
+        profile_back_to_home: Back To Home
         register_confirmation_email_text_1: 'Please confirm your email address by clicking the following link:'
         register_confirmation_email_text_2: 'Confirm my Email'
         register_confirmation_email_text_3: 'This link will expire in '

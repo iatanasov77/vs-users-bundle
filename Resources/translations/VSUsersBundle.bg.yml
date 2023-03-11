@@ -57,10 +57,23 @@ vs_users:
         profile_show_tab_details: 'Детайли'
         profile_show_tab_change_password: 'Смени Парола'
         profile_show_tab_subscriptions: 'Абонаменти'
+        profile_show_tab_orders: 'Ордери'
         profile_show_tab_activity: 'Активност'
         profile_details_header: 'Профил Информация'
         profile_change_password_header: 'Смени Парола'
         profile_activity_header: 'Активност'
+        profile_activity_name: Име на Активност
+        profile_newsletter_subscriptions: Нюзлетър Абонаменти
+        profile_paid_subscriptions: Платени Абонаменти
+        profile_paid_subscription_title: Име
+        profile_paid_subscription_price: Цена
+        profile_paid_subscription_active: Активен
+        profile_paid_subscription_expire: Изтича на
+        profile_order_payment_method: Метод на Плащане
+        profile_order_total: Тотал
+        profile_order_status: Статус
+        profile_order_description: Описание
+        profile_back_to_home: Назад към Начало
         register_confirmation_email_text_1: 'Моля потвърдете вашият емейл като кликнете на линка:'
         register_confirmation_email_text_2: 'Потвърждаване на Емейл'
         register_confirmation_email_text_3: 'Линкът изтича след '

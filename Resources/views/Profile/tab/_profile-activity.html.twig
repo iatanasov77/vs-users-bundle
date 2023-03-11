@@ -7,7 +7,7 @@
     	            <span class="arrow"></span>
     	            <div class="text">
     	                <a class="activity-img" href="#"><img alt="" src="img/chat-avatar.jpg" class="avatar"></a>
-    	                <p class="attribution"><a href="#">Activity name</a> at {{ activity.date | date( "g:ia , jS F Y ( l )" ) }}</p>
+    	                <p class="attribution"><a href="#">{{ 'vs_users.template.profile_activity_name' | trans( {},'VSUsersBundle' ) }}</a> at {{ activity.date | date( "g:ia , jS F Y ( l )" ) }}</p>
     	                <p>{{ activity.activity }}</p>
     	            </div>
     	        </div>

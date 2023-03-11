@@ -143,6 +143,7 @@ class ProfileController extends AbstractController
             'hasSubscriptionsExtension' => $this->hasExtension( self::EXTENSION_USERSUBSCRIPTIONS ),
             'newsletterSubscriptions'   => $this->getNewsletterSubscriptions(),
             'paidSubscriptions'         => $this->getPaidSubscriptions(),
+            'orders'                    => $this->getOrders(),
         ];
     }
     
@@ -204,6 +205,19 @@ class ProfileController extends AbstractController
         }
         
         return $subscriptions;
+    }
+    
+    protected function getOrders()
+    {
+        $orders  = [];
+        if (
+            $this->hasExtension ( self::EXTENSION_PAYMENT ) &&
+            $this->getUser() instanceof \Vankosoft\PaymentBundle\Model\Interfaces\PaymentsUserInterface
+        ) {
+            $orders = $this->getUser()->getOrders();
+        }
+            
+        return $orders;
     }
     
     private function createAvatar( UserInfoInterface &$userInfo, File $file ): void
