@@ -17,6 +17,7 @@ vs_users:
             username: 'Username'
             password: 'Password'
             password_repeat: 'Confirm Password'
+            title: Title
             firstName: 'First Name'
             lastName: 'Last Name'
             enabled: 'Enabled'

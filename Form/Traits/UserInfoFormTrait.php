@@ -5,6 +5,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Vankosoft\UsersBundle\Component\UserInfo;
 
 trait UserInfoFormTrait
 {
@@ -32,6 +34,13 @@ trait UserInfoFormTrait
                         'mimeTypesMessage' => 'vs_users.form.profile.picture_info',
                     ])
                 ],
+            ])
+            
+            ->add( 'title', ChoiceType::class, [
+                'label'                 => 'vs_users.form.user.title',
+                'translation_domain'    => 'VSUsersBundle',
+                'mapped'                => $options['titleMapped'],
+                'choices'               => UserInfo::choices(),
             ])
             
             ->add( 'firstName', TextType::class, [

@@ -1,6 +1,7 @@
 <?php namespace Vankosoft\UsersBundle\Component;
 
-class UserRole {
+class UserRole
+{
     const ROLE_SUPER_ADMIN  = 'ROLE_SUPER_ADMIN';
     const ROLE_ADMIN        = 'ROLE_ADMIN';
     const ROLE_AUTHOR       = 'ROLE_AUTHOR';

@@ -50,6 +50,7 @@ class ProfileFormType extends UserFormType
             ->setDefaults([
                 'csrf_protection'       => false,
                 'profilePictureMapped'  => false,
+                'titleMapped'           => false,
                 'firstNameMapped'       => false,
                 'lastNameMapped'        => false,
             ])

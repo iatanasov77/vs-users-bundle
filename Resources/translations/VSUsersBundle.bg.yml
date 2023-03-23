@@ -17,6 +17,7 @@ vs_users:
             username: 'Потребителско Име'
             password: 'Парола'
             password_repeat: 'Потвърди Парола'
+            title: Титла
             firstName: 'Име'
             lastName: 'Фамилия'
             enabled: 'Разрешен'
