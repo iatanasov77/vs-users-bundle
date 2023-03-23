@@ -18,12 +18,14 @@
                     </thead>
                     <tbody>
                     {% for order in orders %}
-                        <tr>
-                            <td>{{ order.paymentMethod.name }}</td>
-                            <td style="text-align: center;">{{ order.totalAmount }} {{ order.currencyCode }}</td>
-                            <td style="text-align: center;">{{ order.status }}</td>
-                            <td>{{ order.description }}</td>
-                        </tr>
+                        {% if order.status is not 'shopping_cart' %}
+                            <tr>
+                                <td>{{ order.paymentMethod.name }}</td>
+                                <td style="text-align: center;">{{ order.totalAmount }} {{ order.currencyCode }}</td>
+                                <td style="text-align: center;">{{ order.status }}</td>
+                                <td>{{ order.description }}</td>
+                            </tr>
+                        {% endif %}
                     {% endfor %}
                     </tbody>
                 </table>
