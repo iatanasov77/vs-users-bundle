@@ -18,11 +18,15 @@ class UserInfo implements UserInfoInterface
      */
     protected $user;
     
-    
     /**
      * @var FileInterface|null
      */
     protected $avatar;
+    
+    /**
+     * @var string
+     */
+    protected $title        = 'miss';
     
     /**
      * @var string
@@ -35,11 +39,6 @@ class UserInfo implements UserInfoInterface
     protected $lastName     = 'NOT_EDITED_YET';
     
     /**
-     * @var string
-     */
-    protected $country;
-    
-    /**
      * @var \DateTime|null
      */
     protected $birthday;
@@ -47,7 +46,37 @@ class UserInfo implements UserInfoInterface
     /**
      * @var string
      */
+    protected $phone;
+    
+    /**
+     * @var string
+     */
     protected $mobile;
+    
+    /**
+     * @var string
+     */
+    protected $country;
+    
+    /**
+     * @var string
+     */
+    protected $city;
+    
+    /**
+     * @var string
+     */
+    protected $state;
+    
+    /**
+     * @var string
+     */
+    protected $zip;
+    
+    /**
+     * @var string
+     */
+    protected $address;
     
     /**
      * @var string
@@ -89,6 +118,18 @@ class UserInfo implements UserInfoInterface
         return $this;
     }
     
+    public function getTitle()
+    {
+        return $this->title;
+    }
+    
+    public function setTitle( $title ) : self
+    {
+        $this->title = $title;
+        
+        return $this;
+    }
+    
     public function getFirstName()
     {
         return $this->firstName;
@@ -113,18 +154,6 @@ class UserInfo implements UserInfoInterface
         return $this;
     }
     
-    public function getCountry()
-    {
-        return $this->country;
-    }
-    
-    public function setCountry( $country ) : self
-    {
-        $this->country = $country;
-        
-        return $this;
-    }
-    
     public function getBirthday()
     {
         return $this->birthday;
@@ -137,6 +166,18 @@ class UserInfo implements UserInfoInterface
         return $this;
     }
     
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+    
+    public function setPhone( $phone ) : self
+    {
+        $this->phone = $phone;
+        
+        return $this;
+    }
+    
     public function getMobile()
     {
         return $this->mobile;
@@ -145,6 +186,66 @@ class UserInfo implements UserInfoInterface
     public function setMobile( $mobile ) : self
     {
         $this->mobile = $mobile;
+        
+        return $this;
+    }
+    
+    public function getCountry()
+    {
+        return $this->country;
+    }
+    
+    public function setCountry( $country ) : self
+    {
+        $this->country = $country;
+        
+        return $this;
+    }
+    
+    public function getCity()
+    {
+        return $this->city;
+    }
+    
+    public function setCity( $city ) : self
+    {
+        $this->city = $city;
+        
+        return $this;
+    }
+    
+    public function getState()
+    {
+        return $this->state;
+    }
+    
+    public function setState( $state ) : self
+    {
+        $this->state = $state;
+        
+        return $this;
+    }
+    
+    public function getZip()
+    {
+        return $this->zip;
+    }
+    
+    public function setZip( $zip ) : self
+    {
+        $this->zip = $zip;
+        
+        return $this;
+    }
+    
+    public function getAddress()
+    {
+        return $this->address;
+    }
+    
+    public function setAddress( $address ) : self
+    {
+        $this->address = $address;
         
         return $this;
     }
