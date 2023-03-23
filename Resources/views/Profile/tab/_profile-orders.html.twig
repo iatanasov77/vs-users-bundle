@@ -18,7 +18,7 @@
                     </thead>
                     <tbody>
                     {% for order in orders %}
-                        {% if order.status is not 'shopping_cart' %}
+                        {% if order.status != 'shopping_cart' %}
                             <tr>
                                 <td>{{ order.paymentMethod.name }}</td>
                                 <td style="text-align: center;">{{ order.totalAmount }} {{ order.currencyCode }}</td>
