@@ -24,54 +24,54 @@ class RegisterController extends AbstractController
     /**
      * @var UserAuthenticatorInterface
      */
-    private $guardHandler;
+    protected $guardHandler;
     
     /**
      * @var AnotherLoginFormAuthenticator
      */
-    private $authenticator;
+    protected $authenticator;
     
     /**
      * @var UserManager
      */
-    private $userManager;
+    protected $userManager;
     
     /**
      * @var RepositoryInterface
      */
-    private $usersRepository;
+    protected $usersRepository;
     
     /**
      * @var Factory
      */
-    private $usersFactory;
+    protected $usersFactory;
     
     /**
      * @var RepositoryInterface
      */
-    private $userRolesRepository;
+    protected $userRolesRepository;
     
     /**
      * @var MailerInterface
      */
-    private $mailer;
+    protected $mailer;
     
     /**
      * @var VerifyEmailHelperInterface
      */
-    private $verifyEmailHelper;
+    protected $verifyEmailHelper;
     
     /**
      * Needed to generate Api Token
      * 
      * @var VerifyEmailTokenGenerator
      */
-    private $tokenGenerator;
+    protected $tokenGenerator;
     
     /**
      * @var RepositoryInterface
      */
-    private $pagesRepository;
+    protected $pagesRepository;
     
     /** @var ManagerRegistry */
     protected ManagerRegistry $doctrine;
