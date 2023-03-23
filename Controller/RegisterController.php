@@ -228,7 +228,7 @@ class RegisterController extends AbstractController
         ];
     }
     
-    private function sendConfirmationMail( UserInterface $oUser, MailerInterface $mailer )
+    protected function sendConfirmationMail( UserInterface $oUser, MailerInterface $mailer )
     {
         $signatureComponents = $this->verifyEmailHelper->generateSignature(
                                     'vs_users_register_confirmation',
