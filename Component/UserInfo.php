@@ -3,7 +3,7 @@
 class UserInfo
 {
     const TITLE_MISTER  = 'Mr.';
-    const TITLE_MISSIS  = 'Mrs';
+    const TITLE_MISSIS  = 'Mrs.';
     const TITLE_MISS    = 'Miss';
     
     public static function choices()
