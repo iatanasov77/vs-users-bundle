@@ -17,7 +17,6 @@ class ForgotPasswordForm extends AbstractType
             
             ->add( 'email', EmailType::class, [
                 'label'                 => 'vs_users.template.forgot_password_form_email_placeholder',
-                'placeholder'           => 'vs_users.template.forgot_password_form_email_placeholder',
                 'translation_domain'    => 'VSUsersBundle'
             ])
             
