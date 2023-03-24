@@ -86,6 +86,8 @@ vs_users:
         register_already_member: 'Already member?'
         register_login_here: 'Login Here.'
         forgot_password_header_title: 'Forgot Password'
+        forgot_password_header_subtitle: Reset your password
+        forgot_password_header_description: Please enter the email address for your account. A verification code will be sent to you. Once you have received the verification code, you will be able to choose a new password for your account.
         forgot_password_email_header: 'Forgot Password email'
         forgot_password_email_text_1: 'Reset password link:'
         forgot_password_email_text_2: 'The Link is valid up to'

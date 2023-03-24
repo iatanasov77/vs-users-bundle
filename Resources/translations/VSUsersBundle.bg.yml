@@ -86,6 +86,8 @@ vs_users:
         register_already_member: 'Вече сте регистриран?'
         register_login_here: 'Логване тук.'
         forgot_password_header_title: 'Забравена Парола'
+        forgot_password_header_subtitle: Нулиране на Паролата
+        forgot_password_header_description: Моля, въведете имейл адреса за вашия акаунт. Ще ви бъде изпратен код за потвърждение. След като получите кода за потвърждение, ще можете да изберете нова парола за вашия акаунт.
         forgot_password_email_header: 'Емейл за Забравена Парола'
         forgot_password_email_text_1: 'Забравена парола линк:'
         forgot_password_email_text_2: 'Линкът е валиден до'
