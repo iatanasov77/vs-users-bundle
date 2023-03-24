@@ -1,6 +1,7 @@
 vs_users:
     form:
         generate_password: Generate Password
+        dont_have_accont: Don't have an account?
         
         profile:
             picture_lable: 'Profile picture'
@@ -23,6 +24,7 @@ vs_users:
             enabled: 'Enabled'
             verified: 'Verified'
             applications_allowed: Allowed Applications
+            submit: 'Submit'
             save: 'Save'
             cancel: 'Cancel'
     

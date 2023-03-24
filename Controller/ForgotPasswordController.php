@@ -17,6 +17,8 @@ use Sylius\Component\Resource\Factory\Factory;
 use Vankosoft\UsersBundle\Model\UserInterface;
 use Vankosoft\UsersBundle\Repository\ResetPasswordRequestRepository;
 use Vankosoft\UsersBundle\Security\UserManager;
+use Vankosoft\UsersBundle\Form\ChangePasswordFormType;
+use Vankosoft\UsersBundle\Form\ForgotPasswordForm;
 
 class ForgotPasswordController extends AbstractController
 {
@@ -33,27 +35,27 @@ class ForgotPasswordController extends AbstractController
     /**
      * @var ResetPasswordRequestRepository
      */
-    private $repository;
+    protected $repository;
     
     /**
      * @var RepositoryInterface
      */
-    private $usersRepository;
+    protected $usersRepository;
     
     /**
      * @var MailerInterface
      */
-    private $mailer;
+    protected $mailer;
     
     /**
      * @var UserManager
      */
-    private $userManager;
+    protected $userManager;
     
     /**
      * @var array
      */
-    private $params;
+    protected $params;
     
     public function __construct(
         ManagerRegistry $doctrine,
@@ -87,8 +89,10 @@ class ForgotPasswordController extends AbstractController
     
     public function indexAction( Request $request, MailerInterface $mailer ) : Response
     {
-        if ( $request->isMethod( 'POST' ) ) {
-            $email  = $request->request->get( 'email' );
+        $form   = $this->getForgotPasswordForm();
+        $form->handleRequest( $request );
+        if (  $form->isSubmitted() ) {
+            $email  = $form->get( 'email' );
             $user   = $this->usersRepository->findOneBy( ['email' => $email] );
             if ( ! $user ) {
                 $this->addFlash( 'error', 'This email not found !' );
@@ -117,29 +121,47 @@ class ForgotPasswordController extends AbstractController
             $tokenExpired   = true;
         }
         
-        if ( $request->isMethod( 'POST' ) && ! $tokenExpired ) {
-            $password           = $request->request->get( 'password' );
-            $passwordConfirm    = $request->request->get( 'password_confirm' );
-            if ( $password === $passwordConfirm ) {
-                $em = $this->doctrine->getManager();
-                
-                $this->userManager->encodePassword( $oUser, $password );
-                $em->persist( $oUser );
-                $em->flush();
-                
-                $this->resetPasswordHelper->removeResetRequest( $token );
-                
-                return $this->redirectToRoute( 'app_login' ); // Success change password ;)
-            }
+        $form   = $this->getChangePasswordForm( $token );
+        $form->handleRequest( $request );
+        if ( $form->isSubmitted() && ! $tokenExpired ) {
+            $password   = $form->get( "password" )->getData();
+            
+            $em         = $this->doctrine->getManager();
+            $this->userManager->encodePassword( $oUser, $password );
+            $em->persist( $oUser );
+            $em->flush();
+            
+            $this->resetPasswordHelper->removeResetRequest( $token );
+            
+            return $this->redirectToRoute( 'app_login' ); // Success change password ;)
         }
         
         return $this->render( '@VSUsers/Resetting/change_password.html.twig', [
             'user'  => $oUser,
             'token' => $token,
+            'form'  => $form->createView(),
         ]);
     }
     
-    private function sendMail( UserInterface $oUser, MailerInterface $mailer )
+    protected function getForgotPasswordForm()
+    {
+        $form   = $this->createForm( ForgotPasswordForm::class, null, [
+            'action'    => $this->generateUrl( 'vs_users_forgot_password_form' ),
+        ]);
+        
+        return $form;
+    }
+    
+    protected function getChangePasswordForm( string $token )
+    {
+        $form   = $this->createForm( ChangePasswordFormType::class, null, [
+            'action'    => $this->generateUrl( 'vs_users_forgot_password_reset', ['token' => $token] ),
+        ]);
+        
+        return $form;
+    }
+    
+    protected function sendMail( UserInterface $oUser, MailerInterface $mailer )
     {
         $resetToken = $this->resetPasswordHelper->generateResetToken( $oUser );
         $resetUrl   = $this->generateUrl(

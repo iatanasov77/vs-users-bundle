@@ -14,7 +14,13 @@ use Vankosoft\UsersBundle\Model\UserInterface;
 class ChangePasswordFormType extends AbstractType
 {
     public function buildForm( FormBuilderInterface $builder, array $options )
-    {        
+    {
+        /*
+        if ( $options['action'] ) {
+            $builder->setAction( $options['action'] );
+        }
+        */
+        
         $builder
             ->setMethod( 'POST' )
             

@@ -1,6 +1,7 @@
 vs_users:
     form:
         generate_password: Генерирай Парола
+        dont_have_accont: Нямате Акаунт?
         
         profile:
             picture_lable: 'Снимка на Профила'
@@ -23,7 +24,8 @@ vs_users:
             enabled: 'Разрешен'
             verified: 'Проверен'
             applications_allowed: Разрешени Приложения
-            save: 'Save'
+            submit: 'Изпрати'
+            save: 'Запази'
             cancel: 'Отмени'
     
         registration:
