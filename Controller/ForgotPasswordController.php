@@ -109,7 +109,9 @@ class ForgotPasswordController extends AbstractController
             return $this->redirectToRoute( 'app_login' );
         }
         
-        return $this->render( '@VSUsers/Resetting/forgot_password.html.twig' );
+        return $this->render( '@VSUsers/Resetting/forgot_password.html.twig', [
+            'form'  => $form->createView(),
+        ]);
     }
     
     public function resetAction( string $token, Request $request ) : Response
