@@ -92,7 +92,7 @@ class ForgotPasswordController extends AbstractController
         $form   = $this->getForgotPasswordForm();
         $form->handleRequest( $request );
         if (  $form->isSubmitted() ) {
-            $email  = $form->get( 'email' );
+            $email  = $form->get( 'email' )->getData();
             $user   = $this->usersRepository->findOneBy( ['email' => $email] );
             if ( ! $user ) {
                 $this->addFlash( 'error', 'This email not found !' );
