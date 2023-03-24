@@ -160,8 +160,7 @@ class ProfileController extends AbstractController
     
     protected function getOtherForms(): array
     {
-        $changePasswordForm = $this->createForm( ChangePasswordFormType::class, $this->getUser(), [
-            'data'      => $this->getUser(),
+        $changePasswordForm = $this->createForm( ChangePasswordFormType::class, null, [
             'action'    => $this->generateUrl( 'vs_users_profile_change_password' ),
             'method'    => 'POST',
         ]);

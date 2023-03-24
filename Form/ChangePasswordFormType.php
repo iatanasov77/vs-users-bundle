@@ -9,18 +9,10 @@ use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 
-use Vankosoft\UsersBundle\Model\UserInterface;
-
 class ChangePasswordFormType extends AbstractType
 {
     public function buildForm( FormBuilderInterface $builder, array $options )
     {
-        /*
-        if ( $options['action'] ) {
-            $builder->setAction( $options['action'] );
-        }
-        */
-        
         $builder
             ->setMethod( 'POST' )
             
@@ -55,14 +47,8 @@ class ChangePasswordFormType extends AbstractType
         parent::configureOptions( $resolver );
         
         $resolver
-            ->setDefined([
-                'users',
-            ])
-            ->setAllowedTypes( 'users', UserInterface::class )
-            
             ->setDefaults([
                 'csrf_protection'   => false,
-                'data_class'        => UserInterface::class,
             ])
         ;
     }
