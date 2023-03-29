@@ -36,3 +36,12 @@ services:
             - '@vs_users.manager.user'
         tags:
             - { name: console.command }
+            
+    vs_users.command.change_password:
+        class: Vankosoft\UsersBundle\Command\ChangePasswordCommand
+        arguments:
+            - '@vs_users.manager.user'
+            - "@vs_users.repository.users"
+        tags:
+            - { name: console.command }
+    
