@@ -3,6 +3,7 @@
 use Vankosoft\ApplicationBundle\Form\AbstractForm;
 use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -16,13 +17,16 @@ class UserRoleForm extends AbstractForm
 {
     protected $roleClass;
     
+    protected $requestStack;
+    
     protected $repository;
     
-    public function __construct( string $dataClass, EntityRepository $repository )
+    public function __construct( string $dataClass, RequestStack $requestStack, EntityRepository $repository )
     {
         parent::__construct( $dataClass );
         
         $this->roleClass    = $dataClass;
+        $this->requestStack = $requestStack;
         $this->repository   = $repository;
     }
     
@@ -30,8 +34,9 @@ class UserRoleForm extends AbstractForm
     {
         parent::buildForm( $builder, $options );
         
-        $role       = $options['data'];
-        $formMethod = $role && $role->getId() ? 'PUT' : 'POST';
+        $role           = $options['data'];
+        $formMethod     = $role && $role->getId() ? 'PUT' : 'POST';
+        $currentLocale  = $this->requestStack->getCurrentRequest()->getLocale();
         
         $builder
             ->setMethod( $formMethod )
@@ -40,6 +45,7 @@ class UserRoleForm extends AbstractForm
                 'label'                 => 'vs_users.form.user_role.locale',
                 'translation_domain'    => 'VSUsersBundle',
                 'choices'               => \array_flip( I18N::LanguagesAvailable() ),
+                'data'                  => $currentLocale,
                 'mapped'                => false,
             ])
             
