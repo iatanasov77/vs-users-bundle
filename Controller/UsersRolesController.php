@@ -52,6 +52,10 @@ class UsersRolesController extends AbstractCrudController
                 $entity->getTaxon()->setParent( $parentRole->getTaxon() );
             }
             
+            if ( ! $entity->getTaxon()->getTranslation()->getSlug() ) {
+                $entity->getTaxon()->getTranslation()->setSlug( $entity->getTaxon()->getCode() );
+            }
+            
             $entity->setParent( $parentRole );
         } else {
             /*
