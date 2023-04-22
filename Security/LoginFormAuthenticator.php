@@ -7,6 +7,7 @@ use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\PasswordCredentials;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\CsrfTokenBadge;
+use Symfony\Component\Security\Http\Authenticator\Passport\Badge\RememberMeBadge;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -65,7 +66,10 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
         return new Passport(
             new UserBadge( $username ),
             new PasswordCredentials( $password ),
-            [new CsrfTokenBadge( 'authenticate', $csrfToken )]
+            [
+                new CsrfTokenBadge( 'authenticate', $csrfToken ),
+                new RememberMeBadge(),
+            ]
         );
     }
     
