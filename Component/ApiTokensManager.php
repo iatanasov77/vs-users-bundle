@@ -27,4 +27,11 @@ class ApiTokensManager
         
         return $signature;
     }
+    
+    public function verifySignature( string $signedUrl, string $userId, string $userEmail ): bool
+    {
+        $this->verifyEmailHelper->validateEmailConfirmation( $signedUrl, $userId, $userEmail );
+        
+        return true;
+    }
 }
