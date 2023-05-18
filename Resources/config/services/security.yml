@@ -114,10 +114,3 @@ services:
             }
         tags:
             - { name: 'kernel.event_listener', event: 'kernel.exception', method: 'onKernelException' }
-            
-    vs_users.api_tokens_manager:
-        class: Vankosoft\UsersBundle\Component\ApiTokensManager
-        arguments:
-            - '@?symfonycasts.verify_email.helper'
-
-
