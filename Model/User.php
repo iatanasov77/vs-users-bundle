@@ -205,6 +205,14 @@ class User implements UserInterface
         return $this->notifications;
     }
     
+    public function getUnreadedNotifications(): Collection
+    {
+        return $this->getNotifications()->filter( function( UserNotificationInterface $notification )
+        {
+            return ! $notification->isReaded();
+        });
+    }
+    
     public function getUserIdentifier(): string
     {
         return $this->username;
