@@ -104,7 +104,7 @@ class User implements UserInterface
         return $this->info;
     }
     
-    public function setInfo( UserInfo $info ) : self
+    public function setInfo( UserInfo $info ): self
     {
         $this->info = $info;
         
@@ -116,7 +116,7 @@ class User implements UserInterface
         return $this->username;
     }
     
-    public function setUsername( $username ) : self
+    public function setUsername( $username ): self
     {
         $this->username = $username;
         
@@ -128,7 +128,7 @@ class User implements UserInterface
         return $this->email;
     }
     
-    public function setEmail( $email ) : self
+    public function setEmail( $email ): self
     {
         $this->email = $email;
         
@@ -140,7 +140,7 @@ class User implements UserInterface
         return $this->preferedLocale;
     }
     
-    public function setPreferedLocale( $preferedLocale ) : self
+    public function setPreferedLocale( $preferedLocale ): self
     {
         $this->preferedLocale   = $preferedLocale;
         
@@ -152,7 +152,7 @@ class User implements UserInterface
         return $this->lastLogin;
     }
     
-    public function setLastLogin( \DateTime $time = null ) : self
+    public function setLastLogin( \DateTime $time = null ): self
     {
         $this->lastLogin = $time;
         
@@ -171,7 +171,7 @@ class User implements UserInterface
         return $this;
     }
     
-    public function setVerified( $verified ) : self
+    public function setVerified( $verified ): self
     {
         $this->verified = (bool) $verified;
         
@@ -183,7 +183,7 @@ class User implements UserInterface
         return $this->verified;
     }
     
-    public function setEnabled( $boolean ) : self
+    public function setEnabled( $boolean ): self
     {
         $this->enabled = (bool) $boolean;
         
@@ -195,12 +195,12 @@ class User implements UserInterface
         return $this->enabled;
     }
     
-    public function getActivities() : Collection
+    public function getActivities(): Collection
     {
         return $this->activities;
     }
     
-    public function getNotifications() : Collection
+    public function getNotifications(): Collection
     {
         return $this->notifications;
     }

@@ -20,64 +20,84 @@ class UserNotification implements UserNotificationInterface
 
     /** @var \DateTimeInterface */
     protected $date;
+    
+    /** @var bool */
+    protected $readed;
 
-    function getId()
+    public function getId()
     {
         return $this->id;
     }
 
-    function getUser()
+    public function getUser()
     {
         return $this->user;
     }
 
-    function getDate()
+    public function getDate()
     {
         return $this->date;
     }
 
-    function setId($id)
+    public function setId($id)
     {
         $this->id = $id;
         
         return $this;
     }
 
-    function setUser($user)
+    public function setUser($user)
     {
         $this->user = $user;
         
         return $this;
     }
 
-    function setDate($date)
+    public function setDate($date)
     {
         $this->date = $date;
         
         return $this;
     }
     
-    function setNotificationFrom($notificationFrom)
+    public function setNotificationFrom($notificationFrom)
     {
         $this->notificationFrom = $notificationFrom;
         
         return $this;
     }
     
-    function getNotificationFrom()
+    public function getNotificationFrom()
     {
         return $this->notificationFrom;
     }
     
-    function setNotification($notification)
+    public function setNotification($notification)
     {
         $this->notification = $notification;
         
         return $this;
     }
 
-    function getNotification()
+    public function getNotification()
     {
         return $this->notification;
+    }
+    
+    public function getReaded()
+    {
+        return $this->readed;
+    }
+    
+    public function setReaded( $readed ): self
+    {
+        $this->readed = (bool) $readed;
+        
+        return $this;
+    }
+    
+    public function isReaded()
+    {
+        return $this->readed;
     }
 }
