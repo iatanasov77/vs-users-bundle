@@ -1,0 +1,19 @@
+<h3>{{ 'vs_users.template.profile_notifications' | trans( {},'VSUsersBundle' ) }}</h3>
+<section class="panel">
+    <div class="panel-body bio-graph-info profile-notification">
+    	{% for notification in user.notifications %}                                       
+    	    <div class="act-time">                                      
+    	        <div class="notification-body act-in">
+    	            <span class="arrow"></span>
+    	            <div class="text">
+    	                <a class="notification-list-user-img" href="#"><img alt="" src="img/chat-avatar.jpg" class="user-avatar-md rounded-circle"></a>
+    	                <p class="attribution">
+    	                   <a href="#">{{ 'vs_users.template.profile_notification_name' | trans( {},'VSUsersBundle' ) }}</a> at {{ notification.date | date( "g:ia , jS F Y ( l )" ) }}
+    	                </p>
+    	                <p>{{ notification.notification }}</p>
+    	            </div>
+    	        </div>
+    	    </div>
+    	{% endfor %}
+    </div>
+</section>
