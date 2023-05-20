@@ -61,11 +61,17 @@
             <cascade>
                 <cascade-all/>
             </cascade>
+            <order-by>
+                <order-by-field name="date" direction="DESC" />
+            </order-by>
         </one-to-many>
         <one-to-many field="notifications" target-entity="Vankosoft\UsersBundle\Model\UserNotificationInterface" mapped-by="user">
             <cascade>
                 <cascade-all/>
             </cascade>
+            <order-by>
+                <order-by-field name="date" direction="DESC" />
+            </order-by>
         </one-to-many>
     </mapped-superclass>
 </doctrine-mapping>
