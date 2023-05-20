@@ -117,5 +117,5 @@ vs_users:
         users_roles_create_title: Create User Role
         users_roles_update_form_title: User Role
         
-        profile_notifications: Notifications
-        profile_notification_name: Notification
+        profile_notifications: 'Notifications'
+        profile_notification_name: 'Notification'

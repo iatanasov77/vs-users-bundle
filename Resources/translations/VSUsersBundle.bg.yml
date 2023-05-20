@@ -116,3 +116,6 @@ vs_users:
         users_roles_update_title: Редактиране на Потребителска Роля
         users_roles_create_title: Създаване на Потребителска Роля
         users_roles_update_form_title: Потребителска Роля
+        
+        profile_notifications: 'Известия'
+        profile_notification_name: 'Известие'

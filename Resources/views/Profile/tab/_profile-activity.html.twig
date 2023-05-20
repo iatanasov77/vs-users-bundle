@@ -6,7 +6,7 @@
     	        <div class="activity-body act-in">
     	            <span class="arrow"></span>
     	            <div class="text">
-    	                <a class="activity-img" href="#"><img alt="" src="img/chat-avatar.jpg" class="avatar"></a>
+    	                <a class="activity-img" href="#"><img alt="" src="{{ asset( '/build/default/images/avatar-2.jpg' ) }}" class="user-avatar-md rounded-circle"></a>
     	                <p class="attribution"><a href="#">{{ 'vs_users.template.profile_activity_name' | trans( {},'VSUsersBundle' ) }}</a> at {{ activity.date | date( "g:ia , jS F Y ( l )" ) }}</p>
     	                <p>{{ activity.activity }}</p>
     	            </div>
