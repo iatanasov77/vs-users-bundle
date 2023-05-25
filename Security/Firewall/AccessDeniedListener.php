@@ -26,7 +26,7 @@ class AccessDeniedListener implements EventSubscriberInterface
             $this->params           = $params;
     }
     
-    public static function getSubscribedEvents(): array
+    public function getSubscribedEvents(): array
     {
         return [
             // the priority must be greater than the Security HTTP
