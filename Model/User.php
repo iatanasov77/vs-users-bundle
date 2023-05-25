@@ -200,6 +200,13 @@ class User implements UserInterface
         return $this->activities;
     }
     
+    public function addActivity( UserActivityInterface $activity ): self
+    {
+        $this->activities[] = $activity;
+        
+        return $this;
+    }
+    
     public function getNotifications(): Collection
     {
         return $this->notifications;
