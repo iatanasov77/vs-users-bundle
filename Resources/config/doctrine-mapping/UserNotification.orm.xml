@@ -13,6 +13,7 @@
         
         <field name="notificationFrom" column="notification_from" type="string" nullable="false" />
         <field name="notification" column="notification" type="string" nullable="false" />
+        <field name="notificationBody" column="notification_body" type="text" nullable="true" />
         
         <field name="readed" column="readed" type="boolean" nullable="true" />
         <field name="date" column="date" type="datetime" nullable="false">

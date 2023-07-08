@@ -15,4 +15,10 @@ interface UserNotificationInterface extends ResourceInterface
     
     /** @return string */
     public function getNotification();
+    
+    /** @return string */
+    public function getNotificationBody();
+    
+    /** @return bool */
+    public function getReaded();
 }

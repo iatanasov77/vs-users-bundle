@@ -17,6 +17,9 @@ class UserNotification implements UserNotificationInterface
     
     /** @var string */
     protected $notification;
+    
+    /** @var string */
+    protected $notificationBody;
 
     /** @var \DateTimeInterface */
     protected $date;
@@ -82,6 +85,18 @@ class UserNotification implements UserNotificationInterface
     public function getNotification()
     {
         return $this->notification;
+    }
+    
+    public function setNotificationBody($notificationBody)
+    {
+        $this->notificationBody = $notificationBody;
+        
+        return $this;
+    }
+    
+    public function getNotificationBody()
+    {
+        return $this->notificationBody;
     }
     
     public function getReaded()
