@@ -73,7 +73,7 @@ class UserRole implements UserRoleInterface
         $this->taxon = $taxon;
     }
     
-    public function getName()
+    public function getName(): string
     {
         return $this->taxon ? $this->taxon->getName() : '';
     }
@@ -92,7 +92,7 @@ class UserRole implements UserRoleInterface
     /**
      * {@inheritdoc}
      */
-    public function getParent(): ?UserRoleInterface
+    public function getParent()
     {
         return $this->parent;
     }

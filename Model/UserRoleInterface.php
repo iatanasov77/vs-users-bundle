@@ -1,15 +1,10 @@
 <?php namespace Vankosoft\UsersBundle\Model;
 
-use Sylius\Component\Resource\Model\ResourceInterface;
+use Vankosoft\ApplicationBundle\Model\Interfaces\VankosoftCategoryInterface;
 use Doctrine\Common\Collections\Collection;
 
-interface UserRoleInterface extends ResourceInterface
+interface UserRoleInterface extends VankosoftCategoryInterface
 {
-    public function getName();
     public function getRole();
-    
-    public function getParent(): ?UserRoleInterface;
-    public function getChildren() : Collection;
-    
     public function getUsers(): Collection;
 }
