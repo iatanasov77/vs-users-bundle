@@ -51,6 +51,7 @@ vs_users:
             locale: Език
             name: Име
             role: Роля
+            description: Описание на Роля
             parent_role: Родителска Роля
             parent_role_placeholder: '-- Избери Родителска Роля --'
             parent_role_no_parent: Няма Родител
@@ -111,6 +112,7 @@ vs_users:
         userscrud_delete_title: 'Изтриване на Потребител'
         users_roles_index_title: Потребителски Роли
         users_roles_index_row_role: Роля
+        users_roles_index_row_role_description: Описание на Роля
         users_roles_index_row_actions: Действия
         users_roles_index_button_edit: Редакция
         users_roles_update_title: Редактиране на Потребителска Роля

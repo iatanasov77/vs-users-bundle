@@ -59,6 +59,11 @@ class UserRoleForm extends AbstractForm
                 'translation_domain'    => 'VSUsersBundle',
             ])
             
+            ->add( 'description', TextType::class, [
+                'label'                 => 'vs_users.form.user_role.description',
+                'translation_domain'    => 'VSUsersBundle',
+            ])
+            
             ->add( 'parent', EntityType::class, [
                 'label'                 => 'vs_users.form.user_role.parent_role',
                 'translation_domain'    => 'VSUsersBundle',

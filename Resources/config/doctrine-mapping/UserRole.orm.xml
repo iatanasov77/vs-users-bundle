@@ -10,6 +10,7 @@
         </id>
       	
       	<field name="role" column="role" type="string" length="255" nullable="false" unique="true" />
+      	<field name="description" column="description" type="string" length="255" nullable="true" />
         
         <one-to-one field="taxon" name="taxon_id" target-entity="Vankosoft\ApplicationBundle\Model\Interfaces\TaxonInterface" orphan-removal="true">
             <cascade>

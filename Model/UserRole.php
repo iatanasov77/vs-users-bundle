@@ -19,6 +19,9 @@ class UserRole implements UserRoleInterface
     /** @var string */
     protected $role;
     
+    /** @var string */
+    protected $description;
+    
     /** @var TaxonInterface */
     protected $taxon;
     
@@ -53,6 +56,18 @@ class UserRole implements UserRoleInterface
     public function setRole( $role ) : UserRoleInterface
     {
         $this->role = $role;
+        
+        return $this;
+    }
+    
+    public function getDescription()
+    {
+        return $this->role;
+    }
+    
+    public function setDescription( $description ) : UserRoleInterface
+    {
+        $this->description  = $description;
         
         return $this;
     }

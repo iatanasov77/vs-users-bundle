@@ -51,6 +51,7 @@ vs_users:
             locale: Language
             name: Name
             role: Role
+            description: Role Description
             parent_role: Parent Role
             parent_role_placeholder: '-- Select Parent Role --'
             parent_role_no_parent: No Parent
@@ -111,6 +112,7 @@ vs_users:
         userscrud_delete_title: 'Delete User'
         users_roles_index_title: User Roles
         users_roles_index_row_role: Role
+        users_roles_index_row_role_description: Role Description
         users_roles_index_row_actions: Actions
         users_roles_index_button_edit: Edit
         users_roles_update_title: Edit User Role
