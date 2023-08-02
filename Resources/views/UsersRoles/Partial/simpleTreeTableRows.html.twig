@@ -3,11 +3,6 @@
     <td>{{ item.role }}</td>
     <td>{{ item.description }}</td>
     <td>
-    {#
-    	<a href="{{ path('vs_users_user_roles_update', {'id': item.id}) }}">
-    		{{ 'vs_users.template.users_roles_index_button_edit' | trans( {},'VSUsersBundle' ) }}
-    	</a>
-    #}
     	<a class="btn btn-primary"
         	href="{{ path('vs_users_user_roles_update', {'id': item.id}) }}"
         	title="{{ 'vs_cms.template.button_edit' | trans( {},'VSCmsBundle' ) }}"

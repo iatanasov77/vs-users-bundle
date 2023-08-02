@@ -62,7 +62,7 @@ class UserRole implements UserRoleInterface
     
     public function getDescription()
     {
-        return $this->role;
+        return $this->description;
     }
     
     public function setDescription( $description ) : UserRoleInterface
