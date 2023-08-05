@@ -12,6 +12,7 @@ vs_users:
                 new_password_repeat: 'Потвърди Нова Парола'
         user:
             prefered_locale: 'Предпочитан Език'
+            prefered_locale_placeholder: '-- Избери Предпочитан Език --'
             roles: 'Потребителски Роли'
             roles_placeholder: '-- Избери Потребителски Роли --'
             email: 'Емейл'

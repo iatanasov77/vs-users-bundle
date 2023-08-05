@@ -3,6 +3,7 @@
 use Vankosoft\ApplicationBundle\Form\AbstractForm;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
@@ -29,21 +30,27 @@ class UserFormType extends AbstractForm
     protected $auth;
     
     public function __construct(
-        RequestStack $requestStack,
         string $dataClass,
+        RepositoryInterface $localesRepository,
+        RequestStack $requestStack,
         string $applicationClass,
         AuthorizationCheckerInterface $auth
     ) {
         parent::__construct( $dataClass );
         
-        $this->requestStack     = $requestStack;
-        $this->applicationClass = $applicationClass;
-        $this->auth             = $auth;
+        $this->localesRepository    = $localesRepository;
+        $this->requestStack         = $requestStack;
+        
+        $this->applicationClass     = $applicationClass;
+        $this->auth                 = $auth;
     }
 
     public function buildForm( FormBuilderInterface $builder, array $options ): void
     {
         parent::buildForm( $builder, $options );
+        
+        $entity         = $builder->getData();
+        $currentLocale  = $entity->getPreferedLocale() ?: $this->requestStack->getCurrentRequest()->getLocale();
         
         $builder
             ->setMethod( 'PUT' )
@@ -61,8 +68,10 @@ class UserFormType extends AbstractForm
             ->add( 'prefered_locale', ChoiceType::class, [
                 'label'                 => 'vs_users.form.user.prefered_locale',
                 'translation_domain'    => 'VSUsersBundle',
-                'choices'               => \array_flip( \Vankosoft\ApplicationBundle\Component\I18N::LanguagesAvailable() ),
-                'data'                  => $this->requestStack->getCurrentRequest()->getLocale(),
+                'choices'               => \array_flip( $this->fillLocaleChoices() ),
+                'data'                  => $currentLocale,
+                'placeholder'           => 'vs_users.form.user.prefered_locale_placeholder',
+                'required'              => false,
             ])
         
             ->add( 'email', EmailType::class, [

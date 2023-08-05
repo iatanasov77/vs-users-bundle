@@ -48,7 +48,7 @@
         
         <field name="username" column="username" type="string" nullable="false" />
         <field name="email" column="email" type="string" nullable="false" />
-        <field name="preferedLocale" column="prefered_locale" type="string" nullable="false" />
+        <field name="preferedLocale" column="prefered_locale" type="string" nullable="true" />
         
         <field name="lastLogin" column="last_login" type="datetime" nullable="true" />
         <field name="confirmationToken" column="confirmation_token" type="string" nullable="true" />

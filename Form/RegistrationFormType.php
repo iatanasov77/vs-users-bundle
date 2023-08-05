@@ -2,6 +2,7 @@
 
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
@@ -17,9 +18,14 @@ use Vankosoft\UsersBundle\Model\UserInterface;
  */
 class RegistrationFormType extends UserFormType
 {
-    public function __construct( RequestStack $requestStack, string $dataClass, string $applicationClass, AuthorizationCheckerInterface $auth )
-    {
-        parent::__construct( $requestStack, $dataClass, $applicationClass, $auth );
+    public function __construct(
+        string $dataClass,
+        RepositoryInterface $localesRepository,
+        RequestStack $requestStack,
+        string $applicationClass,
+        AuthorizationCheckerInterface $auth
+    ) {
+        parent::__construct( $dataClass, $localesRepository, $requestStack, $applicationClass, $auth );
     }
     
     public function buildForm( FormBuilderInterface $builder, array $options ): void

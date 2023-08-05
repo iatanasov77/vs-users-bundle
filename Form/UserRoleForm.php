@@ -3,6 +3,7 @@
 use Vankosoft\ApplicationBundle\Form\AbstractForm;
 use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\FormBuilderInterface;
+use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -11,23 +12,28 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
-use Vankosoft\ApplicationBundle\Component\I18N;
-
 class UserRoleForm extends AbstractForm
 {
+    /** @var string */
     protected $roleClass;
     
-    protected $requestStack;
-    
+    /** @var RepositoryInterface */
     protected $repository;
     
-    public function __construct( string $dataClass, RequestStack $requestStack, EntityRepository $repository )
-    {
+    public function __construct(
+        string $dataClass,
+        RepositoryInterface $localesRepository,
+        RequestStack $requestStack,
+        RepositoryInterface $repository
+    ) {
         parent::__construct( $dataClass );
         
-        $this->roleClass    = $dataClass;
-        $this->requestStack = $requestStack;
-        $this->repository   = $repository;
+        $this->roleClass            = $dataClass;
+        
+        $this->localesRepository    = $localesRepository;
+        $this->requestStack         = $requestStack;
+        
+        $this->repository           = $repository;
     }
     
     public function buildForm( FormBuilderInterface $builder, array $options ): void
@@ -44,7 +50,7 @@ class UserRoleForm extends AbstractForm
             ->add( 'currentLocale', ChoiceType::class, [
                 'label'                 => 'vs_users.form.user_role.locale',
                 'translation_domain'    => 'VSUsersBundle',
-                'choices'               => \array_flip( I18N::LanguagesAvailable() ),
+                'choices'               => \array_flip( $this->fillLocaleChoices() ),
                 'data'                  => $currentLocale,
                 'mapped'                => false,
             ])

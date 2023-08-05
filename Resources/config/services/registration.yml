@@ -35,8 +35,9 @@ services:
         tags:
             - { name: form.type, alias: vs_users_profile }
         arguments:
-            - "@request_stack"
             - '%vs_users.model.users.class%'
+            - '@vs_application.repository.locale'
+            - "@request_stack"
             - '%vs_application.model.application.class%'
             - '@security.helper'
             
@@ -45,7 +46,8 @@ services:
         tags:
             - { name: form.type, alias: vs_users_registration }
         arguments:
-            - "@request_stack"
             - '%vs_users.model.users.class%'
+            - '@vs_application.repository.locale'
+            - "@request_stack"
             - '%vs_application.model.application.class%'
             - '@security.helper'
