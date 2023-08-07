@@ -14,6 +14,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Sylius\Component\Resource\Factory\Factory;
 
+use Vankosoft\ApplicationBundle\Component\Context\ApplicationContextInterface;
 use Vankosoft\UsersBundle\Security\UserManager;
 use Vankosoft\UsersBundle\Form\RegistrationFormType;
 use Vankosoft\UsersBundle\Model\UserInterface;
@@ -30,6 +31,11 @@ class RegisterController extends AbstractController
      * @var AnotherLoginFormAuthenticator
      */
     protected $authenticator;
+    
+    /**
+     * @var ApplicationContextInterface
+     */
+    protected $applicationContext;
     
     /**
      * @var UserManager
@@ -83,6 +89,7 @@ class RegisterController extends AbstractController
 
     public function __construct(
         ManagerRegistry $doctrine,
+        ApplicationContextInterface $applicationContext,
         UserManager $userManager,
         RepositoryInterface $usersRepository,
         Factory $usersFactory,
@@ -95,6 +102,7 @@ class RegisterController extends AbstractController
         array $parameters
     ) {
         $this->doctrine             = $doctrine;
+        $this->applicationContext   = $applicationContext;
         $this->userManager          = $userManager;
         $this->usersRepository      = $usersRepository;
         $this->usersFactory         = $usersFactory;
@@ -147,6 +155,7 @@ class RegisterController extends AbstractController
             );
             
             $oUser->addRole( $this->userRolesRepository->findByTaxonCode( $this->params['registerRole'] ) );
+            $oUser->addApplication( $this->applicationContext->getApplication() );
             
             $oUser->setPreferedLocale( $request->getLocale() );
             $oUser->setVerified( false );
