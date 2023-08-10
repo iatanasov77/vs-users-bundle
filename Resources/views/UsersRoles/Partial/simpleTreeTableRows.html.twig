@@ -9,6 +9,8 @@
         >
             <i class="fas fa-edit"></i>
         </a>
+        
+    {% if item.role != 'ROLE_SUPER_ADMIN' %}
         <a class="btn btn-danger btnDeleteResource" 
         	href="{{ path('vs_users_user_roles_delete', {'id': item.id}) }}"
         	data-csrfToken="{{ csrf_token( item.id ) }}"
@@ -16,6 +18,7 @@
         >
             <i class="icon_close_alt2"></i>
         </a>
+    {% endif %}
     </td>
 </tr>
 
