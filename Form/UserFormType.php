@@ -90,6 +90,7 @@ class UserFormType extends AbstractForm
                 'first_options'         => ['label' => 'vs_users.form.user.password'],
                 'second_options'        => ['label' => 'vs_users.form.user.password_repeat'],
                 "mapped"                => false,
+                'required'              => is_null( $entity->getId() ),
             ])
             
             // https://symfony.com/doc/current/security.html#hierarchical-roles
