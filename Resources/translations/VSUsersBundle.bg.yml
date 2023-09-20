@@ -1,4 +1,8 @@
 vs_users:
+    security:
+        authentication_success: 'Удостоверяването е успешно !'
+        authentication_failure: 'Грешка при удостоверяване !'
+        
     form:
         generate_password: Генерирай Парола
         dont_have_accont: Нямате Акаунт?

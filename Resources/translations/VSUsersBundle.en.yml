@@ -1,4 +1,8 @@
 vs_users:
+    security:
+        authentication_success: 'Authentication Successful !'
+        authentication_failure: 'Authentication Failure !'
+    
     form:
         generate_password: Generate Password
         dont_have_accont: Don't have an account?

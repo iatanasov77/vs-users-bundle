@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
+use Symfony\Component\Security\Http\SecurityRequestAttributes;
 
 use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -20,6 +21,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\HttpFoundation\Cookie;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 use Doctrine\ORM\EntityManager;
 
@@ -30,13 +32,25 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
 {
     use TargetPathTrait;
     
+    /** @var EntityManager */
     private $entityManager;
+    
+    /** @var UrlGeneratorInterface */
     private $urlGenerator;
+    
+    /** @var CsrfTokenManagerInterface */
     private $csrfTokenManager;
     
+    /** @var UsersRepository */
     private $userRepository;
+    
+    /** @var PasswordHasherFactoryInterface */
     private $encoderFactory;
     
+    /** @var TranslatorInterface */
+    private $translator;
+    
+    /** @var array */
     private $params;
     
     public function __construct (
@@ -45,6 +59,7 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
         PasswordHasherFactoryInterface $encoderFactory,
         UsersRepository $userRepository,
         EntityManager $entityManager,
+        TranslatorInterface $translator,
         array $params
     ) {
         $this->urlGenerator     = $urlGenerator;
@@ -52,6 +67,7 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
         $this->encoderFactory   = $encoderFactory;
         $this->userRepository   = $userRepository;
         $this->entityManager    = $entityManager;
+        $this->translator       = $translator;
         $this->params           = $params;
     }
     
@@ -75,6 +91,11 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
     
     public function onAuthenticationSuccess( Request $request, TokenInterface $token, string $firewallName ): ?Response
     {
+        if ( $request->hasSession() ) {
+            $request->getSession()->getFlashBag()
+                ->add( 'notice', $this->translator->trans( 'vs_users.security.authentication_success', [], 'VSUsersBundle' ) );
+        }
+        
         $user   = $token->getUser();
         
         $user->setLastLogin( new \DateTime() );
@@ -83,6 +104,22 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
         
         // on success, let the request continue
         return null;
+    }
+    
+    /**
+     * {@inheritdoc}
+     */
+    public function onAuthenticationFailure( Request $request, AuthenticationException $exception ): Response
+    {
+        if ( $request->hasSession() ) {
+            $request->getSession()->set( SecurityRequestAttributes::AUTHENTICATION_ERROR, $exception );
+            $request->getSession()->getFlashBag()
+                ->add( 'error', $this->translator->trans( 'vs_users.security.authentication_failure', [], 'VSUsersBundle' ) );
+        }
+        
+        $url = $this->getLoginUrl( $request );
+        
+        return new RedirectResponse( $url );
     }
     
     protected function getLoginUrl( Request $request ): string
