@@ -86,6 +86,7 @@ class ProfileController extends AbstractController
                 $this->createAvatar( $oUserInfo, $profilePictureFile );
             }
             
+            $oUserInfo->setTitle( $form->get( 'title' )->getData() );
             $oUserInfo->setFirstName( $form->get( 'firstName' )->getData() );
             $oUserInfo->setLastName( $form->get( 'lastName' )->getData() );
             
