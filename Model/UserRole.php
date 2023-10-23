@@ -88,7 +88,7 @@ class UserRole implements UserRoleInterface
         $this->taxon = $taxon;
     }
     
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->taxon ? $this->taxon->getName() : '';
     }
