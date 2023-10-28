@@ -23,7 +23,11 @@
                         {% set userGranted = is_granted( 'ROLE_SUPER_ADMIN' ) %}
                         
                         {% if not userGranted %}
-                            {% set userGranted = ( app.user.compareTo( item ) == 1 ) %}
+                            {% if displaySiblings %}
+                                {% set userGranted = ( app.user.compareTo( item ) >= 0 ) %}
+                            {% else %}
+                                {% set userGranted = ( app.user.compareTo( item ) == 1 ) %}
+                            {% endif %}
                         {% endif %}
                     	
                     	{% if userGranted %}	{# is_granted( item.roles ) #}

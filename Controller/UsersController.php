@@ -6,6 +6,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 class UsersController extends AbstractCrudController
 {
+    protected function customData( Request $request, $entity = null ): array
+    {
+        return [
+            'displaySiblings'  => $this->getParameter( 'vs_users.crud.display_siblings' ),
+        ];
+    }
+    
     protected function prepareEntity( &$entity, &$form, Request $request )
     {
         $plainPassword  = $form->get( "plain_password" )->getData();

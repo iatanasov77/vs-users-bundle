@@ -1,3 +1,6 @@
+parameters:
+    vs_users.crud.display_siblings: false
+
 services:
     Vankosoft\UsersBundle\Repository\UsersRepository: '@vs_users.repository.users'
     
