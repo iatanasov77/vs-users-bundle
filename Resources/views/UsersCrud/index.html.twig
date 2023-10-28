@@ -22,7 +22,7 @@
                     {% for item in resources %}
                         {% set userGranted = is_granted( 'ROLE_SUPER_ADMIN' ) %}
                         
-                        {% if is not userGranted %}
+                        {% if not userGranted %}
                             {% set userGranted = ( app.user.compareTo( item ) == -1 ) %}
                         {% endif %}
                     	
