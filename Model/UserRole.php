@@ -1,12 +1,13 @@
 <?php namespace Vankosoft\UsersBundle\Model;
 
+use Doctrine\Common\Comparable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
 use Vankosoft\ApplicationBundle\Model\Interfaces\TaxonInterface;
 use Vankosoft\ApplicationBundle\Model\Taxon;
 
-class UserRole implements UserRoleInterface
+class UserRole implements UserRoleInterface, Comparable
 {
     //const DEFAULT = 'ROLE_USER';
     const SUPER_ADMIN = 'ROLE_SUPER_ADMIN';
@@ -153,6 +154,25 @@ class UserRole implements UserRoleInterface
         }
         
         return $this;
+    }
+    
+    /**
+     * {@inheritDoc}
+     * @see \Doctrine\Common\Comparable::compareTo($other)
+     */
+    public function compareTo($other): int
+    {
+        if ( ! ( $other implements UserRoleInterface ) ) {
+            throw new \Exception( 'Vankosoft UserRole can to be Compared with other Vankosoft UserRole Objects !!!' );
+        }
+        
+        if ( $this->taxon->getCode() === $other->getTaxon()->getCode() ) {
+            return 0;
+        } elseif ( $this->taxon->getParent() && $this->taxon->getParent()->getCode() === $other->getTaxon()->getCode() ) {
+            return -1;
+        } else {
+            return 1;
+        }
     }
     
     public function __toString()

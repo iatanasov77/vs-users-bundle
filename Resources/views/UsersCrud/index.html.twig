@@ -21,15 +21,10 @@
                     <tbody>
                     {% for item in resources %}
                         {% set userGranted = is_granted( 'ROLE_SUPER_ADMIN' ) %}
-                    	{% set userRolesBreak = false %}
-                    	{% for userRole in item.roles %}
-                    	    {% if userRole.id|default('') is not same as ('') %} {# Check if userRole is Object #}}
-                        		{% if is_granted( userRole ) and not userRolesBreak %}
-                        			{% set userGranted = true %}
-                        			{% set userRolesBreak = true %}
-                        		{% endif %}
-                        	{% endif %}
-                    	{% endfor %}
+                        
+                        {% if is not userGranted %}
+                            {% set userGranted = ( app.user.compareTo( item ) == -1 ) %}
+                        {% endif %}
                     	
                     	{% if userGranted %}	{# is_granted( item.roles ) #}
                             <tr>
