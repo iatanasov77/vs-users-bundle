@@ -232,7 +232,7 @@ class User implements UserInterface, Comparable
      */
     public function compareTo($other): int
     {
-        if ( ! ( $other implements UserInterface ) ) {
+        if ( ! ( $other instanceof UserInterface ) ) {
             throw new \Exception( 'Vankosoft User can to be Compared with other Vankosoft User Objects !!!' );
         }
         

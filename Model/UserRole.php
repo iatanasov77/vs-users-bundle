@@ -162,7 +162,7 @@ class UserRole implements UserRoleInterface, Comparable
      */
     public function compareTo($other): int
     {
-        if ( ! ( $other implements UserRoleInterface ) ) {
+        if ( ! ( $other instanceof UserRoleInterface ) ) {
             throw new \Exception( 'Vankosoft UserRole can to be Compared with other Vankosoft UserRole Objects !!!' );
         }
         
