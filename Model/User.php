@@ -253,4 +253,22 @@ class User implements UserInterface, Comparable
         
         return $compareValue;
     }
+    
+    /**
+     * Get Top Role of This User
+     * 
+     * @throws \Exception
+     * @return UserRoleInterface
+     */
+    public function topRole(): UserRoleInterface
+    {
+        $topRole    = $this->rolesCollection->first();
+        foreach ( $this->rolesCollection as $role ) {
+            if ( $role->compareTo( $topRole ) == 1 ) {
+                $topRole    = $role;
+            }
+        }
+        
+        return $topRole;
+    }
 }

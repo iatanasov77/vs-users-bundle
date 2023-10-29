@@ -14,6 +14,7 @@ services:
             - '@vs_users.factory.avatar_image'
             - '@vs_cms.profile_uploader'
             - '@vs_users.repository.user_roles'
+            - '%vs_users.crud.display_siblings%'
     
     vs_users.resources.users.form:
         class: Vankosoft\UsersBundle\Form\UserFormType

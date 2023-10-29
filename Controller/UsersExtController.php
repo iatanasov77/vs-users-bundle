@@ -18,6 +18,7 @@ use Vankosoft\CmsBundle\Component\Uploader\FileUploaderInterface;
 use Vankosoft\UsersBundle\Component\UserRole;
 use Vankosoft\UsersBundle\Form\UserInfoForm;
 use Vankosoft\UsersBundle\Model\UserInfoInterface;
+use Vankosoft\UsersBundle\Model\UserRoleInterface;
 
 class UsersExtController extends AbstractController
 {
@@ -39,20 +40,25 @@ class UsersExtController extends AbstractController
     /** @var RepositoryInterface */
     protected $usersRolesRepository;
     
+    /** @var bool */
+    protected $allowCreateUserSiblings;
+    
     public function __construct(
         ManagerRegistry $doctrine,
         RepositoryInterface $usersRepository,
         FactoryInterface $userInfoFactory,
         FactoryInterface $avatarImageFactory,
         FileUploaderInterface $imageUploader,
-        RepositoryInterface $usersRolesRepository
+        RepositoryInterface $usersRolesRepository,
+        bool $allowCreateUserSiblings
     ) {
-        $this->doctrine             = $doctrine;
-        $this->usersRepository      = $usersRepository;
-        $this->userInfoFactory      = $userInfoFactory;
-        $this->avatarImageFactory   = $avatarImageFactory;
-        $this->imageUploader        = $imageUploader;
-        $this->usersRolesRepository = $usersRolesRepository;
+        $this->doctrine                 = $doctrine;
+        $this->usersRepository          = $usersRepository;
+        $this->userInfoFactory          = $userInfoFactory;
+        $this->avatarImageFactory       = $avatarImageFactory;
+        $this->imageUploader            = $imageUploader;
+        $this->usersRolesRepository     = $usersRolesRepository;
+        $this->allowCreateUserSiblings  = $allowCreateUserSiblings;
     }
     
     public function displayUserInfo( $userId, Request $request ): Response
@@ -100,12 +106,14 @@ class UsersExtController extends AbstractController
     
     public function rolesEasyuiComboTreeWithSelectedSource( $userId, Request $request ): JsonResponse
     {
-            $selectedRoles  = $userId ? $this->usersRepository->find( $userId )->getRoles() : [];
+            $currentUser    = $userId ? $this->usersRepository->find( $userId ) : null;
+            $selectedRoles  = $currentUser ? $currentUser->getRoles() : [];
             $data           = [];
             
+            $userTopRole    = $currentUser->topRole();
             $topRoles       = $this->usersRolesRepository->findBy( ['parent' => null] );
             $rolesTree      = [];
-            $this->getRolesTree( new ArrayCollection( $topRoles ), $rolesTree );
+            $this->getRolesTree( new ArrayCollection( $topRoles ), $rolesTree, $userTopRole );
             $this->buildEasyuiCombotreeDataFromCollection( $rolesTree, $data, $selectedRoles );
             
             //$this->buildEasyuiCombotreeData( UserRole::choicesTree(), $data, $selectedRoles );
@@ -178,9 +186,13 @@ class UsersExtController extends AbstractController
         }
     }
     
-    private function getRolesTree( Collection $roles, &$rolesTree )
+    private function getRolesTree( Collection $roles, &$rolesTree, UserRoleInterface $userTopRole )
     {
         foreach ( $roles as $role ) {
+            if ( $userTopRole->compairTo( $role ) == -1 ) {
+                continue;
+            }
+            
             $rolesTree[$role->getRole()] = [
                 'id'        => $role->getId(),
                 'role'      => $role->getRole(),
