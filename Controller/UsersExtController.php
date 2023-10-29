@@ -116,9 +116,15 @@ class UsersExtController extends AbstractController
         
         /**
          * $topRoles->first() MUST TO BE 'ROLE_SUPER_ADMIN' AND 'ROLE_APPLICATION_ADMIN' TO BE HIS CHILD
+         * 
+         * SUPER WORKAROUND
          */
         if ( $userTopRole->getRole() == 'ROLE_APPLICATION_ADMIN' ) {
-            $topRoles   =   $topRoles->first()->getChildren();    // SUPER WORKAROUND
+            if ( $this->allowCreateUserSiblings ) {
+                $topRoles   =   $topRoles->first()->getChildren();
+            } else {
+                $topRoles   =   $topRoles->first()->getChildren()->first()->getChildren();
+            }
         }
         
         $rolesTree      = [];
