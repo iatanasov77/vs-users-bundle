@@ -190,7 +190,7 @@ class UsersExtController extends AbstractController
     private function getRolesTree( Collection $roles, &$rolesTree, UserRoleInterface $userTopRole )
     {
         foreach ( $roles as $role ) {
-            if ( $userTopRole->compairTo( $role ) == -1 ) {
+            if ( $userTopRole->compareTo( $role ) == -1 ) {
                 continue;
             }
             
