@@ -104,21 +104,22 @@ class UsersExtController extends AbstractController
         ]);
     }
     
-    public function rolesEasyuiComboTreeWithSelectedSource( $userId, Request $request ): JsonResponse
+    public function rolesEasyuiComboTreeWithSelectedSource( $currentUserId, $editUserId, Request $request ): JsonResponse
     {
-            $currentUser    = $userId ? $this->usersRepository->find( $userId ) : null;
-            $selectedRoles  = $currentUser ? $currentUser->getRoles() : [];
-            $data           = [];
-            
-            $userTopRole    = $currentUser->topRole();
-            $topRoles       = $this->usersRolesRepository->findBy( ['parent' => null] );
-            $rolesTree      = [];
-            $this->getRolesTree( new ArrayCollection( $topRoles ), $rolesTree, $userTopRole );
-            $this->buildEasyuiCombotreeDataFromCollection( $rolesTree, $data, $selectedRoles );
-            
-            //$this->buildEasyuiCombotreeData( UserRole::choicesTree(), $data, $selectedRoles );
-            
-            return new JsonResponse( $data );
+        $currentUser    = $currentUserId ? $this->usersRepository->find( $currentUserId ) : null;
+        $editUser       = $editUserId ? $this->usersRepository->find( $editUserId ) : null;
+        $selectedRoles  = $editUser  ? $editUser ->getRoles() : [];
+        $data           = [];
+        
+        $userTopRole    = $currentUser->topRole();
+        $topRoles       = $this->usersRolesRepository->findBy( ['parent' => null] );
+        $rolesTree      = [];
+        $this->getRolesTree( new ArrayCollection( $topRoles ), $rolesTree, $userTopRole );
+        $this->buildEasyuiCombotreeDataFromCollection( $rolesTree, $data, $selectedRoles );
+        
+        //$this->buildEasyuiCombotreeData( UserRole::choicesTree(), $data, $selectedRoles );
+        
+        return new JsonResponse( $data );
     }
     
     protected function buildEasyuiCombotreeDataFromCollection( $tree, &$data, array $selectedValues )
