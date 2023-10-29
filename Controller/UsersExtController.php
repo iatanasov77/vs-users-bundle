@@ -112,9 +112,17 @@ class UsersExtController extends AbstractController
         $data           = [];
         
         $userTopRole    = $currentUser->topRole();
-        $topRoles       = $this->usersRolesRepository->findBy( ['parent' => null] );
+        $topRoles       = new ArrayCollection( $this->usersRolesRepository->findBy( ['parent' => null] ) );
+        
+        /**
+         * $topRoles->first() MUST TO BE 'ROLE_SUPER_ADMIN' AND 'ROLE_APPLICATION_ADMIN' TO BE HIS CHILD
+         */
+        if ( $userTopRole->getRole() == 'ROLE_APPLICATION_ADMIN' ) {
+            $topRoles   =   $topRoles->first()->getChildren();    // SUPER WORKAROUND
+        }
+        
         $rolesTree      = [];
-        $this->getRolesTree( new ArrayCollection( $topRoles ), $rolesTree, $userTopRole );
+        $this->getRolesTree(  $topRoles, $rolesTree );
         $this->buildEasyuiCombotreeDataFromCollection( $rolesTree, $data, $selectedRoles );
         
         //$this->buildEasyuiCombotreeData( UserRole::choicesTree(), $data, $selectedRoles );
@@ -187,13 +195,9 @@ class UsersExtController extends AbstractController
         }
     }
     
-    private function getRolesTree( Collection $roles, &$rolesTree, UserRoleInterface $userTopRole )
+    private function getRolesTree( Collection $roles, &$rolesTree )
     {
         foreach ( $roles as $role ) {
-            if ( $userTopRole->compareTo( $role ) == -1 ) {
-                continue;
-            }
-            
             $rolesTree[$role->getRole()] = [
                 'id'        => $role->getId(),
                 'role'      => $role->getRole(),
