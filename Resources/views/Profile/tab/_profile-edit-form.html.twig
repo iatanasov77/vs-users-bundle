@@ -58,7 +58,7 @@
                 {{ form_widget(form.lastName, {'attr': {'class': 'form-control' }, 'value': app.user.info.lastName}) }}
             </div>
             
-            {{ vs_form.buttons( form ) }}
+            {{ vs_form.buttons( form, metadata ) }}
         {{ form_end(form, {'render_rest': false}) }}
     </div>
 </section>
