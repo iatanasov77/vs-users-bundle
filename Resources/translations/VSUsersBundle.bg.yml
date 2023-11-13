@@ -108,6 +108,7 @@ vs_users:
         userscrud_index_tablecolumns_username: 'Потребител'
         userscrud_index_tablecolumns_email: 'Емейл'
         userscrud_index_tablecolumns_roles: 'Роли'
+        userscrud_index_tablecolumns_allowed_applications: Разрешени Приложения
         userscrud_index_tablecolumns_fullname: 'Цяло Име'
         userscrud_index_tablecolumns_action: 'Действие'
         userscrud_create_title: 'Създаване на Нов Потребител'

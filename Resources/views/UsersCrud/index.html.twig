@@ -13,8 +13,9 @@
                             <th width="50">N</th>
                             <th>{{ 'vs_users.template.userscrud_index_tablecolumns_username' | trans( {},'VSUsersBundle' ) }}</th>
                             <th>{{ 'vs_users.template.userscrud_index_tablecolumns_email' | trans( {},'VSUsersBundle' ) }}</th>
-                            <th>{{ 'vs_users.template.userscrud_index_tablecolumns_roles' | trans( {},'VSUsersBundle' ) }}</th>
                             <th>{{ 'vs_users.template.userscrud_index_tablecolumns_fullname' | trans( {},'VSUsersBundle' ) }}</th>
+                            <th>{{ 'vs_users.template.userscrud_index_tablecolumns_roles' | trans( {},'VSUsersBundle' ) }}</th>
+                            <th>{{ 'vs_users.template.userscrud_index_tablecolumns_allowed_applications' | trans( {},'VSUsersBundle' ) }}</th>
                             <th width="150">{{ 'vs_users.template.userscrud_index_tablecolumns_action' | trans( {},'VSUsersBundle' ) }}</th>
                         </tr>
                     </thead>
@@ -41,8 +42,13 @@
                                    {{ item.username  }}
                                 </td>
                                 <td>{{ item.email  }}</td>
-                                <td>{{ item.roles | join(' , ')  }}</td>
                                 <td>{{ item.info.getFullName() }}</td>
+                                <td>{{ item.roles | join(' , ')  }}</td>
+                                <td>
+                                    {% for app in item.applications %}
+                                        {{ app.title  }}
+                                    {% endfor %}
+                                </td>
                                 <td>
                                 	<div class="btn-group">
                                 		<a class="btn btn-primary" 
