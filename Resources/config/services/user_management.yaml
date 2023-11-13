@@ -1,5 +1,6 @@
 parameters:
     vs_users.crud.display_siblings: false
+    vs_users.users_form_required_fields: []
 
 services:
     Vankosoft\UsersBundle\Repository\UsersRepository: '@vs_users.repository.users'
@@ -26,6 +27,7 @@ services:
             - "@request_stack"
             - '%vs_application.model.application.class%'
             - '@security.helper'
+            - '%vs_users.users_form_required_fields%'
 
     vs_users.resources.user_roles.form:
         class: Vankosoft\UsersBundle\Form\UserRoleForm

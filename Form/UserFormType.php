@@ -23,18 +23,22 @@ use Vankosoft\UsersBundle\Component\UserRole;
 
 class UserFormType extends AbstractForm
 {
-    protected $requestStack;
-    
+    /** @var string */
     protected $applicationClass;
     
+    /** @var AuthorizationCheckerInterface */
     protected $auth;
+    
+    /** @var array */
+    protected $requiredFields;
     
     public function __construct(
         string $dataClass,
         RepositoryInterface $localesRepository,
         RequestStack $requestStack,
         string $applicationClass,
-        AuthorizationCheckerInterface $auth
+        AuthorizationCheckerInterface $auth,
+        array $requiredFields
     ) {
         parent::__construct( $dataClass );
         
@@ -43,6 +47,8 @@ class UserFormType extends AbstractForm
         
         $this->applicationClass     = $applicationClass;
         $this->auth                 = $auth;
+        
+        $this->requiredFields       = $requiredFields;
     }
 
     public function buildForm( FormBuilderInterface $builder, array $options ): void

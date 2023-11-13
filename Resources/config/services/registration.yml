@@ -2,6 +2,9 @@ parameters:
     vs_users.registration_form: 'Vankosoft\UsersBundle\Form\RegistrationFormType'
     vs_users.register_role: 'role-application-admin'
     vs_users.login_after_verify: true
+    
+    vs_users.registration_form_required_fields: []
+    vs_users.profile_form_required_fields: []
 
 services:
     vs_users.registration_controller:
@@ -41,6 +44,7 @@ services:
             - "@request_stack"
             - '%vs_application.model.application.class%'
             - '@security.helper'
+            - '%vs_users.profile_form_required_fields%'
             
     vs_users.form.type.registration:
         class: Vankosoft\UsersBundle\Form\RegistrationFormType
@@ -52,3 +56,4 @@ services:
             - "@request_stack"
             - '%vs_application.model.application.class%'
             - '@security.helper'
+            - '%vs_users.registration_form_required_fields%'
