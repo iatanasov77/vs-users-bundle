@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelperInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Generator\VerifyEmailTokenGenerator;
@@ -80,7 +81,10 @@ class RegisterController extends AbstractController
     protected $pagesRepository;
     
     /** @var ManagerRegistry */
-    protected ManagerRegistry $doctrine;
+    protected $doctrine;
+    
+    /** @var TranslatorInterface */
+    protected $translator;
     
     /**
      * @var array
@@ -89,6 +93,7 @@ class RegisterController extends AbstractController
 
     public function __construct(
         ManagerRegistry $doctrine,
+        TranslatorInterface $translator,
         ApplicationContextInterface $applicationContext,
         UserManager $userManager,
         RepositoryInterface $usersRepository,
@@ -102,6 +107,7 @@ class RegisterController extends AbstractController
         array $parameters
     ) {
         $this->doctrine             = $doctrine;
+        $this->translator           = $translator;
         $this->applicationContext   = $applicationContext;
         $this->userManager          = $userManager;
         $this->usersRepository      = $usersRepository;
@@ -166,6 +172,11 @@ class RegisterController extends AbstractController
             
             $this->sendConfirmationMail( $oUser, $mailer );
             
+            $this->addFlash(
+                'success',
+                $this->translator->trans( 'vs_application.form.register.alert_success', [], 'VSApplicationBundle' )
+            );
+            
             return $this->redirectToRoute( $this->params['defaultRedirect'] );
         }
         
@@ -200,7 +211,10 @@ class RegisterController extends AbstractController
         $this->doctrine->getManager()->persist( $user );
         $this->doctrine->getManager()->flush();
         
-        $this->addFlash( 'success', 'Your e-mail address has been verified.' );
+        $this->addFlash(
+            'success',
+            $this->translator->trans( 'vs_application.form.register.alert_verified', [], 'VSApplicationBundle' )
+        );
         
         if ( $this->params['loginAfterVerify'] ) {
             return $this->guardHandler->authenticateUser(

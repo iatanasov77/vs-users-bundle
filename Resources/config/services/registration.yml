@@ -14,6 +14,7 @@ services:
         tags: ['controller.service_arguments']
         arguments:
             - '@doctrine'
+            - "@translator"
             - '@vs_application.context.application'
             - '@vs_users.manager.user'
             - '@vs_users.repository.users'
