@@ -201,7 +201,7 @@ class ProfileController extends AbstractController
             $this->hasExtension ( self::EXTENSION_PAYMENT ) &&
             $this->getUser() instanceof \Vankosoft\UsersSubscriptionsBundle\Model\Interfaces\SubscribedUserInterface
         ) {
-            $subscriptions  = $this->getUser()->getSubscriptions( ( '\\' . $this->usersClass )::SUBSCRIPTION_TYPE_PAID );
+            $subscriptions  = $this->getUser()->getPricingPlanSubscriptions();
         }
         
         return $subscriptions;
