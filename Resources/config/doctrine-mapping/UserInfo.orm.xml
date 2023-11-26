@@ -20,6 +20,7 @@
         <field name="title" type="string" length="32" nullable="false" column-definition="ENUM('mr', 'mrs', 'miss')" />
         <field name="firstName" column="first_name" type="string" nullable="false" />
         <field name="lastName" column="last_name" type="string" nullable="false" />
+        <field name="designation" column="designation" type="string" nullable="true" />
         
         <field name="birthday" column="birthday" type="datetime" nullable="true" />
         <field name="phone" column="phone" type="string" nullable="true" />

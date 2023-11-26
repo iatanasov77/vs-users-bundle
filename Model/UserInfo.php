@@ -39,6 +39,11 @@ class UserInfo implements UserInfoInterface
     protected $lastName     = 'NOT_EDITED_YET';
     
     /**
+     * @var string
+     */
+    protected $designation  = 'Lead Designer / Developer';
+    
+    /**
      * @var \DateTime|null
      */
     protected $birthday;
@@ -150,6 +155,18 @@ class UserInfo implements UserInfoInterface
     public function setLastName( $lastName ) : self
     {
         $this->lastName = $lastName;
+        
+        return $this;
+    }
+    
+    public function getDesignation()
+    {
+        return $this->designation;
+    }
+    
+    public function setDesignation( $designation ) : self
+    {
+        $this->designation = $designation;
         
         return $this;
     }
