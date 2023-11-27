@@ -71,6 +71,11 @@ vs_users:
             parent_role_placeholder: '-- Избери Родителска Роля --'
             parent_role_no_parent: Няма Родител
             
+        forgot_password:
+            email_label: Вашият Емейл
+            email_placeholder: Въведете Вашият Емейл
+            submit_button: Изпратете линк за нулиране
+            
     template:
         profile_show_title: 'Моят Профил'
         profile_show_tab_details: 'Детайли'

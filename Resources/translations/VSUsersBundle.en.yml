@@ -70,6 +70,11 @@ vs_users:
             parent_role: Parent Role
             parent_role_placeholder: '-- Select Parent Role --'
             parent_role_no_parent: No Parent
+            
+        forgot_password:
+            email_label: Your Email
+            email_placeholder: Enter Your Email
+            submit_button: Send Reset Link
     
     template:
         profile_show_title: 'My Profile'

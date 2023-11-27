@@ -16,12 +16,13 @@ class ForgotPasswordForm extends AbstractType
             ->setMethod( 'POST' )
             
             ->add( 'email', EmailType::class, [
-                'label'                 => 'vs_users.template.forgot_password_form_email_placeholder',
+                'label'                 => 'vs_users.form.forgot_password.email_label',
+                'attr'                  => ['placeholder' => 'vs_users.form.forgot_password.email_placeholder'],
                 'translation_domain'    => 'VSUsersBundle'
             ])
             
             ->add( 'btnSubmit', SubmitType::class, [
-                'label'                 => 'vs_users.template.forgot_password_form_button_reset',
+                'label'                 => 'vs_users.form.forgot_password.submit_button',
                 'translation_domain'    => 'VSUsersBundle'
             ])
             ->add( 'btnCancel', ButtonType::class, [
