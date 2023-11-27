@@ -26,6 +26,7 @@ class UserInfoForm extends AbstractType
             'titleMapped'           => false,
             'firstNameMapped'       => true,
             'lastNameMapped'        => true,
+            'designationMapped'     => true,
         ]);
     }
 }

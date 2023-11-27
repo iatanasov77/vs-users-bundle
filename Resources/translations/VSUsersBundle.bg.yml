@@ -8,6 +8,8 @@ vs_users:
         dont_have_accont: Нямате Акаунт?
         
         profile:
+            personal_details: Лични Данни
+            designation: Длъжност
             picture_lable: 'Снимка на Профила'
             picture_info: 'Позволени Типове: jpeg, png'
             change_password:

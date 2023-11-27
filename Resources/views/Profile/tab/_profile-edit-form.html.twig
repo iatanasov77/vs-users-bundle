@@ -57,6 +57,13 @@
                 }}
                 {{ form_widget(form.lastName, {'attr': {'class': 'form-control' }, 'value': app.user.info.lastName}) }}
             </div>
+            <div class="form-group">
+                {{ form_label(form.designation, null, {
+                    'label_attr': {'class': 'col-form-label'}
+                    }) 
+                }}
+                {{ form_widget(form.designation, {'attr': {'class': 'form-control' }, 'value': app.user.info.designation}) }}
+            </div>
             
             {{ vs_form.buttons( form ) }}
         {{ form_end(form, {'render_rest': false}) }}

@@ -8,6 +8,8 @@ vs_users:
         dont_have_accont: Don't have an account?
         
         profile:
+            personal_details: Personal Details
+            designation: Designation
             picture_lable: 'Profile picture'
             picture_info: 'Allowed Types: jpeg, png'
             change_password:

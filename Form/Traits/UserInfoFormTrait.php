@@ -54,6 +54,12 @@ trait UserInfoFormTrait
                 'translation_domain'    => 'VSUsersBundle',
                 'mapped'                => $options['lastNameMapped'],
             ])
+            
+            ->add( 'designation', TextType::class, [
+                'label'                 => 'vs_users.form.profile.designation',
+                'translation_domain'    => 'VSUsersBundle',
+                'mapped'                => $options['designationMapped'],
+            ])
         ;
     }
 }

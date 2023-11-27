@@ -60,6 +60,7 @@ class ProfileFormType extends UserFormType
                 'titleMapped'           => false,
                 'firstNameMapped'       => false,
                 'lastNameMapped'        => false,
+                'designationMapped'     => false,
             ])
         ;
     }
