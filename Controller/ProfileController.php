@@ -49,6 +49,34 @@ class ProfileController extends AbstractController
         $this->imageUploader        = $imageUploader;
     }
     
+    /**
+     * Show User Profile
+     * 
+     * @param Request $request
+     * @return Response
+     */
+    public function indexAction( Request $request ): Response
+    {
+        return $this->render( '@VSUsers/Profile/show.html.twig', $this->templateParams( $this->getProfileEditForm() ) );
+    }
+    
+    /**
+     * Edit User Profile
+     *
+     * @param Request $request
+     * @return Response
+     */
+    public function editAction( Request $request ): Response
+    {
+        return $this->render( '@VSUsers/Profile/edit.html.twig', $this->templateParams( $this->getProfileEditForm() ) );
+    }
+    
+    /**
+     * Get Profile Picture
+     * 
+     * @param Request $request
+     * @return Response
+     */
     public function profilePictureAction( Request $request ): Response
     {
         $profilePicture = false;
@@ -68,38 +96,43 @@ class ProfileController extends AbstractController
         return new Response( $profilePicture, Response::HTTP_OK );
     }
     
-    public function indexAction( Request $request ): Response
+    public function handleProfileFormAction( Request $request ): Response
     {
         $form   = $this->getProfileEditForm();
         $form->handleRequest( $request );
-        if ( $form->isSubmitted() ) {
-            $em             = $this->doctrine->getManager();
-            $oUser          = $form->getData();
-            
-            if ( ! $oUser->getPreferedLocale() ) {
-                $oUser->setPreferedLocale( $request->getLocale() );
-            }
-            
-            $oUserInfo          = $oUser->getInfo();
-            $profilePictureFile = $form->get( 'profilePicture' )->getData();
-            if ( $profilePictureFile ) {
-                $this->createAvatar( $oUserInfo, $profilePictureFile );
-            }
-            
-            $oUserInfo->setTitle( $form->get( 'title' )->getData() );
-            $oUserInfo->setFirstName( $form->get( 'firstName' )->getData() );
-            $oUserInfo->setLastName( $form->get( 'lastName' )->getData() );
-            $oUserInfo->setDesignation( $form->get( 'designation' )->getData() );
-            
-            $oUserInfo->setUser( $oUser );
-            $em->persist( $oUserInfo );
-            $em->persist( $oUser );
-            $em->flush();
-            
-            return $this->redirectToRoute( 'vs_users_profile_show' );
+        if ( ! $form->isSubmitted() ) {
+            throw new \Exception( "Profile Form is Not Submited Properly !" );
         }
         
-        return $this->render( '@VSUsers/Profile/show.html.twig', $this->templateParams( $form ) );
+        $em             = $this->doctrine->getManager();
+        $oUser          = $form->getData();
+        
+        if ( ! $oUser->getPreferedLocale() ) {
+            $oUser->setPreferedLocale( $request->getLocale() );
+        }
+        
+        $oUserInfo          = $oUser->getInfo();
+        $profilePictureFile = $form->get( 'profilePicture' )->getData();
+        if ( $profilePictureFile ) {
+            $this->createAvatar( $oUserInfo, $profilePictureFile );
+        }
+        
+        $oUserInfo->setTitle( $form->get( 'title' )->getData() );
+        $oUserInfo->setFirstName( $form->get( 'firstName' )->getData() );
+        $oUserInfo->setLastName( $form->get( 'lastName' )->getData() );
+        $oUserInfo->setDesignation( $form->get( 'designation' )->getData() );
+        
+        $oUserInfo->setUser( $oUser );
+        $em->persist( $oUserInfo );
+        $em->persist( $oUser );
+        $em->flush();
+        
+        return $this->redirectToRoute( 'vs_users_profile_show' );
+    }
+    
+    public function changeAvatarAction( Request $request ): Response
+    {
+        
     }
     
     public function changePasswordAction( Request $request ): Response
@@ -153,7 +186,7 @@ class ProfileController extends AbstractController
     {
         $form       = $this->createForm( ProfileFormType::class, $this->getUser(), [
             'data'      => $this->getUser(),
-            'action'    => $this->generateUrl( 'vs_users_profile_show' ),
+            'action'    => $this->generateUrl( 'vs_users_profile_handle' ),
             'method'    => 'POST',
         ]);
         

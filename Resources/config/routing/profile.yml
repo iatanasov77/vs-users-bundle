@@ -1,10 +1,22 @@
 vs_users_profile_show:
     path:     /profile
     controller: Vankosoft\UsersBundle\Controller\ProfileController::indexAction
+    
+vs_users_profile_edit:
+    path:     /profile/edit
+    controller: Vankosoft\UsersBundle\Controller\ProfileController::editAction
+    
+vs_users_profile_handle:
+    path:     /profile/handle-form
+    controller: Vankosoft\UsersBundle\Controller\ProfileController::handleProfileFormAction
 
 vs_users_profile_picture_file_name:
-    path:     /profile_picture_file_name
+    path:     /profile/picture_file_name
     controller: Vankosoft\UsersBundle\Controller\ProfileController::profilePictureAction
+    
+vs_users_profile_change_avatar:
+    path:     /profile/change-avatar
+    controller: Vankosoft\UsersBundle\Controller\ProfileController::changeAvatarAction
     
 vs_users_profile_change_password:
     path:     /profile/change-password
