@@ -12,6 +12,7 @@ use Sylius\Component\Resource\Factory\FactoryInterface;
 use Vankosoft\CmsBundle\Component\Uploader\FileUploaderInterface;
 use Vankosoft\UsersBundle\Form\ProfileFormType;
 use Vankosoft\UsersBundle\Form\ChangePasswordFormType;
+use Vankosoft\UsersBundle\Form\ProfilePictureForm;
 use Vankosoft\UsersBundle\Model\UserInfoInterface;
 use Vankosoft\UsersBundle\Security\UserManager;
 
@@ -132,7 +133,26 @@ class ProfileController extends AbstractController
     
     public function changeAvatarAction( Request $request ): Response
     {
+        $em         = $this->doctrine->getManager();
+        $oUser      = $this->getUser();
+        $forms      = $this->getOtherForms();
+        $f          = $forms['changeAvatarForm'];
         
+        $f->handleRequest( $request );
+        if ( ! $f->isSubmitted() ) {
+            throw new \Exception( "Change Avatar Form is Not Submited Properly !" );
+        }
+        
+        $oUserInfo          = $oUser->getInfo();
+        $profilePictureFile = $f->get( 'profilePicture' )->getData();
+        if ( $profilePictureFile ) {
+            $this->createAvatar( $oUserInfo, $profilePictureFile );
+        }
+        
+        $em->persist( $oUserInfo );
+        $em->flush();
+        
+        return $this->redirectToRoute( 'vs_users_profile_show' );
     }
     
     public function changePasswordAction( Request $request ): Response
@@ -200,8 +220,14 @@ class ProfileController extends AbstractController
             'method'    => 'POST',
         ]);
         
+        $changeAvatarForm   = $this->createForm( ProfilePictureForm::class, null, [
+            'action'    => $this->generateUrl( 'vs_users_profile_change_avatar' ),
+            'method'    => 'POST',
+        ]);
+        
         return [
             'changePasswordForm'    => $changePasswordForm,
+            'changeAvatarForm'      => $changeAvatarForm,
         ];
     }
     
