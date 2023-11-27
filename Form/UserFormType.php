@@ -81,8 +81,9 @@ class UserFormType extends AbstractForm
             ])
         
             ->add( 'email', EmailType::class, [
-                'label' => 'vs_users.form.user.email',
-                'translation_domain' => 'VSUsersBundle'
+                'label'                 => 'vs_users.form.user.email',
+                'attr'                  => ['placeholder' => 'vs_users.form.user.email_placeholder'],
+                'translation_domain'    => 'VSUsersBundle'
             ])
             ->add( 'username', TextType::class, [
                 'label' => 'vs_users.form.user.username',

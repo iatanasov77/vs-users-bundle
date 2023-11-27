@@ -25,12 +25,15 @@ vs_users:
             roles: 'Потребителски Роли'
             roles_placeholder: '-- Избери Потребителски Роли --'
             email: 'Емейл'
+            email_placeholder: 'Въведи емейл'
             username: 'Потребителско Име'
             password: 'Парола'
             password_repeat: 'Потвърди Парола'
             title: Титла
             firstName: 'Име'
+            firstName_placeholder: Въведи име
             lastName: 'Фамилия'
+            lastName_placeholder: Въведи фамилия
             enabled: 'Разрешен'
             verified: 'Проверен'
             applications_allowed: Разрешени Приложения

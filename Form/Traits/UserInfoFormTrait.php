@@ -45,18 +45,21 @@ trait UserInfoFormTrait
             
             ->add( 'firstName', TextType::class, [
                 'label'                 => 'vs_users.form.user.firstName',
+                'attr'                  => ['placeholder' => 'vs_users.form.user.firstName_placeholder'],
                 'translation_domain'    => 'VSUsersBundle',
                 'mapped'                => $options['firstNameMapped'],
             ])
             
             ->add( 'lastName', TextType::class, [
                 'label'                 => 'vs_users.form.user.lastName',
+                'attr'                  => ['placeholder' => 'vs_users.form.user.lastName_placeholder'],
                 'translation_domain'    => 'VSUsersBundle',
                 'mapped'                => $options['lastNameMapped'],
             ])
             
             ->add( 'designation', TextType::class, [
                 'label'                 => 'vs_users.form.profile.designation',
+                'attr'                  => ['placeholder' => 'vs_users.form.profile.designation'],
                 'translation_domain'    => 'VSUsersBundle',
                 'mapped'                => $options['designationMapped'],
             ])
