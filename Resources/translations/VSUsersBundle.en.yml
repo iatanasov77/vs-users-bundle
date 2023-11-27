@@ -141,3 +141,9 @@ vs_users:
         profile_activities: Activities
         profile_edit_profile: Edit Profile
         profile_about: About
+        
+        reset_password_title: 'Forgot Password?'
+        reset_password_subtitle: Reset password with
+        reset_password_description: Enter your email and instructions will be sent to you!
+        reset_password_i_remember: Wait, I remember my password...
+        reset_password_click_here: Click here

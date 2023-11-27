@@ -141,3 +141,9 @@ vs_users:
         profile_activities: Действия
         profile_edit_profile: Редактиране Профил
         profile_about: Информация
+        
+        reset_password_title: 'Забравена Парола?'
+        reset_password_subtitle: Забравена Парола в
+        reset_password_description: Въведете своя имейл и ще ви бъдат изпратени инструкции!
+        reset_password_i_remember: Чакай, помня паролата си...
+        reset_password_click_here: Кликни тук
