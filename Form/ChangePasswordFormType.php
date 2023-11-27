@@ -18,6 +18,7 @@ class ChangePasswordFormType extends AbstractType
             
             ->add( 'oldPassword', PasswordType::class, [
                 'label'                 => 'vs_users.form.profile.change_password.old_password',
+                'attr'                  => ['placeholder' => 'vs_users.form.profile.change_password.old_password_placeholder'],
                 'translation_domain'    => 'VSUsersBundle',
                 'mapped'                => false,
             ])
@@ -26,8 +27,14 @@ class ChangePasswordFormType extends AbstractType
                 'type'                  => PasswordType::class,
                 'label'                 => 'vs_users.form.profile.change_password.new_password',
                 'translation_domain'    => 'VSUsersBundle',
-                'first_options'         => ['label' => 'vs_users.form.profile.change_password.new_password'],
-                'second_options'        => ['label' => 'vs_users.form.profile.change_password.new_password_repeat'],
+                'first_options'         => [
+                    'label' => 'vs_users.form.profile.change_password.new_password',
+                    'attr' => ['placeholder' => 'vs_users.form.profile.change_password.new_password_placeholder']
+                ],
+                'second_options'        => [
+                    'label' => 'vs_users.form.profile.change_password.new_password_repeat',
+                    'attr' => ['placeholder' => 'vs_users.form.profile.change_password.new_password_repeat']
+                ],
                 'mapped'                => false,
             ])
             

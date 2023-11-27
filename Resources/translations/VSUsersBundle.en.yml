@@ -14,8 +14,11 @@ vs_users:
             picture_info: 'Allowed Types: jpeg, png'
             change_password:
                 old_password: 'Old Password'
+                old_password_placeholder: Enter current password
                 new_password: 'New Password'
+                new_password_placeholder: Enter new password
                 new_password_repeat: 'Confirm New Password'
+                btn_change_password: Change Password
         user:
             prefered_locale: 'Prefered Locale'
             prefered_locale_placeholder: '-- Select Prefered Locale --'

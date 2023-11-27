@@ -89,6 +89,7 @@ class ProfileController extends AbstractController
             $oUserInfo->setTitle( $form->get( 'title' )->getData() );
             $oUserInfo->setFirstName( $form->get( 'firstName' )->getData() );
             $oUserInfo->setLastName( $form->get( 'lastName' )->getData() );
+            $oUserInfo->setDesignation( $form->get( 'designation' )->getData() );
             
             $oUserInfo->setUser( $oUser );
             $em->persist( $oUserInfo );

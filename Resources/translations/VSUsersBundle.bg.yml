@@ -14,8 +14,11 @@ vs_users:
             picture_info: 'Позволени Типове: jpeg, png'
             change_password:
                 old_password: 'Стара Парола'
+                old_password_placeholder: Въведи текуща парола
                 new_password: 'Нова Парола'
+                new_password_placeholder: Въведи нова парола
                 new_password_repeat: 'Потвърди Нова Парола'
+                btn_change_password: Смени Парола
         user:
             prefered_locale: 'Предпочитан Език'
             prefered_locale_placeholder: '-- Избери Предпочитан Език --'
