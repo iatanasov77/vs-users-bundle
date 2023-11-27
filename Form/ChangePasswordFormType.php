@@ -21,6 +21,13 @@ class ChangePasswordFormType extends AbstractType
                 'attr'                  => ['placeholder' => 'vs_users.form.profile.change_password.old_password_placeholder'],
                 'translation_domain'    => 'VSUsersBundle',
                 'mapped'                => false,
+                
+                
+                'toggle' => true,
+                'hidden_label' => 'Masquer',
+                'visible_label' => 'Afficher',
+                'visible_icon' => null,
+                'hidden_icon' => null,
             ])
             
             ->add( 'password', RepeatedType::class, [
