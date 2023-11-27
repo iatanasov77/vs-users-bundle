@@ -283,8 +283,9 @@ class ProfileController extends AbstractController
     private function createAvatar( UserInfoInterface &$userInfo, File $file ): void
     {
         $avatarImage    = $userInfo->getAvatar() ?: $this->avatarImageFactory->createNew();
-        $uploadedFile   = new UploadedFile( $file->getRealPath(), $file->getBasename() );
+        $avatarImage->setOriginalName( $file->getClientOriginalName() );
         
+        $uploadedFile   = new UploadedFile( $file->getRealPath(), $file->getBasename() );
         $avatarImage->setFile( $uploadedFile );
         $this->imageUploader->upload( $avatarImage );
         $avatarImage->setFile( null ); // reset File Because: Serialization of 'Symfony\Component\HttpFoundation\File\UploadedFile' is not allowed
