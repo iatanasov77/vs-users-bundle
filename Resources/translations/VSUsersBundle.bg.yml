@@ -12,6 +12,7 @@ vs_users:
             designation: Длъжност
             picture_lable: 'Снимка на Профила'
             picture_info: 'Позволени Типове: jpeg, png'
+            change_avatar: Смени Аватар
             change_password:
                 old_password: 'Стара Парола'
                 old_password_placeholder: Въведи текуща парола
@@ -19,7 +20,7 @@ vs_users:
                 new_password_placeholder: Въведи нова парола
                 new_password_repeat: 'Потвърди Нова Парола'
                 btn_change_password: Смени Парола
-                change_avatar: Смени Аватар
+                
         user:
             prefered_locale: 'Предпочитан Език'
             prefered_locale_placeholder: '-- Избери Предпочитан Език --'
