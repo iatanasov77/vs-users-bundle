@@ -137,3 +137,7 @@ vs_users:
         
         profile_notifications: 'Известия'
         profile_notification_name: 'Известие'
+        profile_overview: Преглед
+        profile_activities: Действия
+        profile_edit_profile: Редактиране Профил
+        profile_about: Информация

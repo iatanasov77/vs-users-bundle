@@ -137,3 +137,7 @@ vs_users:
         
         profile_notifications: 'Notifications'
         profile_notification_name: 'Notification'
+        profile_overview: Overview
+        profile_activities: Activities
+        profile_edit_profile: Edit Profile
+        profile_about: About
