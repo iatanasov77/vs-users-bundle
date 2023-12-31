@@ -1,5 +1,6 @@
 <?php namespace Vankosoft\UsersBundle\Command;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -8,10 +9,14 @@ use Symfony\Component\Console\Input\InputArgument;
 use Vankosoft\UsersBundle\Model\UserInterface;
 use Vankosoft\UsersBundle\Security\UserManager;
 
+#[AsCommand(
+    name: 'vankosoft:user:create',
+    description: 'Creates a new user.',
+    hidden: false
+)]
 class CreateUserCommand extends Command
 {
-    protected static $defaultName = 'vankosoft:user:create';
-    
+    /** @var UserManager */
     private $userManager;
     
     public function __construct( UserManager $userManager )
@@ -21,12 +26,9 @@ class CreateUserCommand extends Command
         parent::__construct();
     }
     
-    protected function configure()
+    protected function configure(): void
     {
         $this
-            // the short description shown while running "php bin/console list"
-            ->setDescription( 'Creates a new user.' )
-            
             // the full command description shown when running the command with
             // the "--help" option
             ->setHelp( 'This command allows you to create a user...' )

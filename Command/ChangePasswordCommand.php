@@ -1,5 +1,6 @@
 <?php namespace Vankosoft\UsersBundle\Command;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -8,10 +9,13 @@ use Symfony\Component\Console\Input\InputArgument;
 use Vankosoft\UsersBundle\Security\UserManager;
 use Vankosoft\UsersBundle\Repository\UsersRepository;
 
+#[AsCommand(
+    name: 'vankosoft:user:change-password',
+    description: 'Change Password of an user.',
+    hidden: false
+)]
 class ChangePasswordCommand extends Command
 {
-    protected static $defaultName = 'vankosoft:user:change-password';
-    
     /** @var UserManager */
     private $userManager;
     
@@ -26,10 +30,9 @@ class ChangePasswordCommand extends Command
         $this->repository   = $repository;
     }
     
-    protected function configure()
+    protected function configure(): void
     {
         $this
-            ->setDescription( 'Change Password of an user.' )
             ->setHelp(<<<EOT
 The <info>%command.name% username new_password</info>
 EOT
