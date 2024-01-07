@@ -1,8 +1,9 @@
 <?php namespace Vankosoft\UsersBundle\Security;
 
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Vankosoft\UsersBundle\Model\UserInterface;
 
-class SecurityBridge
+final class SecurityBridge
 {
     private TokenStorageInterface $tokenStorage;
     
@@ -12,7 +13,7 @@ class SecurityBridge
         $this->tokenStorage = $tokenStorage;
     }
     
-    public function getUser()
+    public function getUser(): ?UserInterface
     {
         $token  = $this->tokenStorage->getToken();
         
