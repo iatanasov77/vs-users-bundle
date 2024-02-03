@@ -12,6 +12,8 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
+use Vankosoft\UsersBundle\Model\UserRole;
+
 class UserRoleForm extends AbstractForm
 {
     /** @var string */
@@ -79,7 +81,10 @@ class UserRoleForm extends AbstractForm
                 {
                     $qb = $er->createQueryBuilder( 'ur' );
                     if  ( $role && $role->getId() ) {
-                        $qb->where( 'ur.id != :id' )->setParameter( 'id', $role->getId() );
+                        $qb
+                            ->where( 'ur.id != :id' )->setParameter( 'id', $role->getId() )
+                            ->andWhere( 'ur.role != :anonymousRole' )->setParameter( 'anonymousRole', UserRole::ANONYMOUS )
+                        ;
                     }
                     
                     return $qb;

@@ -19,6 +19,7 @@ use Vankosoft\UsersBundle\Component\UserRole;
 use Vankosoft\UsersBundle\Form\UserInfoForm;
 use Vankosoft\UsersBundle\Model\UserInfoInterface;
 use Vankosoft\UsersBundle\Model\UserRoleInterface;
+use Vankosoft\UsersBundle\Model\UserRole as UserRoleModel;
 
 class UsersExtController extends AbstractController
 {
@@ -142,6 +143,10 @@ class UsersExtController extends AbstractController
         
         if ( is_array( $tree ) ) {
             foreach( $tree as $nodeKey => $node ) {
+                if ( $node['role'] == UserRoleModel::ANONYMOUS ) {
+                    continue;
+                }
+                
                 $data[$key]   = [
                     'id'        => $node['id'],
                     'text'      => $node['role'],

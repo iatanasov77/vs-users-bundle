@@ -10,9 +10,10 @@ use Vankosoft\ApplicationBundle\Model\Taxon;
 class UserRole implements UserRoleInterface, Comparable
 {
     //const DEFAULT = 'ROLE_USER';
-    const SUPER_ADMIN = 'ROLE_SUPER_ADMIN';
-    const ADMIN = 'ROLE_ADMIN';
-    const USER_PREMIUM = 'ROLE_USER_PREMIUM';
+    const ANONYMOUS     = 'ROLE_ANONYMOUS_USER';
+    const SUPER_ADMIN   = 'ROLE_SUPER_ADMIN';
+    const ADMIN         = 'ROLE_ADMIN';
+    const USER_PREMIUM  = 'ROLE_USER_PREMIUM';
     
     /** @var integer */
     protected $id;
