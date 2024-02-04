@@ -13,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 use Vankosoft\UsersBundle\Model\UserRole;
+use Vankosoft\UsersBundle\Model\UserRoleInterface;
 
 class UserRoleForm extends AbstractForm
 {
@@ -94,6 +95,21 @@ class UserRoleForm extends AbstractForm
                 'required'      => false,
                 'placeholder'   => 'vs_users.form.user_role.parent_role_placeholder',
             ])
+        ;
+    }
+    
+    public function configureOptions( OptionsResolver $resolver ) : void
+    {
+        parent::configureOptions( $resolver );
+        
+        $resolver
+            ->setDefaults([
+                'csrf_protection' => false,
+            ])
+            ->setDefined([
+                'user_roles',
+            ])
+            ->setAllowedTypes( 'user_roles', UserRoleInterface::class )
         ;
     }
     
