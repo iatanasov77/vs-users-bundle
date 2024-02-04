@@ -20,6 +20,7 @@ trait UserRolesCollectionTrait
      */
     public function getRolesFromCollection(): array
     {        
+        $roles  = [];
         foreach ( $this->rolesCollection as $role ) {
             $roles[]    = $role->getRole();
         }
