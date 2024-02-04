@@ -85,7 +85,7 @@ class UserRoleForm extends AbstractForm
                     if  ( $role && $role->getId() ) {
                         $qb
                             ->where( 'ur.id != :id' )->setParameter( 'id', $role->getId() )
-                            ->andWhere( 'ur.role != :anonymousRole' )->setParameter( 'anonymousRole', UserRole::ANONYMOUS )
+                            ->orWhere( 'ur.role != :anonymousRole' )->setParameter( 'anonymousRole', UserRole::ANONYMOUS )
                         ;
                     }
                     
