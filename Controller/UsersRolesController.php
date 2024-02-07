@@ -28,6 +28,7 @@ class UsersRolesController extends AbstractCrudController
         
         return [
             'taxonomy'  => $taxonomy,
+            'items'     => $this->getRepository()->findAll(),
         ];
     }
     
