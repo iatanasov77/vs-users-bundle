@@ -20,11 +20,7 @@ class UsersRolesController extends AbstractCrudController
     
     protected function customData( Request $request, $entity = null ): array
     {
-        $taxonomyCode   = $this->getParameter( 'vs_application.user_roles.taxonomy_code' );
-        $taxonomy       = $this->get( 'vs_application.repository.taxonomy' )->findByCode( $taxonomyCode );
-        if ( ! $taxonomy ) {
-            throw new \Exception( sprintf( "Taxonomy with code '%s' does not exists. Please create it before!", $taxonomyCode ) );
-        }
+        $taxonomy   = $this->getTaxonomy( 'vs_application.user_roles.taxonomy_code' );
         
         return [
             'taxonomy'  => $taxonomy,
