@@ -21,9 +21,6 @@ class UserRole implements UserRoleInterface, Comparable
     /** @var string */
     protected $role;
     
-    /** @var string */
-    protected $description;
-    
     /** @var UserRoleInterface */
     protected $parent;
     
@@ -55,18 +52,6 @@ class UserRole implements UserRoleInterface, Comparable
     public function setRole( $role ) : UserRoleInterface
     {
         $this->role = $role;
-        
-        return $this;
-    }
-    
-    public function getDescription()
-    {
-        return $this->description;
-    }
-    
-    public function setDescription( $description ) : UserRoleInterface
-    {
-        $this->description  = $description;
         
         return $this;
     }
