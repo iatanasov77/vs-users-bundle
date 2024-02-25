@@ -3,12 +3,12 @@
 use Doctrine\Common\Comparable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-
-use Vankosoft\ApplicationBundle\Model\Interfaces\TaxonInterface;
-use Vankosoft\ApplicationBundle\Model\Taxon;
+use Vankosoft\ApplicationBundle\Model\Traits\TaxonDescendentTrait;
 
 class UserRole implements UserRoleInterface, Comparable
 {
+    use TaxonDescendentTrait;
+    
     //const DEFAULT = 'ROLE_USER';
     const ANONYMOUS     = 'ROLE_ANONYMOUS_USER';
     const SUPER_ADMIN   = 'ROLE_SUPER_ADMIN';
@@ -23,9 +23,6 @@ class UserRole implements UserRoleInterface, Comparable
     
     /** @var string */
     protected $description;
-    
-    /** @var TaxonInterface */
-    protected $taxon;
     
     /** @var UserRoleInterface */
     protected $parent;
@@ -70,38 +67,6 @@ class UserRole implements UserRoleInterface, Comparable
     public function setDescription( $description ) : UserRoleInterface
     {
         $this->description  = $description;
-        
-        return $this;
-    }
-    
-    /**
-     * {@inheritdoc}
-     */
-    public function getTaxon(): ?TaxonInterface
-    {
-        return $this->taxon;
-    }
-    
-    /**
-     * {@inheritdoc}
-     */
-    public function setTaxon(?TaxonInterface $taxon): void
-    {
-        $this->taxon = $taxon;
-    }
-    
-    public function getName(): ?string
-    {
-        return $this->taxon ? $this->taxon->getName() : '';
-    }
-    
-    public function setName( string $name ) : self
-    {
-        if ( ! $this->taxon ) {
-            // Create new taxon into the controller and set the properties passed from form
-            return $this;
-        }
-        $this->taxon->setName( $name );
         
         return $this;
     }
