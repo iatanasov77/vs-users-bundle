@@ -2,7 +2,7 @@
 
 use Doctrine\ORM\Mapping as ORM;
 
-use Vankosoft\CmsBundle\Model\FileInterface;
+use Vankosoft\CmsBundle\Model\Interfaces\FileInterface;
 
 class UserInfo implements UserInfoInterface
 {

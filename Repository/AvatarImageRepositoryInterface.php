@@ -2,7 +2,7 @@
 
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 
-use Vankosoft\CmsBundle\Model\FileInterface;
+use Vankosoft\CmsBundle\Model\Interfaces\FileInterface;
 
 interface AvatarImageRepositoryInterface extends RepositoryInterface
 {

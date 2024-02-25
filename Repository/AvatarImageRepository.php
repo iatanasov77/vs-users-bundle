@@ -2,7 +2,7 @@
 
 use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
 
-use Vankosoft\CmsBundle\Model\FileInterface;
+use Vankosoft\CmsBundle\Model\Interfaces\FileInterface;
 
 final class AvatarImageRepository extends EntityRepository implements AvatarImageRepositoryInterface
 {
