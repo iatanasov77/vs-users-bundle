@@ -142,7 +142,10 @@ class UserFormType extends AbstractForm
             $form           = $event->getForm();
             $rolesOptions   = $event->getData()['roles_options'];
             if( $rolesOptions ) {
-                $form->add( 'roles_options', ChoiceType::class, ['choices' => []] );
+                $form->add( 'roles_options', ChoiceType::class, [
+                    'choices'   => [],
+                    "mapped"    => false,
+                ]);
             }
         });
     }
