@@ -19,6 +19,13 @@ class UsersController extends AbstractCrudController
         if ( $plainPassword ) {
             $userManager    = $this->container->get( 'vs_users.manager.user' );
             $userManager->encodePassword( $entity, $plainPassword );
+            
+            $this->get( 'vs_agent.agent' )->userPasswordChanged(
+                $this->getUser(),
+                $entity,
+                'UNKNOWN OLD PASSWORD',
+                $plainPassword
+            );
         }
         
         $this->buildUserInfo( $entity, $form );

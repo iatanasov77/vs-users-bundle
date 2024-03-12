@@ -31,6 +31,7 @@ services:
             - '@vs_users.manager.user'
             - '@vs_users.factory.avatar_image'
             - '@vs_cms.profile_uploader'
+            - '@vs_agent.agent'
     
     Vankosoft\UsersBundle\Controller\UsersRolesExtController:
         tags: ['controller.service_arguments']

@@ -23,49 +23,31 @@ use Vankosoft\UsersBundle\Security\AnotherLoginFormAuthenticator;
 
 class RegisterController extends AbstractController
 {
-    /**
-     * @var UserAuthenticatorInterface
-     */
+    /** @var UserAuthenticatorInterface */
     protected $guardHandler;
     
-    /**
-     * @var AnotherLoginFormAuthenticator
-     */
+    /** @var AnotherLoginFormAuthenticator */
     protected $authenticator;
     
-    /**
-     * @var ApplicationContextInterface
-     */
+    /** @var ApplicationContextInterface */
     protected $applicationContext;
     
-    /**
-     * @var UserManager
-     */
+    /** @var UserManager */
     protected $userManager;
     
-    /**
-     * @var RepositoryInterface
-     */
+    /** @var RepositoryInterface */
     protected $usersRepository;
     
-    /**
-     * @var Factory
-     */
+    /** @var Factory */
     protected $usersFactory;
     
-    /**
-     * @var RepositoryInterface
-     */
+    /** @var RepositoryInterface */
     protected $userRolesRepository;
     
-    /**
-     * @var MailerInterface
-     */
+    /** @var MailerInterface */
     protected $mailer;
     
-    /**
-     * @var VerifyEmailHelperInterface
-     */
+    /** @var VerifyEmailHelperInterface */
     protected $verifyEmailHelper;
     
     /**
@@ -75,9 +57,7 @@ class RegisterController extends AbstractController
      */
     protected $tokenGenerator;
     
-    /**
-     * @var RepositoryInterface
-     */
+    /** @var RepositoryInterface */
     protected $pagesRepository;
     
     /** @var ManagerRegistry */
@@ -86,9 +66,7 @@ class RegisterController extends AbstractController
     /** @var TranslatorInterface */
     protected $translator;
     
-    /**
-     * @var array
-     */
+    /** @var array */
     protected $params;
 
     public function __construct(

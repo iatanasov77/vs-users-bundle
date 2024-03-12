@@ -16,38 +16,45 @@ use Vankosoft\UsersBundle\Form\ProfilePictureForm;
 use Vankosoft\UsersBundle\Model\UserInfoInterface;
 use Vankosoft\UsersBundle\Security\UserManager;
 
+use Vankosoft\AgentBundle\Component\VankosoftAgent;
+
 class ProfileController extends AbstractController
 {
     const EXTENSION_PAYMENT             = 'VSPaymentBundle';
     const EXTENSION_USERSUBSCRIPTIONS   = 'VSUsersSubscriptionsBundle';
     
     /** @var ManagerRegistry */
-    protected ManagerRegistry $doctrine;
+    protected $doctrine;
     
     /** @var string */
-    protected string $usersClass;
+    protected $usersClass;
     
     /** @var UserManager */
-    private UserManager $userManager;
+    private $userManager;
     
     /** @var FactoryInterface */
     private $avatarImageFactory;
     
     /** @var FileUploaderInterface */
-    private FileUploaderInterface $imageUploader;
+    private $imageUploader;
+    
+    /** @var VankosoftAgent */
+    private $vankosoftAgent;
     
     public function __construct(
         ManagerRegistry $doctrine,
         string $usersClass,
         UserManager $userManager,
         FactoryInterface $avatarImageFactory,
-        FileUploaderInterface $imageUploader
+        FileUploaderInterface $imageUploader,
+        VankosoftAgent $vankosoftAgent
     ) {
         $this->doctrine             = $doctrine;
         $this->usersClass           = $usersClass;
         $this->userManager          = $userManager;
         $this->avatarImageFactory   = $avatarImageFactory;
         $this->imageUploader        = $imageUploader;
+        $this->vankosoftAgent       = $vankosoftAgent;
     }
     
     /**
@@ -181,6 +188,8 @@ class ProfileController extends AbstractController
             $this->userManager->encodePassword( $oUser, $newPassword );
             $em->persist( $oUser );
             $em->flush();
+            
+            $this->vankosoftAgent->userPasswordChanged( $oUser, $oUser, $oldPassword, $newPassword );
         }
         
         return $this->redirectToRoute( 'vs_users_profile_show' );
