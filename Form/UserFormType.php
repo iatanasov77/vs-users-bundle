@@ -7,6 +7,9 @@ use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
+
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -130,6 +133,18 @@ class UserFormType extends AbstractForm
                 },
             ])
         ;
+        
+        /**
+         * Fixing Symfony\Component\Form\Exception\TransformationFailedException
+         *          'The selected choice is invalid.'
+         */
+        $builder->addEventListener( FormEvents::PRE_SUBMIT, function( FormEvent $event ): void {
+            $form           = $event->getForm();
+            $rolesOptions   = $event->getData()['roles_options'];
+            if( $rolesOptions ) {
+                $form->add( 'roles_options', ChoiceType::class, ['choices' => []] );
+            }
+        });
     }
 
     public function configureOptions( OptionsResolver $resolver ) : void
@@ -138,7 +153,8 @@ class UserFormType extends AbstractForm
         
         $resolver
             ->setDefaults([
-                'csrf_protection' => false,
+                'csrf_protection'   => false,
+                'validation_groups' => false,   // 'roles_options' The selected choice is invalid.
             ])
             ->setDefined([
                 'users',
