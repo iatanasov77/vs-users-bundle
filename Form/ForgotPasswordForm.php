@@ -10,7 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 
 class ForgotPasswordForm extends AbstractType
 {
-    public function buildForm( FormBuilderInterface $builder, array $options )
+    public function buildForm( FormBuilderInterface $builder, array $options ): void
     {
         $builder
             ->setMethod( 'POST' )
@@ -32,7 +32,7 @@ class ForgotPasswordForm extends AbstractType
         ;
     }
     
-    public function configureOptions( OptionsResolver $resolver ) : void
+    public function configureOptions( OptionsResolver $resolver ): void
     {
         parent::configureOptions( $resolver );
         
