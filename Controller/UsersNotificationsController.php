@@ -5,6 +5,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Doctrine\Persistence\ManagerRegistry;
+use Twig\Environment;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Vankosoft\ApplicationBundle\Component\Status;
 use Vankosoft\UsersBundle\Security\SecurityBridge;
@@ -16,6 +17,9 @@ class UsersNotificationsController extends AbstractController
     /** @var ManagerRegistry */
     protected $doctrine;
     
+    /** @var Environment */
+    protected $templatingEngine;
+    
     /** @var SecurityBridge */
     protected $securityBridge;
     
@@ -24,10 +28,12 @@ class UsersNotificationsController extends AbstractController
     
     public function __construct(
         ManagerRegistry $doctrine,
+        Environment $templatingEngine,
         SecurityBridge $securityBridge,
         RepositoryInterface $notificationsRepository
     ) {
         $this->doctrine                 = $doctrine;
+        $this->templatingEngine         = $templatingEngine;
         $this->securityBridge           = $securityBridge;
         $this->notificationsRepository  = $notificationsRepository;
     }
@@ -80,7 +86,10 @@ class UsersNotificationsController extends AbstractController
             return new JsonResponse([
                 'status'    => $hasError ? Status::STATUS_ERROR : Status::STATUS_OK,
                 'message'   => $hasError ? 'Invalid User !!!' : 'User is Valid !!!',
-                'response'  => $hasError ? '' : $this->render( '@VSUsers/Profile/partial/notification.html.twig', ['notification'  => $notification] ),
+                'response'  => $hasError ? '' :
+                                $this->templatingEngine->render( '@VSUsers/Profile/partial/notification.html.twig', [
+                                    'notification'  => $notification
+                                ]),
             ]);
         } else {
             if ( $hasError ) {

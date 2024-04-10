@@ -12,6 +12,7 @@ services:
         tags: ['controller.service_arguments']
         arguments:
             - '@doctrine'
+            - '@twig'
             - '@vs_users.security_bridge'
             - '@vs_users.repository.user_notification'
 
