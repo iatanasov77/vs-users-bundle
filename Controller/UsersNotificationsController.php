@@ -25,7 +25,7 @@ class UsersNotificationsController extends AbstractController
     public function __construct(
         ManagerRegistry $doctrine,
         SecurityBridge $securityBridge,
-        RepositoryInterface $usersRepository
+        RepositoryInterface $notificationsRepository
     ) {
         $this->doctrine                 = $doctrine;
         $this->securityBridge           = $securityBridge;
