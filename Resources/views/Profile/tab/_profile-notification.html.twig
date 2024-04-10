@@ -17,13 +17,13 @@
                             <img src="{{ asset( '/build/default/images/avatar-2.jpg' ) }}" class="user-avatar-md rounded-circle">
                         </a>
                         <p class="attribution">
-                            <a href="javascript:void(0);" class="me-2"
+                            <a href="javascript:void(0);" class="me-2 btnShowNotification"
                                 data-notificationId="{{ notification.id }}"
                                 data-notificationHasBody="{{ notification.notificationBody is not empty }}"
-                            >
-                                {{ 'vs_users.template.profile_notification_name' | trans( {},'VSUsersBundle' ) }}
-                            </a>
+                            >{{ 'vs_users.template.profile_notification_name' | trans( {},'VSUsersBundle' ) }}</a>
+                            
                             at {{ notification.date | date( "g:ia , jS F Y ( l )" ) }} 
+                            
                             {% if notification.readed %}
                                 - <span class="text-success">{{ 'vs_users.template.profile_notification_readed' | trans( {},'VSUsersBundle' ) }}</span>
                             {% else %}
