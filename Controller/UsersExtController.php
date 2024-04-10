@@ -26,7 +26,7 @@ class UsersExtController extends AbstractController
     use UserRolesAwareTrait;
     
     /** @var ManagerRegistry */
-    protected ManagerRegistry $doctrine;
+    protected $doctrine;
     
     /** @var RepositoryInterface */
     protected $usersRepository;

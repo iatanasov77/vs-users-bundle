@@ -30,3 +30,16 @@ vs_users_user_info_handle:
     path: /user-info/{userId}/handle
     controller: Vankosoft\UsersBundle\Controller\UsersExtController::handleUserInfo
 
+vs_users_notifications_set_all_readed:
+    path: /user-notifications/set-all-readed
+    controller: Vankosoft\UsersBundle\Controller\UsersNotificationsController::setAllReaded
+    options:
+        expose: true
+
+vs_users_notifications_show:
+    path: /user-notifications/{id}
+    controller: Vankosoft\UsersBundle\Controller\UsersNotificationsController::showNotification
+    options:
+        expose: true
+
+

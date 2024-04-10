@@ -15,8 +15,8 @@ interface UserInterface extends BaseUserInterface, PasswordAuthenticatedUserInte
     public function getRolesFromCollection(): array;
     
     /** @return Collection|UserActivity[] */
-    public function getActivities() : Collection;
+    public function getActivities(): Collection;
     
     /** @return Collection|UserNotification[] */
-    public function getNotifications() : Collection;
+    public function getNotifications(): Collection;
 }
