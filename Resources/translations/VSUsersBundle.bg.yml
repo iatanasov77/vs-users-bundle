@@ -145,6 +145,7 @@ vs_users:
         profile_notification_name: 'Известие'
         profile_notification_readed: 'разгледан'
         profile_notification_unreaded: 'неразгледан'
+        profile_show_notification_title: Известие Изпратено до Вас
         profile_overview: Преглед
         profile_activities: Действия
         profile_edit_profile: Редактиране Профил
@@ -155,3 +156,10 @@ vs_users:
         reset_password_description: Въведете своя имейл и ще ви бъдат изпратени инструкции!
         reset_password_i_remember: Чакай, помня паролата си...
         reset_password_click_here: Кликни тук
+        
+        notification:
+            notification_details: Известие Детайли
+            from: От
+            date: Дата
+            subject: Субект
+            content: Съдържание

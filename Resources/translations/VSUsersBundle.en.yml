@@ -145,6 +145,7 @@ vs_users:
         profile_notification_name: 'Notification'
         profile_notification_readed: 'readed'
         profile_notification_unreaded: 'unreaded'
+        profile_show_notification_title: Notification Sent to You
         profile_overview: Overview
         profile_activities: Activities
         profile_edit_profile: Edit Profile
@@ -155,3 +156,10 @@ vs_users:
         reset_password_description: Enter your email and instructions will be sent to you!
         reset_password_i_remember: Wait, I remember my password...
         reset_password_click_here: Click here
+        
+        notification:
+            notification_details: Notification Details
+            from: From
+            date: Date
+            subject: Subject
+            content: Content

@@ -1,0 +1,25 @@
+<div class="row">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="card">
+            <h5 class="card-header">{{ 'vs_users.template.notification.notification_details'  | trans( {},'VSUsersBundle' ) }}</h5>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-3"><h5><strong>{{ 'vs_users.template.notification.from' | trans( {},'VSUsersBundle' ) }}:</strong></h5></div>
+                    <div class="col-9">{{ notification.notificationFrom }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-3"><h5><strong>{{ 'vs_users.template.notification.date' | trans( {},'VSUsersBundle' ) }}:</strong></h5></div>
+                    <div class="col-9">{{ notification.date | date( 'd.m.Y H:i:s' ) }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-3"><h5><strong>{{ 'vs_users.template.notification.subject' | trans( {},'VSUsersBundle' ) }}:</strong></h5></div>
+                    <div class="col-9">{{ notification.notification }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-3"><h5><strong>{{ 'vs_users.template.notification.content' | trans( {},'VSUsersBundle' ) }}:</strong></h5></div>
+                    <div class="col-9">{{ notification.notificationBody }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -80,7 +80,7 @@ class UsersNotificationsController extends AbstractController
             return new JsonResponse([
                 'status'    => $hasError ? Status::STATUS_ERROR : Status::STATUS_OK,
                 'message'   => $hasError ? 'Invalid User !!!' : 'User is Valid !!!',
-                'response'  => $hasError ? '' : $this->render( '@VSUsers/Profile/notification.html.twig', ['notification'  => $notification] ),
+                'response'  => $hasError ? '' : $this->render( '@VSUsers/Profile/partial/notification.html.twig', ['notification'  => $notification] ),
             ]);
         } else {
             if ( $hasError ) {
