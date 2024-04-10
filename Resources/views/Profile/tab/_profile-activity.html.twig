@@ -1,11 +1,13 @@
-<h3>{{ 'vs_users.template.profile_activity_header' | trans( {},'VSUsersBundle' ) }}</h3>
-<section class="panel">
-    <div class="panel-body bio-graph-info profile-activity">
-    	{% for activity in user.activities %}                                       
-    	    <div class="act-time mb-3">                                      
-    	        <div class="activity-body act-in">
-    	            <span class="arrow"></span>
-    	            <div class="text">
+<div class="card">
+    <div class="card-header d-flex">
+        <h4 class="card-header-title">{{ 'vs_users.template.profile_activity_header' | trans( {},'VSUsersBundle' ) }}</h4>
+    </div>
+    <div class="card-body bio-graph-info profile-activity">
+        {% for activity in user.activities %}                                       
+            <div class="act-time mb-3">                                      
+                <div class="activity-body act-in">
+                    <span class="arrow"></span>
+                    <div class="text">
                         <a class="activity-img" href="javascript:void(0);">
                             <img src="{{ asset( '/build/default/images/avatar-2.jpg' ) }}" class="user-avatar-md rounded-circle">
                         </a>
@@ -13,9 +15,9 @@
                             <a href="javascript:void(0);">{{ 'vs_users.template.profile_activity_name' | trans( {},'VSUsersBundle' ) }}</a> at {{ activity.date | date( "g:ia , jS F Y ( l )" ) }}
                         </p>
                         <p>{{ activity.activity }}</p>
-    	            </div>
-    	        </div>
-    	    </div>
-    	{% endfor %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
     </div>
-</section>
+</div>

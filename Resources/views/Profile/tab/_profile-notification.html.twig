@@ -2,8 +2,7 @@
     <div class="card-header d-flex">
         <h4 class="card-header-title">{{ 'vs_users.template.profile_notifications' | trans( {},'VSUsersBundle' ) }}</h4>
         <div class="toolbar ms-auto mt-auto mb-auto">
-            <a href="#" class="btn btn-primary btn-sm ">CSV</a>
-            <a href="#" class="btn btn-light btn-sm">PDF</a>
+            <a href="javascript:void(0);" class="btn btn-primary btn-sm ">CSV</a>
         </div>
     </div>
     <div class="card-body bio-graph-info profile-notification">
@@ -16,7 +15,13 @@
                             <img src="{{ asset( '/build/default/images/avatar-2.jpg' ) }}" class="user-avatar-md rounded-circle">
                         </a>
                         <p class="attribution">
-                            <a href="javascript:void(0);">{{ 'vs_users.template.profile_notification_name' | trans( {},'VSUsersBundle' ) }}</a> at {{ notification.date | date( "g:ia , jS F Y ( l )" ) }}
+                            <a href="javascript:void(0);">{{ 'vs_users.template.profile_notification_name' | trans( {},'VSUsersBundle' ) }}</a> 
+                            at {{ notification.date | date( "g:ia , jS F Y ( l )" ) }} 
+                            {% if notification.readed %}
+                                <span class="text-success">readed</span>
+                            {% else %}
+                                <span class="text-danger">unreaded</span>
+                            {% endif %}
                         </p>
                         <p>{{ notification.notification }}</p>
                     </div>
@@ -25,25 +30,3 @@
         {% endfor %}
     </div>
 </div>
-
-<h3>{{ 'vs_users.template.profile_notifications' | trans( {},'VSUsersBundle' ) }}</h3>
-<section class="panel">
-    <div class="panel-body bio-graph-info profile-notification">
-    	{% for notification in user.notifications %}                                       
-    	    <div class="act-time mb-3">                                      
-    	        <div class="notification-body act-in">
-    	            <span class="arrow"></span>
-    	            <div class="text">
-                        <a class="notification-list-user-img" href="javascript:void(0);">
-                            <img src="{{ asset( '/build/default/images/avatar-2.jpg' ) }}" class="user-avatar-md rounded-circle">
-                        </a>
-                        <p class="attribution">
-                            <a href="javascript:void(0);">{{ 'vs_users.template.profile_notification_name' | trans( {},'VSUsersBundle' ) }}</a> at {{ notification.date | date( "g:ia , jS F Y ( l )" ) }}
-                        </p>
-                        <p>{{ notification.notification }}</p>
-    	            </div>
-    	        </div>
-    	    </div>
-    	{% endfor %}
-    </div>
-</section>
