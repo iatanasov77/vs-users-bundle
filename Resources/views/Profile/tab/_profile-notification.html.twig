@@ -2,7 +2,9 @@
     <div class="card-header d-flex">
         <h4 class="card-header-title">{{ 'vs_users.template.profile_notifications' | trans( {},'VSUsersBundle' ) }}</h4>
         <div class="toolbar ms-auto mt-auto mb-auto">
-            <a href="javascript:void(0);" class="btn btn-primary btn-sm ">CSV</a>
+            <a href="javascript:void(0);" class="btn btn-primary btn-sm" id="btnSetAllNotificationsReaded">
+                {{ 'vs_users.template.profile_notification_set_all_readed' | trans( {},'VSUsersBundle' ) }}
+            </a>
         </div>
     </div>
     <div class="card-body bio-graph-info profile-notification">
@@ -18,9 +20,9 @@
                             <a href="javascript:void(0);">{{ 'vs_users.template.profile_notification_name' | trans( {},'VSUsersBundle' ) }}</a> 
                             at {{ notification.date | date( "g:ia , jS F Y ( l )" ) }} 
                             {% if notification.readed %}
-                                <span class="text-success">readed</span>
+                                - <span class="text-success">{{ 'vs_users.template.profile_notification_readed' | trans( {},'VSUsersBundle' ) }}</span>
                             {% else %}
-                                <span class="text-danger">unreaded</span>
+                                - <span class="text-danger">{{ 'vs_users.template.profile_notification_unreaded' | trans( {},'VSUsersBundle' ) }}</span>
                             {% endif %}
                         </p>
                         <p>{{ notification.notification }}</p>
