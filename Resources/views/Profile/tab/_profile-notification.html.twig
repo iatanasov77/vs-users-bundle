@@ -1,3 +1,17 @@
+<div class="card">
+    <div class="card-header d-flex">
+        <h4 class="card-header-title">Card Header</h4>
+        <div class="toolbar ml-auto">
+            <a href="#" class="btn btn-primary btn-sm ">CSV</a>
+            <a href="#" class="btn btn-light btn-sm">PDF</a>
+        </div>
+    </div>
+    <div class="card-body">
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+    </div>
+</div>
+
 <h3>{{ 'vs_users.template.profile_notifications' | trans( {},'VSUsersBundle' ) }}</h3>
 <section class="panel">
     <div class="panel-body bio-graph-info profile-notification">
@@ -6,11 +20,13 @@
     	        <div class="notification-body act-in">
     	            <span class="arrow"></span>
     	            <div class="text">
-    	                <a class="notification-list-user-img" href="#"><img alt="" src="{{ asset( '/build/default/images/avatar-2.jpg' ) }}" class="user-avatar-md rounded-circle"></a>
-    	                <p class="attribution">
-    	                   <a href="#">{{ 'vs_users.template.profile_notification_name' | trans( {},'VSUsersBundle' ) }}</a> at {{ notification.date | date( "g:ia , jS F Y ( l )" ) }}
-    	                </p>
-    	                <p>{{ notification.notification }}</p>
+                        <a class="notification-list-user-img" href="javascript:void(0);">
+                            <img src="{{ asset( '/build/default/images/avatar-2.jpg' ) }}" class="user-avatar-md rounded-circle">
+                        </a>
+                        <p class="attribution">
+                            <a href="javascript:void(0);">{{ 'vs_users.template.profile_notification_name' | trans( {},'VSUsersBundle' ) }}</a> at {{ notification.date | date( "g:ia , jS F Y ( l )" ) }}
+                        </p>
+                        <p>{{ notification.notification }}</p>
     	            </div>
     	        </div>
     	    </div>

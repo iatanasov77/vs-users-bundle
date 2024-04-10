@@ -86,7 +86,7 @@ vs_users:
         profile_details_header: 'Профил Информация'
         profile_change_password_header: 'Смени Парола'
         profile_activity_header: 'Активност'
-        profile_activity_name: Име на Активност
+        profile_activity_name: Активност
         profile_newsletter_subscriptions: Нюзлетър Абонаменти
         profile_paid_subscriptions: Платени Абонаменти
         profile_paid_subscription_title: Име

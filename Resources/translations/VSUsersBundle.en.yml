@@ -86,7 +86,7 @@ vs_users:
         profile_details_header: 'Profile Info'
         profile_change_password_header: 'Change Password'
         profile_activity_header: 'Activity'
-        profile_activity_name: Activity name
+        profile_activity_name: Activity
         profile_newsletter_subscriptions: Newsletter Subscriptions
         profile_paid_subscriptions: Paid Subscriptions
         profile_paid_subscription_title: Title
