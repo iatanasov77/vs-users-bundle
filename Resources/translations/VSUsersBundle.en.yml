@@ -141,7 +141,7 @@ vs_users:
         users_roles_update_form_title: User Role
         
         profile_notifications: 'Notifications'
-        profile_notification_set_all_readed: Set ALl as Readed
+        profile_notification_set_all_readed: Set All as Readed
         profile_notification_name: 'Notification'
         profile_notification_readed: 'readed'
         profile_notification_unreaded: 'unreaded'
