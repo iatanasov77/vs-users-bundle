@@ -141,6 +141,8 @@ vs_users:
         users_roles_update_form_title: Потребителска Роля
         
         profile_notifications: 'Известия'
+        profile_notification_clear_all: Изчисти Всички
+        profile_activity_clear_all: Изчисти Всички
         profile_notification_set_all_readed: Сложи Всички като Разгледани
         profile_notification_name: 'Известие'
         profile_notification_readed: 'разгледан'
