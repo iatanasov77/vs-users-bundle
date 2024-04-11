@@ -12,5 +12,5 @@
 </div>
 <div class="row">
     <div class="col-3"><h5><strong>{{ 'vs_users.template.notification.content' | trans( {},'VSUsersBundle' ) }}:</strong></h5></div>
-    <div class="col-9">{{ notification.notificationBody }}</div>
+    <div class="col-9">{{ notification.notificationBody | raw }}</div>
 </div>
