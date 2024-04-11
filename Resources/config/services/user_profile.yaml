@@ -15,5 +15,13 @@ services:
             - '@twig'
             - '@vs_users.security_bridge'
             - '@vs_users.repository.user_notification'
+            
+    Vankosoft\UsersBundle\Controller\UsersActivitiesController:
+        public: true
+        autowire: true
+        tags: ['controller.service_arguments']
+        arguments:
+            - '@doctrine'
+            - '@vs_users.security_bridge'
 
 

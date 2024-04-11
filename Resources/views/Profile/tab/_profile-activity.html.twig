@@ -1,8 +1,13 @@
 <div class="card">
     <div class="card-header d-flex">
         <h4 class="card-header-title">{{ 'vs_users.template.profile_activity_header' | trans( {},'VSUsersBundle' ) }}</h4>
+        <div class="toolbar ms-auto mt-auto mb-auto">
+            <a href="javascript:void(0);" class="btn btn-primary btn-sm" id="btnClearAllActivities">
+                {{ 'vs_users.template.profile_notification_clear_all' | trans( {},'VSUsersBundle' ) }}
+            </a>
+        </div>
     </div>
-    <div class="card-body bio-graph-info profile-activity">
+    <div class="card-body bio-graph-info profile-activity overflow-scroll">
         {% for activity in user.activities %}                                       
             <div class="act-time mb-3">                                      
                 <div class="activity-body act-in">

@@ -38,6 +38,34 @@ class UsersNotificationsController extends AbstractController
         $this->notificationsRepository  = $notificationsRepository;
     }
     
+    public function clearAll( Request $request ): Response
+    {
+        $user   = $this->securityBridge->getUser();
+        $userIsValid    = ( $user instanceof UserInterface );
+        $hasError       = ! $userIsValid;
+        
+        if ( ! $hasError ) {
+            $em = $this->doctrine->getManager();
+            foreach ( $user->getNotifications() as $not ) {
+                $em->remove( $not );
+            }
+            $em->flush();
+        }
+        
+        if( $request->isXmlHttpRequest() ) {
+            return new JsonResponse([
+                'status'    => $hasError ? Status::STATUS_ERROR : Status::STATUS_OK,
+                'message'   => $hasError ? 'Invalid User !!!' : 'User is Valid !!!',
+            ]);
+        } else {
+            if ( $hasError ) {
+                throw new UserException( 'Invalid User !!!' );
+            }
+            
+            return $this->redirectToRoute( 'vs_users_profile_show' );
+        }
+    }
+    
     public function setAllReaded( Request $request ): Response
     {
         $user   = $this->securityBridge->getUser();
