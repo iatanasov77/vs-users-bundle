@@ -139,8 +139,13 @@ class UserFormType extends AbstractForm
          *          'The selected choice is invalid.'
          */
         $builder->addEventListener( FormEvents::PRE_SUBMIT, function( FormEvent $event ): void {
+            $data   = $event->getData();
+            if ( ! isset( $data['roles_options'] ) ) {
+                return;    
+            }
+            
             $form           = $event->getForm();
-            $rolesOptions   = $event->getData()['roles_options'];
+            $rolesOptions   = $data['roles_options'];
             if( $rolesOptions ) {
                 $form->add( 'roles_options', ChoiceType::class, [
                     'choices'   => [],
