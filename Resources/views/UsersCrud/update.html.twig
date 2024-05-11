@@ -4,7 +4,6 @@
 {% from '@SyliusResource/Macros/actions.html.twig' import create %}
 {% import "@VSApplication/Macros/form.html.twig" as vs_form %}
 {% import "@VSApplication/Macros/tree.html.twig" as vs_tree %}
-{% import "@VSApplication/Macros/alerts.html.twig" as alerts %}
 
 {% if( item.id ) %}
 	{% set pageTitle = 'vs_users.template.userscrud_update_title' %}
@@ -30,11 +29,9 @@
             		{% if useFormMethod is defined %}{% set formMethod = useFormMethod %}{% else %}{% set formMethod = 'PUT' %}{% endif %}
                     {{ form_start(form, { 'attr': {'class': 'form-horizontal '}, 'method': formMethod }) }}
             
-                    {% if not form.vars.valid %}
-                        {% for error in form.vars.errors %}
-                            {{ alerts.error( error.message ) }}
-                        {%endfor%}
-                    {% endif %}
+                        {% if formErrors is defined %}
+                            {{ vs_form.errors( formErrors ) }}     
+                        {% endif %}
     					
     					<div class="form-group">
         					<label class="custom-control custom-checkbox">  

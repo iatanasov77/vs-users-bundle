@@ -1,6 +1,10 @@
 {% import "@VSApplication/Macros/form.html.twig" as vs_form %}
 {% import "@VSApplication/Macros/tree.html.twig" as vs_tree %}
 
+{% if formErrors is defined %}
+    {{ vs_form.errors( formErrors ) }}     
+{% endif %}
+
 {{ form_start(form, { 'attr': {'class': 'form-horizontal '} }) }}
     <div class="form-group">
         {{ form_label(form.currentLocale, null, {

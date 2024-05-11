@@ -20,13 +20,6 @@
             <div class="card">
                 <h5 class="card-header">{{ 'vs_users.template.users_roles_update_form_title' | trans( {},'VSUsersBundle' ) }}</h5>
                 <div class="card-body">
-                
-                    {% if not form.vars.valid %}
-                        {% for error in form.vars.errors %}
-                            {{ alerts.error( error.message ) }}
-                        {% endfor %}
-                    {% endif %}
-                    
                     <div id="UserRoleFormContainer" data-pageId="{{ item.id }}">
                         {% include '@VSUsers/UsersRoles/Partial/role_form.html.twig' %}
                     </div>
