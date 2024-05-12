@@ -9,11 +9,14 @@ use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
+use Vankosoft\ApplicationBundle\Controller\Traits\CategoryTreeDataTrait;
 use Vankosoft\ApplicationBundle\Component\Status;
 use Vankosoft\ApplicationBundle\Repository\TaxonRepository;
 
 class UsersRolesExtController extends AbstractController
 {
+    use CategoryTreeDataTrait;
+    
     /** @var TranslatorInterface */
     protected $translator;
     
@@ -54,13 +57,15 @@ class UsersRolesExtController extends AbstractController
         
         $topRoles   = $this->usersRolesRepository->findBy( ['parent' => null] );
         $rolesTree  = [];
-        $this->getRolesTree( new ArrayCollection( $topRoles ), $rolesTree );
         
+        //$this->getRolesTree( new ArrayCollection( $topRoles ), $rolesTree );
+        $this->getItemsTree( new ArrayCollection( $topRoles ), $rolesTree );
         $this->buildEasyuiCombotreeData( $rolesTree, $data[0]['children'], [$selectedParent] );
         
         return new JsonResponse( $data );
     }
     
+    /*
     protected function buildEasyuiCombotreeData( $tree, &$data, array $selectedValues )
     {
         $key    = 0;
@@ -99,4 +104,5 @@ class UsersRolesExtController extends AbstractController
             }
         }
     }
+    */
 }
