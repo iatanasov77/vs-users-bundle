@@ -2,7 +2,7 @@
 
 use Symfony\Component\HttpFoundation\Request;
 use Vankosoft\ApplicationBundle\Controller\AbstractCrudController;
-use Vankosoft\ApplicationBundle\Controller\TaxonomyHelperTrait;
+use Vankosoft\ApplicationBundle\Controller\Traits\TaxonomyHelperTrait;
 
 /**
  * Documentation
