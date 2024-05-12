@@ -59,7 +59,7 @@ class UsersRolesExtController extends AbstractController
         $rolesTree  = [];
         
         $this->getItemsTree( new ArrayCollection( $topRoles ), $rolesTree );
-        $this->buildEasyuiCombotreeData( $rolesTree, $data[0]['children'], [$selectedParent] );
+        $this->buildEasyuiCombotreeDataFromCollection( $rolesTree, $data[0]['children'], [$selectedParent] );
         
         return new JsonResponse( $data );
     }

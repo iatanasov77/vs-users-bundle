@@ -131,39 +131,10 @@ class UsersExtController extends AbstractController
         }
         
         $rolesTree      = [];
-        $this->getRolesTree(  $topRoles, $rolesTree );
+        $this->getRolesTree( $topRoles, $rolesTree );
         $this->buildEasyuiCombotreeDataFromCollection( $rolesTree, $data, $selectedRoles, [UserRoleModel::ANONYMOUS] );
         
-        //$this->buildEasyuiCombotreeData( UserRole::choicesTree(), $data, $selectedRoles );
-        
         return new JsonResponse( $data );
-    }
-    
-    /**
-     * OLD Way
-     */
-    protected function buildEasyuiCombotreeData( $tree, &$data, array $selectedValues )
-    {
-        $key    = 0;
-        
-        if ( is_array( $tree ) ) {
-            foreach( $tree as $nodeKey => $nodeChildren ) {
-                $data[$key]   = [
-                    'id'        => $nodeKey,
-                    'text'      => $nodeKey,
-                    'children'  => []
-                ];
-                if ( in_array( $nodeKey, $selectedValues ) ) {
-                    $data[$key]['checked'] = true;
-                }
-                
-                if ( ! empty( $nodeChildren ) ) {
-                    $this->buildEasyuiCombotreeData( $nodeChildren, $data[$key]['children'], $selectedValues );
-                }
-                
-                $key++;
-            }
-        }
     }
     
     protected function createAvatar( UserInfoInterface &$userInfo, File $file ): void
