@@ -15,6 +15,8 @@
                             <th>{{ 'vs_users.template.userscrud_index_tablecolumns_email' | trans( {},'VSUsersBundle' ) }}</th>
                             <th>{{ 'vs_users.template.userscrud_index_tablecolumns_fullname' | trans( {},'VSUsersBundle' ) }}</th>
                             <th>{{ 'vs_users.template.userscrud_index_tablecolumns_roles' | trans( {},'VSUsersBundle' ) }}</th>
+                            <th>{{ 'vs_users.form.user.enabled' | trans( {},'VSUsersBundle' ) }}</th>
+                            <th>{{ 'vs_users.form.user.verified' | trans( {},'VSUsersBundle' ) }}</th>
                             <th>{{ 'vs_users.template.userscrud_index_tablecolumns_allowed_applications' | trans( {},'VSUsersBundle' ) }}</th>
                             <th width="150">{{ 'vs_users.template.userscrud_index_tablecolumns_action' | trans( {},'VSUsersBundle' ) }}</th>
                         </tr>
@@ -44,6 +46,20 @@
                                 <td>{{ item.email  }}</td>
                                 <td>{{ item.info.getFullName() }}</td>
                                 <td>{{ item.roles | join(' , ')  }}</td>
+                                <td>
+                                    {% if item.enabled %}
+                                        <i class="fas fa-check" style="color: #82c91e;">
+                                    {% else %}
+                                        <i class="fas fa-times" style="color: #ff1e1e;"></i>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if item.verified %}
+                                        <i class="fas fa-check" style="color: #82c91e;">
+                                    {% else %}
+                                        <i class="fas fa-times" style="color: #ff1e1e;"></i>
+                                    {% endif %}
+                                </td>
                                 <td>
                                     {% for app in item.applications %}
                                         {{ app.title  }}
