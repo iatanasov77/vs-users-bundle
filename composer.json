@@ -19,8 +19,7 @@
 		"symfony/mailer" : "^6.4",
 		"symfonycasts/verify-email-bundle" : "^1.16",
 		"symfonycasts/reset-password-bundle" : "1.20.*",
-		"symfony/ux-toggle-password": "^2.15",
-		"lexik/jwt-authentication-bundle" : "^2.20"
+		"symfony/ux-toggle-password" : "^2.15"
 	},
 	"conflict" : {
 		"doctrine/doctrine-bundle" : "<1.3",
