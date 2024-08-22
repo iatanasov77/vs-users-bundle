@@ -4,7 +4,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
 use Vankosoft\UsersBundle\Model\UserRole;
-use Vankosoft\UsersBundle\Model\UserRoleInterface;
+use Vankosoft\UsersBundle\Model\Interfaces\UserRoleInterface;
 
 trait UserRolesCollectionTrait
 {

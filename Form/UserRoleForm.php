@@ -14,7 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 use Vankosoft\UsersBundle\Model\UserRole;
-use Vankosoft\UsersBundle\Model\UserRoleInterface;
+use Vankosoft\UsersBundle\Model\Interfaces\UserRoleInterface;
 
 class UserRoleForm extends AbstractForm
 {

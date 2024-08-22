@@ -17,8 +17,8 @@ use Vankosoft\ApplicationBundle\Component\Status;
 use Vankosoft\CmsBundle\Component\Uploader\FileUploaderInterface;
 use Vankosoft\UsersBundle\Component\UserRole;
 use Vankosoft\UsersBundle\Form\UserInfoForm;
-use Vankosoft\UsersBundle\Model\UserInfoInterface;
-use Vankosoft\UsersBundle\Model\UserRoleInterface;
+use Vankosoft\UsersBundle\Model\Interfaces\UserInfoInterface;
+use Vankosoft\UsersBundle\Model\Interfaces\UserRoleInterface;
 use Vankosoft\UsersBundle\Model\UserRole as UserRoleModel;
 
 class UsersExtController extends AbstractController
