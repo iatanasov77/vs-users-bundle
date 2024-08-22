@@ -21,7 +21,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 use Vankosoft\ApplicationBundle\Model\Application;
 use Vankosoft\ApplicationBundle\Repository\ApplicationRepository;
-use Vankosoft\UsersBundle\Model\UserInterface;
+use Vankosoft\UsersBundle\Model\Interfaces\UserInterface;
 use Vankosoft\UsersBundle\Component\UserRole;
 
 class UserFormType extends AbstractForm
