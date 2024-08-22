@@ -1,4 +1,4 @@
-<?php namespace Vankosoft\UsersBundle\Model;
+<?php namespace Vankosoft\UsersBundle\Model\Interfaces;
 
 use Symfony\Component\Security\Core\User\UserInterface as BaseUserInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;

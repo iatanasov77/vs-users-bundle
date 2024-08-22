@@ -1,4 +1,4 @@
-<?php namespace Vankosoft\UsersBundle\Model;
+<?php namespace Vankosoft\UsersBundle\Model\Interfaces;
 
 use Sylius\Component\Resource\Model\ResourceInterface;
 
