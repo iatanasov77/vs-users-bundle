@@ -2,6 +2,6 @@
 
 use Vankosoft\CmsBundle\Model\File;
 
-class AvatarImage extends File implements AvatarImageInterface
+class AvatarImage extends File implements Interfaces\AvatarImageInterface
 {
 }

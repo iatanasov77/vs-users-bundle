@@ -1,6 +1,6 @@
 <?php namespace Vankosoft\UsersBundle\Model;
 
-class UserNotification implements UserNotificationInterface
+class UserNotification implements Interfaces\UserNotificationInterface
 {
     /** @var integer */
     protected $id;

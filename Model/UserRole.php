@@ -5,7 +5,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Vankosoft\ApplicationBundle\Model\Traits\TaxonDescendentTrait;
 
-class UserRole implements UserRoleInterface, Comparable
+class UserRole implements Interfaces\UserRoleInterface, Comparable
 {
     use TaxonDescendentTrait;
     

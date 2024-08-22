@@ -4,7 +4,7 @@ use Doctrine\Common\Comparable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
-class User implements UserInterface, Comparable
+class User implements Interfaces\UserInterface, Comparable
 {
     use Traits\UserPasswordTrait;
     use Traits\UserRolesArrayTrait;

@@ -9,9 +9,9 @@
             <generator strategy="AUTO" />
         </id>
         
-        <one-to-one field="user" target-entity="Vankosoft\UsersBundle\Model\UserInterface" mapped-by="info" />
+        <one-to-one field="user" target-entity="Vankosoft\UsersBundle\Model\Interfaces\UserInterface" mapped-by="info" />
         
-        <one-to-one field="avatar" target-entity="Vankosoft\UsersBundle\Model\AvatarImageInterface" mapped-by="owner" orphan-removal="true">
+        <one-to-one field="avatar" target-entity="Vankosoft\UsersBundle\Model\Interfaces\AvatarImageInterface" mapped-by="owner" orphan-removal="true">
             <cascade>
                 <cascade-all/>
             </cascade>

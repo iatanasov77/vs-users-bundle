@@ -17,18 +17,18 @@
             </cascade>
         </one-to-one>
         
-      	<many-to-one field="parent" name="parent_id" target-entity="Vankosoft\UsersBundle\Model\UserRoleInterface" inversed-by="children">
+      	<many-to-one field="parent" name="parent_id" target-entity="Vankosoft\UsersBundle\Model\Interfaces\UserRoleInterface" inversed-by="children">
         	<cascade>
                 <cascade-all/>
             </cascade>
         </many-to-one>
         
-        <one-to-many field="children" target-entity="Vankosoft\UsersBundle\Model\UserRoleInterface" mapped-by="parent">
+        <one-to-many field="children" target-entity="Vankosoft\UsersBundle\Model\Interfaces\UserRoleInterface" mapped-by="parent">
             <cascade>
                 <cascade-all/>
             </cascade>
         </one-to-many>
         
-        <many-to-many field="users" target-entity="Vankosoft\UsersBundle\Model\UserInterface" mapped-by="rolesCollection" />
+        <many-to-many field="users" target-entity="Vankosoft\UsersBundle\Model\Interfaces\UserInterface" mapped-by="rolesCollection" />
     </mapped-superclass>
 </doctrine-mapping>
