@@ -22,10 +22,12 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use SymfonyCasts\Bundle\ResetPassword\Generator\ResetPasswordRandomGenerator;
 
 use Doctrine\ORM\EntityManager;
 
 use Vankosoft\UsersBundle\Repository\UsersRepository;
+use Vankosoft\UsersBundle\Model\Interfaces\ApiUserInterface;
 
 //class LoginFormAuthenticator extends AbstractAuthenticator
 class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
@@ -50,6 +52,9 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
     /** @var TranslatorInterface */
     private $translator;
     
+    /** @var ResetPasswordRandomGenerator */
+    private $randomGenerator;
+    
     /** @var array */
     private $params;
     
@@ -60,6 +65,7 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
         UsersRepository $userRepository,
         EntityManager $entityManager,
         TranslatorInterface $translator,
+        ResetPasswordRandomGenerator $generator,
         array $params
     ) {
         $this->urlGenerator     = $urlGenerator;
@@ -68,6 +74,7 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
         $this->userRepository   = $userRepository;
         $this->entityManager    = $entityManager;
         $this->translator       = $translator;
+        $this->randomGenerator  = $generator;
         $this->params           = $params;
     }
     
@@ -99,6 +106,14 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
         $user   = $token->getUser();
         
         $user->setLastLogin( new \DateTime() );
+        if ( $user instanceof ApiUserInterface ) {
+            $verifier   = $this->randomGenerator->getRandomAlphaNumStr();
+            $expiresAt  = new \DateTimeImmutable( \sprintf( '+%d seconds', 3600 ) );
+            
+            $user->setApiVerifySiganature( $verifier );
+            $user->setApiVerifyExpiresAt( \DateTime::createFromImmutable( $expiresAt ) );
+        }
+        
         $this->entityManager->persist( $user );
         $this->entityManager->flush();
         

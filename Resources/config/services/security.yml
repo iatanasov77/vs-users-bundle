@@ -42,6 +42,7 @@ services:
             - '@vs_users.repository.users'
             - '@doctrine.orm.entity_manager'
             - '@translator'
+            - '@symfonycasts.reset_password.random_generator'
             - {
                 loginRoute: '%vs_users.login_route%',
                 loginBy: '%vs_users.login_by%',
