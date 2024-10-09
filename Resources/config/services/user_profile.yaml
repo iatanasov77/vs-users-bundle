@@ -10,7 +10,7 @@ services:
     Vankosoft\UsersBundle\Controller\UsersNotificationsController:
         public: true
         autowire: true
-        tags: ['controller.service_arguments']
+        tags: ['container.service_subscriber', 'controller.service_arguments']
         arguments:
             - '@doctrine'
             - '@twig'
@@ -22,7 +22,7 @@ services:
     Vankosoft\UsersBundle\Controller\UsersActivitiesController:
         public: true
         autowire: true
-        tags: ['controller.service_arguments']
+        tags: ['container.service_subscriber',  'controller.service_arguments']
         arguments:
             - '@doctrine'
             - '@vs_users.security_bridge'

@@ -6,7 +6,7 @@ services:
     Vankosoft\UsersBundle\Repository\UsersRepository: '@vs_users.repository.users'
     
     Vankosoft\UsersBundle\Controller\UsersExtController:
-        tags: ['controller.service_arguments']
+        tags: ['container.service_subscriber', 'controller.service_arguments']
         autowire: true
         arguments:
             - '@doctrine'
