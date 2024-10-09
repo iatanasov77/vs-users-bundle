@@ -20,6 +20,7 @@ services:
                 mailerUser: '%vs_application.mailer_user%',
             }
         calls:
+            - setContainer, [ '@service_container' ]
             - setResetPasswordHelper: ['@?symfonycasts.reset_password.helper']
 
     Vankosoft\UsersBundle\Controller\ProfileController:
@@ -32,6 +33,8 @@ services:
             - '@vs_users.factory.avatar_image'
             - '@vs_cms.profile_uploader'
             - '@vs_agent.agent'
+        calls:
+            - [ setContainer, [ '@service_container' ] ]
     
     Vankosoft\UsersBundle\Controller\UsersRolesExtController:
         tags: ['controller.service_arguments']
@@ -42,3 +45,5 @@ services:
             - '@vs_users.repository.user_roles'
             - '@vs_application.repository.taxonomy'
             - '@vs_application.repository.taxon'
+        calls:
+            - [ setContainer, [ '@service_container' ] ]
