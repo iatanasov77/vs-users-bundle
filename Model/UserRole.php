@@ -4,8 +4,10 @@ use Doctrine\Common\Comparable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Vankosoft\ApplicationBundle\Model\Traits\TaxonDescendentTrait;
+use Vankosoft\UsersBundle\Model\Interfaces\UserInterface;
+use Vankosoft\UsersBundle\Model\Interfaces\UserRoleInterface;
 
-class UserRole implements Interfaces\UserRoleInterface, Comparable
+class UserRole implements UserRoleInterface, Comparable
 {
     use TaxonDescendentTrait;
     
