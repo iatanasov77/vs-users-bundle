@@ -9,14 +9,18 @@ parameters:
     vs_users.gc_maxlifetime: 1800   # 30 minutes
     vs_users.cookie.domain: '%env(COOKIE_DOMAIN)%'
     vs_users.cookie.lifetime: 86400 # 24 hours
-    vs_users.api_token.domain: '%env(API_TOKEN_DOMAIN)%'
-    vs_users.api_token.lifetime: 3600 # 1 hours
     
     vs_users.voter.crud_disabled_models: {}
     vs_users.voter.crud_owner_models: {}
   
     
 services:
+    vs_users.security_bridge:
+        class: Vankosoft\UsersBundle\Security\SecurityBridge
+        public: true
+        arguments:
+            - '@security.token_storage'
+
     vs_users.manager.user:
         class: Vankosoft\UsersBundle\Security\UserManager
         public: true
@@ -37,12 +41,12 @@ services:
             - '@security.password_hasher_factory'
             - '@vs_users.repository.users'
             - '@doctrine.orm.entity_manager'
+            - '@translator'
+            - '@symfonycasts.reset_password.random_generator'
             - {
                 loginRoute: '%vs_users.login_route%',
                 loginBy: '%vs_users.login_by%',
-                defaultRedirect: '%vs_users.default_redirect%',
-                apiTokenDomain: '%vs_users.api_token.domain%',
-                apiTokenLifetime: '%vs_users.api_token.lifetime%'
+                defaultRedirect: '%vs_users.default_redirect%'
             }
 
     vs_users.security.another_login_form_authenticator:

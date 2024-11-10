@@ -1,7 +1,7 @@
 <?php namespace Vankosoft\UsersBundle\Model\Traits;
 
 use Doctrine\Common\Collections\Collection;
-use Vankosoft\UsersBundle\Model\UserInterface;
+use Vankosoft\UsersBundle\Model\Interfaces\UserInterface;
 use Vankosoft\ApplicationBundle\Model\Interfaces\ApplicationInterface;
 use Vankosoft\ApplicationBundle\Model\Application;
 

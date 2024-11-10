@@ -2,9 +2,9 @@
 
 use Doctrine\ORM\Mapping as ORM;
 
-use Vankosoft\CmsBundle\Model\FileInterface;
+use Vankosoft\CmsBundle\Model\Interfaces\FileInterface;
 
-class UserInfo implements UserInfoInterface
+class UserInfo implements Interfaces\UserInfoInterface
 {
     /**
      * @var mixed
@@ -18,11 +18,15 @@ class UserInfo implements UserInfoInterface
      */
     protected $user;
     
-    
     /**
      * @var FileInterface|null
      */
     protected $avatar;
+    
+    /**
+     * @var string
+     */
+    protected $title        = 'miss';
     
     /**
      * @var string
@@ -37,7 +41,7 @@ class UserInfo implements UserInfoInterface
     /**
      * @var string
      */
-    protected $country;
+    protected $designation  = 'Lead Designer / Developer';
     
     /**
      * @var \DateTime|null
@@ -47,7 +51,37 @@ class UserInfo implements UserInfoInterface
     /**
      * @var string
      */
+    protected $phone;
+    
+    /**
+     * @var string
+     */
     protected $mobile;
+    
+    /**
+     * @var string
+     */
+    protected $country;
+    
+    /**
+     * @var string
+     */
+    protected $city;
+    
+    /**
+     * @var string
+     */
+    protected $state;
+    
+    /**
+     * @var string
+     */
+    protected $zip;
+    
+    /**
+     * @var string
+     */
+    protected $address;
     
     /**
      * @var string
@@ -89,6 +123,18 @@ class UserInfo implements UserInfoInterface
         return $this;
     }
     
+    public function getTitle()
+    {
+        return $this->title;
+    }
+    
+    public function setTitle( $title ) : self
+    {
+        $this->title = $title;
+        
+        return $this;
+    }
+    
     public function getFirstName()
     {
         return $this->firstName;
@@ -113,14 +159,14 @@ class UserInfo implements UserInfoInterface
         return $this;
     }
     
-    public function getCountry()
+    public function getDesignation()
     {
-        return $this->country;
+        return $this->designation;
     }
     
-    public function setCountry( $country ) : self
+    public function setDesignation( $designation ) : self
     {
-        $this->country = $country;
+        $this->designation = $designation;
         
         return $this;
     }
@@ -137,6 +183,18 @@ class UserInfo implements UserInfoInterface
         return $this;
     }
     
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+    
+    public function setPhone( $phone ) : self
+    {
+        $this->phone = $phone;
+        
+        return $this;
+    }
+    
     public function getMobile()
     {
         return $this->mobile;
@@ -145,6 +203,66 @@ class UserInfo implements UserInfoInterface
     public function setMobile( $mobile ) : self
     {
         $this->mobile = $mobile;
+        
+        return $this;
+    }
+    
+    public function getCountry()
+    {
+        return $this->country;
+    }
+    
+    public function setCountry( $country ) : self
+    {
+        $this->country = $country;
+        
+        return $this;
+    }
+    
+    public function getCity()
+    {
+        return $this->city;
+    }
+    
+    public function setCity( $city ) : self
+    {
+        $this->city = $city;
+        
+        return $this;
+    }
+    
+    public function getState()
+    {
+        return $this->state;
+    }
+    
+    public function setState( $state ) : self
+    {
+        $this->state = $state;
+        
+        return $this;
+    }
+    
+    public function getZip()
+    {
+        return $this->zip;
+    }
+    
+    public function setZip( $zip ) : self
+    {
+        $this->zip = $zip;
+        
+        return $this;
+    }
+    
+    public function getAddress()
+    {
+        return $this->address;
+    }
+    
+    public function setAddress( $address ) : self
+    {
+        $this->address = $address;
         
         return $this;
     }

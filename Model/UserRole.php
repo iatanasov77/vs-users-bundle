@@ -1,26 +1,27 @@
 <?php namespace Vankosoft\UsersBundle\Model;
 
+use Doctrine\Common\Comparable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Vankosoft\ApplicationBundle\Model\Traits\TaxonDescendentTrait;
+use Vankosoft\UsersBundle\Model\Interfaces\UserInterface;
+use Vankosoft\UsersBundle\Model\Interfaces\UserRoleInterface;
 
-use Vankosoft\ApplicationBundle\Model\Interfaces\TaxonInterface;
-use Vankosoft\ApplicationBundle\Model\Taxon;
-
-class UserRole implements UserRoleInterface
+class UserRole implements UserRoleInterface, Comparable
 {
+    use TaxonDescendentTrait;
+    
     //const DEFAULT = 'ROLE_USER';
-    const SUPER_ADMIN = 'ROLE_SUPER_ADMIN';
-    const ADMIN = 'ROLE_ADMIN';
-    const USER_PREMIUM = 'ROLE_USER_PREMIUM';
+    const ANONYMOUS     = 'ROLE_ANONYMOUS_USER';
+    const SUPER_ADMIN   = 'ROLE_SUPER_ADMIN';
+    const ADMIN         = 'ROLE_ADMIN';
+    const USER_PREMIUM  = 'ROLE_USER_PREMIUM';
     
     /** @var integer */
     protected $id;
     
     /** @var string */
     protected $role;
-    
-    /** @var TaxonInterface */
-    protected $taxon;
     
     /** @var UserRoleInterface */
     protected $parent;
@@ -50,7 +51,7 @@ class UserRole implements UserRoleInterface
         return $this->role;
     }
     
-    public function setRole( $role ) : UserRoleInterface
+    public function setRole( $role ): self
     {
         $this->role = $role;
         
@@ -60,39 +61,7 @@ class UserRole implements UserRoleInterface
     /**
      * {@inheritdoc}
      */
-    public function getTaxon(): ?TaxonInterface
-    {
-        return $this->taxon;
-    }
-    
-    /**
-     * {@inheritdoc}
-     */
-    public function setTaxon(?TaxonInterface $taxon): void
-    {
-        $this->taxon = $taxon;
-    }
-    
-    public function getName()
-    {
-        return $this->taxon ? $this->taxon->getName() : '';
-    }
-    
-    public function setName( string $name ) : self
-    {
-        if ( ! $this->taxon ) {
-            // Create new taxon into the controller and set the properties passed from form
-            return $this;
-        }
-        $this->taxon->setName( $name );
-        
-        return $this;
-    }
-    
-    /**
-     * {@inheritdoc}
-     */
-    public function getParent(): ?UserRoleInterface
+    public function getParent()
     {
         return $this->parent;
     }
@@ -100,7 +69,7 @@ class UserRole implements UserRoleInterface
     /**
      * {@inheritdoc}
      */
-    public function setParent(?UserRoleInterface $parent) : UserRoleInterface
+    public function setParent(?UserRoleInterface $parent): self
     {
         $this->parent = $parent;
         
@@ -120,7 +89,7 @@ class UserRole implements UserRoleInterface
         return $this->users;
     }
     
-    public function addUser( UserInterface $user ): UserRoleInterface
+    public function addUser( UserInterface $user ): self
     {
         if ( ! $this->users->contains( $user ) ) {
             $this->users[] = $user;
@@ -130,7 +99,7 @@ class UserRole implements UserRoleInterface
         return $this;
     }
     
-    public function removeUser( UserInterface $user ): UserRoleInterface
+    public function removeUser( UserInterface $user ): self
     {
         if ( ! $this->users->contains( $user ) ) {
             $this->users->removeElement( $user );
@@ -138,6 +107,25 @@ class UserRole implements UserRoleInterface
         }
         
         return $this;
+    }
+    
+    /**
+     * {@inheritDoc}
+     * @see \Doctrine\Common\Comparable::compareTo($other)
+     */
+    public function compareTo($other): int
+    {
+        if ( ! ( $other instanceof UserRoleInterface ) ) {
+            throw new \Exception( 'Vankosoft UserRole can to be Compared with other Vankosoft UserRole Objects !!!' );
+        }
+        
+        if ( $this->taxon->getCode() === $other->getTaxon()->getCode() ) {
+            return 0;
+        } elseif ( $this->taxon->getParent() && $this->taxon->getParent()->getCode() === $other->getTaxon()->getCode() ) {
+            return -1;
+        } else {
+            return 1;
+        }
     }
     
     public function __toString()

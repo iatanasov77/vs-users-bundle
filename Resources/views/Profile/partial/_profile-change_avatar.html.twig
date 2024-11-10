@@ -1,0 +1,9 @@
+<div class="p-0 ms-auto rounded-circle profile-photo-edit">
+    {{ form_start(f, {'attr': {'id': 'FormChangeAvatar'}}) }}
+        {{ form_widget(f.profilePicture, {'attr': {'class': 'profile-foreground-img-file-input'}}) }}
+        <label for="profile_picture_form_profilePicture" class="profile-photo-edit btn btn-light">
+            <i class="ri-image-edit-line align-bottom me-1"></i> 
+            {{ 'vs_users.form.profile.change_avatar' | trans( {},'VSUsersBundle' ) }}
+        </label>
+    {{ form_end(f, {'render_rest': false}) }}
+</div>

@@ -3,12 +3,17 @@
 use Vankosoft\ApplicationBundle\Form\AbstractForm;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -16,33 +21,45 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 use Vankosoft\ApplicationBundle\Model\Application;
 use Vankosoft\ApplicationBundle\Repository\ApplicationRepository;
-use Vankosoft\UsersBundle\Model\UserInterface;
+use Vankosoft\UsersBundle\Model\Interfaces\UserInterface;
 use Vankosoft\UsersBundle\Component\UserRole;
 
 class UserFormType extends AbstractForm
 {
-    protected $requestStack;
-    
+    /** @var string */
     protected $applicationClass;
     
+    /** @var AuthorizationCheckerInterface */
     protected $auth;
     
+    /** @var array */
+    protected $requiredFields;
+    
     public function __construct(
-        RequestStack $requestStack,
         string $dataClass,
+        RepositoryInterface $localesRepository,
+        RequestStack $requestStack,
         string $applicationClass,
-        AuthorizationCheckerInterface $auth
+        AuthorizationCheckerInterface $auth,
+        array $requiredFields
     ) {
         parent::__construct( $dataClass );
         
-        $this->requestStack     = $requestStack;
-        $this->applicationClass = $applicationClass;
-        $this->auth             = $auth;
+        $this->localesRepository    = $localesRepository;
+        $this->requestStack         = $requestStack;
+        
+        $this->applicationClass     = $applicationClass;
+        $this->auth                 = $auth;
+        
+        $this->requiredFields       = $requiredFields;
     }
 
-    public function buildForm( FormBuilderInterface $builder, array $options )
+    public function buildForm( FormBuilderInterface $builder, array $options ): void
     {
         parent::buildForm( $builder, $options );
+        
+        $entity         = $builder->getData();
+        $currentLocale  = $entity->getPreferedLocale() ?: $this->requestStack->getCurrentRequest()->getLocale();
         
         $builder
             ->setMethod( 'PUT' )
@@ -60,13 +77,16 @@ class UserFormType extends AbstractForm
             ->add( 'prefered_locale', ChoiceType::class, [
                 'label'                 => 'vs_users.form.user.prefered_locale',
                 'translation_domain'    => 'VSUsersBundle',
-                'choices'               => \array_flip( \Vankosoft\ApplicationBundle\Component\I18N::LanguagesAvailable() ),
-                'data'                  => $this->requestStack->getCurrentRequest()->getLocale(),
+                'choices'               => \array_flip( $this->fillLocaleChoices() ),
+                'data'                  => $currentLocale,
+                'placeholder'           => 'vs_users.form.user.prefered_locale_placeholder',
+                'required'              => false,
             ])
         
-            ->add( 'email', TextType::class, [
-                'label' => 'vs_users.form.user.email',
-                'translation_domain' => 'VSUsersBundle'
+            ->add( 'email', EmailType::class, [
+                'label'                 => 'vs_users.form.user.email',
+                'attr'                  => ['placeholder' => 'vs_users.form.user.email_placeholder'],
+                'translation_domain'    => 'VSUsersBundle'
             ])
             ->add( 'username', TextType::class, [
                 'label' => 'vs_users.form.user.username',
@@ -80,6 +100,7 @@ class UserFormType extends AbstractForm
                 'first_options'         => ['label' => 'vs_users.form.user.password'],
                 'second_options'        => ['label' => 'vs_users.form.user.password_repeat'],
                 "mapped"                => false,
+                'required'              => is_null( $entity->getId() ),
             ])
             
             // https://symfony.com/doc/current/security.html#hierarchical-roles
@@ -112,15 +133,36 @@ class UserFormType extends AbstractForm
                 },
             ])
         ;
+        
+        /**
+         * Fixing Symfony\Component\Form\Exception\TransformationFailedException
+         *          'The selected choice is invalid.'
+         */
+        $builder->addEventListener( FormEvents::PRE_SUBMIT, function( FormEvent $event ): void {
+            $data   = $event->getData();
+            if ( ! isset( $data['roles_options'] ) ) {
+                return;    
+            }
+            
+            $form           = $event->getForm();
+            $rolesOptions   = $data['roles_options'];
+            if( $rolesOptions ) {
+                $form->add( 'roles_options', ChoiceType::class, [
+                    'choices'   => [],
+                    "mapped"    => false,
+                ]);
+            }
+        });
     }
 
-    public function configureOptions( OptionsResolver $resolver ) : void
+    public function configureOptions( OptionsResolver $resolver ): void
     {
         parent::configureOptions( $resolver );
         
         $resolver
             ->setDefaults([
-                'csrf_protection' => false,
+                'csrf_protection'   => false,
+                'validation_groups' => false,   // 'roles_options' The selected choice is invalid.
             ])
             ->setDefined([
                 'users',

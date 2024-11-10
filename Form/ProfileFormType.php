@@ -2,6 +2,7 @@
 
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
@@ -10,18 +11,24 @@ use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 
-use Vankosoft\UsersBundle\Model\UserInterface;
+use Vankosoft\UsersBundle\Model\Interfaces\UserInterface;
 
 class ProfileFormType extends UserFormType
 {
     use Traits\UserInfoFormTrait;
     
-    public function __construct( RequestStack $requestStack, string $dataClass, string $applicationClass, AuthorizationCheckerInterface $auth )
-    {
-        parent::__construct( $requestStack, $dataClass, $applicationClass, $auth );
+    public function __construct(
+        string $dataClass,
+        RepositoryInterface $localesRepository,
+        RequestStack $requestStack,
+        string $applicationClass,
+        AuthorizationCheckerInterface $auth,
+        array $requiredFields
+    ) {
+        parent::__construct( $dataClass, $localesRepository, $requestStack, $applicationClass, $auth, $requiredFields );
     }
     
-    public function buildForm( FormBuilderInterface $builder, array $options )
+    public function buildForm( FormBuilderInterface $builder, array $options ): void
     {
         parent::buildForm( $builder, $options );
         
@@ -37,7 +44,7 @@ class ProfileFormType extends UserFormType
         $builder->remove( 'username' );
     }
     
-    public function configureOptions( OptionsResolver $resolver ) : void
+    public function configureOptions( OptionsResolver $resolver ): void
     {
         parent::configureOptions( $resolver );
         
@@ -50,8 +57,10 @@ class ProfileFormType extends UserFormType
             ->setDefaults([
                 'csrf_protection'       => false,
                 'profilePictureMapped'  => false,
+                'titleMapped'           => false,
                 'firstNameMapped'       => false,
                 'lastNameMapped'        => false,
+                'designationMapped'     => false,
             ])
         ;
     }

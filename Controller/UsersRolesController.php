@@ -2,7 +2,7 @@
 
 use Symfony\Component\HttpFoundation\Request;
 use Vankosoft\ApplicationBundle\Controller\AbstractCrudController;
-use Vankosoft\ApplicationBundle\Controller\TaxonomyHelperTrait;
+use Vankosoft\ApplicationBundle\Controller\Traits\TaxonomyHelperTrait;
 
 /**
  * Documentation
@@ -20,14 +20,11 @@ class UsersRolesController extends AbstractCrudController
     
     protected function customData( Request $request, $entity = null ): array
     {
-        $taxonomyCode   = $this->getParameter( 'vs_application.user_roles.taxonomy_code' );
-        $taxonomy       = $this->get( 'vs_application.repository.taxonomy' )->findByCode( $taxonomyCode );
-        if ( ! $taxonomy ) {
-            throw new \Exception( sprintf( "Taxonomy with code '%s' does not exists. Please create it before!", $taxonomyCode ) );
-        }
+        $taxonomy   = $this->getTaxonomy( 'vs_application.user_roles.taxonomy_code' );
         
         return [
             'taxonomy'  => $taxonomy,
+            'items'     => $this->getRepository()->findAll(),
         ];
     }
     
@@ -52,14 +49,17 @@ class UsersRolesController extends AbstractCrudController
                 $entity->getTaxon()->setParent( $parentRole->getTaxon() );
             }
             
+            if ( ! $entity->getTaxon()->getTranslation()->getSlug() ) {
+                $entity->getTaxon()->getTranslation()->setSlug( $entity->getTaxon()->getCode() );
+            }
+            
             $entity->setParent( $parentRole );
         } else {
             /*
              * @WORKAROUND Create Taxon If not exists
              */
-            $taxonomy   = $this->get( 'vs_application.repository.taxonomy' )->findByCode(
-                $this->getParameter( 'vs_application.user_roles.taxonomy_code' )
-            );
+            $taxonomy   = $this->getTaxonomy( 'vs_application.user_roles.taxonomy_code' );
+            
             $newTaxon   = $this->createTaxon(
                 $roleName,
                 $translatableLocale,

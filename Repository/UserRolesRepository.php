@@ -1,30 +1,8 @@
 <?php namespace Vankosoft\UsersBundle\Repository;
 
-use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
+use Vankosoft\ApplicationBundle\Repository\TaxonDescendentRepository;
 
-class UserRolesRepository extends EntityRepository
+class UserRolesRepository extends TaxonDescendentRepository
 {
-    public function findByTaxonId( $taxonId )
-    {
-        $allRoles   = $this->findAll();
-        foreach ( $allRoles as $role ) {
-            if ( $role->getTaxon()->getId() == $taxonId ) {
-                return $role;
-            }
-        }
-        
-        return null;
-    }
     
-    public function findByTaxonCode( $code )
-    {
-        $allRoles   = $this->findAll();
-        foreach ( $allRoles as $role ) {
-            if ( $role->getTaxon()->getCode() == $code ) {
-                return $role;
-            }
-        }
-        
-        return null;
-    }
 }

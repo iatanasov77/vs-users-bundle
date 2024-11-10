@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Vankosoft\CmsBundle\Component\Uploader\FileUploaderInterface;
 
-use Vankosoft\UsersBundle\Model\UserInterface;
+use Vankosoft\UsersBundle\Model\Interfaces\UserInterface;
 use Vankosoft\UsersBundle\Model\UserInfoInterface;
 
 class UserManager

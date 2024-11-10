@@ -5,6 +5,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Vankosoft\UsersBundle\Component\UserInfo;
 
 trait UserInfoFormTrait
 {
@@ -34,16 +36,32 @@ trait UserInfoFormTrait
                 ],
             ])
             
+            ->add( 'title', ChoiceType::class, [
+                'label'                 => 'vs_users.form.user.title',
+                'translation_domain'    => 'VSUsersBundle',
+                'mapped'                => $options['titleMapped'],
+                'choices'               => UserInfo::choices(),
+            ])
+            
             ->add( 'firstName', TextType::class, [
                 'label'                 => 'vs_users.form.user.firstName',
+                'attr'                  => ['placeholder' => 'vs_users.form.user.firstName_placeholder'],
                 'translation_domain'    => 'VSUsersBundle',
                 'mapped'                => $options['firstNameMapped'],
             ])
             
             ->add( 'lastName', TextType::class, [
                 'label'                 => 'vs_users.form.user.lastName',
+                'attr'                  => ['placeholder' => 'vs_users.form.user.lastName_placeholder'],
                 'translation_domain'    => 'VSUsersBundle',
                 'mapped'                => $options['lastNameMapped'],
+            ])
+            
+            ->add( 'designation', TextType::class, [
+                'label'                 => 'vs_users.form.profile.designation',
+                'attr'                  => ['placeholder' => 'vs_users.form.profile.designation'],
+                'translation_domain'    => 'VSUsersBundle',
+                'mapped'                => $options['designationMapped'],
             ])
         ;
     }

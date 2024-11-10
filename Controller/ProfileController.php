@@ -12,8 +12,11 @@ use Sylius\Component\Resource\Factory\FactoryInterface;
 use Vankosoft\CmsBundle\Component\Uploader\FileUploaderInterface;
 use Vankosoft\UsersBundle\Form\ProfileFormType;
 use Vankosoft\UsersBundle\Form\ChangePasswordFormType;
+use Vankosoft\UsersBundle\Form\ProfilePictureForm;
 use Vankosoft\UsersBundle\Model\UserInfoInterface;
 use Vankosoft\UsersBundle\Security\UserManager;
+
+use Vankosoft\AgentBundle\Component\VankosoftAgent;
 
 class ProfileController extends AbstractController
 {
@@ -21,34 +24,67 @@ class ProfileController extends AbstractController
     const EXTENSION_USERSUBSCRIPTIONS   = 'VSUsersSubscriptionsBundle';
     
     /** @var ManagerRegistry */
-    protected ManagerRegistry $doctrine;
+    protected $doctrine;
     
     /** @var string */
-    protected string $usersClass;
+    protected $usersClass;
     
     /** @var UserManager */
-    private UserManager $userManager;
+    private $userManager;
     
     /** @var FactoryInterface */
     private $avatarImageFactory;
     
     /** @var FileUploaderInterface */
-    private FileUploaderInterface $imageUploader;
+    private $imageUploader;
+    
+    /** @var VankosoftAgent */
+    private $vankosoftAgent;
     
     public function __construct(
         ManagerRegistry $doctrine,
         string $usersClass,
         UserManager $userManager,
         FactoryInterface $avatarImageFactory,
-        FileUploaderInterface $imageUploader
+        FileUploaderInterface $imageUploader,
+        VankosoftAgent $vankosoftAgent
     ) {
         $this->doctrine             = $doctrine;
         $this->usersClass           = $usersClass;
         $this->userManager          = $userManager;
         $this->avatarImageFactory   = $avatarImageFactory;
         $this->imageUploader        = $imageUploader;
+        $this->vankosoftAgent       = $vankosoftAgent;
     }
     
+    /**
+     * Show User Profile
+     * 
+     * @param Request $request
+     * @return Response
+     */
+    public function indexAction( Request $request ): Response
+    {
+        return $this->render( '@VSUsers/Profile/show.html.twig', $this->templateParams( $this->getProfileEditForm() ) );
+    }
+    
+    /**
+     * Edit User Profile
+     *
+     * @param Request $request
+     * @return Response
+     */
+    public function editAction( Request $request ): Response
+    {
+        return $this->render( '@VSUsers/Profile/edit.html.twig', $this->templateParams( $this->getProfileEditForm() ) );
+    }
+    
+    /**
+     * Get Profile Picture
+     * 
+     * @param Request $request
+     * @return Response
+     */
     public function profilePictureAction( Request $request ): Response
     {
         $profilePicture = false;
@@ -68,36 +104,62 @@ class ProfileController extends AbstractController
         return new Response( $profilePicture, Response::HTTP_OK );
     }
     
-    public function indexAction( Request $request ): Response
+    public function handleProfileFormAction( Request $request ): Response
     {
         $form   = $this->getProfileEditForm();
         $form->handleRequest( $request );
-        if ( $form->isSubmitted() ) {
-            $em             = $this->doctrine->getManager();
-            $oUser          = $form->getData();
-            
-            if ( ! $oUser->getPreferedLocale() ) {
-                $oUser->setPreferedLocale( $request->getLocale() );
-            }
-            
-            $oUserInfo          = $oUser->getInfo();
-            $profilePictureFile = $form->get( 'profilePicture' )->getData();
-            if ( $profilePictureFile ) {
-                $this->createAvatar( $oUserInfo, $profilePictureFile );
-            }
-            
-            $oUserInfo->setFirstName( $form->get( 'firstName' )->getData() );
-            $oUserInfo->setLastName( $form->get( 'lastName' )->getData() );
-            
-            $oUserInfo->setUser( $oUser );
-            $em->persist( $oUserInfo );
-            $em->persist( $oUser );
-            $em->flush();
-            
-            return $this->redirectToRoute( 'vs_users_profile_show' );
+        if ( ! $form->isSubmitted() ) {
+            throw new \Exception( "Profile Form is Not Submited Properly !" );
         }
         
-        return $this->render( '@VSUsers/Profile/show.html.twig', $this->templateParams( $form ) );
+        $em             = $this->doctrine->getManager();
+        $oUser          = $form->getData();
+        
+        if ( ! $oUser->getPreferedLocale() ) {
+            $oUser->setPreferedLocale( $request->getLocale() );
+        }
+        
+        $oUserInfo          = $oUser->getInfo();
+        $profilePictureFile = $form->get( 'profilePicture' )->getData();
+        if ( $profilePictureFile ) {
+            $this->createAvatar( $oUserInfo, $profilePictureFile );
+        }
+        
+        $oUserInfo->setTitle( $form->get( 'title' )->getData() );
+        $oUserInfo->setFirstName( $form->get( 'firstName' )->getData() );
+        $oUserInfo->setLastName( $form->get( 'lastName' )->getData() );
+        $oUserInfo->setDesignation( $form->get( 'designation' )->getData() );
+        
+        $oUserInfo->setUser( $oUser );
+        $em->persist( $oUserInfo );
+        $em->persist( $oUser );
+        $em->flush();
+        
+        return $this->redirectToRoute( 'vs_users_profile_show' );
+    }
+    
+    public function changeAvatarAction( Request $request ): Response
+    {
+        $em         = $this->doctrine->getManager();
+        $oUser      = $this->getUser();
+        $forms      = $this->getOtherForms();
+        $f          = $forms['changeAvatarForm'];
+        
+        $f->handleRequest( $request );
+        if ( ! $f->isSubmitted() ) {
+            throw new \Exception( "Change Avatar Form is Not Submited Properly !" );
+        }
+        
+        $oUserInfo          = $oUser->getInfo();
+        $profilePictureFile = $f->get( 'profilePicture' )->getData();
+        if ( $profilePictureFile ) {
+            $this->createAvatar( $oUserInfo, $profilePictureFile );
+        }
+        
+        $em->persist( $oUserInfo );
+        $em->flush();
+        
+        return $this->redirectToRoute( 'vs_users_profile_show' );
     }
     
     public function changePasswordAction( Request $request ): Response
@@ -126,6 +188,8 @@ class ProfileController extends AbstractController
             $this->userManager->encodePassword( $oUser, $newPassword );
             $em->persist( $oUser );
             $em->flush();
+            
+            $this->vankosoftAgent->userPasswordChanged( $oUser, $oUser, $oldPassword, $newPassword );
         }
         
         return $this->redirectToRoute( 'vs_users_profile_show' );
@@ -143,6 +207,7 @@ class ProfileController extends AbstractController
             'hasSubscriptionsExtension' => $this->hasExtension( self::EXTENSION_USERSUBSCRIPTIONS ),
             'newsletterSubscriptions'   => $this->getNewsletterSubscriptions(),
             'paidSubscriptions'         => $this->getPaidSubscriptions(),
+            'orders'                    => $this->getOrders(),
         ];
     }
     
@@ -150,7 +215,7 @@ class ProfileController extends AbstractController
     {
         $form       = $this->createForm( ProfileFormType::class, $this->getUser(), [
             'data'      => $this->getUser(),
-            'action'    => $this->generateUrl( 'vs_users_profile_show' ),
+            'action'    => $this->generateUrl( 'vs_users_profile_handle' ),
             'method'    => 'POST',
         ]);
         
@@ -159,14 +224,19 @@ class ProfileController extends AbstractController
     
     protected function getOtherForms(): array
     {
-        $changePasswordForm = $this->createForm( ChangePasswordFormType::class, $this->getUser(), [
-            'data'      => $this->getUser(),
+        $changePasswordForm = $this->createForm( ChangePasswordFormType::class, null, [
             'action'    => $this->generateUrl( 'vs_users_profile_change_password' ),
+            'method'    => 'POST',
+        ]);
+        
+        $changeAvatarForm   = $this->createForm( ProfilePictureForm::class, null, [
+            'action'    => $this->generateUrl( 'vs_users_profile_change_avatar' ),
             'method'    => 'POST',
         ]);
         
         return [
             'changePasswordForm'    => $changePasswordForm,
+            'changeAvatarForm'      => $changeAvatarForm,
         ];
     }
     
@@ -200,17 +270,31 @@ class ProfileController extends AbstractController
             $this->hasExtension ( self::EXTENSION_PAYMENT ) &&
             $this->getUser() instanceof \Vankosoft\UsersSubscriptionsBundle\Model\Interfaces\SubscribedUserInterface
         ) {
-            $subscriptions  = $this->getUser()->getSubscriptions( ( '\\' . $this->usersClass )::SUBSCRIPTION_TYPE_PAID );
+            $subscriptions  = $this->getUser()->getPricingPlanSubscriptions();
         }
         
         return $subscriptions;
     }
     
+    protected function getOrders()
+    {
+        $orders  = [];
+        if (
+            $this->hasExtension ( self::EXTENSION_PAYMENT ) &&
+            $this->getUser() instanceof \Vankosoft\PaymentBundle\Model\Interfaces\PaymentsUserInterface
+        ) {
+            $orders = $this->getUser()->getOrders();
+        }
+            
+        return $orders;
+    }
+    
     private function createAvatar( UserInfoInterface &$userInfo, File $file ): void
     {
         $avatarImage    = $userInfo->getAvatar() ?: $this->avatarImageFactory->createNew();
-        $uploadedFile   = new UploadedFile( $file->getRealPath(), $file->getBasename() );
+        $avatarImage->setOriginalName( $file->getClientOriginalName() );
         
+        $uploadedFile   = new UploadedFile( $file->getRealPath(), $file->getBasename() );
         $avatarImage->setFile( $uploadedFile );
         $this->imageUploader->upload( $avatarImage );
         $avatarImage->setFile( null ); // reset File Because: Serialization of 'Symfony\Component\HttpFoundation\File\UploadedFile' is not allowed

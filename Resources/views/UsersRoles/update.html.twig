@@ -1,5 +1,7 @@
 {% extends "@VSApplication/layout.html.twig" %}
 
+{% import "@VSApplication/Macros/alerts.html.twig" as alerts %}
+
 {% if( item.id ) %}
 	{% set pageTitle = 'vs_users.template.users_roles_update_title' | trans( {},'VSUsersBundle' ) %}
 {% else %}
@@ -18,14 +20,6 @@
             <div class="card">
                 <h5 class="card-header">{{ 'vs_users.template.users_roles_update_form_title' | trans( {},'VSUsersBundle' ) }}</h5>
                 <div class="card-body">
-                	{% if form_errors(form) is not empty %}
-		                <div class="alert alert-block alert-danger fade in">
-		                    <button type="button" class="close close-sm" data-dismiss="alert">
-		                        <i class="icon-remove"></i>
-		                    </button>
-		                    <strong>{{ 'vs_application.form.errors_title' | trans( {},'VSApplicationBundle' ) }}</strong> {{ form_errors(form) }}
-		                </div>
-		            {% endif %}
                     <div id="UserRoleFormContainer" data-pageId="{{ item.id }}">
                         {% include '@VSUsers/UsersRoles/Partial/role_form.html.twig' %}
                     </div>

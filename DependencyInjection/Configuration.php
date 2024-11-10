@@ -5,32 +5,25 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 
 use Sylius\Bundle\ResourceBundle\SyliusResourceBundle;
-use Sylius\Component\Resource\Model\ResourceInterface;
 use Sylius\Component\Resource\Factory\Factory;
 use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
 
 use Vankosoft\UsersBundle\Model\AvatarImage;
-use Vankosoft\UsersBundle\Model\AvatarImageInterface;
 use Vankosoft\UsersBundle\Repository\AvatarImageRepository;
 
 use Vankosoft\UsersBundle\Model\User;
-use Vankosoft\UsersBundle\Model\UserInterface;
 use Vankosoft\UsersBundle\Controller\UsersController;
 use Vankosoft\UsersBundle\Repository\UsersRepository;
 use Vankosoft\UsersBundle\Form\UserFormType;
 
 use Vankosoft\UsersBundle\Model\UserRole;
-use Vankosoft\UsersBundle\Model\UserRoleInterface;
 use Vankosoft\UsersBundle\Repository\UserRolesRepository;
 use Vankosoft\UsersBundle\Controller\UsersRolesController;
 use Vankosoft\UsersBundle\Form\UserRoleForm;
 
 use Vankosoft\UsersBundle\Model\UserInfo;
-use Vankosoft\UsersBundle\Model\UserInfoInterface;
 use Vankosoft\UsersBundle\Model\UserActivity;
-use Vankosoft\UsersBundle\Model\UserActivityInterface;
 use Vankosoft\UsersBundle\Model\UserNotification;
-use Vankosoft\UsersBundle\Model\UserNotificationInterface;
 use Vankosoft\UsersBundle\Model\ResetPasswordRequest;
 use Vankosoft\UsersBundle\Repository\ResetPasswordRequestRepository;
 
@@ -45,7 +38,7 @@ class Configuration implements ConfigurationInterface
     /**
      * {@inheritdoc}
      */
-    public function getConfigTreeBuilder()
+    public function getConfigTreeBuilder(): TreeBuilder
     {
         $treeBuilder    = new TreeBuilder( 'vs_users' );
         $rootNode       = $treeBuilder->getRootNode();
@@ -77,7 +70,6 @@ class Configuration implements ConfigurationInterface
                                     ->addDefaultsIfNotSet()
                                     ->children()
                                         ->scalarNode( 'model' )->defaultValue( AvatarImage::class )->cannotBeEmpty()->end()
-                                        ->scalarNode( 'interface' )->defaultValue( AvatarImageInterface::class )->cannotBeEmpty()->end()
                                         ->scalarNode( 'repository' )->defaultValue( AvatarImageRepository::class )->cannotBeEmpty()->end()
                                         ->scalarNode( 'factory' )->defaultValue( Factory::class )->end()
                                     ->end()
@@ -95,7 +87,6 @@ class Configuration implements ConfigurationInterface
                                     ->addDefaultsIfNotSet()
                                     ->children()
                                         ->scalarNode( 'model' )->defaultValue( User::class )->cannotBeEmpty()->end()
-                                        ->scalarNode( 'interface' )->defaultValue( UserInterface::class )->cannotBeEmpty()->end()
                                         ->scalarNode( 'controller' )->defaultValue( UsersController::class )->cannotBeEmpty()->end()
                                         //->scalarNode( 'repository' )->cannotBeEmpty()->end()
                                         ->scalarNode( 'repository' )->defaultValue( UsersRepository::class )->cannotBeEmpty()->end()
@@ -116,7 +107,6 @@ class Configuration implements ConfigurationInterface
                                     ->addDefaultsIfNotSet()
                                     ->children()
                                         ->scalarNode( 'model' )->defaultValue( UserRole::class )->cannotBeEmpty()->end()
-                                        ->scalarNode( 'interface' )->defaultValue( UserRoleInterface::class )->cannotBeEmpty()->end()
                                         ->scalarNode( 'controller' )->defaultValue( UsersRolesController::class )->cannotBeEmpty()->end()
                                         //->scalarNode( 'repository' )->cannotBeEmpty()->end()
                                         ->scalarNode( 'repository' )->defaultValue( UserRolesRepository::class )->cannotBeEmpty()->end()
@@ -137,7 +127,6 @@ class Configuration implements ConfigurationInterface
                                     ->addDefaultsIfNotSet()
                                     ->children()
                                         ->scalarNode( 'model' )->defaultValue( UserInfo::class )->cannotBeEmpty()->end()
-                                        ->scalarNode( 'interface' )->defaultValue( UserInfoInterface::class )->cannotBeEmpty()->end()
                                         ->scalarNode( 'factory' )->defaultValue( Factory::class )->cannotBeEmpty()->end()
                                     ->end()
                                 ->end()
@@ -154,7 +143,6 @@ class Configuration implements ConfigurationInterface
                                     ->addDefaultsIfNotSet()
                                     ->children()
                                         ->scalarNode( 'model' )->defaultValue( UserActivity::class )->cannotBeEmpty()->end()
-                                        ->scalarNode( 'interface' )->defaultValue( UserActivityInterface::class )->cannotBeEmpty()->end()
                                         ->scalarNode( 'factory' )->defaultValue( Factory::class )->cannotBeEmpty()->end()
                                     ->end()
                                 ->end()
@@ -171,7 +159,6 @@ class Configuration implements ConfigurationInterface
                                     ->addDefaultsIfNotSet()
                                     ->children()
                                         ->scalarNode( 'model' )->defaultValue( UserNotification::class )->cannotBeEmpty()->end()
-                                        ->scalarNode( 'interface' )->defaultValue( UserNotificationInterface::class )->cannotBeEmpty()->end()
                                         ->scalarNode( 'factory' )->defaultValue( Factory::class )->cannotBeEmpty()->end()
                                     ->end()
                                 ->end()
@@ -189,7 +176,6 @@ class Configuration implements ConfigurationInterface
                                     ->children()
                                         ->scalarNode( 'model' )->defaultValue( ResetPasswordRequest::class )->cannotBeEmpty()->end()
                                         ->scalarNode( 'repository' )->defaultValue( ResetPasswordRequestRepository::class )->cannotBeEmpty()->end()
-                                        ->scalarNode( 'interface' )->defaultValue( ResourceInterface::class )->cannotBeEmpty()->end()
                                         ->scalarNode( 'factory' )->defaultValue( Factory::class )->cannotBeEmpty()->end()
                                     ->end()
                                 ->end()

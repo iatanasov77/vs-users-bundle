@@ -4,9 +4,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-//use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelperInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Generator\VerifyEmailTokenGenerator;
@@ -15,75 +15,64 @@ use Doctrine\Persistence\ManagerRegistry;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Sylius\Component\Resource\Factory\Factory;
 
+use Vankosoft\ApplicationBundle\Component\Context\ApplicationContextInterface;
 use Vankosoft\UsersBundle\Security\UserManager;
 use Vankosoft\UsersBundle\Form\RegistrationFormType;
-use Vankosoft\UsersBundle\Model\UserInterface;
+use Vankosoft\UsersBundle\Model\Interfaces\UserInterface;
 use Vankosoft\UsersBundle\Security\AnotherLoginFormAuthenticator;
 
 class RegisterController extends AbstractController
 {
-    /**
-     * @var UserAuthenticatorInterface
-     */
-    private $guardHandler;
+    /** @var UserAuthenticatorInterface */
+    protected $guardHandler;
     
-    /**
-     * @var AnotherLoginFormAuthenticator
-     */
-    private $authenticator;
+    /** @var AnotherLoginFormAuthenticator */
+    protected $authenticator;
     
-    /**
-     * @var UserManager
-     */
-    private $userManager;
+    /** @var ApplicationContextInterface */
+    protected $applicationContext;
     
-    /**
-     * @var RepositoryInterface
-     */
-    private $usersRepository;
+    /** @var UserManager */
+    protected $userManager;
     
-    /**
-     * @var Factory
-     */
-    private $usersFactory;
+    /** @var RepositoryInterface */
+    protected $usersRepository;
     
-    /**
-     * @var RepositoryInterface
-     */
-    private $userRolesRepository;
+    /** @var Factory */
+    protected $usersFactory;
     
-    /**
-     * @var MailerInterface
-     */
-    private $mailer;
+    /** @var RepositoryInterface */
+    protected $userRolesRepository;
     
-    /**
-     * @var VerifyEmailHelperInterface
-     */
-    private $verifyEmailHelper;
+    /** @var MailerInterface */
+    protected $mailer;
+    
+    /** @var VerifyEmailHelperInterface */
+    protected $verifyEmailHelper;
     
     /**
      * Needed to generate Api Token
      * 
      * @var VerifyEmailTokenGenerator
      */
-    private $tokenGenerator;
+    protected $tokenGenerator;
     
-    /**
-     * @var RepositoryInterface
-     */
-    private $pagesRepository;
+    /** @var RepositoryInterface */
+    protected $pagesRepository;
     
     /** @var ManagerRegistry */
-    protected ManagerRegistry $doctrine;
+    protected $doctrine;
     
-    /**
-     * @var array
-     */
+    /** @var TranslatorInterface */
+    protected $translator;
+    
+    /** @var array */
     protected $params;
 
     public function __construct(
         ManagerRegistry $doctrine,
+        TranslatorInterface $translator,
+        ApplicationContextInterface $applicationContext,
         UserManager $userManager,
         RepositoryInterface $usersRepository,
         Factory $usersFactory,
@@ -96,6 +85,8 @@ class RegisterController extends AbstractController
         array $parameters
     ) {
         $this->doctrine             = $doctrine;
+        $this->translator           = $translator;
+        $this->applicationContext   = $applicationContext;
         $this->userManager          = $userManager;
         $this->usersRepository      = $usersRepository;
         $this->usersFactory         = $usersFactory;
@@ -127,8 +118,12 @@ class RegisterController extends AbstractController
     
     public function index( Request $request, MailerInterface $mailer ): Response
     {
-        if ( $this->getUser() ) {
-            return $this->redirectToRoute( $this->params['defaultRedirect'] );
+        try {
+            if ( $this->getUser() ) {
+                return $this->redirectToRoute( $this->params['defaultRedirect'] );
+            }
+        } catch ( \LogicException $e ) {
+            
         }
         
         $form   = $this->getForm();
@@ -144,6 +139,7 @@ class RegisterController extends AbstractController
             );
             
             $oUser->addRole( $this->userRolesRepository->findByTaxonCode( $this->params['registerRole'] ) );
+            $oUser->addApplication( $this->applicationContext->getApplication() );
             
             $oUser->setPreferedLocale( $request->getLocale() );
             $oUser->setVerified( false );
@@ -153,6 +149,11 @@ class RegisterController extends AbstractController
             $em->flush();
             
             $this->sendConfirmationMail( $oUser, $mailer );
+            
+            $this->addFlash(
+                'success',
+                $this->translator->trans( 'vs_application.form.register.alert_success', [], 'VSApplicationBundle' )
+            );
             
             return $this->redirectToRoute( $this->params['defaultRedirect'] );
         }
@@ -188,7 +189,10 @@ class RegisterController extends AbstractController
         $this->doctrine->getManager()->persist( $user );
         $this->doctrine->getManager()->flush();
         
-        $this->addFlash( 'success', 'Your e-mail address has been verified.' );
+        $this->addFlash(
+            'success',
+            $this->translator->trans( 'vs_application.form.register.alert_verified', [], 'VSApplicationBundle' )
+        );
         
         if ( $this->params['loginAfterVerify'] ) {
             return $this->guardHandler->authenticateUser(
@@ -225,7 +229,7 @@ class RegisterController extends AbstractController
         ];
     }
     
-    private function sendConfirmationMail( UserInterface $oUser, MailerInterface $mailer )
+    protected function sendConfirmationMail( UserInterface $oUser, MailerInterface $mailer )
     {
         $signatureComponents = $this->verifyEmailHelper->generateSignature(
                                     'vs_users_register_confirmation',

@@ -2,22 +2,26 @@ parameters:
     vs_users.registration_form: 'Vankosoft\UsersBundle\Form\RegistrationFormType'
     vs_users.register_role: 'role-application-admin'
     vs_users.login_after_verify: true
+    
+    vs_users.registration_form_required_fields: []
+    vs_users.profile_form_required_fields: []
 
 services:
     vs_users.registration_controller:
         public: true
         autowire: true
         class: Vankosoft\UsersBundle\Controller\RegisterController
-        tags: ['controller.service_arguments']
+        tags: ['container.service_subscriber', 'controller.service_arguments']
         arguments:
             - '@doctrine'
+            - '@translator'
+            - '@vs_application.context.application'
             - '@vs_users.manager.user'
             - '@vs_users.repository.users'
             - '@vs_users.factory.users'
             - '@vs_users.repository.user_roles'
             - '@mailer'
             - '@vs_cms.repository.pages'
-            #- '@security.authentication.guard_handler'
             - '@security.user_authenticator'
             - '@vs_users.security.another_login_form_authenticator'
             - {
@@ -28,6 +32,7 @@ services:
                 loginAfterVerify: '%vs_users.login_after_verify%',
             }
         calls:
+            - setContainer: [ '@service_container' ]
             - setTokenGenerator: ['@?symfonycasts.verify_email.token_generator']
             - setVerifyEmailHelper: ['@?symfonycasts.verify_email.helper']
 
@@ -36,17 +41,21 @@ services:
         tags:
             - { name: form.type, alias: vs_users_profile }
         arguments:
-            - "@request_stack"
             - '%vs_users.model.users.class%'
+            - '@vs_application.repository.locale'
+            - '@request_stack'
             - '%vs_application.model.application.class%'
             - '@security.helper'
+            - '%vs_users.profile_form_required_fields%'
             
     vs_users.form.type.registration:
         class: Vankosoft\UsersBundle\Form\RegistrationFormType
         tags:
             - { name: form.type, alias: vs_users_registration }
         arguments:
-            - "@request_stack"
             - '%vs_users.model.users.class%'
+            - '@vs_application.repository.locale'
+            - '@request_stack'
             - '%vs_application.model.application.class%'
             - '@security.helper'
+            - '%vs_users.registration_form_required_fields%'

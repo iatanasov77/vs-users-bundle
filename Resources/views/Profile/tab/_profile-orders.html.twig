@@ -1,0 +1,43 @@
+<h3>{{ 'vs_users.template.profile_show_tab_orders' | trans( {},'VSUsersBundle' ) }}</h3>
+<section class="panel">
+    <div class="panel-body bio-graph-info">
+        
+        {% if hasPaymentExtension and orders is not empty %}
+        <div class="row">
+            <fieldset class="fieldset-project-fields" style="width: 100%;">
+                <legend  class="w-auto">{{ 'vs_users.template.profile_show_tab_orders' | trans( {},'VSUsersBundle' ) }}</legend>
+                
+                <table>
+                    <thead>
+                        <tr style="border-bottom: 1px solid black;">
+                            <th style="width: 300px;">{{ 'vs_users.template.profile_order_payment_method' | trans( {},'VSUsersBundle' ) }}</th>
+                            <th style="width: 70px; text-align: center;">{{ 'vs_users.template.profile_order_total' | trans( {},'VSUsersBundle' ) }}</th>
+                            <th style="text-align: center;">{{ 'vs_users.template.profile_order_status' | trans( {},'VSUsersBundle' ) }}</th>
+                            <th style="text-align: center;">{{ 'vs_users.template.profile_order_description' | trans( {},'VSUsersBundle' ) }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for order in orders %}
+                        {% if order.status != 'shopping_cart' %}
+                            <tr>
+                                <td>{{ order.paymentMethod.name }}</td>
+                                <td style="text-align: center;">{{ order.totalAmount }} {{ order.currencyCode }}</td>
+                                <td style="text-align: center;">{{ order.status }}</td>
+                                <td>{{ order.description }}</td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+                
+            </fieldset>
+        </div>
+        {% endif %}
+        
+    </div>
+</section>
+<section>
+    <div class="row">
+    </div>
+</section>
+
