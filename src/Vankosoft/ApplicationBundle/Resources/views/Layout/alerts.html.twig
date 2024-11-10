@@ -1,5 +1,0 @@
-{% import "@VSApplication/Macros/alerts.html.twig" as alerts %}
-
-{% for message in app.flashes( 'in-maintenance' ) %}
-    {{ alerts.warning( message ) }}
-{% endfor %}

@@ -1,0 +1,107 @@
+{% extends "@VSApplication/layout.html.twig" %}
+
+{% block title %}{{ parent() }} :: {{ 'vs_users.template.profile_show_title' | trans( {},'VSUsersBundle' ) }}{% endblock %}
+{% block pageTitle %}<i class="fa fa-user-md"></i> {{ 'vs_users.template.profile_show_title' | trans( {},'VSUsersBundle' ) }}{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <!-- ============================================================== -->
+        <!-- basic tabs  -->
+        <!-- ============================================================== -->
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <div class="card">
+            	<h5 class="card-header">{{ 'vs_users.template.profile_show_title' | trans( {},'VSUsersBundle' ) }}</h5>
+            	<div class="card-body profile-data">
+            		<div class="tab-regular">
+                        <ul class="nav nav-tabs " id="myTab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="details-tab" data-bs-toggle="tab" data-bs-target="#details" href="#details" role="tab" aria-controls="home" aria-selected="true">
+                                	{{ 'vs_users.template.profile_show_tab_details' | trans( {},'VSUsersBundle' ) }}
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="change_password-tab" data-bs-toggle="tab" data-bs-target="#change_password" href="#change_password" role="tab" aria-controls="profile" aria-selected="false">
+                                	{{ 'vs_users.template.profile_show_tab_change_password' | trans( {},'VSUsersBundle' ) }}
+                                </a>
+                            </li>
+                    
+                            <li class="nav-item">
+                                <a class="nav-link" id="activity-tab" data-bs-toggle="tab" data-bs-target="#activity" href="#activity" role="tab" aria-controls="contact" aria-selected="false">
+                                	{{ 'vs_users.template.profile_show_tab_activity' | trans( {},'VSUsersBundle' ) }}
+                                </a>
+                            </li>
+                            
+                            <li class="nav-item">
+                                <a class="nav-link" id="notifications-tab" data-bs-toggle="tab" data-bs-target="#notifications" href="#notifications" role="tab" aria-controls="notification" aria-selected="false">
+                                    {{ 'vs_users.template.profile_notifications' | trans( {},'VSUsersBundle' ) }}
+                                </a>
+                            </li>
+                            
+                         {% if hasSubscriptionsExtension %}
+                            <li class="nav-item">
+                                <a class="nav-link" id="subscriptions-tab" data-bs-toggle="tab" data-bs-target="#subscriptions" href="#subscriptions" role="tab" aria-controls="subscription" aria-selected="false">
+                                    {{ 'vs_users.template.profile_show_tab_subscriptions' | trans( {},'VSUsersBundle' ) }}
+                                </a>
+                            </li>
+                        {% endif %}
+                        
+                        {% if hasPaymentExtension %}
+                            <li class="nav-item">
+                                <a class="nav-link" id="orders-tab" data-bs-toggle="tab" data-bs-target="#orders" href="#orders" role="tab" aria-controls="order" aria-selected="false">
+                                    {{ 'vs_users.template.profile_show_tab_orders' | trans( {},'VSUsersBundle' ) }}
+                                </a>
+                            </li>
+                        {% endif %}
+                            
+                        </ul>
+                		<div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="details" role="tabpanel" aria-labelledby="details-tab">
+                                {% include '@VSUsers/Profile/tab/_profile-edit-form.html.twig' %}
+                            </div>
+                            <div class="tab-pane fade" id="change_password" role="tabpanel" aria-labelledby="change_password-tab">
+                                {% include '@VSUsers/Profile/tab/_profile-change_password.html.twig' with {'f': otherForms.changePasswordForm.createView} %}
+                            </div>
+                            
+                            <div class="tab-pane fade" id="activity" role="tabpanel" aria-labelledby="activity-tab">
+                                {% include '@VSUsers/Profile/tab/_profile-activity.html.twig' %}
+                            </div>
+                            
+                            <div class="tab-pane fade" id="notifications" role="tabpanel" aria-labelledby="notifications-tab">
+                                {% include '@VSUsers/Profile/tab/_profile-notification.html.twig' %}
+                            </div>
+                            
+                        {% if hasSubscriptionsExtension %}
+                            <div class="tab-pane fade" id="subscriptions" role="tabpanel" aria-labelledby="subscriptions-tab">
+                                {% include '@VSUsers/Profile/tab/_profile-subscriptions.html.twig' %}
+                            </div>
+                        {% endif %}
+                        
+                        {% if hasPaymentExtension %}
+                            <div class="tab-pane fade" id="orders" role="tabpanel" aria-labelledby="orders-tab">
+                                {% include '@VSUsers/Profile/tab/_profile-orders.html.twig' %}
+                            </div>
+                        {% endif %}
+                        
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block modals %}
+    {% include '@VSUsers/Profile/modal/notification_show.html.twig' %}
+{% endblock %}
+
+{% block head_styles %} 
+    {{ parent() }}
+    {{ encore_entry_link_tags( 'js/profile' ) }}
+{% endblock %}
+
+{% block body_scripts %}
+	{{ parent() }}
+	
+    {{ encore_entry_script_tags( 'js/profile' ) }}
+    {{ encore_entry_script_tags( 'js/filemanager-file-upload' ) }}
+{% endblock %}

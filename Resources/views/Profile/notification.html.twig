@@ -1,0 +1,8 @@
+{% extends "@VSApplication/layout.html.twig" %}
+
+{% block title %}{{ parent() }} :: {{ 'vs_users.template.profile_show_notification_title' | trans( {},'VSUsersBundle' ) }}{% endblock %}
+{% block pageTitle %}<i class="fa fa-user-md"></i> {{ 'vs_users.template.profile_show_notification_title' | trans( {},'VSUsersBundle' ) }}{% endblock %}
+
+{% block content %}
+    {% include '@VSUsers/Profile/partial/notification.html.twig' %}
+{% endblock %}

@@ -1,0 +1,61 @@
+<h3>{{ 'vs_users.template.profile_show_tab_subscriptions' | trans( {},'VSUsersBundle' ) }}</h3>
+<section class="panel">
+    <div class="panel-body bio-graph-info">
+        
+        {% if hasSubscriptionsExtension and newsletterSubscriptions is not empty %}
+            <fieldset class="border border-dark rounded p-3">
+                <legend  class="w-auto float-none ps-2 pe-2">{{ 'vs_users.template.profile_newsletter_subscriptions' | trans( {},'VSUsersBundle' ) }}</legend>
+                
+                {% for subscription in newsletterSubscriptions %}
+                    <div class="row">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="col-lg-12 col-lg-offset-1">
+                                <span>{{ subscription.userEmail }} </span>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </fieldset>
+        {% endif %}
+        
+        {% if hasPaymentExtension and paidSubscriptions is not empty %}
+            <fieldset class="border border-dark rounded p-3">
+                <legend  class="w-auto float-none ps-2 pe-2">{{ 'vs_users.template.profile_paid_subscriptions' | trans( {},'VSUsersBundle' ) }}</legend>
+                
+                <table>
+                    <thead>
+                        <tr style="border-bottom: 1px solid black;">
+                            <th style="width: 300px;">{{ 'vs_users.template.profile_paid_subscription_title' | trans( {},'VSUsersBundle' ) }}</th>
+                            <th style="width: 70px; text-align: center;">{{ 'vs_users.template.profile_paid_subscription_price' | trans( {},'VSUsersBundle' ) }}</th>
+                            <th style="text-align: center;">{{ 'vs_users.template.profile_paid_subscription_active' | trans( {},'VSUsersBundle' ) }}</th>
+                            <th style="text-align: center;">{{ 'vs_users.template.profile_paid_subscription_expire' | trans( {},'VSUsersBundle' ) }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for subscription in paidSubscriptions %}
+                        <tr>
+                            <td>{{ subscription.pricingPlan.paidService.payedService.title }}</td>
+                            <td style="text-align: center;">{{ subscription.pricingPlan.price }} {{ subscription.pricingPlan.currencyCode }}</td>
+                            <td style="text-align: center;">
+                                {% if subscription.active %}
+                                    <i class="fas fa-check" style="color: #82c91e;">
+                                {% else %}
+                                    <i class="fas fa-times" style="color: #ff1e1e;"></i>
+                                {% endif %}
+                            </td>
+                            <td>{{ subscription.expiresAt | date( "d.m.Y" ) }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                
+            </fieldset>
+        {% endif %}
+        
+    </div>
+</section>
+<section>
+    <div class="row">
+    </div>
+</section>
+

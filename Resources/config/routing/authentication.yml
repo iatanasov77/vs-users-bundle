@@ -1,0 +1,15 @@
+vs_users_register_form:
+    path:     /register
+    defaults: { _controller: vs_users.registration_controller::index }
+
+vs_users_register_confirmation:
+    path:     /verify
+    defaults: { _controller: vs_users.registration_controller::verify }
+
+vs_users_forgot_password_form:
+    path:     /forgot-password
+    controller: Vankosoft\UsersBundle\Controller\ForgotPasswordController::indexAction
+
+vs_users_forgot_password_reset:
+    path:     /forgot-password/reset/{token}
+    controller: Vankosoft\UsersBundle\Controller\ForgotPasswordController::resetAction

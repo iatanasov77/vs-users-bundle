@@ -1,5 +1,0 @@
-services:
-    stof_doctrine_extensions.listener.loggable:
-        class: Vankosoft\ApplicationBundle\EventSubscriber\LoggableListener
-        arguments: ['%kernel.default_locale%']
-        tags: [doctrine.event_subscriber]

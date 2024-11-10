@@ -1,9 +1,0 @@
-services:
-    _defaults:
-        autowire: true
-        autoconfigure: true
-        public: true
-
-#     Vankosoft\CmsBundle\Repository\PageCategoryRepository:
-#         tags: ['container.service_subscriber', 'controller.service_arguments']
-#         autowire: true

@@ -1,0 +1,42 @@
+{% extends "@VSApplication/layout.html.twig" %}
+
+{% import "@VSApplication/Macros/alerts.html.twig" as alerts %}
+
+{% if( item.id ) %}
+	{% set pageTitle = 'vs_users.template.users_roles_update_title' | trans( {},'VSUsersBundle' ) %}
+{% else %}
+	{% set pageTitle = 'vs_users.template.users_roles_create_title' | trans( {},'VSUsersBundle' ) %}
+{% endif %}
+
+{% block title %}{{ parent() }} :: {{ pageTitle }}{% endblock %}
+{% block pageTitle %}<i class="icon_genius"></i> {% if(item.id) %}{{ pageTitle }}: {{ item.name }}{% else %}{{ pageTitle }}{% endif %}{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <!-- ============================================================== -->
+        <!-- basic tabs  -->
+        <!-- ============================================================== -->
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <div class="card">
+                <h5 class="card-header">{{ 'vs_users.template.users_roles_update_form_title' | trans( {},'VSUsersBundle' ) }}</h5>
+                <div class="card-body">
+                    <div id="UserRoleFormContainer" data-pageId="{{ item.id }}">
+                        {% include '@VSUsers/UsersRoles/Partial/role_form.html.twig' %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block head_styles %}
+    {{ parent() }}
+    
+    {{ encore_entry_link_tags( 'js/users-roles-edit' ) }}
+{% endblock %}
+
+{% block body_scripts %}
+    {{ parent() }}
+   
+    {{ encore_entry_script_tags( 'js/users-roles-edit' ) }}
+{% endblock %}

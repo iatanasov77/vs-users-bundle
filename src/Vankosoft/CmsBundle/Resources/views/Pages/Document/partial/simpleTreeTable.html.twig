@@ -1,9 +1,0 @@
-<table class="table table-striped table-advance table-hover" id="tblTocPages">
-    <tbody id="tocPagesTableBody">
-        {% for tocPage in item.tocRootPage.children %}
-        	{% if tocPage.parent.id == item.tocRootPage.id %}
-        		{% include '@VSCms/Pages/Document/partial/simpleTreeTableRows.html.twig' with {'parentId': 0, 'tocPage': tocPage} %}
-        	{% endif %}
-        {% endfor %}
-    </tbody>
-</table>

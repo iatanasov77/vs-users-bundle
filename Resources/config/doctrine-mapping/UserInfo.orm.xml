@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                  http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd"
+>
+    <mapped-superclass name="Vankosoft\UsersBundle\Model\UserInfo">
+        <id name="id" column="id" type="integer">
+            <generator strategy="AUTO" />
+        </id>
+        
+        <one-to-one field="user" target-entity="Vankosoft\UsersBundle\Model\Interfaces\UserInterface" mapped-by="info" />
+        
+        <one-to-one field="avatar" target-entity="Vankosoft\UsersBundle\Model\Interfaces\AvatarImageInterface" mapped-by="owner" orphan-removal="true">
+            <cascade>
+                <cascade-all/>
+            </cascade>
+        </one-to-one>
+        
+        <field name="title" type="string" length="32" nullable="false" column-definition="ENUM('mr', 'mrs', 'miss')" />
+        <field name="firstName" column="first_name" type="string" nullable="false" />
+        <field name="lastName" column="last_name" type="string" nullable="false" />
+        <field name="designation" column="designation" type="string" nullable="true" />
+        
+        <field name="birthday" column="birthday" type="datetime" nullable="true" />
+        <field name="phone" column="phone" type="string" nullable="true" />
+        <field name="mobile" column="mobile" type="string" nullable="true" />
+        <field name="country" column="country" type="string" nullable="true" />
+        <field name="city" column="city" type="string" nullable="true" />
+        <field name="state" column="state" type="string" nullable="true" />
+        <field name="zip" column="zip" type="string" nullable="true" />
+        <field name="address" column="address" type="string" nullable="true" />
+        
+        <field name="website" column="website" type="string" nullable="true" />
+        <field name="occupation" column="occupation" type="string" nullable="true" />
+    </mapped-superclass>
+</doctrine-mapping>
