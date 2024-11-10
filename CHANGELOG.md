@@ -1,3 +1,20 @@
+1.11.1	|	Release date: **10.11.2024**
+============================================
+* New Features and Improvements:
+  - Remove Classes that was moved or removed from VankoSoft Application Library.
+
+
+1.11.0	|	Release date: **10.11.2024**
+============================================
+* Sync With Subtree Library
+
+
+1.10.1	|	Release date: **10.11.2024**
+============================================
+* New Features:
+  - Update From Application Library Subtree.
+
+
 1.10.0	|	Release date: **17.12.2022**
 ============================================
 * Sync With Subtree Library
