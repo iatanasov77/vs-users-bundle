@@ -1,9 +1,0 @@
-services:
-    vs_users.notifications:
-        class: Vankosoft\UsersBundle\Component\UserNotifications
-        arguments:
-            - '@vs_users.repository.user_roles'
-            - '@vs_users.factory.user_notification'
-            - '@doctrine.orm.entity_manager'
-
-
