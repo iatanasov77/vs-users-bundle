@@ -9,13 +9,15 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Role\RoleHierarchyInterface;
 
 use Vankosoft\ApplicationBundle\Component\Context\ApplicationContextInterface;
-use Vankosoft\UsersBundle\Model\UserInterface;
+use Vankosoft\UsersBundle\Model\Interfaces\UserInterface;
 
 class RequestVoter implements VoterInterface
 {
     private $security;
     
     private ApplicationContextInterface $applicationContext;
+    
+    private $roleHierarchy;
     
     public function __construct(
         ApplicationContextInterface $applicationContext,
@@ -30,7 +32,7 @@ class RequestVoter implements VoterInterface
     /**
      * {@inheritdoc}
      */
-    public function vote( TokenInterface $token, $subject, array $attributes )
+    public function vote( TokenInterface $token, $subject, array $attributes ): int
     {
         // Not Used For Now
         return self::ACCESS_ABSTAIN;

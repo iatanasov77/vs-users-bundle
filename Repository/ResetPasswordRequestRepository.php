@@ -1,21 +1,22 @@
 <?php namespace Vankosoft\UsersBundle\Repository;
 
-use SymfonyCasts\Bundle\ResetPassword\Model\ResetPasswordRequestInterface;
+use Doctrine\ORM\EntityRepository;
+use Sylius\Component\Resource\Repository\RepositoryInterface;
+use Sylius\Bundle\ResourceBundle\Doctrine\ORM\ResourceRepositoryTrait;
 use SymfonyCasts\Bundle\ResetPassword\Persistence\ResetPasswordRequestRepositoryInterface;
 use SymfonyCasts\Bundle\ResetPassword\Persistence\Repository\ResetPasswordRequestRepositoryTrait;
-use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
-use Sylius\Component\Resource\Factory\Factory;
+use Sylius\Component\Resource\Factory\FactoryInterface;
+use SymfonyCasts\Bundle\ResetPassword\Model\ResetPasswordRequestInterface;
 
-class ResetPasswordRequestRepository extends EntityRepository implements ResetPasswordRequestRepositoryInterface
+class ResetPasswordRequestRepository extends EntityRepository implements RepositoryInterface, ResetPasswordRequestRepositoryInterface
 {
+    use ResourceRepositoryTrait;
     use ResetPasswordRequestRepositoryTrait;
     
-    /**
-     * @var Factory
-     */
-    private $requestFactory;
+    /** @var FactoryInterface */
+    protected $requestFactory;
     
-    public function setRequestFactory( Factory $requestFactory )
+    public function setRequestFactory( FactoryInterface $requestFactory )
     {
         $this->requestFactory   = $requestFactory;
     }

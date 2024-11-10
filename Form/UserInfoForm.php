@@ -23,8 +23,10 @@ class UserInfoForm extends AbstractType
             'data_class'            => UserInfo::class,
             
             'profilePictureMapped'  => false,
+            'titleMapped'           => false,
             'firstNameMapped'       => true,
             'lastNameMapped'        => true,
+            'designationMapped'     => true,
         ]);
     }
 }

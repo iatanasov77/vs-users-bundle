@@ -29,34 +29,33 @@
             		{% if useFormMethod is defined %}{% set formMethod = useFormMethod %}{% else %}{% set formMethod = 'PUT' %}{% endif %}
                     {{ form_start(form, { 'attr': {'class': 'form-horizontal '}, 'method': formMethod }) }}
             
-                        {% if form_errors(form) is not empty %}
-                            <div class="alert alert-block alert-danger fade in">
-                                <button type="button" class="close close-sm" data-dismiss="alert">
-                                    <i class="icon-remove"></i>
-                                </button>
-                                <strong>{{ 'vs_application.form.errors_title' | trans( {},'VSApplicationBundle' ) }}</strong> {{ form_errors(form) }}
-                            </div>
+                        {% if formErrors is defined %}
+                            {{ vs_form.errors( formErrors ) }}     
                         {% endif %}
     					
-    					<label class="custom-control custom-checkbox">  
-                            <input type="checkbox" id="user_form_enabled"
-                                class="custom-control-input form-check-input"
-                                name="user_form[enabled]"
-                                value="{{ item.enabled }}"
-                                {% if item.enabled %}checked="checked"{% endif %}
-                            />
-                            <span class="custom-control-label">{{ 'vs_users.form.user.enabled' | trans( {},'VSUsersBundle' ) }}</span>
-                        </label>
+    					<div class="form-group">
+        					<label class="custom-control custom-checkbox">  
+                                <input type="checkbox" id="user_form_enabled"
+                                    class="custom-control-input form-check-input"
+                                    name="user_form[enabled]"
+                                    value="{{ item.enabled }}"
+                                    {% if item.enabled %}checked="checked"{% endif %}
+                                />
+                                <span class="custom-control-label">{{ 'vs_users.form.user.enabled' | trans( {},'VSUsersBundle' ) }}</span>
+                            </label>
+                        </div>
                         
-                        <label class="custom-control custom-checkbox">  
-                            <input type="checkbox" id="user_form_verified"
-                                class="custom-control-input form-check-input"
-                                name="user_form[verified]"
-                                value="{{ item.verified }}"
-                                {% if item.verified %}checked="checked"{% endif %}
-                            />
-                            <span class="custom-control-label">{{ 'vs_users.form.user.verified' | trans( {},'VSUsersBundle' ) }}</span>
-                        </label>
+                        <div class="form-group">
+                            <label class="custom-control custom-checkbox">  
+                                <input type="checkbox" id="user_form_verified"
+                                    class="custom-control-input form-check-input"
+                                    name="user_form[verified]"
+                                    value="{{ item.verified }}"
+                                    {% if item.verified %}checked="checked"{% endif %}
+                                />
+                                <span class="custom-control-label">{{ 'vs_users.form.user.verified' | trans( {},'VSUsersBundle' ) }}</span>
+                            </label>
+                        </div>
                         
     					<div class="form-group">
                             {{ form_label(form.prefered_locale, null, {
@@ -68,7 +67,7 @@
                         </div>
                         
                         {% if item.id %}{% set itemId = item.id %}{% else %}{% set itemId = 0 %}{% endif %}
-                        {% set comboDataSourceUrl  = url('vs_users_roles_tree_combo_with_selected', {'userId': itemId}) %}
+                        {% set comboDataSourceUrl  = url('vs_users_roles_tree_combo_with_selected', {'currentUserId': app.user.id, 'editUserId': itemId}) %}
                         {% set comboTreePlaceholder = 'vs_users.form.user.roles_placeholder' | trans( {},'VSUsersBundle' ) %}
                         <div class="form-group">
                             {{ form_label( form.roles_options, null, {
@@ -82,6 +81,7 @@
                                     'required': 'true',
                                     'multiple': 'true',
                                     'checkbox': 'true',
+                                    'cascadeCheck': 'false',
                                     'placeholder': comboTreePlaceholder
                                 }
                             ) }}
@@ -134,7 +134,7 @@
                             {{ form_widget(form.plain_password.second, {'attr': {'class': 'form-control'}}) }}
                         </div>
             			
-            			{{ vs_form.buttons( form ) }}
+            			{{ vs_form.buttons( form, metadata ) }}
                     {{ form_end(form, {'render_rest': false}) }}
                 </div>
             </div>

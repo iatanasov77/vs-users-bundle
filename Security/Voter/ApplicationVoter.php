@@ -6,7 +6,7 @@ use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Request;
 
 use Vankosoft\ApplicationBundle\Component\Context\ApplicationContextInterface;
-use Vankosoft\UsersBundle\Model\UserInterface;
+use Vankosoft\UsersBundle\Model\Interfaces\UserInterface;
 
 class ApplicationVoter implements VoterInterface
 {
@@ -25,7 +25,7 @@ class ApplicationVoter implements VoterInterface
     /**
      * {@inheritdoc}
      */
-    public function vote( TokenInterface $token, $subject, array $attributes )
+    public function vote( TokenInterface $token, $subject, array $attributes ): int
     {
         $user   = $token->getUser();
         

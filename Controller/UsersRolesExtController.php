@@ -9,11 +9,14 @@ use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
+use Vankosoft\ApplicationBundle\Controller\Traits\CategoryTreeDataTrait;
 use Vankosoft\ApplicationBundle\Component\Status;
 use Vankosoft\ApplicationBundle\Repository\TaxonRepository;
 
 class UsersRolesExtController extends AbstractController
 {
+    use CategoryTreeDataTrait;
+    
     /** @var TranslatorInterface */
     protected $translator;
     
@@ -54,49 +57,10 @@ class UsersRolesExtController extends AbstractController
         
         $topRoles   = $this->usersRolesRepository->findBy( ['parent' => null] );
         $rolesTree  = [];
-        $this->getRolesTree( new ArrayCollection( $topRoles ), $rolesTree );
         
-        $this->buildEasyuiCombotreeData( $rolesTree, $data[0]['children'], [$selectedParent] );
+        $this->getItemsTree( new ArrayCollection( $topRoles ), $rolesTree );
+        $this->buildEasyuiCombotreeDataFromCollection( $rolesTree, $data[0]['children'], [$selectedParent] );
         
         return new JsonResponse( $data );
-    }
-    
-    protected function buildEasyuiCombotreeData( $tree, &$data, array $selectedValues )
-    {
-        $key    = 0;
-        
-        if ( is_array( $tree ) ) {
-            foreach( $tree as $nodeKey => $node ) {
-                $data[$key]   = [
-                    'id'        => $node['id'],
-                    'text'      => $node['role'],
-                    'children'  => []
-                ];
-                if ( in_array( $nodeKey, $selectedValues ) ) {
-                    $data[$key]['checked'] = true;
-                }
-                
-                if ( ! empty( $node['children'] ) ) {
-                    $this->buildEasyuiCombotreeData( $node['children'], $data[$key]['children'], $selectedValues );
-                }
-                
-                $key++;
-            }
-        }
-    }
-    
-    private function getRolesTree( Collection $roles, &$rolesTree )
-    {
-        foreach ( $roles as $role ) {
-            $rolesTree[$role->getRole()] = [
-                'id'        => $role->getId(),
-                'role'      => $role->getRole(),
-                'children'  => [],
-            ];
-            
-            if ( ! $role->getChildren()->isEmpty() ) {
-                $this->getRolesTree( $role->getChildren(), $rolesTree[$role->getRole()]['children'] );
-            }
-        }
     }
 }

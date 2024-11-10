@@ -1,6 +1,6 @@
 <?php namespace Vankosoft\UsersBundle\Model;
 
-class ResetPasswordRequest implements ResetPasswordRequestInterface
+class ResetPasswordRequest implements Interfaces\ResetPasswordRequestInterface
 {   
     /**
      * @var mixed

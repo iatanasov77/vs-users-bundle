@@ -9,17 +9,16 @@ use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 
-use Vankosoft\UsersBundle\Model\UserInterface;
-
 class ChangePasswordFormType extends AbstractType
 {
-    public function buildForm( FormBuilderInterface $builder, array $options )
-    {        
+    public function buildForm( FormBuilderInterface $builder, array $options ): void
+    {
         $builder
             ->setMethod( 'POST' )
             
             ->add( 'oldPassword', PasswordType::class, [
                 'label'                 => 'vs_users.form.profile.change_password.old_password',
+                'attr'                  => ['placeholder' => 'vs_users.form.profile.change_password.old_password_placeholder'],
                 'translation_domain'    => 'VSUsersBundle',
                 'mapped'                => false,
             ])
@@ -28,8 +27,14 @@ class ChangePasswordFormType extends AbstractType
                 'type'                  => PasswordType::class,
                 'label'                 => 'vs_users.form.profile.change_password.new_password',
                 'translation_domain'    => 'VSUsersBundle',
-                'first_options'         => ['label' => 'vs_users.form.profile.change_password.new_password'],
-                'second_options'        => ['label' => 'vs_users.form.profile.change_password.new_password_repeat'],
+                'first_options'         => [
+                    'label' => 'vs_users.form.profile.change_password.new_password',
+                    'attr' => ['placeholder' => 'vs_users.form.profile.change_password.new_password_placeholder']
+                ],
+                'second_options'        => [
+                    'label' => 'vs_users.form.profile.change_password.new_password_repeat',
+                    'attr' => ['placeholder' => 'vs_users.form.profile.change_password.new_password_repeat']
+                ],
                 'mapped'                => false,
             ])
             
@@ -44,19 +49,13 @@ class ChangePasswordFormType extends AbstractType
         ;
     }
 
-    public function configureOptions( OptionsResolver $resolver ) : void
+    public function configureOptions( OptionsResolver $resolver ): void
     {
         parent::configureOptions( $resolver );
         
         $resolver
-            ->setDefined([
-                'users',
-            ])
-            ->setAllowedTypes( 'users', UserInterface::class )
-            
             ->setDefaults([
                 'csrf_protection'   => false,
-                'data_class'        => UserInterface::class,
             ])
         ;
     }

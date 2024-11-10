@@ -46,12 +46,14 @@
                 {{ form_widget(form.username, {'attr': {'class': 'form-control form-control-lg', 'placeholder': form.username.vars.label|trans}}) }}
             </div>
             <div class="form-group">                
-                {{ form_widget(form.password.first, {'attr': {'class': 'form-control form-control-lg', 'placeholder': form.password.first.vars.label|trans}}) }}
+                {{ form_widget(form.plain_password.first, {'attr': {'class': 'form-control form-control-lg', 'placeholder': form.plain_password.first.vars.label|trans}}) }}
             </div>
             <div class="form-group">                
-                {{ form_widget(form.password.second, {'attr': {'class': 'form-control form-control-lg', 'placeholder': form.password.second.vars.label|trans}}) }}
+                {{ form_widget(form.plain_password.second, {'attr': {'class': 'form-control form-control-lg', 'placeholder': form.plain_password.second.vars.label|trans}}) }}
             </div>
             
+            {# I Dont Know If User Info Fields Should Present in Registration Form
+             ################################################################################
             <div class="form-group row pt-0">
             	<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-2">
             		<hr />
@@ -68,6 +70,7 @@
             		<hr />
             	</div>
             </div>
+            #}
             
             <div class="form-group">
                 <label class="custom-control custom-checkbox">
@@ -77,7 +80,12 @@
                 		id="registration_form_agreeTerms"
                 		name="registration_form[agreeTerms]"
                     />
-                    <span class="custom-control-label">{{ form.agreeTerms.vars.label|trans|raw }}</span>
+                    <span class="custom-control-label">
+                        {{ 'vs_users.form.registration.agreement_text' | trans( {},'VSUsersBundle' ) }}
+                        <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#terms-and-conditions-modal">
+                            {{ 'vs_users.form.registration.terms_and_conditions' | trans( {},'VSUsersBundle' ) }}
+                        </a>
+                    </span>
                 </label>
             </div>
             

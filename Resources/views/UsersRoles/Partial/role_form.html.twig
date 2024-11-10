@@ -1,6 +1,10 @@
 {% import "@VSApplication/Macros/form.html.twig" as vs_form %}
 {% import "@VSApplication/Macros/tree.html.twig" as vs_tree %}
 
+{% if formErrors is defined %}
+    {{ vs_form.errors( formErrors ) }}     
+{% endif %}
+
 {{ form_start(form, { 'attr': {'class': 'form-horizontal '} }) }}
     <div class="form-group">
         {{ form_label(form.currentLocale, null, {
@@ -19,7 +23,7 @@
         
         {{ form_widget(form.role, {'attr': {'class': 'form-control'}}) }}
     </div>
-     
+    
     {% if not item.taxon or item.taxon.parent.id == taxonomy.rootTaxon.id %}{% set taxonId = '' %}{% else %}{% set taxonId = item.taxon.parent.id %}{% endif %}
     {% if item.id %}{% set itemId = item.id %}{% else %}{% set itemId = 0 %}{% endif %}
     {% set comboDataSourceUrl  = url( 'vs_users_roles_collection_parent_tree_combo_with_selected', {'roleId': itemId} ) %}
@@ -35,6 +39,7 @@
                 'required': 'false',
                 'multiple': 'false',
                 'checkbox': 'false',
+                'cascadeCheck': 'false',
                 'placeholder': comboTreePlaceholder
             }
         ) }}
@@ -49,5 +54,14 @@
         {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
     </div>
     
-    {{ vs_form.buttons( form ) }}
+    <div class="form-group">
+        {{ form_label(form.description, null, {
+            'label_attr': {'class': 'col-form-label'}
+            }) 
+        }}
+        
+        {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    
+    {{ vs_form.buttons( form, metadata ) }}
 {{ form_end(form, {'render_rest': false}) }}

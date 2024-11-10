@@ -2,6 +2,7 @@
 
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
@@ -9,7 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
-use Vankosoft\UsersBundle\Model\UserInterface;
+use Vankosoft\UsersBundle\Model\Interfaces\UserInterface;
 
 /*
  * Form Inheritance:
@@ -17,12 +18,18 @@ use Vankosoft\UsersBundle\Model\UserInterface;
  */
 class RegistrationFormType extends UserFormType
 {
-    public function __construct( RequestStack $requestStack, string $dataClass, string $applicationClass, AuthorizationCheckerInterface $auth )
-    {
-        parent::__construct( $requestStack, $dataClass, $applicationClass, $auth );
+    public function __construct(
+        string $dataClass,
+        RepositoryInterface $localesRepository,
+        RequestStack $requestStack,
+        string $applicationClass,
+        AuthorizationCheckerInterface $auth,
+        array $requiredFields
+    ) {
+        parent::__construct( $dataClass, $localesRepository, $requestStack, $applicationClass, $auth, $requiredFields );
     }
     
-    public function buildForm( FormBuilderInterface $builder, array $options )
+    public function buildForm( FormBuilderInterface $builder, array $options ): void
     {
         parent::buildForm( $builder, $options );
         
@@ -38,7 +45,7 @@ class RegistrationFormType extends UserFormType
             ->setMethod( 'POST' )
             ->add( 'registerRole', HiddenType::class, ['data' => 'ROLE_USER', 'mapped' => false] )
             ->add( 'agreeTerms', CheckboxType::class, [
-                'label'                 => 'vs_users.form.registration.agree_terms',
+                'label'                 => 'vs_users.form.registration.agreement_text',
                 'translation_domain'    => 'VSUsersBundle',
                 'mapped'                => false,
             ])
@@ -49,7 +56,7 @@ class RegistrationFormType extends UserFormType
         ;
     }
     
-    public function configureOptions( OptionsResolver $resolver ) : void
+    public function configureOptions( OptionsResolver $resolver ): void
     {   
         parent::configureOptions( $resolver );
         
