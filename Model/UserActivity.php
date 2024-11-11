@@ -1,6 +1,9 @@
 <?php namespace Vankosoft\UsersBundle\Model;
 
-class UserActivity implements Interfaces\UserActivityInterface
+use Vankosoft\UsersBundle\Model\Interfaces\UserInterface;
+use Vankosoft\UsersBundle\Model\Interfaces\UserActivityInterface;
+
+class UserActivity implements UserActivityInterface
 {
     /** @var integer */
     protected $id;

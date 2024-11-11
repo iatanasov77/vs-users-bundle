@@ -4,12 +4,22 @@ use Doctrine\Common\Comparable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
-class User implements Interfaces\UserInterface, Comparable
+use Vankosoft\UsersBundle\Model\Interfaces\UserInterface;
+use Vankosoft\UsersBundle\Model\Interfaces\UserRoleInterface;
+use Vankosoft\UsersBundle\Model\Interfaces\UserNotificationInterface;
+use Vankosoft\UsersBundle\Model\Interfaces\UserActivityInterface;
+
+use Vankosoft\UsersBundle\Model\Traits\UserPasswordTrait;
+use Vankosoft\UsersBundle\Model\Traits\UserRolesArrayTrait;
+use Vankosoft\UsersBundle\Model\Traits\UserRolesCollectionTrait;
+use Vankosoft\UsersBundle\Model\Traits\UserApplicationsTrait;
+
+class User implements UserInterface, Comparable
 {
-    use Traits\UserPasswordTrait;
-    use Traits\UserRolesArrayTrait;
-    use Traits\UserRolesCollectionTrait;
-    use Traits\UserApplicationsTrait;
+    use UserPasswordTrait;
+    use UserRolesArrayTrait;
+    use UserRolesCollectionTrait;
+    use UserApplicationsTrait;
     
     /**
      * @var mixed
