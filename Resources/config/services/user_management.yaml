@@ -16,6 +16,8 @@ services:
             - '@vs_cms.profile_uploader'
             - '@vs_users.repository.user_roles'
             - '%vs_users.crud.display_siblings%'
+        calls:
+            - setContainer: [ '@service_container' ]
     
     vs_users.resources.users.form:
         class: Vankosoft\UsersBundle\Form\UserFormType
