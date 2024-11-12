@@ -32,7 +32,7 @@ services:
                 loginAfterVerify: '%vs_users.login_after_verify%',
             }
         calls:
-            #- setContainer: [ '@service_container' ]
+            - setContainer: [ '@service_container' ]
             - setTokenGenerator: ['@?symfonycasts.verify_email.token_generator']
             - setVerifyEmailHelper: ['@?symfonycasts.verify_email.helper']
 
