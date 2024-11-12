@@ -16,6 +16,8 @@ services:
             - '@twig'
             - '@vs_users.security_bridge'
             - '@vs_users.repository.user_notification'
+        calls:
+            - setContainer: [ '@service_container' ]
             
     Vankosoft\UsersBundle\Controller\UsersActivitiesController:
         public: true
@@ -24,3 +26,5 @@ services:
         arguments:
             - '@doctrine'
             - '@vs_users.security_bridge'
+        calls:
+            - setContainer: [ '@service_container' ]
