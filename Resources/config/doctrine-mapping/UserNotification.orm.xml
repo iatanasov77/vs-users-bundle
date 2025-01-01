@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                  http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd"
+                  xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping"
+>
+    <mapped-superclass name="Vankosoft\UsersBundle\Model\UserNotification">
+        <id name="id" column="id" type="integer">
+            <generator strategy="AUTO" />
+        </id>
+        <many-to-one field="user" target-entity="Vankosoft\UsersBundle\Model\Interfaces\UserInterface" inversed-by="notifications" />
+        
+        <field name="notificationFrom" column="notification_from" type="string" nullable="false" />
+        <field name="notification" column="notification" type="string" nullable="false" />
+        <field name="notificationBody" column="notification_body" type="text" nullable="true" />
+        
+        <field name="readed" column="readed" type="boolean" nullable="true" />
+        <field name="date" column="date" type="datetime" nullable="false">
+        	<gedmo:timestampable on="create"/>
+       	</field>
+    </mapped-superclass>
+</doctrine-mapping>

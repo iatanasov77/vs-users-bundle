@@ -1,0 +1,114 @@
+parameters:
+    vs_users.login_route: 'vs_application_login'
+    vs_users.login_by: 'email'
+    vs_users.default_redirect: 'vs_application_dashboard'
+    vs_users.redirect_after_verify: 'vs_users_profile_show'
+    
+    vs_users.form_create_account: true
+    
+    vs_users.gc_maxlifetime: 1800   # 30 minutes
+    vs_users.cookie.domain: '%env(COOKIE_DOMAIN)%'
+    vs_users.cookie.lifetime: 86400 # 24 hours
+    
+    vs_users.voter.crud_disabled_models: {}
+    vs_users.voter.crud_owner_models: {}
+  
+    
+services:
+    vs_users.security_bridge:
+        class: Vankosoft\UsersBundle\Security\SecurityBridge
+        public: true
+        arguments:
+            - '@security.token_storage'
+
+    vs_users.manager.user:
+        class: Vankosoft\UsersBundle\Security\UserManager
+        public: true
+        arguments:
+            - '@vs_users.factory.users'
+            - '@vs_users.repository.users'
+            - '@doctrine.orm.entity_manager'
+            - '@security.password_hasher_factory'
+            - '@vs_users.factory.user_info'
+            - '@vs_users.factory.avatar_image'
+            - '@vs_cms.profile_uploader'
+    
+    vs_users.security.login_form_authenticator:
+        class: Vankosoft\UsersBundle\Security\LoginFormAuthenticator
+        arguments:
+            - '@router'
+            - '@security.csrf.token_manager'
+            - '@security.password_hasher_factory'
+            - '@vs_users.repository.users'
+            - '@doctrine.orm.entity_manager'
+            - '@translator'
+            - '@symfonycasts.reset_password.random_generator'
+            - {
+                loginRoute: '%vs_users.login_route%',
+                loginBy: '%vs_users.login_by%',
+                defaultRedirect: '%vs_users.default_redirect%'
+            }
+
+    vs_users.security.another_login_form_authenticator:
+        class: Vankosoft\UsersBundle\Security\AnotherLoginFormAuthenticator
+        arguments:
+            - '@router'
+            - '@security.csrf.token_manager'
+            - '@security.password_hasher_factory'
+            - '@vs_users.repository.users'
+            - {
+                loginRoute: '%vs_users.login_route%',
+                redirectAfterLogin: '%vs_users.redirect_after_verify%',
+            }
+
+    # Register a listener for the logout event only on the main firewall
+    # https://symfony.com/blog/new-in-symfony-5-1-simpler-logout-customization
+    vs_users.security.logout_success_handler:
+        class: Vankosoft\UsersBundle\Security\MainLogoutListener
+        arguments:
+            - '@security.http_utils'
+            - '/'
+        tags:
+            - name: 'kernel.event_listener'
+              event: 'Symfony\Component\Security\Http\Event\LogoutEvent'
+              dispatcher: security.event_dispatcher.main
+
+    vs_users.security.application_voter:
+        class: Vankosoft\UsersBundle\Security\Voter\ApplicationVoter
+        tags: ['security.voter']
+        arguments:
+            - '@vs_application.context.application'
+    
+    vs_users.security.voter.crud_disabled_models:
+        class: Vankosoft\UsersBundle\Security\Voter\CrudDisabledModelsVoter
+        tags: ['security.voter']
+        arguments:
+            - '@vs_application.context.application'
+            - '%vs_users.voter.crud_disabled_models%'
+            - '@service_container'
+            
+    vs_users.security.voter.crud_owner_models:
+        class: Vankosoft\UsersBundle\Security\Voter\CrudOwnerModelsVoter
+        tags: ['security.voter']
+        arguments:
+            - '@vs_application.context.application'
+            - '%vs_users.voter.crud_owner_models%'
+            - '@service_container'
+            
+    vs_users.security.request_voter:
+        class: Vankosoft\UsersBundle\Security\Voter\RequestVoter
+        tags: ['security.voter']
+        arguments:
+            - '@vs_application.context.application'
+            - '@security.helper'
+            - '@security.role_hierarchy'
+
+    vs_users.security.firewall.access_denied_listener:
+        class: Vankosoft\UsersBundle\Security\Firewall\AccessDeniedListener
+        arguments: 
+            - '@router'
+            - {
+                loginRoute: '%vs_users.login_route%',
+            }
+        tags:
+            - { name: 'kernel.event_listener', event: 'kernel.exception', method: 'onKernelException' }

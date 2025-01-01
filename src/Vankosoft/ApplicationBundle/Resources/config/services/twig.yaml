@@ -1,9 +1,0 @@
-services:
-    Vankosoft\ApplicationBundle\Twig\ReadableFilesizeExtension:
-        tags: ['twig.extension']
-        
-    Vankosoft\ApplicationBundle\Twig\VsTagsExtension:
-        tags: ['twig.extension']
-        
-    Vankosoft\ApplicationBundle\Twig\FunctionsExtension:
-        tags: ['twig.extension']

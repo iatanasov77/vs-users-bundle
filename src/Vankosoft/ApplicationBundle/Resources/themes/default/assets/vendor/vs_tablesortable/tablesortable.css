@@ -1,9 +1,0 @@
-table.vsTableSortable thead tr th a {
-	color: #3d405c;
-	font-weight: bold;
-	text-decoration: none;
-}
-
-table.vsTableSortable thead tr th a:hover {
-	text-decoration: underline;
-}

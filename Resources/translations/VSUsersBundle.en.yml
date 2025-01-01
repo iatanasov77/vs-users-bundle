@@ -1,0 +1,169 @@
+vs_users:
+    security:
+        authentication_success: 'Authentication Successful !'
+        authentication_failure: 'Authentication Failure !'
+    
+    form:
+        generate_password: Generate Password
+        dont_have_accont: Don't have an account?
+        
+        profile:
+            personal_details: Personal Details
+            designation: Designation
+            picture_lable: 'Profile picture'
+            picture_info: 'Allowed Types: jpeg, png'
+            change_avatar: Change Avatar
+            change_password:
+                old_password: 'Old Password'
+                old_password_placeholder: Enter current password
+                new_password: 'New Password'
+                new_password_placeholder: Enter new password
+                new_password_repeat: 'Confirm New Password'
+                btn_change_password: Change Password
+                
+        user:
+            credentials: Credentials
+            prefered_locale: 'Prefered Locale'
+            prefered_locale_placeholder: '-- Select Prefered Locale --'
+            roles: 'User Roles'
+            roles_placeholder: '-- Select User Roles --'
+            email: 'E-mail'
+            email_placeholder: 'Enter your email'
+            username: 'Username'
+            password: 'Password'
+            password_repeat: 'Confirm Password'
+            title: Title
+            firstName: 'First Name'
+            firstName_placeholder: Enter your firstname
+            lastName: 'Last Name'
+            lastName_placeholder: Enter your lastname
+            enabled: 'Enabled'
+            verified: 'Verified'
+            applications_allowed: Allowed Applications
+            submit: 'Submit'
+            save: 'Save'
+            cancel: 'Cancel'
+    
+        registration:
+            yourCountry: 'Your Country'
+            yourBirthday: 'You Birthday'
+            occupation: 'Occupation'
+            mobile: 'Mobile'
+            websiteUrl: 'Website URL'
+            agree_terms: 'By creating an account, you agree the <a href="%vs_app.page.tac%">terms and conditions</a>'    
+            register: 'Register'
+            
+            button_register: Register An Account
+            agreement_text: By creating an account, you agree the
+            terms_and_conditions: terms and conditions
+
+        resetting:
+            new_password_lable: 'Enter your new password.'
+            new_password_placeholder_pasword: 'Password'
+            new_password_placeholder_confirm_pasword: 'Confirm Password'
+            new_password_button: 'Change Password'
+            
+        user_role:
+            locale: Language
+            name: Name
+            role: Role
+            description: Role Description
+            parent_role: Parent Role
+            parent_role_placeholder: '-- Select Parent Role --'
+            parent_role_no_parent: No Parent
+            
+        forgot_password:
+            email_label: Your Email
+            email_placeholder: Enter Your Email
+            submit_button: Send Reset Link
+    
+    template:
+        profile_show_title: 'My Profile'
+        profile_show_tab_details: 'Details'
+        profile_show_tab_change_password: 'Change Password'
+        profile_show_tab_subscriptions: 'Subscriptions'
+        profile_show_tab_orders: 'Orders'
+        profile_show_tab_activity: 'Activity'
+        profile_details_header: 'Profile Info'
+        profile_change_password_header: 'Change Password'
+        profile_activity_header: 'Activity'
+        profile_activity_name: Activity
+        profile_newsletter_subscriptions: Newsletter Subscriptions
+        profile_paid_subscriptions: Paid Subscriptions
+        profile_paid_subscription_title: Title
+        profile_paid_subscription_price: Price
+        profile_paid_subscription_active: Active
+        profile_paid_subscription_expire: Expire at
+        profile_order_payment_method: Payment Method
+        profile_order_total: Total
+        profile_order_status: Status
+        profile_order_description: Description
+        profile_back_to_home: Back To Home
+        register_confirmation_email_text_1: 'Please confirm your email address by clicking the following link:'
+        register_confirmation_email_text_2: 'Confirm my Email'
+        register_confirmation_email_text_3: 'This link will expire in '
+        register_confirmation_email_text_4: 'Cheers!'
+        register_header_title: 'Registration'
+        register_header_description: 'Please enter your user information.'
+        register_already_member: 'Already member?'
+        register_login_here: 'Login Here.'
+        forgot_password_header_title: 'Forgot Password'
+        forgot_password_header_subtitle: Reset your password
+        forgot_password_header_description: Please enter the email address for your account. A verification code will be sent to you. Once you have received the verification code, you will be able to choose a new password for your account.
+        forgot_password_email_header: 'Forgot Password email'
+        forgot_password_email_text_1: 'Reset password link:'
+        forgot_password_email_text_2: 'The Link is valid up to'
+        forgot_password_email_text_3: 'You get this mail because you start the process for reset your password.'
+        forgot_password_email_text_4: 'Cheers!'
+        forgot_password_form_header: "Don't worry, we'll send you an email to reset your password."
+        forgot_password_form_email_placeholder: 'Your Email'
+        forgot_password_form_button_reset: 'Reset Password'
+        forgot_password_form_button_signup: 'Sign Up'
+        userscrud_index_title: 'Users Management'
+        userscrud_index_pageheader: 'Users'
+        userscrud_index_tablecolumns_username: 'Username'
+        userscrud_index_tablecolumns_email: 'Email'
+        userscrud_index_tablecolumns_roles: 'Roles'
+        userscrud_index_tablecolumns_allowed_applications: Allowed Applications
+        userscrud_index_tablecolumns_fullname: 'Full Name'
+        userscrud_index_tablecolumns_action: 'Action'
+        userscrud_create_title: 'Create New User'
+        userscrud_update_title: 'Edit User'
+        userscrud_update_header: 'User Details'
+        userscrud_userinfo_title: 'User Info'
+        userscrud_delete_title: 'Delete User'
+        users_roles_index_title: User Roles
+        users_roles_index_row_role: Role
+        users_roles_index_row_role_description: Role Description
+        users_roles_index_row_actions: Actions
+        users_roles_index_button_edit: Edit
+        users_roles_update_title: Edit User Role
+        users_roles_create_title: Create User Role
+        users_roles_update_form_title: User Role
+        
+        profile_notifications: 'Notifications'
+        new_notifications: 'New Notifications'
+        profile_notification_clear_all: Clear All
+        profile_activity_clear_all: Clear All
+        profile_notification_set_all_readed: Set All as Readed
+        profile_notification_name: 'Notification'
+        profile_notification_readed: 'readed'
+        profile_notification_unreaded: 'unreaded'
+        profile_show_notification_title: Notification Sent to You
+        profile_overview: Overview
+        profile_activities: Activities
+        profile_edit_profile: Edit Profile
+        profile_about: About
+        
+        reset_password_title: 'Forgot Password?'
+        reset_password_subtitle: Reset password with
+        reset_password_description: Enter your email and instructions will be sent to you!
+        reset_password_i_remember: Wait, I remember my password...
+        reset_password_click_here: Click here
+        
+        notification:
+            notification_details: Notification Details
+            from: From
+            date: Date
+            subject: Subject
+            content: Content
