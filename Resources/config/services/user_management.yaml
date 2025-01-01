@@ -6,7 +6,7 @@ services:
     Vankosoft\UsersBundle\Repository\UsersRepository: '@vs_users.repository.users'
     
     Vankosoft\UsersBundle\Controller\UsersExtController:
-        tags: ['container.service_subscriber', 'controller.service_arguments']
+        tags: ['controller.service_arguments']
         autowire: true
         arguments:
             - '@doctrine'
@@ -17,7 +17,7 @@ services:
             - '@vs_users.repository.user_roles'
             - '%vs_users.crud.display_siblings%'
         calls:
-            - [ setContainer, [ '@service_container' ] ]
+            - setContainer: [ '@service_container' ]
     
     vs_users.resources.users.form:
         class: Vankosoft\UsersBundle\Form\UserFormType

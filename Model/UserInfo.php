@@ -3,8 +3,9 @@
 use Doctrine\ORM\Mapping as ORM;
 
 use Vankosoft\CmsBundle\Model\Interfaces\FileInterface;
+use Vankosoft\UsersBundle\Model\Interfaces\UserInfoInterface;
 
-class UserInfo implements Interfaces\UserInfoInterface
+class UserInfo implements UserInfoInterface
 {
     /**
      * @var mixed

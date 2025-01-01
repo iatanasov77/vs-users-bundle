@@ -11,7 +11,7 @@ services:
         public: true
         autowire: true
         class: Vankosoft\UsersBundle\Controller\RegisterController
-        tags: ['container.service_subscriber', 'controller.service_arguments']
+        tags: ['controller.service_arguments']
         arguments:
             - '@doctrine'
             - '@translator'
