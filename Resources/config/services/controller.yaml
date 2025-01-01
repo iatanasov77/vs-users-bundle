@@ -7,7 +7,7 @@ services:
     Vankosoft\UsersBundle\Controller\ForgotPasswordController:
         public: true
         autowire: true
-        tags: ['container.service_subscriber', 'controller.service_arguments']
+        tags: ['controller.service_arguments']
         arguments:
             - '@doctrine'
             - '@vs_users.repository.reset_password_request'
@@ -20,11 +20,11 @@ services:
                 mailerUser: '%vs_application.mailer_user%',
             }
         calls:
-            - setContainer: [ '@service_container' ]
+            #- setContainer: [ '@service_container' ]
             - setResetPasswordHelper: ['@?symfonycasts.reset_password.helper']
 
     Vankosoft\UsersBundle\Controller\ProfileController:
-        tags: ['container.service_subscriber', 'controller.service_arguments']
+        tags: ['controller.service_arguments']
         autowire: true
         arguments:
             - '@doctrine'
@@ -33,11 +33,9 @@ services:
             - '@vs_users.factory.avatar_image'
             - '@vs_cms.profile_uploader'
             - '@vs_agent.agent'
-        calls:
-            - [ setContainer, [ '@service_container' ] ]
     
     Vankosoft\UsersBundle\Controller\UsersRolesExtController:
-        tags: ['container.service_subscriber', 'controller.service_arguments']
+        tags: ['controller.service_arguments']
         autowire: true
         arguments:
             - '@translator'
@@ -45,5 +43,3 @@ services:
             - '@vs_users.repository.user_roles'
             - '@vs_application.repository.taxonomy'
             - '@vs_application.repository.taxon'
-        calls:
-            - [ setContainer, [ '@service_container' ] ]

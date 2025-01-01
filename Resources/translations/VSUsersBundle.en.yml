@@ -142,6 +142,7 @@ vs_users:
         users_roles_update_form_title: User Role
         
         profile_notifications: 'Notifications'
+        new_notifications: 'New Notifications'
         profile_notification_clear_all: Clear All
         profile_activity_clear_all: Clear All
         profile_notification_set_all_readed: Set All as Readed

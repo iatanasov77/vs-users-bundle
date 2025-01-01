@@ -10,21 +10,21 @@ services:
     Vankosoft\UsersBundle\Controller\UsersNotificationsController:
         public: true
         autowire: true
-        tags: ['container.service_subscriber', 'controller.service_arguments']
+        tags: ['controller.service_arguments']
         arguments:
             - '@doctrine'
             - '@twig'
             - '@vs_users.security_bridge'
             - '@vs_users.repository.user_notification'
         calls:
-            - [ setContainer, [ '@service_container' ] ]
+            - setContainer: [ '@service_container' ]
             
     Vankosoft\UsersBundle\Controller\UsersActivitiesController:
         public: true
         autowire: true
-        tags: ['container.service_subscriber',  'controller.service_arguments']
+        tags: [ 'controller.service_arguments']
         arguments:
             - '@doctrine'
             - '@vs_users.security_bridge'
         calls:
-            - [ setContainer, [ '@service_container' ] ]
+            - setContainer: [ '@service_container' ]
