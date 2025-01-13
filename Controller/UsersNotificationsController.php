@@ -6,7 +6,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Doctrine\Persistence\ManagerRegistry;
 use Twig\Environment;
-use Sylius\Component\Resource\Repository\RepositoryInterface;
+use Sylius\Resource\Doctrine\Persistence\RepositoryInterface;
 use Vankosoft\ApplicationBundle\Component\Status;
 use Vankosoft\UsersBundle\Security\SecurityBridge;
 use Vankosoft\UsersBundle\Model\Interfaces\UserInterface;
