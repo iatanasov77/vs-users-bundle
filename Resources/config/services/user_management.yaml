@@ -55,3 +55,11 @@ services:
             - "@vs_users.repository.users"
         tags:
             - { name: console.command }
+    
+    vs_users.command.remove_bad_users:
+        class: Vankosoft\UsersBundle\Command\RemoveBadUsersCommand
+        arguments:
+            - '@doctrine'
+            - "@vs_users.repository.user_roles"
+        tags:
+            - { name: console.command }
