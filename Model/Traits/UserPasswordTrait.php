@@ -25,17 +25,17 @@ trait UserPasswordTrait
     /**
      * Required by Symfony\Component\Security\Core\User\UserInterface
      */
-    public function eraseCredentials()
+    public function eraseCredentials(): void
     {
         //$this->plainPassword = null;
     }
     
-    public function getSalt()
+    public function getSalt(): ?string
     {
         return $this->salt;
     }
     
-    public function setSalt( $salt ) : self
+    public function setSalt( $salt ): self
     {
         $this->salt = $salt;
         
@@ -47,19 +47,19 @@ trait UserPasswordTrait
         return $this->password;
     }
     
-    public function setPassword( $password ) : self
+    public function setPassword( $password ): self
     {
         $this->password = $password;
         
         return $this;
     }
     
-    public function getPasswordRequestedAt()
+    public function getPasswordRequestedAt(): ?\DateTime
     {
         return $this->passwordRequestedAt;
     }
     
-    public function setPasswordRequestedAt( \DateTime $date = null )
+    public function setPasswordRequestedAt( \DateTime $date = null ): self
     {
         $this->passwordRequestedAt = $date;
         
