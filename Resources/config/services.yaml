@@ -1,8 +1,8 @@
 imports:
     - { resource: services/controller.yaml }
-    - { resource: services/security.yml }
-    - { resource: services/registration.yml }
-    - { resource: services/reset_password.yml }
+    - { resource: services/security.yaml }
+    - { resource: services/registration.yaml }
+    - { resource: services/reset_password.yaml }
     - { resource: services/user_management.yaml }
     - { resource: services/user_profile.yaml }
 
