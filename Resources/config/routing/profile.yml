@@ -48,14 +48,14 @@ vs_users_notifications_set_all_readed:
     options:
         expose: true
 
-vs_users_notifications_show:
-    path: /user-notifications/{id}
-    controller: Vankosoft\UsersBundle\Controller\UsersNotificationsController::showNotification
-    options:
-        expose: true
-
 vs_users_notifications_remove:
     path: /user-notifications/remove
     controller: Vankosoft\UsersBundle\Controller\UsersNotificationsController::removeNotifications
+    options:
+        expose: true
+
+vs_users_notifications_show:
+    path: /user-notifications/{id}
+    controller: Vankosoft\UsersBundle\Controller\UsersNotificationsController::showNotification
     options:
         expose: true

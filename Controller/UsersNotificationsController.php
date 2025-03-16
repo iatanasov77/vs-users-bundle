@@ -95,6 +95,39 @@ class UsersNotificationsController extends AbstractController
         }
     }
     
+    public function removeNotifications( Request $request ): Response
+    {
+        $user   = $this->securityBridge->getUser();
+        $userIsValid    = ( $user instanceof UserInterface );
+        $hasError       = ! $userIsValid;
+        
+        if ( ! $hasError ) {
+            $availableNotifications = $user->getNotifications();
+            $removeIds = \json_decode( $request->getContent(), true );
+            
+            $em = $this->doctrine->getManager();
+            foreach ( $removeIds as $notId ) {
+                if ( isset( $availableNotifications[$notId] ) ) {
+                    $em->remove( $availableNotifications[$notId] );
+                }
+            }
+            $em->flush();
+        }
+        
+        if( $request->isXmlHttpRequest() ) {
+            return new JsonResponse([
+                'status'    => $hasError ? Status::STATUS_ERROR : Status::STATUS_OK,
+                'message'   => $hasError ? 'Invalid User !!!' : 'User is Valid !!!',
+            ]);
+        } else {
+            if ( $hasError ) {
+                throw new UserException( 'Invalid User !!!' );
+            }
+            
+            return $this->redirectToRoute( 'vs_users_profile_show' );
+        }
+    }
+    
     public function showNotification( $id, Request $request ): Response
     {
         $notification   = $this->notificationsRepository->find( $id );
@@ -127,39 +160,6 @@ class UsersNotificationsController extends AbstractController
             return $this->render( '@VSUsers/Profile/notification.html.twig', [
                 'notification'  => $notification,
             ]);
-        }
-    }
-    
-    public function removeNotifications( Request $request ): Response
-    {
-        $user   = $this->securityBridge->getUser();
-        $userIsValid    = ( $user instanceof UserInterface );
-        $hasError       = ! $userIsValid;
-        
-        if ( ! $hasError ) {
-            $availableNotifications = $user->getNotifications();
-            $removeIds = \json_decode( $request->getContent(), true );
-            
-            $em = $this->doctrine->getManager();
-            foreach ( $removeIds as $notId ) {
-                if ( isset( $availableNotifications[$notId] ) ) {
-                    $em->remove( $availableNotifications[$notId] );
-                }
-            }
-            $em->flush();
-        }
-        
-        if( $request->isXmlHttpRequest() ) {
-            return new JsonResponse([
-                'status'    => $hasError ? Status::STATUS_ERROR : Status::STATUS_OK,
-                'message'   => $hasError ? 'Invalid User !!!' : 'User is Valid !!!',
-            ]);
-        } else {
-            if ( $hasError ) {
-                throw new UserException( 'Invalid User !!!' );
-            }
-            
-            return $this->redirectToRoute( 'vs_users_profile_show' );
         }
     }
 }
