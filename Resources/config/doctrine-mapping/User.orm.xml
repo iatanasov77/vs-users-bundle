@@ -59,7 +59,7 @@
         <field name="verified" column="verified" type="boolean" nullable="true" />
         <field name="enabled" column="enabled" type="boolean" nullable="true" />
         
-        <one-to-many field="activities" target-entity="Vankosoft\UsersBundle\Model\Interfaces\UserActivityInterface" mapped-by="user">
+        <one-to-many field="activities" target-entity="Vankosoft\UsersBundle\Model\Interfaces\UserActivityInterface" mapped-by="user" index-by="id">
             <cascade>
                 <cascade-all/>
             </cascade>
@@ -67,7 +67,8 @@
                 <order-by-field name="date" direction="DESC" />
             </order-by>
         </one-to-many>
-        <one-to-many field="notifications" target-entity="Vankosoft\UsersBundle\Model\Interfaces\UserNotificationInterface" mapped-by="user">
+        
+        <one-to-many field="notifications" target-entity="Vankosoft\UsersBundle\Model\Interfaces\UserNotificationInterface" mapped-by="user" index-by="id">
             <cascade>
                 <cascade-all/>
             </cascade>

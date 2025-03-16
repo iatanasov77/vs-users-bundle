@@ -54,4 +54,8 @@ vs_users_notifications_show:
     options:
         expose: true
 
-
+vs_users_notifications_remove:
+    path: /user-notifications/remove
+    controller: Vankosoft\UsersBundle\Controller\UsersNotificationsController::removeNotifications
+    options:
+        expose: true
