@@ -9,7 +9,10 @@
         <id name="id" column="id" type="integer">
             <generator strategy="AUTO" />
         </id>
-        <many-to-one field="user" target-entity="Vankosoft\UsersBundle\Model\Interfaces\UserInterface" inversed-by="activities" />
+        
+        <many-to-one field="user" target-entity="Vankosoft\UsersBundle\Model\Interfaces\UserInterface" inversed-by="activities" >
+            <join-column name="user_id" referenced-column-name="id" nullable="false" on-delete="CASCADE"/>
+        </many-to-one>
         
         <field name="activity" column="activity" type="string" nullable="false" />
         
