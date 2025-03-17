@@ -28,5 +28,6 @@
         </one-to-many>
         
         <many-to-many field="users" target-entity="Vankosoft\UsersBundle\Model\Interfaces\UserInterface" mapped-by="rolesCollection" />
+        <many-to-many field="usersAllowed" target-entity="Vankosoft\UsersBundle\Model\Interfaces\UserInterface" mapped-by="allowedRoles" />
     </mapped-superclass>
 </doctrine-mapping>

@@ -86,6 +86,7 @@ class User implements UserInterface, Comparable
         $this->activities       = new ArrayCollection();
         $this->notifications    = new ArrayCollection();
         $this->applications     = new ArrayCollection();
+        $this->allowedRoles     = new ArrayCollection();
     }
     
     public function getId()

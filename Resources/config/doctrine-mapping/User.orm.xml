@@ -19,14 +19,6 @@
         <field name="salt" column="salt" type="string" nullable="false" />
         <field name="password" column="password" type="string" nullable="false" />
         
-        <many-to-many field="applications" target-entity="Vankosoft\ApplicationBundle\Model\Interfaces\ApplicationInterface" mapped-by="users">
-            <cascade>
-                <cascade-persist/>
-                <cascade-merge/>
-                <cascade-detach/>
-            </cascade>
-        </many-to-many>
-        
 		<!-- 
 			For Backward Compatibility Create 2 Roles Fields <rolesArray and rolesCollection>
 			You can choose which to use
@@ -87,5 +79,24 @@
         <field name="updatedAt" column="updated_at" type="datetime" nullable="true">
             <gedmo:timestampable on="update"/>
         </field>
+        
+        <many-to-many field="applications" target-entity="Vankosoft\ApplicationBundle\Model\Interfaces\ApplicationInterface" mapped-by="users">
+            <cascade>
+                <cascade-persist/>
+                <cascade-merge/>
+                <cascade-detach/>
+            </cascade>
+        </many-to-many>
+        
+        <many-to-many field="allowedRoles" target-entity="Vankosoft\UsersBundle\Model\Interfaces\UserInterface" inversed-by="usersAllowed" >
+            <join-table name="  VSUM_Users_AllowedRoles">
+                <join-columns>
+                    <join-column name="user_id" referenced-column-name="id" />
+                </join-columns>
+                <inverse-join-columns>
+                    <join-column name="role_id" referenced-column-name="id" />
+                </inverse-join-columns>
+            </join-table>
+        </many-to-many>
     </mapped-superclass>
 </doctrine-mapping>

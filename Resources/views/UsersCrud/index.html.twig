@@ -22,78 +22,80 @@
                         </tr>
                     </thead>
                     <tbody>
-                    {% for item in resources %}
-                        {% set userGranted = is_granted( 'ROLE_SUPER_ADMIN' ) %}
-                        
-                        {% if not userGranted %}
-                            {% if displaySiblings %}
-                                {% set userGranted = ( app.user.compareTo( item ) >= 0 ) %}
-                            {% else %}
-                                {% set userGranted = ( app.user.compareTo( item ) == 1 ) %}
-                            {% endif %}
-                        {% endif %}
-                    	
-                    	{% if userGranted %}	{# is_granted( item.roles ) #}
-                            <tr>
-                                <td>{{ loop.index }}</td>
-                                
-                                <td>
-                                {% if item.info.avatar %}
-                                   <img src="{{ item.info.avatar.path|imagine_filter('users_crud_index_thumb') }}" />
+                        {% set countNumber = 0 %}
+                        {% for item in resources %}
+                            {% set userGranted = is_granted( 'ROLE_SUPER_ADMIN' ) %}
+                            
+                            {% if not userGranted %}
+                                {% if displaySiblings %}
+                                    {% set userGranted = ( app.user.compareTo( item ) >= 0 ) %}
+                                {% else %}
+                                    {% set userGranted = ( app.user.compareTo( item ) == 1 ) %}
                                 {% endif %}
-                                   {{ item.username  }}
-                                </td>
-                                <td>{{ item.email  }}</td>
-                                <td>{{ item.info.getFullName() }}</td>
-                                <td>{{ item.roles | join(' , ')  }}</td>
-                                <td>
-                                    {% if item.enabled %}
-                                        <i class="fas fa-check" style="color: #82c91e;">
-                                    {% else %}
-                                        <i class="fas fa-times" style="color: #ff1e1e;"></i>
+                            {% endif %}
+                        	
+                            {% if userGranted %}	{# is_granted( item.roles ) #}
+                                {% set countNumber = countNumber + 1 %}
+                                <tr>
+                                    <td>{{ countNumber }}</td>
+                                    
+                                    <td>
+                                    {% if item.info.avatar %}
+                                       <img src="{{ item.info.avatar.path|imagine_filter('users_crud_index_thumb') }}" />
                                     {% endif %}
-                                </td>
-                                <td>
-                                    {% if item.verified %}
-                                        <i class="fas fa-check" style="color: #82c91e;">
-                                    {% else %}
-                                        <i class="fas fa-times" style="color: #ff1e1e;"></i>
-                                    {% endif %}
-                                </td>
-                                <td>
-                                    {% for app in item.applications %}
-                                        {{ app.title  }}
-                                    {% endfor %}
-                                </td>
-                                <td>
-                                	<div class="btn-group">
-                                		<a class="btn btn-primary" 
-                                		    href="{{ path('vs_users_users_update', {'id': item.id}) }}"
-                                		    title="{{ 'vs_users.template.userscrud_update_title' | trans( {},'VSUsersBundle' ) }}"
-                                		>
-                                            <i class="fas fa-edit"></i>
-                                        </a>
-                                        <a class="btn btn-primary btnUserInfo" href="javascript:void(0);"
-                                            data-url="{{ path('vs_users_user_info_display', {'userId': item.id}) }}"
-                                            title="{{ 'vs_users.template.userscrud_userinfo_title' | trans( {},'VSUsersBundle' ) }}"
-                                        >
-                                            <i class="fas fa-info"></i>
-                                        </a>
-                                    {% if item.username != 'admin' %}
-                                        <a class="btn btn-danger btnDeleteResource"
-                                            href="{{ path('vs_users_users_delete', {'id': item.id}) }}"
-                                            data-csrfToken="{{ csrf_token( item.id ) }}"
-                                            data-message="vs_application.form.vs_form_delete.users_crud_message"
-                                            title="{{ 'vs_users.template.userscrud_delete_title' | trans( {},'VSUsersBundle' ) }}"
-                                        >
-                                            <i class="icon_close_alt2"></i>
-                                        </a>
-                                    {% endif %}
-                                    </div>
-                                </td>
-                            </tr>
-                        {% endif %}
-                    {% endfor %}
+                                       {{ item.username  }}
+                                    </td>
+                                    <td>{{ item.email  }}</td>
+                                    <td>{{ item.info.getFullName() }}</td>
+                                    <td>{{ item.roles | join(' , ')  }}</td>
+                                    <td>
+                                        {% if item.enabled %}
+                                            <i class="fas fa-check" style="color: #82c91e;">
+                                        {% else %}
+                                            <i class="fas fa-times" style="color: #ff1e1e;"></i>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if item.verified %}
+                                            <i class="fas fa-check" style="color: #82c91e;">
+                                        {% else %}
+                                            <i class="fas fa-times" style="color: #ff1e1e;"></i>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% for app in item.applications %}
+                                            {{ app.title  }}
+                                        {% endfor %}
+                                    </td>
+                                    <td>
+                                    	<div class="btn-group">
+                                    		<a class="btn btn-primary" 
+                                    		    href="{{ path('vs_users_users_update', {'id': item.id}) }}"
+                                    		    title="{{ 'vs_users.template.userscrud_update_title' | trans( {},'VSUsersBundle' ) }}"
+                                    		>
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <a class="btn btn-primary btnUserInfo" href="javascript:void(0);"
+                                                data-url="{{ path('vs_users_user_info_display', {'userId': item.id}) }}"
+                                                title="{{ 'vs_users.template.userscrud_userinfo_title' | trans( {},'VSUsersBundle' ) }}"
+                                            >
+                                                <i class="fas fa-info"></i>
+                                            </a>
+                                        {% if item.username != 'admin' %}
+                                            <a class="btn btn-danger btnDeleteResource"
+                                                href="{{ path('vs_users_users_delete', {'id': item.id}) }}"
+                                                data-csrfToken="{{ csrf_token( item.id ) }}"
+                                                data-message="vs_application.form.vs_form_delete.users_crud_message"
+                                                title="{{ 'vs_users.template.userscrud_delete_title' | trans( {},'VSUsersBundle' ) }}"
+                                            >
+                                                <i class="icon_close_alt2"></i>
+                                            </a>
+                                        {% endif %}
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
                     </tbody>
                 </table>
                 

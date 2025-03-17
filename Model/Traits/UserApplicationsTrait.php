@@ -4,15 +4,24 @@ use Doctrine\Common\Collections\Collection;
 use Vankosoft\UsersBundle\Model\Interfaces\UserInterface;
 use Vankosoft\ApplicationBundle\Model\Interfaces\ApplicationInterface;
 use Vankosoft\ApplicationBundle\Model\Application;
+use Vankosoft\UsersBundle\Model\Interfaces\UserRoleInterface;
 
 trait UserApplicationsTrait
 {
     /**
-     * The Applications for wich the user tobe granted if she have not ROLE_SUPER_ADMIN
+     * The Applications for wich the user to be granted if she have not ROLE_SUPER_ADMIN
      * 
      * @var Collection|Application[]
      */
     protected $applications;
+    
+    /**
+     * The User Roles for wich the user can create users and view users
+     * if she have not ROLE_SUPER_ADMIN or this collection is not empty
+     *
+     * @var Collection|UserRoleInterface[]
+     */
+    protected $allowedRoles;
     
     /**
      * @return Collection|Application[]
@@ -38,7 +47,7 @@ trait UserApplicationsTrait
         return $this;
     }
     
-    public function addApplication( ApplicationInterface $application ): UserInterface
+    public function addApplication( ApplicationInterface $application ): self
     {
         if ( ! $this->applications->contains( $application ) ) {
             $this->applications[] = $application;
@@ -48,11 +57,48 @@ trait UserApplicationsTrait
         return $this;
     }
     
-    public function removeApplication( ApplicationInterface $application ): UserInterface
+    public function removeApplication( ApplicationInterface $application ): self
     {
         if ( $this->applications->contains( $application ) ) {
             $this->applications->removeElement( $application );
             $application->removeUser( $this );
+        }
+        
+        return $this;
+    }
+    
+    /**
+     * @return Collection|UserRoleInterface[]
+     */
+    public function getAllowedRoles(): Collection
+    {
+        return $this->allowedRoles;
+    }
+    
+    /**
+     * @param Collection $allowedRoles
+     * @return self
+     */
+    public function setAllowedRoles( Collection $allowedRoles ): self
+    {
+        $this->allowedRoles = $allowedRoles;
+        
+        return $this;
+    }
+    
+    public function addAllowedRole( UserRoleInterface $allowedRole ): self
+    {
+        if ( ! $this->allowedRoles->contains( $allowedRole ) ) {
+            $this->allowedRoles[] = $allowedRole;
+        }
+        
+        return $this;
+    }
+    
+    public function removeAllowedRole( UserRoleInterface $allowedRole ): self
+    {
+        if ( $this->allowedRoles->contains( $allowedRole ) ) {
+            $this->allowedRoles->removeElement( $allowedRole );
         }
         
         return $this;
