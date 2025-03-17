@@ -131,7 +131,22 @@ class UsersExtController extends AbstractController
         }
         
         $rolesTree      = [];
-        $this->getRolesTree( $topRoles, $rolesTree );
+        $this->getRolesTree( $topRoles, $rolesTree, $editUser->getAllowedRoles() );
+        $this->buildEasyuiCombotreeDataFromCollection( $rolesTree, $data, $selectedRoles, [UserRoleModel::ANONYMOUS] );
+        
+        return new JsonResponse( $data );
+    }
+    
+    public function rolesAllowedEasyuiComboTreeWithSelectedSource( $editUserId, Request $request ): JsonResponse
+    {
+        $editUser       = $editUserId ? $this->usersRepository->find( $editUserId ) : null;
+        $selectedRoles  = $editUser  ? $editUser ->getAllowedRoles() : [];
+        $data           = [];
+        
+        $topRoles       = new ArrayCollection( $this->usersRolesRepository->findBy( ['parent' => null] ) );
+        
+        $rolesTree      = [];
+        $this->getRolesTree( $topRoles, $rolesTree, $editUser->getAllowedRoles() );
         $this->buildEasyuiCombotreeDataFromCollection( $rolesTree, $data, $selectedRoles, [UserRoleModel::ANONYMOUS] );
         
         return new JsonResponse( $data );
