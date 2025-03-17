@@ -86,15 +86,6 @@
                                 }
                             ) }}
                         </div>
-                        
-                        <div class="form-group">
-                            {{ form_label(form.applications, null, {
-                                'label_attr': {'class': 'col-form-label'}
-                                }) 
-                            }}
-                            
-                            {{ form_widget(form.applications, {'attr': {'class': 'form-control'}}) }}
-                        </div>
 
                         <div class="form-group">
                             {{ form_label(form.email, null, {
@@ -132,6 +123,24 @@
                                 }) 
                             }}
                             {{ form_widget(form.plain_password.second, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        
+                        <div class="form-group">
+                            {{ form_label(form.applications, null, {
+                                'label_attr': {'class': 'col-form-label'}
+                                }) 
+                            }}
+                            
+                            {{ form_widget(form.applications, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        
+                        <div class="form-group">
+                            {{ form_label(form.allowedRoles, null, {
+                                'label_attr': {'class': 'col-form-label'}
+                                }) 
+                            }}
+                            
+                            {{ form_widget(form.allowedRoles, {'attr': {'class': 'form-control'}}) }}
                         </div>
             			
             			{{ vs_form.buttons( form, metadata ) }}
