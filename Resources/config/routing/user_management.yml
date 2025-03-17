@@ -24,4 +24,4 @@ vs_users_roles_collection_parent_tree_combo_with_selected:
 
 vs_users_roles_allowed_tree_combo_with_selected:
     path: /json/{editUserId}/user-roles-allowed/easyui-combotree
-    controller: Vankosoft\UsersBundle\Controller\UsersRolesExtController::rolesAllowedEasyuiComboTreeWithSelectedSource
+    controller: Vankosoft\UsersBundle\Controller\UsersExtController::rolesAllowedEasyuiComboTreeWithSelectedSource
