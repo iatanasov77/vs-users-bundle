@@ -111,7 +111,8 @@ class UsersExtController extends AbstractController
     {
         $currentUser    = $currentUserId ? $this->usersRepository->find( $currentUserId ) : null;
         $editUser       = $editUserId ? $this->usersRepository->find( $editUserId ) : null;
-        $selectedRoles  = $editUser  ? $editUser ->getRoles() : [];
+        $selectedRoles  = $editUser  ? $editUser->getRoles() : [];
+        $allowedRoles   = $editUser  ? $editUser->getAllowedRoles() : new ArrayCollection();
         $data           = [];
         
         $userTopRole    = $currentUser->topRole();
@@ -131,7 +132,7 @@ class UsersExtController extends AbstractController
         }
         
         $rolesTree      = [];
-        $this->getRolesTree( $topRoles, $rolesTree, $editUser->getAllowedRoles() );
+        $this->getRolesTree( $topRoles, $rolesTree, $allowedRoles );
         $this->buildEasyuiCombotreeDataFromCollection( $rolesTree, $data, $selectedRoles, [UserRoleModel::ANONYMOUS] );
         
         return new JsonResponse( $data );
@@ -140,13 +141,14 @@ class UsersExtController extends AbstractController
     public function rolesAllowedEasyuiComboTreeWithSelectedSource( $editUserId, Request $request ): JsonResponse
     {
         $editUser       = $editUserId ? $this->usersRepository->find( $editUserId ) : null;
-        $selectedRoles  = $editUser  ? $editUser ->getAllowedRoles() : [];
+        $selectedRoles  = $editUser  ? $editUser->getAllowedRoles()->toArray() : [];
+        $allowedRoles   = $editUser  ? $editUser->getAllowedRoles() : new ArrayCollection();
         $data           = [];
         
         $topRoles       = new ArrayCollection( $this->usersRolesRepository->findBy( ['parent' => null] ) );
         
         $rolesTree      = [];
-        $this->getRolesTree( $topRoles, $rolesTree, $editUser->getAllowedRoles() );
+        $this->getRolesTree( $topRoles, $rolesTree, $allowedRoles );
         $this->buildEasyuiCombotreeDataFromCollection( $rolesTree, $data, $selectedRoles, [UserRoleModel::ANONYMOUS] );
         
         return new JsonResponse( $data );

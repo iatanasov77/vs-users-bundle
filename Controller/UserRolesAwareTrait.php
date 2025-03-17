@@ -32,10 +32,10 @@ trait UserRolesAwareTrait
         }
     }
     
-    protected function getRolesTree( Collection $roles, &$rolesTree, ?Collection $allowedRoles = null )
+    protected function getRolesTree( Collection $roles, &$rolesTree, Collection $allowedRoles )
     {
         foreach ( $roles as $role ) {
-            if ( $allowedRoles && ! $allowedRoles->contains( $role ) ) {
+            if ( ! $allowedRoles->isEmpty() && ! $allowedRoles->contains( $role ) ) {
                 continue;
             }
             

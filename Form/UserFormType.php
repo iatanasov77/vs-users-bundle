@@ -144,7 +144,7 @@ class UserFormType extends AbstractForm
                 'class'                 => $this->userRolesClass,
                 'choice_label'          => 'role',
                 "required"              => false,
-                "mapped"                => false,
+                //"mapped"                => false,
                 "multiple"              => true,
 //                 'query_builder' => function( ApplicationRepository $repository ) {
 //                     $qb = $repository->createQueryBuilder( 'app' );
