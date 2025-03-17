@@ -88,7 +88,7 @@
             </cascade>
         </many-to-many>
         
-        <many-to-many field="allowedRoles" target-entity="Vankosoft\UsersBundle\Model\Interfaces\UserInterface" inversed-by="usersAllowed" >
+        <many-to-many field="allowedRoles" target-entity="Vankosoft\UsersBundle\Model\Interfaces\UserRoleInterface" inversed-by="usersAllowed" >
             <join-table name="  VSUM_Users_AllowedRoles">
                 <join-columns>
                     <join-column name="user_id" referenced-column-name="id" />
