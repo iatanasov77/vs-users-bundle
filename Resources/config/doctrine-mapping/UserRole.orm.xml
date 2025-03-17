@@ -18,9 +18,7 @@
         </one-to-one>
         
       	<many-to-one field="parent" name="parent_id" target-entity="Vankosoft\UsersBundle\Model\Interfaces\UserRoleInterface" inversed-by="children">
-        	<cascade>
-                <cascade-all/>
-            </cascade>
+        	<join-column name="parent_id" referenced-column-name="id" nullable="true" on-delete="CASCADE"/>
         </many-to-one>
         
         <one-to-many field="children" target-entity="Vankosoft\UsersBundle\Model\Interfaces\UserRoleInterface" mapped-by="parent">
