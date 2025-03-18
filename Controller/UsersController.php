@@ -37,6 +37,10 @@ class UsersController extends AbstractCrudController
         $allowedApplications    = $form->get( "applications" )->getData();
         $this->clearApplications( $entity );
         $entity->setApplications( $allowedApplications );
+        
+        if ( ! $this->isGranted( 'ROLE_SUPER_ADMIN' ) ) {
+            $entity->setAllowedRoles( $this->getUser()->getAllowedRoles() );
+        }
     }
     
     private function buildRoles( &$entity, array $roles )
