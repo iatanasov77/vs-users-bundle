@@ -67,7 +67,7 @@
                         </div>
                         
                         {% if item.id %}{% set itemId = item.id %}{% else %}{% set itemId = 0 %}{% endif %}
-                        {% set comboDataSourceUrl  = url('vs_users_roles_tree_combo_with_selected', {'currentUserId': app.user.id, 'editUserId': itemId}) %}
+                        {% set comboDataSourceUrl  = url('vs_users_roles_tree_combo_with_selected', {'editUserId': itemId}) %}
                         {% set comboTreePlaceholder = 'vs_users.form.user.roles_placeholder' | trans( {},'VSUsersBundle' ) %}
                         <div class="form-group">
                             {{ form_label( form.roles_options, null, {

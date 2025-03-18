@@ -113,9 +113,9 @@ class UsersExtController extends AbstractController
         ]);
     }
     
-    public function rolesEasyuiComboTreeWithSelectedSource( $currentUserId, $editUserId, Request $request ): JsonResponse
+    public function rolesEasyuiComboTreeWithSelectedSource( $editUserId, Request $request ): JsonResponse
     {
-        $currentUser    = $currentUserId ? $this->usersRepository->find( $currentUserId ) : null;
+        $currentUser    = $this->securityBridge->getUser();
         $editUser       = $editUserId ? $this->usersRepository->find( $editUserId ) : null;
         $selectedRoles  = $editUser  ? $editUser->getRoles() : [];
         $data           = [];
