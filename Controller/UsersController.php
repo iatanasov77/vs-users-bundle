@@ -38,8 +38,9 @@ class UsersController extends AbstractCrudController
         $this->clearApplications( $entity );
         $entity->setApplications( $allowedApplications );
         
-        if ( ! $this->isGranted( 'ROLE_SUPER_ADMIN' ) ) {
-            $entity->setAllowedRoles( $this->getUser()->getAllowedRoles() );
+        $currentUser = $this->get( 'vs_users.security_bridge' )->getUser();
+        if ( ! $currentUser->hasRole( 'ROLE_SUPER_ADMIN' ) ) {
+            $entity->setAllowedRoles( $currentUser->getAllowedRoles() );
         }
     }
     
