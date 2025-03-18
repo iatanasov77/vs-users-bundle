@@ -22,10 +22,19 @@ class ProfileFormType extends UserFormType
         RepositoryInterface $localesRepository,
         RequestStack $requestStack,
         string $applicationClass,
+        string $userRolesClass,
         AuthorizationCheckerInterface $auth,
         array $requiredFields
     ) {
-        parent::__construct( $dataClass, $localesRepository, $requestStack, $applicationClass, $auth, $requiredFields );
+        parent::__construct(
+            $dataClass,
+            $localesRepository,
+            $requestStack,
+            $applicationClass,
+            $userRolesClass,
+            $auth,
+            $requiredFields
+        );
     }
     
     public function buildForm( FormBuilderInterface $builder, array $options ): void
@@ -38,10 +47,12 @@ class ProfileFormType extends UserFormType
         $builder->remove( 'enabled' );
         $builder->remove( 'verified' );
         $builder->remove( 'roles_options' );
-        $builder->remove( 'applications' );
         $builder->remove( 'plain_password' );
         $builder->remove( 'email' );
         $builder->remove( 'username' );
+        
+        $builder->remove( 'applications' );
+        $builder->remove( 'allowedRoles' );
     }
     
     public function configureOptions( OptionsResolver $resolver ): void

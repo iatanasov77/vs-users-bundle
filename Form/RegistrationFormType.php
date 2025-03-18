@@ -23,10 +23,19 @@ class RegistrationFormType extends UserFormType
         RepositoryInterface $localesRepository,
         RequestStack $requestStack,
         string $applicationClass,
+        string $userRolesClass,
         AuthorizationCheckerInterface $auth,
         array $requiredFields
     ) {
-        parent::__construct( $dataClass, $localesRepository, $requestStack, $applicationClass, $auth, $requiredFields );
+        parent::__construct(
+            $dataClass,
+            $localesRepository,
+            $requestStack,
+            $applicationClass,
+            $userRolesClass,
+            $auth,
+            $requiredFields
+        );
     }
     
     public function buildForm( FormBuilderInterface $builder, array $options ): void
@@ -38,6 +47,7 @@ class RegistrationFormType extends UserFormType
         
         $builder->remove( 'roles_options' );
         $builder->remove( 'applications' );
+        $builder->remove( 'allowedRoles' );
         
         $builder->remove( 'btnSave' );
         
