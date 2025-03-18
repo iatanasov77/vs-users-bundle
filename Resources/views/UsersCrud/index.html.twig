@@ -37,11 +37,11 @@
                             {% if userGranted %}	{# is_granted( item.roles ) #}
                                 {% set countNumber = countNumber + 1 %}
                                 <tr>
-                                    <td>{{ countNumber }}    {{ dump( displaySiblings ) }}</td>
+                                    <td>{{ countNumber }}</td>
                                     
                                     <td>
                                     {% if item.info.avatar %}
-                                       <img src="{{ item.info.avatar.path|imagine_filter('users_crud_index_thumb') }}" />
+                                       <img src="{{ item.info.avatar.path | imagine_filter( 'users_crud_index_thumb' ) }}" />
                                     {% endif %}
                                        {{ item.username  }}
                                     </td>
