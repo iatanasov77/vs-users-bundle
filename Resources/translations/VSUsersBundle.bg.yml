@@ -22,6 +22,7 @@ vs_users:
                 btn_change_password: Смени Парола
                 
         user:
+            restrictions: Restrictions
             credentials: Удостоверение
             prefered_locale: 'Предпочитан Език'
             prefered_locale_placeholder: '-- Избери Предпочитан Език --'

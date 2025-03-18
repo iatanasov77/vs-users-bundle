@@ -125,23 +125,42 @@
                             {{ form_widget(form.plain_password.second, {'attr': {'class': 'form-control'}}) }}
                         </div>
                         
-                        <div class="form-group">
-                            {{ form_label(form.applications, null, {
-                                'label_attr': {'class': 'col-form-label'}
-                                }) 
-                            }}
+                        {# This Section will be allowed only for 'ROLE_SUPER_ADMIN' for Now #}
+                        {% if is_granted( 'ROLE_SUPER_ADMIN' ) %}
+                            <fieldset class="border border-dark rounded p-3">
+                                <legend class="w-auto float-none ps-2 pe-2">{{ 'vs_users.form.user.restrictions' | trans( {},'VSUsersBundle' ) }}</legend>
+                                
+                                <div class="form-group">
+                                    {{ form_label(form.applications, null, {
+                                        'label_attr': {'class': 'col-form-label'}
+                                        }) 
+                                    }}
+                                    
+                                    {{ form_widget(form.applications, {'attr': {'class': 'form-select'}}) }}
+                                </div>
+                                
+                                {% set comboDataSourceUrl  = url('vs_users_roles_allowed_tree_combo_with_selected', {'editUserId': itemId}) %}
+                                {% set comboTreePlaceholder = 'vs_users.form.user.roles_placeholder' | trans( {},'VSUsersBundle' ) %}
+                                <div class="form-group">
+                                    {{ form_label( form.allowedRoles, null, {
+                                        'label_attr': {'class': 'col-form-label'}
+                                        } ) 
+                                    }}
+                                    
+                                    {{ vs_tree.easyuiCombobox( form.allowedRoles, comboDataSourceUrl, itemId,
+                                        {
+                                            'elementSelector': '#user_form_allowedRoles',
+                                            'required': 'false',
+                                            'multiple': 'true',
+                                            'checkbox': 'true',
+                                            'cascadeCheck': 'false',
+                                            'placeholder': comboTreePlaceholder
+                                        }
+                                    ) }}
+                                </div>
                             
-                            {{ form_widget(form.applications, {'attr': {'class': 'form-control'}}) }}
-                        </div>
-                        
-                        <div class="form-group">
-                            {{ form_label(form.allowedRoles, null, {
-                                'label_attr': {'class': 'col-form-label'}
-                                }) 
-                            }}
-                            
-                            {{ form_widget(form.allowedRoles, {'attr': {'class': 'form-control'}}) }}
-                        </div>
+                            </fieldset>
+                        {% endif %}
             			
             			{{ vs_form.buttons( form, metadata ) }}
                     {{ form_end(form, {'render_rest': false}) }}
