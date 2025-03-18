@@ -13,6 +13,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Persistence\ManagerRegistry;
 
+use Vankosoft\UsersBundle\Security\SecurityBridge;
 use Vankosoft\ApplicationBundle\Component\Status;
 use Vankosoft\CmsBundle\Component\Uploader\FileUploaderInterface;
 use Vankosoft\UsersBundle\Component\UserRole;
@@ -27,6 +28,9 @@ class UsersExtController extends AbstractController
     
     /** @var ManagerRegistry */
     protected $doctrine;
+    
+    /** @var SecurityBridge */
+    protected $securityBridge;
     
     /** @var RepositoryInterface */
     protected $usersRepository;
@@ -48,6 +52,7 @@ class UsersExtController extends AbstractController
     
     public function __construct(
         ManagerRegistry $doctrine,
+        SecurityBridge $securityBridge,
         RepositoryInterface $usersRepository,
         FactoryInterface $userInfoFactory,
         FactoryInterface $avatarImageFactory,
@@ -56,6 +61,7 @@ class UsersExtController extends AbstractController
         bool $allowCreateUserSiblings
     ) {
         $this->doctrine                 = $doctrine;
+        $this->securityBridge           = $securityBridge;
         $this->usersRepository          = $usersRepository;
         $this->userInfoFactory          = $userInfoFactory;
         $this->avatarImageFactory       = $avatarImageFactory;
@@ -112,7 +118,6 @@ class UsersExtController extends AbstractController
         $currentUser    = $currentUserId ? $this->usersRepository->find( $currentUserId ) : null;
         $editUser       = $editUserId ? $this->usersRepository->find( $editUserId ) : null;
         $selectedRoles  = $editUser  ? $editUser->getRoles() : [];
-        $allowedRoles   = $editUser  ? $editUser->getAllowedRoles() : new ArrayCollection();
         $data           = [];
         
         $userTopRole    = $currentUser->topRole();
@@ -132,7 +137,7 @@ class UsersExtController extends AbstractController
         }
         
         $rolesTree      = [];
-        $this->getRolesTree( $topRoles, $rolesTree, $allowedRoles );
+        $this->getRolesTree( $topRoles, $rolesTree, $currentUser->getAllowedRoles() );
         $this->buildEasyuiCombotreeDataFromCollection( $rolesTree, $data, $selectedRoles, [UserRoleModel::ANONYMOUS] );
         
         return new JsonResponse( $data );
@@ -140,15 +145,15 @@ class UsersExtController extends AbstractController
     
     public function rolesAllowedEasyuiComboTreeWithSelectedSource( $editUserId, Request $request ): JsonResponse
     {
+        $currentUser    = $this->securityBridge->getUser();
         $editUser       = $editUserId ? $this->usersRepository->find( $editUserId ) : null;
         $selectedRoles  = $editUser  ? $editUser->getAllowedRoles()->toArray() : [];
-        $allowedRoles   = $editUser  ? $editUser->getAllowedRoles() : new ArrayCollection();
         $data           = [];
         
         $topRoles       = new ArrayCollection( $this->usersRolesRepository->findBy( ['parent' => null] ) );
         
         $rolesTree      = [];
-        $this->getRolesTree( $topRoles, $rolesTree, $allowedRoles );
+        $this->getRolesTree( $topRoles, $rolesTree, $currentUser->getAllowedRoles() );
         $this->buildEasyuiCombotreeDataFromCollection( $rolesTree, $data, $selectedRoles, [UserRoleModel::ANONYMOUS] );
         
         return new JsonResponse( $data );
