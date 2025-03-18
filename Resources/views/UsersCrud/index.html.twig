@@ -17,7 +17,13 @@
                             <th>{{ 'vs_users.template.userscrud_index_tablecolumns_roles' | trans( {},'VSUsersBundle' ) }}</th>
                             <th>{{ 'vs_users.form.user.enabled' | trans( {},'VSUsersBundle' ) }}</th>
                             <th>{{ 'vs_users.form.user.verified' | trans( {},'VSUsersBundle' ) }}</th>
-                            <th>{{ 'vs_users.template.userscrud_index_tablecolumns_allowed_applications' | trans( {},'VSUsersBundle' ) }}</th>
+                            
+                            {# This Section will be allowed only for 'ROLE_SUPER_ADMIN' for Now #}
+                            {% if is_granted( 'ROLE_SUPER_ADMIN' ) %}
+                                <th>{{ 'vs_users.template.userscrud_index_tablecolumns_allowed_applications' | trans( {},'VSUsersBundle' ) }}</th>
+                                <th width="150">{{ 'vs_application.form.allowed_roles_label' | trans( {},'VSApplicationBundle' ) }}</th>
+                            {% endif %}
+                            
                             <th width="150">{{ 'vs_users.template.userscrud_index_tablecolumns_action' | trans( {},'VSUsersBundle' ) }}</th>
                         </tr>
                     </thead>
@@ -52,11 +58,17 @@
                                             <i class="fas fa-times" style="color: #ff1e1e;"></i>
                                         {% endif %}
                                     </td>
-                                    <td>
-                                        {% for app in item.applications %}
-                                            {{ app.title  }}
-                                        {% endfor %}
-                                    </td>
+                                    
+                                    {# This Section will be allowed only for 'ROLE_SUPER_ADMIN' for Now #}
+                                    {% if is_granted( 'ROLE_SUPER_ADMIN' ) %}
+                                        <td>
+                                            {% for app in item.applications %}
+                                                {{ app.title  }}
+                                            {% endfor %}
+                                        </td>
+                                        <td>{{ item.allowedRoles | join( ' ' ) }}</td>
+                                    {% endif %}
+                                    
                                     <td>
                                     	<div class="btn-group">
                                     		<a class="btn btn-primary" 
