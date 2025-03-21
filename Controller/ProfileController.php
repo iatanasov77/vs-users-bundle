@@ -13,7 +13,7 @@ use Vankosoft\CmsBundle\Component\Uploader\FileUploaderInterface;
 use Vankosoft\UsersBundle\Form\ProfileFormType;
 use Vankosoft\UsersBundle\Form\ChangePasswordFormType;
 use Vankosoft\UsersBundle\Form\ProfilePictureForm;
-use Vankosoft\UsersBundle\Model\UserInfoInterface;
+use Vankosoft\UsersBundle\Model\Interfaces\UserInfoInterface;
 use Vankosoft\UsersBundle\Security\UserManager;
 
 use Vankosoft\AgentBundle\Component\VankosoftAgent;
