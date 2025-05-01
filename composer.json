@@ -14,12 +14,12 @@
 	],
 	"require" : {
 		"php" : "^8.1",
-		"vankosoft/application-bundle" : "^1.10",
+		"vankosoft/application-bundle" : "1.12.*",
 		"symfony/security-bundle" : "^6.4",
 		"symfony/mailer" : "^6.4",
 		"symfonycasts/verify-email-bundle" : "^1.16",
 		"symfonycasts/reset-password-bundle" : "1.20.*",
-		"symfony/ux-toggle-password" : "^2.15"
+		"trickeyone/intl-subdivision": "^4.0"
 	},
 	"conflict" : {
 		"doctrine/doctrine-bundle" : "<1.3",
