@@ -23,7 +23,7 @@
 			For Backward Compatibility Create 2 Roles Fields <rolesArray and rolesCollection>
 			You can choose which to use
 		-->
-        <field name="rolesArray" column="roles_array" type="array" nullable="false" />
+        <field name="rolesArray" column="roles_array" type="json" nullable="false" />
         <many-to-many field="rolesCollection" target-entity="Vankosoft\UsersBundle\Model\Interfaces\UserRoleInterface" inversed-by="users">
         	<cascade>
                 <cascade-persist/>
