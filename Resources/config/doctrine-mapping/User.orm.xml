@@ -27,7 +27,6 @@
         <many-to-many field="rolesCollection" target-entity="Vankosoft\UsersBundle\Model\Interfaces\UserRoleInterface" inversed-by="users">
         	<cascade>
                 <cascade-persist/>
-                <cascade-merge/>
                 <cascade-detach/>
             </cascade>
             <join-table name="VSUM_Users_Roles">
@@ -83,7 +82,6 @@
         <many-to-many field="applications" target-entity="Vankosoft\ApplicationBundle\Model\Interfaces\ApplicationInterface" mapped-by="users">
             <cascade>
                 <cascade-persist/>
-                <cascade-merge/>
                 <cascade-detach/>
             </cascade>
         </many-to-many>
