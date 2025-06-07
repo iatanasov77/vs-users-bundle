@@ -22,6 +22,7 @@ vs_users:
                 btn_change_password: Change Password
                 
         user:
+            restrictions: Restrictions
             credentials: Credentials
             prefered_locale: 'Prefered Locale'
             prefered_locale_placeholder: '-- Select Prefered Locale --'

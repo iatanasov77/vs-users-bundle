@@ -37,6 +37,11 @@ class UsersController extends AbstractCrudController
         $allowedApplications    = $form->get( "applications" )->getData();
         $this->clearApplications( $entity );
         $entity->setApplications( $allowedApplications );
+        
+        $currentUser = $this->get( 'vs_users.security_bridge' )->getUser();
+        if ( ! $currentUser->hasRole( 'ROLE_SUPER_ADMIN' ) ) {
+            $entity->setAllowedRoles( $currentUser->getAllowedRoles() );
+        }
     }
     
     private function buildRoles( &$entity, array $roles )

@@ -3,7 +3,7 @@
 use Vankosoft\ApplicationBundle\Form\AbstractForm;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Sylius\Component\Resource\Repository\RepositoryInterface;
+use Sylius\Resource\Doctrine\Persistence\RepositoryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
@@ -29,6 +29,9 @@ class UserFormType extends AbstractForm
     /** @var string */
     protected $applicationClass;
     
+    /** @var string */
+    protected $userRolesClass;
+    
     /** @var AuthorizationCheckerInterface */
     protected $auth;
     
@@ -40,6 +43,7 @@ class UserFormType extends AbstractForm
         RepositoryInterface $localesRepository,
         RequestStack $requestStack,
         string $applicationClass,
+        string $userRolesClass,
         AuthorizationCheckerInterface $auth,
         array $requiredFields
     ) {
@@ -49,6 +53,7 @@ class UserFormType extends AbstractForm
         $this->requestStack         = $requestStack;
         
         $this->applicationClass     = $applicationClass;
+        $this->userRolesClass       = $userRolesClass;
         $this->auth                 = $auth;
         
         $this->requiredFields       = $requiredFields;
@@ -131,6 +136,27 @@ class UserFormType extends AbstractForm
                         ;
                     }
                 },
+            ])
+            
+            ->add( 'allowedRoles', EntityType::class, [
+                'label'                 => 'vs_application.form.allowed_roles_label',
+                'translation_domain'    => 'VSApplicationBundle',
+                'class'                 => $this->userRolesClass,
+                'choice_label'          => 'role',
+                "required"              => false,
+                //"mapped"                => false,
+                "multiple"              => true,
+//                 'query_builder' => function( ApplicationRepository $repository ) {
+//                     $qb = $repository->createQueryBuilder( 'app' );
+//                     if( $this->auth->isGranted( 'ROLE_SUPER_ADMIN' ) ) {
+//                         return $qb;
+//                     } else {
+//                         return $qb
+//                             ->where( $qb->expr()->neq( 'app.code', ':appCode' ) )
+//                             ->setParameter( 'appCode', 'admin-panel' )
+//                         ;
+//                     }
+//                 },
             ])
         ;
         

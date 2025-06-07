@@ -32,9 +32,13 @@ trait UserRolesAwareTrait
         }
     }
     
-    protected function getRolesTree( Collection $roles, &$rolesTree )
+    protected function getRolesTree( Collection $roles, &$rolesTree, Collection $allowedRoles )
     {
         foreach ( $roles as $role ) {
+            if ( ! $allowedRoles->isEmpty() && ! $allowedRoles->contains( $role ) ) {
+                continue;
+            }
+            
             $rolesTree[$role->getRole()] = [
                 'id'        => $role->getId(),
                 'role'      => $role->getRole(),
@@ -42,7 +46,7 @@ trait UserRolesAwareTrait
             ];
             
             if ( ! $role->getChildren()->isEmpty() ) {
-                $this->getRolesTree( $role->getChildren(), $rolesTree[$role->getRole()]['children'] );
+                $this->getRolesTree( $role->getChildren(), $rolesTree[$role->getRole()]['children'], $allowedRoles );
             }
         }
     }

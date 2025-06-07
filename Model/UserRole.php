@@ -32,10 +32,18 @@ class UserRole implements UserRoleInterface, Comparable
     /** @var Collection|User[] */
     protected $users;
     
+    /**
+     * The Users Thant Allowed to use only this role
+     * 
+     * @var Collection|User[]
+     */
+    protected $usersAllowed;
+    
     public function __construct()
     {
         $this->children     = new ArrayCollection();
         $this->users        = new ArrayCollection();
+        $this->usersAllowed = new ArrayCollection();
     }
     
     /**
@@ -104,6 +112,34 @@ class UserRole implements UserRoleInterface, Comparable
         if ( ! $this->users->contains( $user ) ) {
             $this->users->removeElement( $user );
             $user->removeRole( $this );
+        }
+        
+        return $this;
+    }
+    
+    /**
+     * @return Collection|User[]
+     */
+    public function getUsersAllowed(): Collection
+    {
+        return $this->usersAllowed;
+    }
+    
+    public function addUsersAllowed( UserInterface $user ): self
+    {
+        if ( ! $this->usersAllowed->contains( $user ) ) {
+            $this->usersAllowed[] = $user;
+            $user->addAllowedRole( $this );
+        }
+        
+        return $this;
+    }
+    
+    public function removeUsersAllowed( UserInterface $user ): self
+    {
+        if ( ! $this->usersAllowed->contains( $user ) ) {
+            $this->usersAllowed->removeElement( $user );
+            $user->removeAllowedRole( $this );
         }
         
         return $this;

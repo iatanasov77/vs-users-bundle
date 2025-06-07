@@ -1,6 +1,6 @@
 <?php namespace Vankosoft\UsersBundle\Repository;
 
-use Sylius\Component\Resource\Repository\RepositoryInterface;
+use Sylius\Resource\Doctrine\Persistence\RepositoryInterface;
 
 use Vankosoft\CmsBundle\Model\Interfaces\FileInterface;
 

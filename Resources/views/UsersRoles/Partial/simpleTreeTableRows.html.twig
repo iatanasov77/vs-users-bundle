@@ -1,6 +1,7 @@
 <tr data-node-id="{{ item.id }}" {% if parentId %}data-node-pid="{{ item.parent.id }}"{% endif %}>
     <td>{{ item.name }}</td>
     <td>{{ item.role }}</td>
+    <td>{{ item.code }}</td>
     <td>{{ item.description }}</td>
     <td>
     	<a class="btn btn-primary"
@@ -10,7 +11,7 @@
             <i class="fas fa-edit"></i>
         </a>
         
-    {% if item.role != 'ROLE_SUPER_ADMIN' %}
+    {% if item.role != 'ROLE_SUPER_ADMIN' and item.role != 'ROLE_ADMIN' and item.role != 'ROLE_APPLICATION_ADMIN' %}
         <a class="btn btn-danger btnDeleteResource" 
         	href="{{ path('vs_users_user_roles_delete', {'id': item.id}) }}"
         	data-csrfToken="{{ csrf_token( item.id ) }}"

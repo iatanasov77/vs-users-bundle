@@ -6,7 +6,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Doctrine\Persistence\ManagerRegistry;
 use Twig\Environment;
-use Sylius\Component\Resource\Repository\RepositoryInterface;
+use Sylius\Resource\Doctrine\Persistence\RepositoryInterface;
 use Vankosoft\ApplicationBundle\Component\Status;
 use Vankosoft\UsersBundle\Security\SecurityBridge;
 use Vankosoft\UsersBundle\Model\Interfaces\UserInterface;
@@ -77,6 +77,39 @@ class UsersNotificationsController extends AbstractController
             foreach ( $user->getNotifications() as $not ) {
                 $not->setReaded( true );
                 $em->persist( $not );
+            }
+            $em->flush();
+        }
+        
+        if( $request->isXmlHttpRequest() ) {
+            return new JsonResponse([
+                'status'    => $hasError ? Status::STATUS_ERROR : Status::STATUS_OK,
+                'message'   => $hasError ? 'Invalid User !!!' : 'User is Valid !!!',
+            ]);
+        } else {
+            if ( $hasError ) {
+                throw new UserException( 'Invalid User !!!' );
+            }
+            
+            return $this->redirectToRoute( 'vs_users_profile_show' );
+        }
+    }
+    
+    public function removeNotifications( Request $request ): Response
+    {
+        $user   = $this->securityBridge->getUser();
+        $userIsValid    = ( $user instanceof UserInterface );
+        $hasError       = ! $userIsValid;
+        
+        if ( ! $hasError ) {
+            $availableNotifications = $user->getNotifications();
+            $removeIds = \json_decode( $request->getContent(), true );
+            
+            $em = $this->doctrine->getManager();
+            foreach ( $removeIds as $notId ) {
+                if ( isset( $availableNotifications[$notId] ) ) {
+                    $em->remove( $availableNotifications[$notId] );
+                }
             }
             $em->flush();
         }

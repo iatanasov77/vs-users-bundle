@@ -15,9 +15,13 @@ vs_users_user_roles:
     type: sylius.resource
 
 vs_users_roles_tree_combo_with_selected:
-    path: /json/{currentUserId}-{editUserId}/user-roles-collection/easyui-combotree
+    path: /json/{editUserId}/user-roles-collection/easyui-combotree
     controller: Vankosoft\UsersBundle\Controller\UsersExtController::rolesEasyuiComboTreeWithSelectedSource
     
 vs_users_roles_collection_parent_tree_combo_with_selected:
     path: /json/{roleId}/user-roles-collection-parent/easyui-combotree
     controller: Vankosoft\UsersBundle\Controller\UsersRolesExtController::rolesEasyuiComboTreeWithSelectedSource
+
+vs_users_roles_allowed_tree_combo_with_selected:
+    path: /json/{editUserId}/user-roles-allowed/easyui-combotree
+    controller: Vankosoft\UsersBundle\Controller\UsersExtController::rolesAllowedEasyuiComboTreeWithSelectedSource

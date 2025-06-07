@@ -3,6 +3,7 @@
 use Doctrine\Common\Comparable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Sylius\Component\Resource\Model\TimestampableTrait;
 
 use Vankosoft\UsersBundle\Model\Interfaces\UserInterface;
 use Vankosoft\UsersBundle\Model\Interfaces\UserRoleInterface;
@@ -16,6 +17,7 @@ use Vankosoft\UsersBundle\Model\Traits\UserApplicationsTrait;
 
 class User implements UserInterface, Comparable
 {
+    use TimestampableTrait;
     use UserPasswordTrait;
     use UserRolesArrayTrait;
     use UserRolesCollectionTrait;
@@ -84,6 +86,7 @@ class User implements UserInterface, Comparable
         $this->activities       = new ArrayCollection();
         $this->notifications    = new ArrayCollection();
         $this->applications     = new ArrayCollection();
+        $this->allowedRoles     = new ArrayCollection();
     }
     
     public function getId()

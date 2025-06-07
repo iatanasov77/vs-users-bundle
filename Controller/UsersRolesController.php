@@ -31,8 +31,9 @@ class UsersRolesController extends AbstractCrudController
     protected function prepareEntity( &$entity, &$form, Request $request )
     {
         $translatableLocale = $form['currentLocale']->getData();
-        $roleName       = $form['name']->getData();
-        $parentRole     = null;
+        $roleName   = $form['name']->getData();
+        $roleDesc   = $form['description']->getData();
+        $parentRole = null;
         
         // Try This to Get Post Values
         //echo "<pre>"; var_dump( $request->request->all() ); die;
@@ -45,6 +46,7 @@ class UsersRolesController extends AbstractCrudController
         if ( $entity->getTaxon() ) {
             $entity->getTaxon()->setCurrentLocale( $translatableLocale );
             $entity->getTaxon()->setName( $roleName );
+            $entity->getTaxon()->setDescription( $roleDesc );
             if ( $parentRole ) {
                 $entity->getTaxon()->setParent( $parentRole->getTaxon() );
             }
@@ -64,7 +66,8 @@ class UsersRolesController extends AbstractCrudController
                 $roleName,
                 $translatableLocale,
                 $parentRole ? $parentRole->getTaxon() : null,
-                $taxonomy->getId()
+                $taxonomy->getId(),
+                $roleDesc
             );
             
             $entity->setTaxon( $newTaxon );
