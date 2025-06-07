@@ -1,3 +1,8 @@
+1.13.0	|	Release date: **07.06.2025**
+============================================
+* Sync With Subtree Library
+
+
 1.12.0	|	Release date: **01.01.2025**
 ============================================
 * Sync With Subtree Library
