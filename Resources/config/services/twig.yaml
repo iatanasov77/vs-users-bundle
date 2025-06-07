@@ -1,0 +1,5 @@
+services:    
+    Vankosoft\UsersBundle\Twig\FunctionsExtension:
+        tags: ['twig.extension']
+        arguments:
+            - '@vs_users.security_bridge'

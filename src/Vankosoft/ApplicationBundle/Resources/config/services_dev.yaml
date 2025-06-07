@@ -1,7 +1,0 @@
-imports:
-    - { resource: services/maker.yaml }
-
-parameters:
-    vs_application.supress_pdo_exception: true
-
-

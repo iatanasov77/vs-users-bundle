@@ -1,0 +1,15 @@
+imports:
+    - { resource: services/controller.yaml }
+    - { resource: services/security.yaml }
+    - { resource: services/registration.yaml }
+    - { resource: services/reset_password.yaml }
+    - { resource: services/user_management.yaml }
+    - { resource: services/user_profile.yaml }
+    - { resource: services/twig.yaml }
+
+services:        
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+

@@ -1,0 +1,61 @@
+vs_users_profile_show:
+    path:     /profile
+    controller: Vankosoft\UsersBundle\Controller\ProfileController::indexAction
+    
+vs_users_profile_edit:
+    path:     /profile/edit
+    controller: Vankosoft\UsersBundle\Controller\ProfileController::editAction
+    
+vs_users_profile_handle:
+    path:     /profile/handle-form
+    controller: Vankosoft\UsersBundle\Controller\ProfileController::handleProfileFormAction
+
+vs_users_profile_picture_file_name:
+    path:     /profile/picture_file_name
+    controller: Vankosoft\UsersBundle\Controller\ProfileController::profilePictureAction
+    
+vs_users_profile_change_avatar:
+    path:     /profile/change-avatar
+    controller: Vankosoft\UsersBundle\Controller\ProfileController::changeAvatarAction
+    
+vs_users_profile_change_password:
+    path:     /profile/change-password
+    controller: Vankosoft\UsersBundle\Controller\ProfileController::changePasswordAction
+    
+vs_users_user_info_display:
+    path: /user-info/{userId}/display
+    controller: Vankosoft\UsersBundle\Controller\UsersExtController::displayUserInfo
+
+vs_users_user_info_handle:
+    path: /user-info/{userId}/handle
+    controller: Vankosoft\UsersBundle\Controller\UsersExtController::handleUserInfo
+
+vs_users_activities_clear_all:
+    path: /user-activities/clear-all
+    controller: Vankosoft\UsersBundle\Controller\UsersActivitiesController::clearAll
+    options:
+        expose: true
+        
+vs_users_notifications_clear_all:
+    path: /user-notifications/clear-all
+    controller: Vankosoft\UsersBundle\Controller\UsersNotificationsController::clearAll
+    options:
+        expose: true
+
+vs_users_notifications_set_all_readed:
+    path: /user-notifications/set-all-readed
+    controller: Vankosoft\UsersBundle\Controller\UsersNotificationsController::setAllReaded
+    options:
+        expose: true
+
+vs_users_notifications_remove:
+    path: /user-notifications/remove
+    controller: Vankosoft\UsersBundle\Controller\UsersNotificationsController::removeNotifications
+    options:
+        expose: true
+
+vs_users_notifications_show:
+    path: /user-notifications/{id}
+    controller: Vankosoft\UsersBundle\Controller\UsersNotificationsController::showNotification
+    options:
+        expose: true

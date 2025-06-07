@@ -1,0 +1,28 @@
+<tr data-node-id="{{ item.id }}" {% if parentId %}data-node-pid="{{ item.parent.id }}"{% endif %}>
+    <td>{{ item.name }}</td>
+    <td>{{ item.role }}</td>
+    <td>{{ item.code }}</td>
+    <td>{{ item.description }}</td>
+    <td>
+    	<a class="btn btn-primary"
+        	href="{{ path('vs_users_user_roles_update', {'id': item.id}) }}"
+        	title="{{ 'vs_cms.template.button_edit' | trans( {},'VSCmsBundle' ) }}"
+        >
+            <i class="fas fa-edit"></i>
+        </a>
+        
+    {% if item.role != 'ROLE_SUPER_ADMIN' and item.role != 'ROLE_ADMIN' and item.role != 'ROLE_APPLICATION_ADMIN' %}
+        <a class="btn btn-danger btnDeleteResource" 
+        	href="{{ path('vs_users_user_roles_delete', {'id': item.id}) }}"
+        	data-csrfToken="{{ csrf_token( item.id ) }}"
+        	title="{{ 'vs_cms.template.button_delete' | trans( {},'VSCmsBundle' ) }}"
+        >
+            <i class="icon_close_alt2"></i>
+        </a>
+    {% endif %}
+    </td>
+</tr>
+
+{% for child in item.children %}
+	{% include '@VSUsers/UsersRoles/Partial/simpleTreeTableRows.html.twig' with {'parentId': item.id, 'item': child} %}   
+{% endfor %}

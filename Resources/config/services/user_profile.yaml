@@ -1,0 +1,30 @@
+services:
+    vs_users.notifications:
+        class: Vankosoft\UsersBundle\Component\UserNotifications
+        public: true
+        arguments:
+            - '@vs_users.repository.user_roles'
+            - '@vs_users.factory.user_notification'
+            - '@doctrine.orm.entity_manager'
+            
+    Vankosoft\UsersBundle\Controller\UsersNotificationsController:
+        public: true
+        autowire: true
+        tags: ['controller.service_arguments']
+        arguments:
+            - '@doctrine'
+            - '@twig'
+            - '@vs_users.security_bridge'
+            - '@vs_users.repository.user_notification'
+        calls:
+            - setContainer: [ '@service_container' ]
+            
+    Vankosoft\UsersBundle\Controller\UsersActivitiesController:
+        public: true
+        autowire: true
+        tags: [ 'controller.service_arguments']
+        arguments:
+            - '@doctrine'
+            - '@vs_users.security_bridge'
+        calls:
+            - setContainer: [ '@service_container' ]

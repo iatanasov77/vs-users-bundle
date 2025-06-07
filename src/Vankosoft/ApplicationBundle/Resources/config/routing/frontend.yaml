@@ -1,8 +1,0 @@
-vs_application_cookie_consent_translations:
-    path: /cookie-consent-translations
-    controller: Vankosoft\ApplicationBundle\Controller\CookieConsentTranslationsExtController::getCookieConsentTranslationsAction
-
-vs_application_banner_rotator_banners_for_place:
-    path: /banner-rotator/{place}
-    controller: Vankosoft\ApplicationBundle\Controller\BannersRotatorController::getBannersForPlaceAction
-    methods: GET

@@ -1,0 +1,17 @@
+{# This Template is called with AJAX only. #}
+
+<fieldset id="paymentMethodOptions" class="fieldset-project-fields" style="min-height:100px;>
+    {#<legend>Payment Method Options</legend>#}
+    <div id="boxPaymentMethodOptions" class="form-horizontal">
+
+        {% for key,method in paymentMethods %}
+        <div class="form-group">
+            <label class="custom-control custom-radio">
+                <input class="custom-control-input selectPaymentMethod" type="radio" name="paymentMethod" data-url="{{ path(method.route, {'planId': planId}) }}" value="{{ key }}" />
+                <span class="custom-control-label">{{ method.name }}</span>
+            </label>
+        </div>
+        {% endfor %}
+
+    </div>
+</fieldset>

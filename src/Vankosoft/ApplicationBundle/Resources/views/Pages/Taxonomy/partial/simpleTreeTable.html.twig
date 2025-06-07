@@ -1,9 +1,0 @@
-<table class="table table-striped table-advance table-hover" id="tableTaxons">
-    <tbody id="tocPagesTableBody">
-        {% for taxon in item.rootTaxon.children %}
-        	{% if taxon.parent.id == item.rootTaxon.id %}
-        		{% include '@VSApplication/Pages/Taxonomy/partial/simpleTreeTableRows.html.twig' with {'parentId': 0, 'taxon': taxon} %}
-        	{% endif %}
-        {% endfor %}
-    </tbody>
-</table>

@@ -1,0 +1,10 @@
+<div class="avatar-xs p-0 rounded-circle profile-photo-edit">
+    {{ form_start(f, {'attr': {'id': 'FormEditAvatar'}}) }}
+        {{ form_widget(f.profilePicture, {'attr': {'class': 'profile-img-file-input'}}) }}
+        <label for="profile_picture_form_profilePicture" class="profile-photo-edit avatar-xs">
+            <span class="avatar-title rounded-circle bg-light text-body">
+                <i class="ri-camera-fill"></i>
+            </span>
+        </label>
+    {{ form_end(f, {'render_rest': false}) }}
+</div>

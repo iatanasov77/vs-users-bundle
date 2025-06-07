@@ -1,0 +1,45 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: true
+
+    Vankosoft\UsersBundle\Controller\ForgotPasswordController:
+        public: true
+        autowire: true
+        tags: ['controller.service_arguments']
+        arguments:
+            - '@doctrine'
+            - '@vs_users.repository.reset_password_request'
+            - '@vs_users.repository.users'
+            - '@mailer'
+            - '@vs_users.factory.reset_password_request'
+            - '@vs_users.manager.user'
+            - {
+                defaultRedirect: '%vs_users.default_redirect%',
+                mailerUser: '%vs_application.mailer_user%',
+            }
+        calls:
+            #- setContainer: [ '@service_container' ]
+            - setResetPasswordHelper: ['@?symfonycasts.reset_password.helper']
+
+    Vankosoft\UsersBundle\Controller\ProfileController:
+        tags: ['controller.service_arguments']
+        autowire: true
+        arguments:
+            - '@doctrine'
+            - '%vs_users.model.users.class%'
+            - '@vs_users.manager.user'
+            - '@vs_users.factory.avatar_image'
+            - '@vs_cms.profile_uploader'
+            - '@vs_agent.agent'
+    
+    Vankosoft\UsersBundle\Controller\UsersRolesExtController:
+        tags: ['controller.service_arguments']
+        autowire: true
+        arguments:
+            - '@translator'
+            - '@vs_users.repository.users'
+            - '@vs_users.repository.user_roles'
+            - '@vs_application.repository.taxonomy'
+            - '@vs_application.repository.taxon'

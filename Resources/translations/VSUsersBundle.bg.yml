@@ -1,0 +1,170 @@
+vs_users:
+    security:
+        authentication_success: 'Удостоверяването е успешно !'
+        authentication_failure: 'Грешка при удостоверяване !'
+        
+    form:
+        generate_password: Генерирай Парола
+        dont_have_accont: Нямате Акаунт?
+        
+        profile:
+            personal_details: Лични Данни
+            designation: Длъжност
+            picture_lable: 'Снимка на Профила'
+            picture_info: 'Позволени Типове: jpeg, png'
+            change_avatar: Смени Аватар
+            change_password:
+                old_password: 'Стара Парола'
+                old_password_placeholder: Въведи текуща парола
+                new_password: 'Нова Парола'
+                new_password_placeholder: Въведи нова парола
+                new_password_repeat: 'Потвърди Нова Парола'
+                btn_change_password: Смени Парола
+                
+        user:
+            restrictions: Restrictions
+            credentials: Удостоверение
+            prefered_locale: 'Предпочитан Език'
+            prefered_locale_placeholder: '-- Избери Предпочитан Език --'
+            roles: 'Потребителски Роли'
+            roles_placeholder: '-- Избери Потребителски Роли --'
+            email: 'Емейл'
+            email_placeholder: 'Въведи емейл'
+            username: 'Потребителско Име'
+            password: 'Парола'
+            password_repeat: 'Потвърди Парола'
+            title: Титла
+            firstName: 'Име'
+            firstName_placeholder: Въведи име
+            lastName: 'Фамилия'
+            lastName_placeholder: Въведи фамилия
+            enabled: 'Разрешен'
+            verified: 'Проверен'
+            applications_allowed: Разрешени Приложения
+            submit: 'Изпрати'
+            save: 'Запази'
+            cancel: 'Отмени'
+    
+        registration:
+            yourCountry: 'Държава'
+            yourBirthday: 'Дата на раждане'
+            occupation: 'Професия'
+            mobile: 'Мобилен телефон'
+            websiteUrl: 'Уеб сайт'
+            agree_terms: 'Чрез създаване на акаунт, вие се съгласявате със <a href="%vs_app.page.tac%">правилата и условията</a>'    
+            register: 'Създай Акаунт'
+            
+            button_register: Регистрирай Акаунт
+            agreement_text: Чрез създаване на акаунт, вие се съгласявате със
+            terms_and_conditions: правилата и условията
+            
+        resetting:
+            new_password_lable: 'Въведете вашата нова парола.'
+            new_password_placeholder_pasword: 'Парола'
+            new_password_placeholder_confirm_pasword: 'Потвърди Парола'
+            new_password_button: 'Смени Парола'
+            
+        user_role:
+            locale: Език
+            name: Име
+            role: Роля
+            description: Описание на Роля
+            parent_role: Родителска Роля
+            parent_role_placeholder: '-- Избери Родителска Роля --'
+            parent_role_no_parent: Няма Родител
+            
+        forgot_password:
+            email_label: Вашият Емейл
+            email_placeholder: Въведете Вашият Емейл
+            submit_button: Изпратете линк за нулиране
+            
+    template:
+        profile_show_title: 'Моят Профил'
+        profile_show_tab_details: 'Детайли'
+        profile_show_tab_change_password: 'Смени Парола'
+        profile_show_tab_subscriptions: 'Абонаменти'
+        profile_show_tab_orders: 'Ордери'
+        profile_show_tab_activity: 'Активност'
+        profile_details_header: 'Профил Информация'
+        profile_change_password_header: 'Смени Парола'
+        profile_activity_header: 'Активност'
+        profile_activity_name: Активност
+        profile_newsletter_subscriptions: Нюзлетър Абонаменти
+        profile_paid_subscriptions: Платени Абонаменти
+        profile_paid_subscription_title: Име
+        profile_paid_subscription_price: Цена
+        profile_paid_subscription_active: Активен
+        profile_paid_subscription_expire: Изтича на
+        profile_order_payment_method: Метод на Плащане
+        profile_order_total: Тотал
+        profile_order_status: Статус
+        profile_order_description: Описание
+        profile_back_to_home: Назад към Начало
+        register_confirmation_email_text_1: 'Моля потвърдете вашият емейл като кликнете на линка:'
+        register_confirmation_email_text_2: 'Потвърждаване на Емейл'
+        register_confirmation_email_text_3: 'Линкът изтича след '
+        register_confirmation_email_text_4: 'Поздрави!'
+        register_header_title: 'Регистрация'
+        register_header_description: 'Моля въведете потреителски данни.'
+        register_already_member: 'Вече сте регистриран?'
+        register_login_here: 'Логване тук.'
+        forgot_password_header_title: 'Забравена Парола'
+        forgot_password_header_subtitle: Нулиране на Паролата
+        forgot_password_header_description: Моля, въведете имейл адреса за вашия акаунт. Ще ви бъде изпратен код за потвърждение. След като получите кода за потвърждение, ще можете да изберете нова парола за вашия акаунт.
+        forgot_password_email_header: 'Емейл за Забравена Парола'
+        forgot_password_email_text_1: 'Забравена парола линк:'
+        forgot_password_email_text_2: 'Линкът е валиден до'
+        forgot_password_email_text_3: 'Получавате този мейл тъйк като сте стартирали операция забравена парола.'
+        forgot_password_email_text_4: 'Поздрави!'
+        forgot_password_form_header: "Не се притеснявайте, ще ви изпратим мейл за да смените паролата си."
+        forgot_password_form_email_placeholder: 'Вашият Емейл'
+        forgot_password_form_button_reset: 'Смени Парола'
+        forgot_password_form_button_signup: 'Регистрация'
+        userscrud_index_title: 'Управление на Потребители'
+        userscrud_index_pageheader: 'Потребители'
+        userscrud_index_tablecolumns_username: 'Потребител'
+        userscrud_index_tablecolumns_email: 'Емейл'
+        userscrud_index_tablecolumns_roles: 'Роли'
+        userscrud_index_tablecolumns_allowed_applications: Разрешени Приложения
+        userscrud_index_tablecolumns_fullname: 'Цяло Име'
+        userscrud_index_tablecolumns_action: 'Действие'
+        userscrud_create_title: 'Създаване на Нов Потребител'
+        userscrud_update_title: 'Редактиране на Потребител'
+        userscrud_update_header: 'Потребител Детайли'
+        userscrud_userinfo_title: 'Потребител Инфо'
+        userscrud_delete_title: 'Изтриване на Потребител'
+        users_roles_index_title: Потребителски Роли
+        users_roles_index_row_role: Роля
+        users_roles_index_row_role_description: Описание на Роля
+        users_roles_index_row_actions: Действия
+        users_roles_index_button_edit: Редакция
+        users_roles_update_title: Редактиране на Потребителска Роля
+        users_roles_create_title: Създаване на Потребителска Роля
+        users_roles_update_form_title: Потребителска Роля
+        
+        profile_notifications: 'Известия'
+        new_notifications: 'Нови Известия'
+        profile_notification_clear_all: Изчисти Всички
+        profile_activity_clear_all: Изчисти Всички
+        profile_notification_set_all_readed: Сложи Всички като Разгледани
+        profile_notification_name: 'Известие'
+        profile_notification_readed: 'разгледан'
+        profile_notification_unreaded: 'неразгледан'
+        profile_show_notification_title: Известие Изпратено до Вас
+        profile_overview: Преглед
+        profile_activities: Действия
+        profile_edit_profile: Редактиране Профил
+        profile_about: Информация
+        
+        reset_password_title: 'Забравена Парола?'
+        reset_password_subtitle: Забравена Парола в
+        reset_password_description: Въведете своя имейл и ще ви бъдат изпратени инструкции!
+        reset_password_i_remember: Чакай, помня паролата си...
+        reset_password_click_here: Кликни тук
+        
+        notification:
+            notification_details: Известие Детайли
+            from: От
+            date: Дата
+            subject: Субект
+            content: Съдържание

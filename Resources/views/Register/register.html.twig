@@ -1,0 +1,119 @@
+{% extends "@VSApplication/layout-login.html.twig" %}
+
+{% block head_styles %}
+	{{ parent() }}
+	
+	<style>
+		.btn-facebook {
+		    color: #fff;
+		    background-color: #3c73df;
+		    border-color: #3c73df;
+		}
+		.btn-twitter {
+		    color: #fff;
+		    background-color: #2caeff;
+		    border-color: #2caeff;
+		}
+		.text-secondary {
+		    color: #ff407b !important;
+		}
+	</style>
+{% endblock %}
+
+{% block content %}
+	<!-- ============================================================== -->
+    <!-- login page  -->
+    <!-- ============================================================== -->
+    <div class="card-header text-center">
+    	<h3 class="mb-1">{{ 'vs_users.template.register_header_title' | trans( {},'VSUsersBundle' ) }}</h3>
+        <p>{{ 'vs_users.template.register_header_description' | trans( {},'VSUsersBundle' ) }}</p>
+    </div>
+    <div class="card-body">
+    
+    	{{ form_errors(form) }}
+    	{#
+        {% for err in errors %}
+            <div>{{ err.messageKey | trans( err.messageData, 'security' ) }}</div>
+        {% endfor %}
+        #}
+        
+        {{ form_start(form, { 'attr': {'class': 'login-form '} }) }}
+            
+            <div class="form-group">                
+                {{ form_widget(form.email, {'attr': {'class': 'form-control form-control-lg', 'placeholder': form.email.vars.label|trans }}) }}
+            </div>
+            <div class="form-group">                
+                {{ form_widget(form.username, {'attr': {'class': 'form-control form-control-lg', 'placeholder': form.username.vars.label|trans}}) }}
+            </div>
+            <div class="form-group">                
+                {{ form_widget(form.plain_password.first, {'attr': {'class': 'form-control form-control-lg', 'placeholder': form.plain_password.first.vars.label|trans}}) }}
+            </div>
+            <div class="form-group">                
+                {{ form_widget(form.plain_password.second, {'attr': {'class': 'form-control form-control-lg', 'placeholder': form.plain_password.second.vars.label|trans}}) }}
+            </div>
+            
+            {# I Dont Know If User Info Fields Should Present in Registration Form
+             ################################################################################
+            <div class="form-group row pt-0">
+            	<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-2">
+            		<hr />
+            	</div>
+            </div>
+            <div class="form-group">                
+                {{ form_widget(form.firstName, {'attr': {'class': 'form-control form-control-lg', 'placeholder': form.firstName.vars.label|trans }}) }}
+            </div>
+            <div class="form-group">                
+                {{ form_widget(form.lastName, {'attr': {'class': 'form-control form-control-lg', 'placeholder': form.lastName.vars.label|trans }}) }}
+            </div>
+            <div class="form-group row pt-0">
+            	<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-2">
+            		<hr />
+            	</div>
+            </div>
+            #}
+            
+            <div class="form-group">
+                <label class="custom-control custom-checkbox">
+                	<input type="checkbox"
+                		class="custom-control-input"
+                		required="required"
+                		id="registration_form_agreeTerms"
+                		name="registration_form[agreeTerms]"
+                    />
+                    <span class="custom-control-label">
+                        {{ 'vs_users.form.registration.agreement_text' | trans( {},'VSUsersBundle' ) }}
+                        <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#terms-and-conditions-modal">
+                            {{ 'vs_users.form.registration.terms_and_conditions' | trans( {},'VSUsersBundle' ) }}
+                        </a>
+                    </span>
+                </label>
+            </div>
+            
+            <div class="form-group pt-2">
+            	{{ form_widget(form.btnRgister, {'attr': {'class': 'btn btn-block btn-primary'}}) }}
+                
+            </div>
+            <div class="form-group row pt-0">
+            	<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-2">
+            		<hr />
+            	</div>
+            </div>
+            <div class="form-group row pt-0">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-2">
+                    <button class="btn btn-block btn-social btn-facebook " type="button">Facebook</button>
+                </div>
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <button class="btn  btn-block btn-social btn-twitter" type="button">Twitter</button>
+                </div>
+            </div>
+        {{ form_end(form, {'render_rest': false}) }}
+    </div>
+    <div class="card-footer bg-white">
+        <p>
+        	{{ 'vs_users.template.register_already_member' | trans( {},'VSUsersBundle' ) }} 
+        	<a href="{{ path('vs_application_login') }}" class="text-secondary">
+        		{{ 'vs_users.template.register_login_here' | trans( {},'VSUsersBundle' ) }}
+        	</a>
+        </p>
+    </div>
+{% endblock %}
