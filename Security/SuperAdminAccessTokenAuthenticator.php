@@ -26,6 +26,9 @@ class SuperAdminAccessTokenAuthenticator implements AuthenticatorInterface
         
         // Use anonymous class which implements UserInterface.
         return new SelfValidatingPassport( new UserBadge( $apiToken, fn() => new class implements UserInterface {
+            public function getId() { return 0; }
+            public function getPassword(): ?string { return ''; }
+            
             public function getRoles(): array { return ['ROLE_SUPER_ADMIN']; }
             public function eraseCredentials() {}
             public function getUserIdentifier(): string
