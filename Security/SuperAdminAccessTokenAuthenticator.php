@@ -22,6 +22,8 @@ class SuperAdminAccessTokenAuthenticator implements AuthenticatorInterface
     
     public function authenticate( Request $request ): Passport
     {
+        $apiToken = $request->query->get( 'token' );
+        
         // Use anonymous class which implements UserInterface.
         return new SelfValidatingPassport( new UserBadge( $apiToken, fn() => new class implements UserInterface {
             public function getRoles(): array { return ['ROLE_SUPER_ADMIN']; }
