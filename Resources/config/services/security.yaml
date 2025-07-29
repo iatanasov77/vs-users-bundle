@@ -63,6 +63,9 @@ services:
     
     vs_users.security.super_admin_access_token_authenticator:
         class: Vankosoft\UsersBundle\Security\SuperAdminAccessTokenAuthenticator
+        arguments:
+            - '@security.access_token_handler.oidc'
+            - '@security.access_token_extractor.query_string'
 
     # Register a listener for the logout event only on the main firewall
     # https://symfony.com/blog/new-in-symfony-5-1-simpler-logout-customization
