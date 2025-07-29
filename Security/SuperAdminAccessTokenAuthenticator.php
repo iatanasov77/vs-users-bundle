@@ -17,6 +17,9 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Vankosoft\UsersBundle\Model\Interfaces\UserInterface;
 
+/**
+ * Login with a Token Not With Form ;)
+ */
 class SuperAdminAccessTokenAuthenticator implements AuthenticatorInterface
 {
     /** @var ManagerRegistry */
