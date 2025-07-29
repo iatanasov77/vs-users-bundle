@@ -9,6 +9,9 @@ use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 use Symfony\Component\Security\Http\Authenticator\Passport\SelfValidatingPassport;
 use Symfony\Component\Security\Http\Authenticator\Token\PostAuthenticationToken;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
+use Doctrine\Persistence\ManagerRegistry;
+use Sylius\Resource\Doctrine\Persistence\RepositoryInterface;
+use Sylius\Component\Resource\Factory\FactoryInterface;
 
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -16,6 +19,30 @@ use Vankosoft\UsersBundle\Model\Interfaces\UserInterface;
 
 class SuperAdminAccessTokenAuthenticator implements AuthenticatorInterface
 {
+    /** @var ManagerRegistry */
+    protected $doctrine;
+    
+    /** @var UserManager */
+    protected $userManager;
+    
+    /** @var RepositoryInterface */
+    protected $usersRepository;
+    
+    /** @var FactoryInterface */
+    protected $usersFactory;
+    
+    public function __construct(
+        ManagerRegistry $doctrine,
+        UserManager $userManager,
+        RepositoryInterface $usersRepository,
+        FactoryInterface $usersFactory
+    ) {
+        $this->doctrine         = $doctrine;
+        $this->userManager      = $userManager;
+        $this->usersRepository  = $usersRepository;
+        $this->usersFactory     = $usersFactory;
+    }
+    
     public function supports( Request $request ): ?bool
     {
         return $request->query->get( 'token' ) === '123456789' ? true : false;
@@ -23,26 +50,11 @@ class SuperAdminAccessTokenAuthenticator implements AuthenticatorInterface
     
     public function authenticate( Request $request ): Passport
     {
-        $apiToken = $request->query->get( 'token' );
+        $apiToken   = $request->query->get( 'token' );
+        $user       = $this->usersRepository->find( 1 );
         
         // Use anonymous class which implements UserInterface.
-        return new SelfValidatingPassport( new UserBadge( $apiToken, fn() => new class implements UserInterface {
-            public function getId() { return 0; }
-            public function getPassword(): ?string { return ''; }
-            
-            public function getRoles(): array { return ['ROLE_SUPER_ADMIN']; }
-            public function eraseCredentials() {}
-            public function getUserIdentifier(): string
-            {
-                return 'fake_admin';
-            }
-            
-            public function hasRole( string $role ): bool { return true; }
-            public function getRolesFromArray(): array { return []; }
-            public function getRolesFromCollection(): array { return []; }
-            public function getActivities(): Collection { return new ArrayCollection(); }
-            public function getNotifications(): Collection { return new ArrayCollection(); }
-        }));
+        return new SelfValidatingPassport( new UserBadge( $apiToken, fn() => $user ) );
     }
     
     public function createToken( Passport $passport, string $firewallName ): TokenInterface
