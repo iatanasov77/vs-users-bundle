@@ -176,7 +176,7 @@ class RegisterController extends AbstractController
         }
                 
         try {
-            $this->verifyEmailHelper->validateEmailConfirmation( $request->getUri(), $user->getId(), $user->getEmail() );
+            $this->verifyEmailHelper->validateEmailConfirmationFromRequest( $request->getUri(), $user->getId(), $user->getEmail() );
         } catch ( VerifyEmailExceptionInterface $e ) {
             $this->addFlash( 'verify_email_error', $e->getReason() );
             
