@@ -60,6 +60,9 @@ services:
                 loginRoute: '%vs_users.login_route%',
                 redirectAfterLogin: '%vs_users.redirect_after_verify%',
             }
+    
+    vs_users.security.super_admin_access_token_authenticator:
+        class: Vankosoft\UsersBundle\Security\AnotherLoginFormAuthenticator
 
     # Register a listener for the logout event only on the main firewall
     # https://symfony.com/blog/new-in-symfony-5-1-simpler-logout-customization
