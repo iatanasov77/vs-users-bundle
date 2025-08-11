@@ -82,7 +82,9 @@ class User implements UserInterface, Comparable
     
     public function __construct()
     {
+        $this->rolesArray       = []; // Cannot write this in trait Constructor
         $this->rolesCollection  = new ArrayCollection(); // Cannot write this in trait Constructor
+        
         $this->activities       = new ArrayCollection();
         $this->notifications    = new ArrayCollection();
         $this->applications     = new ArrayCollection();
