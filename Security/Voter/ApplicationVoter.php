@@ -16,7 +16,7 @@ class ApplicationVoter implements VoterInterface
     
     public function __construct(
         ApplicationContextInterface $applicationContext,
-        Security $security  = null
+        ?Security $security  = null
     ) {
             $this->applicationContext   = $applicationContext;
             $this->security             = $security;
