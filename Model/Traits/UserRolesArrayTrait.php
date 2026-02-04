@@ -5,7 +5,7 @@ trait UserRolesArrayTrait
     /**
      * @var array
      */
-    protected $rolesArray;
+    protected $rolesArray = [];
     
     /**
      * @return array

@@ -13,7 +13,7 @@ class UsersController extends AbstractCrudController
         ];
     }
     
-    protected function prepareEntity( &$entity, &$form, Request $request )
+    protected function prepareEntity( &$entity, &$form, Request $request ): void
     {
         $plainPassword  = $form->get( "plain_password" )->getData();
         if ( $plainPassword ) {
@@ -44,7 +44,7 @@ class UsersController extends AbstractCrudController
         }
     }
     
-    private function buildRoles( &$entity, array $roles )
+    private function buildRoles( &$entity, array $roles ): void
     {
         //var_dump( $roles ); die;
         $repo   = $this->get( 'vs_users.repository.user_roles' );
@@ -73,7 +73,7 @@ class UsersController extends AbstractCrudController
         return $this;
     }
     
-    private function buildUserInfo( &$entity, &$form )
+    private function buildUserInfo( &$entity, &$form ): void
     {
         if ( ! $entity->getInfo() ) {
             $userInfo   = $this->get( 'vs_users.factory.user_info' )->createNew();
